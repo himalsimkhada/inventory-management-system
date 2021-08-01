@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Image;
@@ -51,8 +52,41 @@ class AdminProfileController extends Controller
         return redirect()->back();
     }
 
-    public function passwordChange()
+    public function passwordChange(Request $request)
     {
+        if ($request->isMethod('post')){
+            $data = $request->all();
+            $rule = [
+                'c_password' => 'required',
+                'new_password' => 'required|required_with:password_con|same:password_con',
+                'password_con' => 'required'
+            ];
+
+            $customMessage = [
+                'c_password.required' => 'Please Enter Current Password',
+                'new_password.required' => 'Please Enter a New Password',
+                // 'new_password.required_with' => 'Please Enter Confirmation Password',
+                // 'new_password.same' => 'Invalid Confirmation Password',
+                'password_con.required' => 'Please Enter Confirmation Password',
+              ];
+              $this->validate($request, $rule, $customMessage);
+
+              $admin = Auth::guard('admin')->user();
+              $id = $admin->id;
+
+              if (Hash::check($request->input('c_password'), $admin->password)) {
+                $validatedData = $request->validate([
+                    'password' => 'required|string|min:8',
+                ]);
+                $values = [
+                    'password' => Hash::make($request->input('new_password'))
+                ];
+                Admin::where('id', '=', $id)->update($values);
+    
+                return redirect()->back();
+            }
+        }
+
         return view('admin.password');
     }
 }
