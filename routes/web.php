@@ -14,14 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/admin/login', 'AdminLoginController@adminLogin')->name('adminLogin');
+Route::prefix('/admin')->group(function(){
+    // Admin Login
+    Route::match(['get', 'post'], '/login', 'AdminLoginController@adminLogin')->name('adminLogin');
 
-Route::match(['get', 'post'], '/admin/login', 'AdminLoginController@adminLogin');
+    Route::group(['middleware' => 'admin'], function(){
+         // Admin Dashboard
+    Route::get('/dashboard', 'AdminLoginController@dashboard')->name('adminDashboard');
+       });
+
+    // Admin Logout
+    Route::get('/logout', 'AdminLoginController@adminLogout')->name('adminLogout');
+});
+
