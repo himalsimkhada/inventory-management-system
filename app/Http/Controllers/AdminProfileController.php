@@ -47,8 +47,12 @@ class AdminProfileController extends Controller
 
         $admin->save();
 
-
         Session::flash('info_message', 'Profile has been updated successfully');
         return redirect()->back();
+    }
+
+    public function passwordChange()
+    {
+        return view('admin.password');
     }
 }
