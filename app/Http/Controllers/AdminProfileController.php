@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Image;
@@ -27,16 +28,23 @@ class AdminProfileController extends Controller
         $admin->phone = $data['phone'];
         $admin->address = $data['address'];
 
+
+//        $image_path = 'public/uploads/profile/';
+//        if($admin->image != ""){
+////            dd('here1');
+//            if(!empty($data['image'])){
+////                dd('here2');
+//                if (file_exists($image_path.$admin->image)){
+////                    dd('here3');
+//                    unlink($image_path.$admin->image);
+//                }
+//            }
+
+        $current_image = $admin->image;
         $image_path = 'public/uploads/profile/';
-        if($admin->image != ""){
-//            dd('here1');
-            if(!empty($data['image'])){
-//                dd('here2');
-                if (file_exists($image_path.$admin->image)){
-//                    dd('here3');
-                    unlink($image_path.$admin->image);
-                }
-            }
+
+        if (File::exists($image_path.$current_image)) {
+            File::delete($image_path.$current_image);
         }
 
         $random = Str::random(10);
