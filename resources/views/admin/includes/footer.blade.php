@@ -51,5 +51,7 @@
 <!-- app JavaScript -->
 <script src="{{ asset('public/backend//assets/js/app.js') }} "></script>
 
+@yield('js')
+
 </body>
 </html>

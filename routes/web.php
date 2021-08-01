@@ -26,7 +26,12 @@ Route::prefix('/admin')->group(function(){
     Route::group(['middleware' => 'admin'], function(){
          // Admin Dashboard
     Route::get('/dashboard', 'AdminLoginController@dashboard')->name('adminDashboard');
-       });
+    // Admin Profile
+        Route::get('/profile', 'AdminProfileController@profile')->name('profile');
+        // Admin Profile Update
+        Route::post('/profile/update/{id}', 'AdminProfileController@profileUpdate')->name('profileUpdate');
+
+    });
 
     // Admin Logout
     Route::get('/logout', 'AdminLoginController@adminLogout')->name('adminLogout');
