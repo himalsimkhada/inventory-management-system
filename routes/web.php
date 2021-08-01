@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Admin login 
-Route::get('/admin/login', 'AdminLoginController@');
+Route::prefix('/admin')->group(function(){
+    // Admin Login
+    Route::match(['get', 'post'], '/login', 'AdminLoginController@adminLogin')->name('adminLogin');
+
+    Route::group(['middleware' => 'admin'], function(){
+         // Admin Dashboard
+    Route::get('/dashboard', 'AdminLoginController@dashboard')->name('adminDashboard');
+       });
+
+    // Admin Logout
+    Route::get('/logout', 'AdminLoginController@adminLogout')->name('adminLogout');
+});
