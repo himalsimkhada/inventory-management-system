@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="{{ asset('public/backend/assets/images/favicon.ico.png') }} " />
 
     <link rel="stylesheet" href="{{ asset('public/backend/assets/css/backend-plugin.min.css' ) }} ">
-    <link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css' ) }} ">
+    <link rel="stylesheet" href="{{ asset('public/backend/assets/css/backend-v=1.0.0.css' ) }} ">
 </head>
 <body class=" ">
 <!-- loader Start -->
@@ -31,18 +31,58 @@
                             </div>
                             <h2 class="mb-2 text-center">Sign In</h2>
                             <p class="text-center">To Keep connected with us please login with your personal info.</p>
-                            <form>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li style="list-style: none;">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+
+                            @if(Session::get('info_message'))
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <ul style="margin-bottom: -10px;">
+                                        <li style="list-style: none; width: 800px;">
+                                            <p> {{ Session::get('info_message') }}</p>
+                                        </li>
+                                    </ul>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
+                            @if(Session::get('error_message'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                      <ul style="margin-bottom: -10px;">
+                                          <li style="list-style: none; width: 800px;">
+                                              <p> {{ Session::get('error_message') }}</p>
+                                          </li>
+                                      </ul>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @endif
+
+
+                            <form method="post" action="{{ route('adminLogin') }}">
+                                @csrf
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>Email</label>
-                                            <input class="form-control" type="email" placeholder="admin@example.com">
+                                            <label for="email">Email</label>
+                                            <input class="form-control" type="email" name="email" id="email">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label>Password</label>
-                                            <input class="form-control" type="password" placeholder="********">
+                                            <label for="password">Password</label>
+                                            <input class="form-control" type="password" id="password" name="password">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -51,15 +91,18 @@
                                             <label class="custom-control-label" for="customCheck1">Remember Me</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <a href="auth-recoverpw.html" class="text-primary float-right">Forgot Password?</a>
-                                    </div>
+
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>Create an Account <a href="auth-sign-up.html" class="text-primary">Sign Up</a></span>
+                                <div class="d-flex justify-content-between align-items-center text-right">
                                     <button type="submit" class="btn btn-primary">Sign In</button>
                                 </div>
                             </form>
+
+                            <br>
+                            <div class="text-center">
+                                <span>Forget Your Password <a href="auth-sign-up.html" class="text-primary">Reset Here</a></span>
+                            </div>
+
                         </div>
                     </div>
                 </div>
