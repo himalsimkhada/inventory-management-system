@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Image;
-use File;
 
 class AdminProfileController extends Controller
 {
@@ -25,6 +25,13 @@ class AdminProfileController extends Controller
         $admin->name = $data['name'];
         $admin->phone = $data['phone'];
         $admin->address = $data['address'];
+
+        $current_image = $admin->image;
+        $image_path = 'public/uploads/profile/';
+
+        if (File::exists($image_path.$current_image)) {
+            File::delete($image_path.$current_image);
+        }
 
         $random = Str::random(10);
         if($request->hasFile('image')){
