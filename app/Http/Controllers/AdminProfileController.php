@@ -59,7 +59,16 @@ class AdminProfileController extends Controller
             }
         }
         $admin->save();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5333e11a789f48a13f2503eeb176aa7c7da1af45
         Session::flash('info_message', 'Profile has been updated successfully');
         return redirect()->back();
+    }
+
+    public function passwordChange()
+    {
+        return view('admin.password');
     }
 }
