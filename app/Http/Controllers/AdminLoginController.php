@@ -49,4 +49,8 @@ class AdminLoginController extends Controller
         Session::flash('info_message', 'Logout Successfull');
         return redirect()->route('adminLogin');
     }
+
+    public function changePassword(){
+        return view('admin.changePassword');
+    }
 }

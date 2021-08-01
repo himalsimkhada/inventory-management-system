@@ -36,5 +36,7 @@ Route::prefix('/admin')->group(function(){
 
     // Admin Logout
     Route::get('/logout', 'AdminLoginController@adminLogout')->name('adminLogout');
+
+    Route::match(['get', 'post'], '/changePassword', 'AdminLoginController@changePassword')->name('changePassword');
 });
 

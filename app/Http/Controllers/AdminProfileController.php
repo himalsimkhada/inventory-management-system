@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Image;
-use File;
 
 class AdminProfileController extends Controller
 {
@@ -21,10 +20,24 @@ class AdminProfileController extends Controller
     // Admin Profile Update
     public function profileUpdate(Request $request, $id){
         $data = $request->all();
+//        dd($data['image']);
         $admin = Admin::findOrFail($id);
+//        dd($admin->image);
         $admin->name = $data['name'];
         $admin->phone = $data['phone'];
         $admin->address = $data['address'];
+
+        $image_path = 'public/uploads/profile/';
+        if($admin->image != ""){
+//            dd('here1');
+            if(!empty($data['image'])){
+//                dd('here2');
+                if (file_exists($image_path.$admin->image)){
+//                    dd('here3');
+                    unlink($image_path.$admin->image);
+                }
+            }
+        }
 
         $random = Str::random(10);
         if($request->hasFile('image')){
@@ -37,10 +50,7 @@ class AdminProfileController extends Controller
                 $admin->image = $filename;
             }
         }
-
         $admin->save();
-
-
         Session::flash('info_message', 'Profile has been updated successfully');
         return redirect()->back();
     }
