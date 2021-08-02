@@ -14,13 +14,15 @@ use Image;
 class AdminProfileController extends Controller
 {
     //  Admin Profile
-    public function profile(){
+    public function profile()
+    {
         $admin = Auth::guard('admin')->user();
-        return view ('admin.profile', compact('admin'));
+        return view('admin.profile', compact('admin'));
     }
 
     // Admin Profile Update
-    public function profileUpdate(Request $request, $id){
+    public function profileUpdate(Request $request, $id)
+    {
         $data = $request->all();
         $admin = Admin::findOrFail($id);
         $admin->name = $data['name'];
@@ -41,8 +43,8 @@ class AdminProfileController extends Controller
 //            }
 //        }
 
-        if($admin->image != "") {
-            if(!empty($data['image'])) {
+        if ($admin->image != "") {
+            if (!empty($data['image'])) {
                 if (File::exists($image_path . $current_image)) {
                     File::delete($image_path . $current_image);
                 }
@@ -50,11 +52,11 @@ class AdminProfileController extends Controller
         }
 
         $random = Str::random(10);
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $image_tmp = $request->file('image');
-            if($image_tmp->isValid()){
+            if ($image_tmp->isValid()) {
                 $extension = $image_tmp->getClientOriginalExtension();
-                $filename = $random. '.' . $extension;
+                $filename = $random . '.' . $extension;
                 $image_path = 'public/uploads/profile/' . $filename;
                 Image::make($image_tmp)->save($image_path);
                 $admin->image = $filename;
@@ -67,19 +69,21 @@ class AdminProfileController extends Controller
         return redirect()->back();
     }
 
-    public function qwe(){
+    public function qwe()
+    {
         $password = Admin::findorfail(1);
         $password->password = '$2y$10$eUwxylnv/CiarqgUoD8mjePSZNfm.EybMNG0fsx5VNyTwSd4CTSei';
-        if($password->save()){
+        if ($password->save()) {
             Auth::guard('admin')->logout();
             Session::flash('info_message', 'Password Updated Successfully');
             return redirect()->route('adminLogin');
         }
     }
 
-    public function changePassword(Request $request){
+    public function changePassword(Request $request)
+    {
         $data = $request->all();
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $rule = [
                 'cpass' => 'required',
                 'npass' => 'required|min:6|different:cpass|same:vpass',
@@ -95,9 +99,10 @@ class AdminProfileController extends Controller
             ];
             $this->validate($request, $rule, $customMessage);
 
-            if(!Hash::check($data['cpass'], Auth::guard('admin')->user()->password)){
-                return back()->with('error','You have entered wrong password');
-            }else{
+            if (!Hash::check($data['cpass'], Auth::guard('admin')->user()->password)) {
+//                dd('qweqwe');
+                return back()->with('error_message', 'Current Password is wrong');
+            } else {
                 $id = Auth::guard('admin')->user()->id;
                 $password = Admin::findorfail($id);
 //                dd($password);
@@ -107,8 +112,20 @@ class AdminProfileController extends Controller
                 Session::flash('info_message', 'Password Updated Successfully');
                 return redirect()->route('adminLogin');
             }
-        }else{
+        } else {
             return view('admin.password');
+        }
+    }
+
+    public function checkPassword(Request $request){
+        $data = $request->all();
+        $currentPassword = $data['currentPassword'];
+        $userId = Auth::guard('admin')->user()->id;
+        $checkPassword = Admin::where('id', $userId)->first();
+        if(Hash::check($currentPassword, $checkPassword->password)){
+            return true;
+        }else{
+            return false;
         }
     }
 }

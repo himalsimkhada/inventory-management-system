@@ -19,6 +19,7 @@
                                     <div class="form-group">
                                         <label for="cpass">Current Password:</label>
                                         <input type="Password" class="form-control" id="cpass" name="cpass" value="">
+                                        <p id="correctPassword"></p>
                                     </div>
                                     <div class="form-group">
                                         <label for="npass">New Password:</label>
@@ -42,13 +43,27 @@
 
 @section('js')
     <script>
-        $('#cpass').on('change', function (){
+        $('#cpass').on('keyup', function (){
+            console.log($('#cpass').val());
             $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content'),
+                },
                 method: 'post',
-                url: '/checkPassword',
+                url: '{{ route('checkPassword') }}',
                 data: {
-                    _token: $("#csrf").val(),
-                    
+                    currentPassword : $('#cpass').val(),
+                },
+                success : function(response){
+                    if(response == true){
+                        alert('asd');
+                        $('#correctPassword').html("Current Password match").css('color', 'green');
+                    }else if(response == false){
+                        $('#correctPassword').html("Current Password doesnot match").css('color', 'red');
+                    }
+                },
+                error: function (){
+                    // alert('error');
                 }
             })
         })
