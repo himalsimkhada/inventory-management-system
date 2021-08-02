@@ -50,7 +50,7 @@
                     'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content'),
                 },
                 method: 'post',
-                url: '{{ route('checkPassword') }}',
+                url: '{{ route('checkPasswordd') }}',
                 data: {
                     currentPassword : $('#cpass').val(),
                 },

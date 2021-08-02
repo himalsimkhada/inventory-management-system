@@ -34,7 +34,7 @@ Route::prefix('/admin')->group(function(){
         // Admin Password Change
         Route::match(['get', 'post'], '/changePassword', 'AdminProfileController@changePassword')->name('changePassword');
         //Check Current Password
-        Route::post('/checkPassword', 'AdminProfileController@checkPassword')->name('checkPassword');
+        Route::post('/checkPassword', 'AdminProfileController@checkPassword')->name('checkPasswordd');
     });
 
     // Admin Logout
