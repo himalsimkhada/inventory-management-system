@@ -14,13 +14,15 @@ use Image;
 class AdminProfileController extends Controller
 {
     //  Admin Profile
-    public function profile(){
+    public function profile()
+    {
         $admin = Auth::guard('admin')->user();
-        return view ('admin.profile', compact('admin'));
+        return view('admin.profile', compact('admin'));
     }
 
     // Admin Profile Update
-    public function profileUpdate(Request $request, $id){
+    public function profileUpdate(Request $request, $id)
+    {
         $data = $request->all();
         $admin = Admin::findOrFail($id);
         $admin->name = $data['name'];
@@ -30,19 +32,19 @@ class AdminProfileController extends Controller
         $current_image = $admin->image;
         $image_path = 'public/uploads/profile/';
 
-//        if($admin->image != ""){
-////            dd('here1');
-//            if(!empty($data['image'])){
-////                dd('here2');
-//                if (file_exists($image_path.$admin->image)){
-////                    dd('here3');
-//                    unlink($image_path.$admin->image);
-//                }
-//            }
-//        }
+        //        if($admin->image != ""){
+        ////            dd('here1');
+        //            if(!empty($data['image'])){
+        ////                dd('here2');
+        //                if (file_exists($image_path.$admin->image)){
+        ////                    dd('here3');
+        //                    unlink($image_path.$admin->image);
+        //                }
+        //            }
+        //        }
 
-        if($admin->image != "") {
-            if(!empty($data['image'])) {
+        if ($admin->image != "") {
+            if (!empty($data['image'])) {
                 if (File::exists($image_path . $current_image)) {
                     File::delete($image_path . $current_image);
                 }
@@ -50,11 +52,11 @@ class AdminProfileController extends Controller
         }
 
         $random = Str::random(10);
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $image_tmp = $request->file('image');
-            if($image_tmp->isValid()){
+            if ($image_tmp->isValid()) {
                 $extension = $image_tmp->getClientOriginalExtension();
-                $filename = $random. '.' . $extension;
+                $filename = $random . '.' . $extension;
                 $image_path = 'public/uploads/profile/' . $filename;
                 Image::make($image_tmp)->save($image_path);
                 $admin->image = $filename;
@@ -67,19 +69,27 @@ class AdminProfileController extends Controller
         return redirect()->back();
     }
 
+<<<<<<< HEAD
     public function qwe(){
+=======
+    public function qwe()
+    {
+>>>>>>> 585632d34d1dfd822f142826649403cd53594a99
         $password = Admin::findorfail(1);
         $password->password = '$2y$10$eUwxylnv/CiarqgUoD8mjePSZNfm.EybMNG0fsx5VNyTwSd4CTSei';
-        if($password->save()){
+        if ($password->save()) {
             Auth::guard('admin')->logout();
             Session::flash('info_message', 'Password Updated Successfully');
             return redirect()->route('adminLogin');
         }
     }
 
-    public function changePassword(Request $request){
+    public function changePassword(Request $request)
+    {
         $data = $request->all();
-        if($request->isMethod('post')){
+        $admin = Auth::guard('admin')->user();
+
+        if ($request->isMethod('post')) {
             $rule = [
                 'cpass' => 'required',
                 'npass' => 'required|min:6|different:cpass|same:vpass',
@@ -95,20 +105,38 @@ class AdminProfileController extends Controller
             ];
             $this->validate($request, $rule, $customMessage);
 
-            if(!Hash::check($data['cpass'], Auth::guard('admin')->user()->password)){
-                return back()->with('error','You have entered wrong password');
-            }else{
+            if (!Hash::check($data['cpass'], Auth::guard('admin')->user()->password)) {
+                return back()->with('error', 'You have entered wrong password');
+            } else {
                 $id = Auth::guard('admin')->user()->id;
                 $password = Admin::findorfail($id);
-//                dd($password);
+                //                dd($password);
                 $password->password = Hash::make($data['npass']);
                 $password->save();
                 Auth::guard('admin')->logout();
                 Session::flash('info_message', 'Password Updated Successfully');
                 return redirect()->route('adminLogin');
             }
-        }else{
+        } else {
             return view('admin.password');
         }
+<<<<<<< HEAD
+=======
+    }
+    // check password
+    public function checkPassword(Request $req)
+    {
+        $data = $req->all();
+        $current_password = $data['current_password'];
+        $user_id = Auth::guard('admin')->user()->id;
+        $check_password = Admin::where('id', $user_id)->first();
+        if (Hash::check($current_password, $check_password->password)){
+            return "true"; die;
+        }
+        else{
+            return "false"; die;
+            
+        }
+>>>>>>> 585632d34d1dfd822f142826649403cd53594a99
     }
 }
