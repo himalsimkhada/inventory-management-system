@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -29,36 +30,25 @@ class AdminProfileController extends Controller
         $admin->phone = $data['phone'];
         $admin->address = $data['address'];
 
-        $current_image = $admin->image;
-        $image_path = 'public/uploads/profile/';
-
-        //        if($admin->image != ""){
-        ////            dd('here1');
-        //            if(!empty($data['image'])){
-        ////                dd('here2');
-        //                if (file_exists($image_path.$admin->image)){
-        ////                    dd('here3');
-        //                    unlink($image_path.$admin->image);
-        //                }
-        //            }
-        //        }
+        $current_fav_icon = $admin->image;
+        $fav_icon_path = 'public/uploads/profile/';
 
         if ($admin->image != "") {
             if (!empty($data['image'])) {
-                if (File::exists($image_path . $current_image)) {
-                    File::delete($image_path . $current_image);
+                if (File::exists($fav_icon_path . $current_fav_icon)) {
+                    File::delete($fav_icon_path . $current_fav_icon);
                 }
             }
         }
 
         $random = Str::random(10);
         if ($request->hasFile('image')) {
-            $image_tmp = $request->file('image');
-            if ($image_tmp->isValid()) {
-                $extension = $image_tmp->getClientOriginalExtension();
+            $fav_icon_tmp = $request->file('image');
+            if ($fav_icon_tmp->isValid()) {
+                $extension = $fav_icon_tmp->getClientOriginalExtension();
                 $filename = $random . '.' . $extension;
-                $image_path = 'public/uploads/profile/' . $filename;
-                Image::make($image_tmp)->save($image_path);
+                $fav_icon_path = 'public/uploads/profile/' . $filename;
+                Image::make($fav_icon_tmp)->save($fav_icon_path);
                 $admin->image = $filename;
             }
         }
@@ -124,12 +114,95 @@ class AdminProfileController extends Controller
         $current_password = $data['current_password'];
         $user_id = Auth::guard('admin')->user()->id;
         $check_password = Admin::where('id', $user_id)->first();
-        if (Hash::check($current_password, $check_password->password)){
-            return "true"; die;
+        if (Hash::check($current_password, $check_password->password)) {
+            return "true";
+            die;
+        } else {
+            return "false";
+            die;
         }
-        else{
-            return "false"; die;
-            
+    }
+
+    public function themeSetting(Request $request)
+    {
+        $data = $request->all();
+        if ($request->isMethod('post')) {
+            $rule = [
+                'company_name' => 'required',
+                'fav_icon' => 'required|image',
+                'logo' => 'required|image',
+            ];
+
+            $customMessage = [
+                'company_name.required' => 'Please enter company name',
+                'fav_icon.required' => 'Please insert a image file',
+                'fav_icon.image' => 'Please insert a image file',
+                'logo.image' => 'Please insert a image file',
+                'logo.required' => 'Please insert a image file',
+
+            ];
+
+            $this->validate($request, $rule, $customMessage);
+
+            $company_details = Details::where('id', '=', 1)->first();
+
+            $company_details->name = $data['company_name'];
+
+            $current_fav_icon = $company_details->fav_icon;
+            $fav_icon_path = 'public/backend/assets/images/';
+
+            if ($company_details->fav_icon != "") {
+                if (!empty($data['fav_icon'])) {
+                    if (File::exists($fav_icon_path . $current_fav_icon)) {
+                        File::delete($fav_icon_path . $current_fav_icon);
+                    }
+                }
+            }
+
+            $fav_icon_name = 'favicon.ico';
+            if ($request->hasFile('fav_icon')) {
+                $fav_icon_tmp = $request->file('fav_icon');
+                if ($fav_icon_tmp->isValid()) {
+                    $extension = $fav_icon_tmp->getClientOriginalExtension();
+                    $filename = $fav_icon_name . '.' . $extension;
+                    $fav_icon_path = 'public/backend/assets/images/' . $filename;
+                    Image::make($fav_icon_tmp)->save($fav_icon_path);
+                    $company_details->fav_icon = $filename;
+                }
+            }
+
+            $current_logo = $company_details->logo;
+            $logo_path = 'public/backend/assets/images/';
+
+            if ($company_details->logo != "") {
+                if (!empty($data['logo'])) {
+                    if (File::exists($logo_path . $current_logo)) {
+                        File::delete($logo_path . $current_logo);
+                    }
+                }
+            }
+
+            $logo_name = 'logo';
+            if ($request->hasFile('logo')) {
+                $logo_tmp = $request->file('logo');
+                if ($logo_tmp->isValid()) {
+                    $extension = $logo_tmp->getClientOriginalExtension();
+                    $filename = $logo_name . '.' . $extension;
+                    $logo_path = 'public/backend/assets/images/' . $filename;
+                    Image::make($logo_tmp)->save($logo_path);
+                    $company_details->logo = $filename;
+                }
+            }
+
+            $company_details->save();
+
+            Session::flash('info_message', 'Details has been updated successfully');
+            return redirect()->back();
+        }
+        else {
+            $details = Details::where('id', '=', 1)->first();
+
+            return view('admin.themeSetting', ['detail' => $details]);
         }
     }
 }

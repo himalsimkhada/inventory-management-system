@@ -1,11 +1,15 @@
+@php
+    $details = \App\Models\Details::where('id', '=', 1)->first();
+@endphp
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Datum | CRM Admin Dashboard Template</title>
+    <title>{{ $details->name}} | CRM Admin Dashboard Template</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('public/backend/assets/images/favicon.ico.png') }} " />
+    <link rel="shortcut icon" href="{{ asset('public/backend/assets/images/'.$details->fav_icon) }}" />
 
     <link rel="stylesheet" href="{{ asset('public/backend/assets/css/backend-plugin.min.css' ) }} ">
     <link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css' ) }} ">
