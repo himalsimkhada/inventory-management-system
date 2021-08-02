@@ -30,6 +30,8 @@ Route::prefix('/admin')->group(function(){
         Route::get('/profile', 'AdminProfileController@profile')->name('profile');
         // Admin Profile Update
         Route::post('/profile/update/{id}', 'AdminProfileController@profileUpdate')->name('profileUpdate');
+        // Admin Change Password
+        Route::get('/profile/changePassword', 'AdminProfileController@changePassword')->name('changePassword');
 
     });
 

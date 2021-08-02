@@ -44,14 +44,15 @@ class AdminProfileController extends Controller
                 $admin->image = $filename;
             }
         }
-        if(File::exists($image_path)) {
-            File::delete($image_path);
-        }
 
         $admin->save();
 
 
         Session::flash('info_message', 'Profile has been updated successfully');
         return redirect()->back();
+    }
+    public function changePassword(Request $req){
+
+        return view('admin.changePassword');
     }
 }
