@@ -16,8 +16,6 @@
                                 <div class="header-title">
                                     <h4 class="card-title">Theme Settings</h4>
                                 </div>
-
-
                             </div>
 
                             <div class="card-body">

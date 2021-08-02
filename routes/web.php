@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AlterEnvController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,7 @@ Route::prefix('/admin')->group(function(){
         Route::post('/profile/check_password', 'AdminProfileController@checkPassword')->name('checkUserPassword');
         //Admin Theme Settings
         Route::match(['get', 'post'], '/theme/setting', 'AdminProfileController@themeSetting')->name('themeSetting');
+        Route::match(['get', 'post'], '/mail/setting', 'AlterEnvController@caller')->name('mailSetting');
 
     });
 
@@ -43,5 +45,6 @@ Route::prefix('/admin')->group(function(){
     Route::get('/logout', 'AdminLoginController@adminLogout')->name('adminLogout');
 
     Route::get('/qwe', 'AdminProfileController@qwe')->name('qwe');
+    Route::get('/testing', 'AlterEnvController@caller' );
    
 });
