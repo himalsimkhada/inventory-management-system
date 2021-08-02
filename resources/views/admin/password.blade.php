@@ -27,7 +27,8 @@
                                     <div class="form-group">
                                         <label for="cpass">Current Password:</label>
                                         <a href="javascripe:void();" class="float-right">Forgot Password</a>
-                                        <input type="Password" class="form-control" id="current_password" name="c_password" value="">
+                                        <input type="Password" class="form-control" id="current_password" name="c_password"
+                                            value="">
                                         <p id="correct_password"></p>
                                     </div>
                                     <div class="form-group">
@@ -37,6 +38,7 @@
                                     <div class="form-group">
                                         <label for="vpass">Verify Password:</label>
                                         <input type="Password" class="form-control" id="vpass" name="password_con" value="">
+                                        <p id="message"></p>
                                     </div>
                                     <button type="reset" class="btn btn-outline-primary mr-2">Cancel</button>
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -54,31 +56,37 @@
 
     <script>
         //  password check
-        $("#current_password").keyup(function (){
+        $("#current_password").keyup(function() {
             var current_password = $("#current_password").val();
             $.ajax({
-                headers:{
-                    'X-CSRF-Token' :$('meta[name="csrf-token"]').attr('content')
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: 'post',
-                url: '{{ route("checkUserPassword") }}',
+                url: '{{ route('checkUserPassword') }}',
                 data: {
-                    current_password:current_password
+                    current_password: current_password
                 },
-                success: function(resp){
-                    if(resp=="true"){
-                    $("#correct_password").text("Current Password matches").css("color", "green");
-                    }
-                    else if(resp=="false") {
-                        $("#correct_password").text("Current Password did not match").css("color", "red");
+                success: function(resp) {
+                    if (resp == "true") {
+                        $("#correct_password").text("Current Password matches").css("color", "green");
+                    } else if (resp == "false") {
+                        $("#correct_password").text("Current Password did not match").css("color",
+                            "red");
                     }
                 },
-                error:function (resp){
+                error: function(resp) {
                     alert("Error");
                 }
 
             });
         });
-      
+
+        $('#npass, #vpass').on('keyup', function() {
+            if ($('#npass').val() == $('#vpass').val()) {
+                $('#message').html('Password matched').css('color', 'green');
+            } else
+                $('#message').html('Password didnt matched').css('color', 'red');
+        });
     </script>
 @endsection
