@@ -67,44 +67,6 @@ class AdminProfileController extends Controller
         return redirect()->back();
     }
 
-<<<<<<< HEAD
-    public function passwordChange(Request $request)
-    {
-        if ($request->isMethod('post')){
-            $data = $request->all();
-            $rule = [
-                'c_password' => 'required',
-                'new_password' => 'required|required_with:password_con|same:password_con',
-                'password_con' => 'required'
-            ];
-
-            $customMessage = [
-                'c_password.required' => 'Please Enter Current Password',
-                'new_password.required' => 'Please Enter a New Password',
-                // 'new_password.required_with' => 'Please Enter Confirmation Password',
-                // 'new_password.same' => 'Invalid Confirmation Password',
-                'password_con.required' => 'Please Enter Confirmation Password',
-              ];
-              $this->validate($request, $rule, $customMessage);
-
-              $admin = Auth::guard('admin')->user();
-              $id = $admin->id;
-
-              if (Hash::check($request->input('c_password'), $admin->password)) {
-                $validatedData = $request->validate([
-                    'password' => 'required|string|min:8',
-                ]);
-                $values = [
-                    'password' => Hash::make($request->input('new_password'))
-                ];
-                Admin::where('id', '=', $id)->update($values);
-    
-                return redirect()->back();
-            }
-        }
-
-        return view('admin.password');
-=======
     public function qwe(){
         $password = Admin::findorfail(1);
         $password->password = '$2y$10$eUwxylnv/CiarqgUoD8mjePSZNfm.EybMNG0fsx5VNyTwSd4CTSei';
@@ -148,6 +110,5 @@ class AdminProfileController extends Controller
         }else{
             return view('admin.password');
         }
->>>>>>> df961a957bdbb6c2e637f2a9e69566314d3b504b
     }
 }

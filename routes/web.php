@@ -32,11 +32,7 @@ Route::prefix('/admin')->group(function(){
         // Admin Profile Update
         Route::post('/profile/update/{id}', 'AdminProfileController@profileUpdate')->name('profileUpdate');
         // Admin Password Change
-<<<<<<< HEAD
-        Route::match(['get', 'post'], '/profile/password/change', 'AdminProfileController@passwordChange')->name('passwordChange');
-=======
         Route::match(['get', 'post'], '/changePassword/', 'AdminProfileController@changePassword')->name('changePassword');
->>>>>>> df961a957bdbb6c2e637f2a9e69566314d3b504b
 
     });
 
