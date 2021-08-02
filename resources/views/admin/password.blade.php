@@ -22,7 +22,7 @@
                                 </div>
                             @endif
                             <div class="card-body">
-                                <form method="post" action="{{ route('passwordChange') }}">
+                                <form method="post" action="{{ route('changePassword') }}">
                                     @csrf
                                     <div class="form-group">
                                         <label for="cpass">Current Password:</label>
@@ -60,7 +60,7 @@
                     'X-CSRF-Token' :$('meta[name="csrf-token"]').attr('content')
                 },
                 type: 'post',
-                url: '{{ route('checkUserPassword') }}',
+                url: '{{ route("checkUserPassword") }}',
                 data: {
                     current_password:current_password
                 },

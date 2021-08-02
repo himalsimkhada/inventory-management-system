@@ -32,7 +32,6 @@ Route::prefix('/admin')->group(function(){
         Route::post('/profile/update/{id}', 'AdminProfileController@profileUpdate')->name('profileUpdate');
         // Admin Password Change
 
-        Route::match(['get', 'post'], '/profile/password/change', 'AdminProfileController@passwordChange')->name('passwordChange');
         Route::match(['get', 'post'], '/changePassword/', 'AdminProfileController@changePassword')->name('changePassword');
         ROute::post('/profile/check_password', 'AdminProfileController@checkPassword')->name('checkUserPassword');
 
