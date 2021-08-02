@@ -27,7 +27,8 @@
                                     <div class="form-group">
                                         <label for="cpass">Current Password:</label>
                                         <a href="javascripe:void();" class="float-right">Forgot Password</a>
-                                        <input type="Password" class="form-control" id="cpass" name="c_password" value="">
+                                        <input type="Password" class="form-control" id="current_password" name="c_password" value="">
+                                        <p id="correct_password"></p>
                                     </div>
                                     <div class="form-group">
                                         <label for="npass">New Password:</label>
