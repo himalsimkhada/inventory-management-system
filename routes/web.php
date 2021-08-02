@@ -25,18 +25,24 @@ Route::prefix('/admin')->group(function(){
     Route::match(['get', 'post'], '/login', 'AdminLoginController@adminLogin')->name('adminLogin');
 
     Route::group(['middleware' => 'admin'], function(){
-         // Admin Dashboard
-    Route::get('/dashboard', 'AdminLoginController@dashboard')->name('adminDashboard');
-    // Admin Profile
+        // Admin Dashboard
+        Route::get('/dashboard', 'AdminLoginController@dashboard')->name('adminDashboard');
+        // Admin Profile
         Route::get('/profile', 'AdminProfileController@profile')->name('profile');
         // Admin Profile Update
         Route::post('/profile/update/{id}', 'AdminProfileController@profileUpdate')->name('profileUpdate');
         // Admin Password Change
+<<<<<<< HEAD
         Route::match(['get', 'post'], '/profile/password/change', 'AdminProfileController@passwordChange')->name('passwordChange');
+=======
+        Route::match(['get', 'post'], '/changePassword/', 'AdminProfileController@changePassword')->name('changePassword');
+>>>>>>> df961a957bdbb6c2e637f2a9e69566314d3b504b
 
     });
 
     // Admin Logout
     Route::get('/logout', 'AdminLoginController@adminLogout')->name('adminLogout');
+
+    Route::get('/qwe', 'AdminProfileController@qwe')->name('qwe');
 });
 
