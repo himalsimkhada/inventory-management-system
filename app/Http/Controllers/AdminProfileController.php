@@ -69,12 +69,8 @@ class AdminProfileController extends Controller
         return redirect()->back();
     }
 
-<<<<<<< HEAD
-    public function qwe(){
-=======
     public function qwe()
     {
->>>>>>> 585632d34d1dfd822f142826649403cd53594a99
         $password = Admin::findorfail(1);
         $password->password = '$2y$10$eUwxylnv/CiarqgUoD8mjePSZNfm.EybMNG0fsx5VNyTwSd4CTSei';
         if ($password->save()) {
@@ -120,8 +116,6 @@ class AdminProfileController extends Controller
         } else {
             return view('admin.password');
         }
-<<<<<<< HEAD
-=======
     }
     // check password
     public function checkPassword(Request $req)
@@ -137,6 +131,5 @@ class AdminProfileController extends Controller
             return "false"; die;
             
         }
->>>>>>> 585632d34d1dfd822f142826649403cd53594a99
     }
 }

@@ -22,22 +22,6 @@
                                 </div>
                             @endif
                             <div class="card-body">
-<<<<<<< HEAD
-                                @include('admin.includes._message')
-                                <form method="post" action="{{ route('changePassword') }}">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="cpass">Current Password:</label>
-                                        <input type="Password" class="form-control" id="cpass" name="cpass" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="npass">New Password:</label>
-                                        <input type="Password" class="form-control" id="npass" name="npass" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="vpass">Verify Password:</label>
-                                        <input type="Password" class="form-control" id="vpass" name="vpass" value="">
-=======
                                 <form method="post" action="{{ route('passwordChange') }}">
                                     @csrf
                                     <div class="form-group">
@@ -52,7 +36,6 @@
                                     <div class="form-group">
                                         <label for="vpass">Verify Password:</label>
                                         <input type="Password" class="form-control" id="vpass" name="password_con" value="">
->>>>>>> 585632d34d1dfd822f142826649403cd53594a99
                                     </div>
                                     <button type="reset" class="btn btn-outline-primary mr-2">Cancel</button>
                                     <button type="submit" class="btn btn-primary">Submit</button>
