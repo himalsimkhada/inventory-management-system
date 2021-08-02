@@ -32,8 +32,10 @@ Route::prefix('/admin')->group(function(){
         Route::post('/profile/update/{id}', 'AdminProfileController@profileUpdate')->name('profileUpdate');
         // Admin Password Change
 
-        Route::match(['get', 'post'], '/changePassword', 'AdminProfileController@changePassword')->name('changePassword');
+        Route::match(['get', 'post'], '/changePassword/', 'AdminProfileController@changePassword')->name('changePassword');
         Route::post('/profile/check_password', 'AdminProfileController@checkPassword')->name('checkUserPassword');
+        //Admin Theme Settings
+        Route::match(['get', 'post'], '/theme/setting', 'AdminProfileController@themeSetting')->name('themeSetting');
 
     });
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Details;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +19,10 @@ class DatabaseSeeder extends Seeder
             'name' => "Super Admin",
             'email' => "admin@admin.com",
             'password' => bcrypt('password'),
+        ]);
+
+        Details::insert([
+            'name' => 'Test',
         ]);
     }
 }
