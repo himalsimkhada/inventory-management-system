@@ -30,7 +30,8 @@ class CategoryController extends Controller
 
     public function view()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(10);
+        // $categories = DB::table('categories')->simplePag
 
         return view('admin.category.viewCategory', ['categories' => $categories]);
     }

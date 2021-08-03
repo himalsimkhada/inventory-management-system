@@ -81,7 +81,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @forelse ($categories as $category)
-                                                            <tr>
+                                                            <tr class="table-data">
                                                                 <td>{{ $category->category_name }}</td>
                                                                 <td>{{ $category->category_code }}</td>
                                                                 <td>{{ $category->slug }}</td>
@@ -127,9 +127,9 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

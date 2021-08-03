@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Category;
 use App\Models\Details;
 use Illuminate\Database\Seeder;
 
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         Details::insert([
             'name' => 'Test',
         ]);
+        Category::factory()->count(20)->create();
     }
 }
