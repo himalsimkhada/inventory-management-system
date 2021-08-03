@@ -27,4 +27,11 @@ class CategoryController extends Controller
             return view('admin.category.addCategory');
         }
     }
+
+    public function view()
+    {
+        $categories = Category::all();
+
+        return view('admin.category.viewCategory', ['categories' => $categories]);
+    }
 }
