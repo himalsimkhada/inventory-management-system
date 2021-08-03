@@ -78,27 +78,27 @@ class AdminProfileController extends Controller
 
         if ($request->isMethod('post')) {
             $rule = [
-                'cpass' => 'required',
-                'npass' => 'required|min:6|different:cpass|same:vpass',
-                'vpass' => 'required|same:npass',
+                'c_password' => 'required',
+                'new_password' => 'required|min:6|different:c_password|same:password_con',
+                'password_con' => 'required|same:new_password',
             ];
             $customMessage = [
-                'cpass.required' => 'Enter Current Password',
-                'npass.required' => 'Enter New Password',
-                'npass.different' => 'Please Enter New Password',
-                'npass.same' => 'Verified Password desnot match',
-                'npass.min' => 'Minimum 6 Characters',
-                'vpass.required' => 'Confirm New Password'
+                'c_password.required' => 'Enter Current Password',
+                'new_password.required' => 'Enter New Password',
+                'new_password.different' => 'Please Enter New Password',
+                'new_password.same' => 'Verified Password desnot match',
+                'new_password.min' => 'Minimum 6 Characters',
+                'password_con.required' => 'Confirm New Password'
             ];
             $this->validate($request, $rule, $customMessage);
 
-            if (!Hash::check($data['cpass'], Auth::guard('admin')->user()->password)) {
+            if (!Hash::check($data['c_password'], Auth::guard('admin')->user()->password)) {
                 return back()->with('error', 'You have entered wrong password');
             } else {
                 $id = Auth::guard('admin')->user()->id;
                 $password = Admin::findorfail($id);
                 //                dd($password);
-                $password->password = Hash::make($data['npass']);
+                $password->password = Hash::make($data['new_password']);
                 $password->save();
                 Auth::guard('admin')->logout();
                 Session::flash('info_message', 'Password Updated Successfully');
@@ -112,7 +112,7 @@ class AdminProfileController extends Controller
     public function checkPassword(Request $req)
     {
         $data = $req->all();
-        $current_password = $data['current_password'];
+        $current_password = $data['c_password'];
         $user_id = Auth::guard('admin')->user()->id;
         $check_password = Admin::where('id', $user_id)->first();
         if (Hash::check($current_password, $check_password->password)) {
