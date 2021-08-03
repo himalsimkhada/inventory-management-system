@@ -26,7 +26,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="cpass">Current Password:</label>
-                                        <a href="javascripe:void();" class="float-right">Forgot Password</a>
+                                        <a href="{{ route('forgetPassword') }}" class="float-right">Forgot Password</a>
                                         <input type="Password" class="form-control" id="current_password" name="c_password"
                                             value="">
                                         <p id="correct_password"></p>
