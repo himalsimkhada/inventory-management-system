@@ -39,6 +39,10 @@ Route::prefix('/admin')->group(function(){
         Route::match(['get', 'post'], '/theme/setting', 'AdminProfileController@themeSetting')->name('themeSetting');
         Route::match(['get', 'post'], '/mail/setting', 'AlterEnvController@caller')->name('mailSetting');
 
+        // Category
+        Route::get('/category', 'CategoryController@category',)->name('category');
+
+        Route::post('/storeCategory', 'CategoryController@storeCategory')->name('storeCategory');
     });
 
     // Admin Logout
