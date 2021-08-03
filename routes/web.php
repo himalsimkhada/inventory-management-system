@@ -40,6 +40,9 @@ Route::prefix('/admin')->group(function(){
         //Admin Mail Settings
         Route::match(['get', 'post'], '/mail/setting', 'AlterEnvController@caller')->name('mailSetting');
 
+        //Admin View Categories
+        Route::get('/category/view', 'CategoryController@view')->name('categoryView');
+
         //Admin Add Category
         Route::match(['get', 'post'], '/category/add', 'CategoryController@create')->name('categoryCreate');
 
