@@ -65,7 +65,7 @@
                 type: 'post',
                 url: '{{ route('checkUserPassword') }}',
                 data: {
-                    current_password: current_password
+                    c_password: current_password
                 },
                 success: function(resp) {
                     if (resp == "true") {

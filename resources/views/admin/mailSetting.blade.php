@@ -17,29 +17,33 @@
                                 <form action="{{ route('mailSetting') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group col-sm-6">
-                                        <label for="brand_name">SMTP Username</label>
-                                        <input type="text" class="form-control" id="brand_name" name="mail_username" value="{{ env('MAIL_USERNAME')}}">
+                                        <label for="user_name">SMTP Username</label>
+                                        <input type="text" class="form-control" id="user_name" name="mail_username" value="{{ env('MAIL_USERNAME')}}">
                                     </div>
                                     <div class="form-group col-sm-6">
-                                        <label for="brand_name">SMTP PORT</label>
-                                        <input type="text" class="form-control" id="brand_name" name="company_name"value="{{ env('MAIL_PORT') }}">
+                                        <label for="port">SMTP PORT</label>
+                                        <input type="text" class="form-control" id="port" name="mail_port"value="{{ env('MAIL_PORT') }}">
                                     </div>
 
                                     <div class="form-group col-sm-6">
-                                        <label for="brand_name">SMTP Password</label>
-                                        <input type="text" class="form-control" id="brand_name" name="company_name"
+                                        <label for="password">SMTP Password</label>
+                                        <input type="text" class="form-control" id="password" name="mail_password"
                                             value="{{ env('MAIL_PASSWORD') }}">
                                     </div>
 
                                     <div class="form-group col-sm-6">
-                                        <label for="brand_name">SMTP Protocol</label>
-                                        <input type="text" class="form-control" id="brand_name" name="company_name"
-                                            value="{{ env('MAIL_ENCRYPTION') }}">
+                                        <label for="mail_enc">SMTP Protocol</label>
+                                            <select name="mail_encryption" id="mail_enc" class="custom-select mb-3">
+                                                <option selected>{{ env('MAIL_ENCRYPTION') }}</option>
+                                                <option value="tls">TLS</option>
+                                                <option value="ssl">SSL</option>
+                                                <option value="null">None</option>
+                                             </select>
                                     </div>
 
                                     <div class="form-group col-sm-6">
-                                        <label for="brand_name">SMTP Email</label>
-                                        <input type="text" class="form-control" id="brand_name" name="company_name"
+                                        <label for="email">SMTP Email</label>
+                                        <input type="text" class="form-control" id="email" name="mail_host"
                                             value="{{ env('MAIL_HOST') }}">
                                     </div>
 
