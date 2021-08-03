@@ -37,7 +37,11 @@ Route::prefix('/admin')->group(function(){
         Route::post('/profile/check_password', 'AdminProfileController@checkPassword')->name('checkUserPassword');
         //Admin Theme Settings
         Route::match(['get', 'post'], '/theme/setting', 'AdminProfileController@themeSetting')->name('themeSetting');
+        //Admin Mail Settings
         Route::match(['get', 'post'], '/mail/setting', 'AlterEnvController@caller')->name('mailSetting');
+
+        //Admin Add Category
+        Route::match(['get', 'post'], '/category/add', 'CategoryController@create')->name('categoryCreate');
 
     });
 
