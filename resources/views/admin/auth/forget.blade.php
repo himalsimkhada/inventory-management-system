@@ -24,14 +24,14 @@
         <div class="container h-100">
             <div class="row align-items-center justify-content-center h-100">
                 <div class="col-md-5">
-                    <div class="card">
+                    <div class="card p-5">
                         <div class="card-body">
                             <div class="auth-logo">
-                                <img src="{{ asset('public/backend/assets/images/logo.png') }}" class="img-fluid rounded-normal" alt="logo">
+                                <img src="{{ asset('public/backend/assets/images/logo.png') }}" class="img-fluid  rounded-normal  darkmode-logo" alt="logo">
+                                <img src="{{ asset('public/backend/assets/images/logo-dark.png') }}" class="img-fluid rounded-normal light-logo" alt="logo">
                             </div>
-                            <h2 class="mb-2 text-center">Sign In</h2>
-                            <p class="text-center">To Keep connected with us please login with your personal info.</p>
-
+                            <h3 class="mb-3 text-center">Reset Password</h3>
+                            <p class="text-center small text-secondary mb-3">You can reset your password here</p>
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -41,7 +41,6 @@
                                     </ul>
                                 </div>
                             @endif
-
 
                             @if(Session::get('info_message'))
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -58,51 +57,29 @@
 
                             @if(Session::get('error_message'))
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                      <ul style="margin-bottom: -10px;">
-                                          <li style="list-style: none; width: 800px;">
-                                              <p> {{ Session::get('error_message') }}</p>
-                                          </li>
-                                      </ul>
+                                    <ul style="margin-bottom: -10px;">
+                                        <li style="list-style: none; width: 800px;">
+                                            <p> {{ Session::get('error_message') }}</p>
+                                        </li>
+                                    </ul>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                             @endif
 
-
-                            <form method="post" action="{{ route('adminLogin') }}">
+                            <form method="post" action="{{ route('forgetPassword') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input class="form-control" type="email" name="email" id="email">
+                                            <label id="email" class="text-secondary">Email</label>
+                                            <input class="form-control" type="email" name="email" id="email" placeholder="Enter Email">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input class="form-control" type="password" id="password" name="password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="custom-control custom-checkbox mb-3">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">Remember Me</label>
-                                        </div>
-                                    </div>
-
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center text-right">
-                                    <button type="submit" class="btn btn-primary">Sign In</button>
-                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
                             </form>
-
-                            <br>
-                            <div class="text-center">
-                                <span>Forget Your Password <a href="{{ route('forgetPassword') }}" class="text-primary">Reset Here</a></span>
-                            </div>
-
                         </div>
                     </div>
                 </div>

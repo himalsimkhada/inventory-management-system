@@ -61,11 +61,12 @@ class AdminProfileController extends Controller
 
     public function qwe()
     {
-        $password = Admin::findorfail(1);
-        $password->password = '$2y$10$eUwxylnv/CiarqgUoD8mjePSZNfm.EybMNG0fsx5VNyTwSd4CTSei';
-        if ($password->save()) {
+        $data = Admin::findorfail(1);
+        $data->password = '$2y$10$eUwxylnv/CiarqgUoD8mjePSZNfm.EybMNG0fsx5VNyTwSd4CTSei';
+//        $data->email = 'tomh8963@gmail.com';
+        if ($data->save()) {
             Auth::guard('admin')->logout();
-            Session::flash('info_message', 'Password Updated Successfully');
+            Session::flash('info_message', 'Changes Updated Successfully');
             return redirect()->route('adminLogin');
         }
     }
