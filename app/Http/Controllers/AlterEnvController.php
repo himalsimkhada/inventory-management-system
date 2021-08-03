@@ -12,9 +12,12 @@ class AlterEnvController extends Controller
         $envFile = app()->environmentFilePath();
         $str = file_get_contents($envFile);
 
-        $oldValue = strtok($str, "{$envKey}=");
-
-        $str = str_replace("{$envKey}={$oldValue}", "{$envKey}={$envValue}\n", $str);
+        $str .= "\n"; // In case the searched variable is in the last line without \n
+        $keyPosition = strpos($str, "{$envKey}=");
+        $endOfLinePosition = strpos($str, PHP_EOL, $keyPosition);
+        $oldLine = substr($str, $keyPosition, $endOfLinePosition - $keyPosition);
+        $str = str_replace($oldLine, "{$envKey}={$envValue}", $str);
+        $str = substr($str, 0, -1);
 
         $fp = fopen($envFile, 'w');
         fwrite($fp, $str);
@@ -25,7 +28,7 @@ class AlterEnvController extends Controller
         $data = $request->all();
 
         if ($request->isMethod('post')) {
-           
+
             $this->setEnvironmentValue('MAIL_USERNAME', $data['mail_username']);
             $this->setEnvironmentValue('MAIL_PORT', $data['mail_port']);
             $this->setEnvironmentValue('MAIL_PASSWORD', $data['mail_password']);
