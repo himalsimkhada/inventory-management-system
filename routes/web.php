@@ -37,12 +37,20 @@ Route::prefix('/admin')->group(function(){
         Route::post('/profile/check_password', 'AdminProfileController@checkPassword')->name('checkUserPassword');
         //Admin Theme Settings
         Route::match(['get', 'post'], '/theme/setting', 'AdminProfileController@themeSetting')->name('themeSetting');
+        //Admin Mail Settings
         Route::match(['get', 'post'], '/mail/setting', 'AlterEnvController@caller')->name('mailSetting');
 
         // Category
-        Route::get('/category', 'CategoryController@category',)->name('category');
+        Route::match(['get', 'post'],'/category', 'CategoryController@category',)->name('category');
+        Route::get('/getCategory', 'CategoryController@getCategory')->name('getCategory');
 
         Route::post('/storeCategory', 'CategoryController@storeCategory')->name('storeCategory');
+        //Admin View Categories
+        Route::get('/category/view', 'CategoryController@view')->name('categoryView');
+
+        //Admin Add Category
+        Route::match(['get', 'post'], '/category/add', 'CategoryController@create')->name('categoryCreate');
+
     });
 
     // Admin Logout

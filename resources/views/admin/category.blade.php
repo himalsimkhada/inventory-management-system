@@ -8,13 +8,13 @@
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <button type="button" class="btn btn-primary position-relative d-flex align-items-center justify-content-between" data-toggle="modal" data-target="#categoryForm">
+                    <button type="button" class="btn btn-primary position-relative d-flex align-items-center justify-content-between" data-toggle="modal" data-target="#formModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
                     </button>
-                    <div class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;" id="categoryForm">
+                    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="formModal">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -23,24 +23,35 @@
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="email">Email address:</label>
-                                        <input type="email" class="form-control" id="email1">
+                                <form method="post" action="{{ route('category') }}">
+                                    <div class="modal-body">
+                                        @csrf
+                                        <input type="hidden" id="id" name="id">
+                                        <div class="form-group">
+                                            <label for="name">Category Name</label>
+                                            <input type="name" class="form-control" id="name" name="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="code">Category Code</label>
+                                            <input type="code" class="form-control" id="code" name="code">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Gender</label><br>
+                                            <div class="radio d-inline-block mr-2">
+                                                <input type="radio" name="status" id="active" checked="checked" value="1">
+                                                <label for="active">Active</label>
+                                            </div>
+                                            <div class="radio d-inline-block mr-2">
+                                                <input type="radio" name="status" id="inactive" value="0">
+                                                <label for="inactive">Inactive</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="email">Email address:</label>
-                                        <input type="email" class="form-control" id="email1">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="email">Email address:</label>
-                                        <input type="email" class="form-control" id="email1">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -65,47 +76,23 @@
 
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="datatable" class="table data-table table-striped table-bordered" >
+                                    <table id="datatable" class="table table-striped table-bordered" >
                                         <thead>
                                         <tr>
                                             <th>S. No.</th>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th class="text-right">Salary</th>
+                                            <th>Code</th>
+                                            <th>Status</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Tatyana Fitzpatrick</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>19</td>
-                                            <td>2010/03/17</td>
-                                            <td class="text-right">$385,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Tatyana Fitzpatrick</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>19</td>
-                                            <td>2010/03/17</td>
-                                            <td class="text-right">$385,750</td>
-                                        </tr>
-                                        </tbody>
                                         <tfoot>
                                         <tr>
                                             <th>S. No.</th>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th class="text-right">Salary</th>
+                                            <th>Code</th>
+                                            <th>Status</th>
+                                            <th></th>
                                         </tr>
                                         </tfoot>
                                     </table>
@@ -120,5 +107,29 @@
 @endsection
 
 @section('js')
+    <script>
+        $(document).ready(function(){
+            $('#datatable').DataTable({
+                processing: true,
+                serverSide : true,
+                ajax: "{{ route('getCategory') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'category_name', name: 'category_name'},
+                    {data: 'category_code', name: 'category_code'},
+                    {data: 'slug', name: 'slug'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action'},
+                ]
+            });
 
+            $(document).on('click', '#edit', function(){
+                var id = $(this).data('id');
+            });
+
+            $(document).on('click', '#delete', function(){
+                var id = $(this).data('id');
+            })
+        })
+    </script>
 @endsection
