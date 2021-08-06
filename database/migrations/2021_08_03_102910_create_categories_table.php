@@ -19,7 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('category_name');
             $table->string('category_code');
             $table->string('slug');
-            $table->string('status');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

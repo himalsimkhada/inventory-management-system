@@ -47,7 +47,7 @@
                                     <div class="card card-block card-stretch">
                                         <div class="card-body p-0">
                                             <div class="d-flex justify-content-between align-items-center p-3">
-                                                <h5 class="font-weight-bold">Products List</h5>
+                                                <h5 class="font-weight-bold">Categories List</h5>
                                                 <button class="btn btn-secondary btn-sm">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="20"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,7 +81,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @forelse ($categories as $category)
-                                                            <tr class="table-data">
+                                                            <tr>
                                                                 <td>{{ $category->category_name }}</td>
                                                                 <td>{{ $category->category_code }}</td>
                                                                 <td>{{ $category->slug }}</td>
@@ -89,9 +89,13 @@
                                                                 <td>
                                                                     <div
                                                                         class="d-flex justify-content-end align-items-center">
-                                                                        <a class="" data-toggle="tooltip"
-                                                                            data-placement="top" title=""
-                                                                            data-original-title="Edit" href="product.html#">
+                                                                        {{-- <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#exampleModal"> --}}
+
+                                                                        <a class="" data-toggle="modal" data-placement="top"
+                                                                            data-target="#staticBackdrop"
+                                                                            onclick="edit('{{ $category->category_name . ',' . $category->category_code . ',' . $category->status . ',' . $category->id }}')"
+                                                                            data-whatever="@fat" title=""
+                                                                            data-original-title="Edit" href="#">
                                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                                 class="text-secondary mx-4" width="20"
                                                                                 fill="none" viewBox="0 0 24 24"
@@ -124,53 +128,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-4">
-                                          <div class="card">
-                                              <div class="card-header">Add new Country</div>
-                                              <div class="card-body">
-                                                  <form action="" method="post" id="add-country-form" autocomplete="off">
-                                                      @csrf
-                                                      <div class="form-group">
-                                                          <label for="">Country name</label>
-                                                          <input type="text" class="form-control" name="country_name" placeholder="Enter country name">
-                                                          <span class="text-danger error-text country_name_error"></span>
-                                                      </div>
-                                                      <div class="form-group">
-                                                          <label for="">Capital city</label>
-                                                          <input type="text" class="form-control" name="capital_city" placeholder="Enter capital city">
-                                                          <span class="text-danger error-text capital_city_error"></span>
-                                                      </div>
-                                                      <div class="form-group">
-                                                          <button type="submit" class="btn btn-block btn-success">SAVE</button>
-                                                      </div>
-                                                  </form>
-                                              </div>
-                                          </div>
-                                    </div> --}}
                                 </div>
-                      
-                          </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-            // get all countries
-            $('#categories-table').DataTable({
-                processing:true,
-                info:true,
-                serverSide: true,
-                ajax:"{{ route('get.categories.list') }}",
-                columns:[
-                    {data:'DT_RowIndex', name:'DT_RowIndex' },
-                    {data:'category_name', name:'cateory_name'},
-                    {data:'category_code', name:'category_code'},
-                    {data:'status', name:'status'},
-                    {data:'slug', name:'slug'},
-
-                ]
-            })
-        </script>
     @endsection
-    
