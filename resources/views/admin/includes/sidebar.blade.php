@@ -21,7 +21,16 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
     <div class="data-scrollbar" data-scroll="1">
         <nav class="iq-sidebar-menu">
             <ul id="iq-sidebar-toggle" class="side-menu">
-                <li class="active sidebar-layout">
+                    @if(Session::get('admin_page') == 'dashboard')
+                              @php
+                                    $active = "active"
+                              @endphp
+                        @else
+                    @php
+                        $active = ""
+                    @endphp
+                     @endif
+                <li class="{{ $active }} sidebar-layout">
                     <a href="{{ route('adminDashboard') }}" class="svg-icon">
                         <i class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24"
@@ -34,42 +43,30 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                     </a>
                 </li>
 
-                <li class=" sidebar-layout">
-                    <a href="{{ route('category') }}" class="svg-icon ">
+
+                        @if(Session::get('admin_page') == 'category')
+                            @php
+                                $active = "active"
+                            @endphp
+                        @else
+                            @php
+                                $active = ""
+                            @endphp
+                        @endif
+                <li class=" {{ $active }} sidebar-layout">
+                    <a href="{{ route('category.index') }}" class="svg-icon ">
                         <i class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                             </svg>
                         </i>
                         <span class="ml-2">Category</span>
                     </a>
                 </li>
 
-                <li class=" sidebar-layout">
-                    <a href="customer.html" class="svg-icon ">
-                        <i class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                        </i>
-                        <span class="ml-2">Customer</span>
-                    </a>
-                </li>
 
-                <li class=" sidebar-layout">
-                    <a href="{{ route('categoryView') }}" class="svg-icon ">
-                        <i class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                        </i>
-                        <span class="ml-2">Category</span>
-                    </a>
-                </li>
+
+
 
             </ul>
         </nav>

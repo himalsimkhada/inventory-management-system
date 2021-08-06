@@ -32,24 +32,19 @@ Route::prefix('/admin')->group(function(){
         // Admin Profile Update
         Route::post('/profile/update/{id}', 'AdminProfileController@profileUpdate')->name('profileUpdate');
         // Admin Password Change
-
         Route::match(['get', 'post'], '/changePassword/', 'AdminProfileController@changePassword')->name('changePassword');
+        // Admin Check Password
         Route::post('/profile/check_password', 'AdminProfileController@checkPassword')->name('checkUserPassword');
         //Admin Theme Settings
         Route::match(['get', 'post'], '/theme/setting', 'AdminProfileController@themeSetting')->name('themeSetting');
         //Admin Mail Settings
         Route::match(['get', 'post'], '/mail/setting', 'AlterEnvController@caller')->name('mailSetting');
 
-        // Category
-        Route::match(['get', 'post'],'/category', 'CategoryController@category',)->name('category');
-        Route::get('/getCategory', 'CategoryController@getCategory')->name('getCategory');
 
-        Route::post('/storeCategory', 'CategoryController@storeCategory')->name('storeCategory');
-        //Admin View Categories
-        Route::get('/category/view', 'CategoryController@view')->name('categoryView');
+        // Category CRUD
+        Route::get('/category', 'CategoryController@index')->name('category.index');
 
-        //Admin Add Category
-        Route::match(['get', 'post'], '/category/add', 'CategoryController@create')->name('categoryCreate');
+
 
     });
 
