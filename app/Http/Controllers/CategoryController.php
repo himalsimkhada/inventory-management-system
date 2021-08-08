@@ -11,7 +11,6 @@ class CategoryController extends Controller
 {
     public function category(Request $request)
     {
-        Session::put('admin_page', 'category');
         if ($request->isMethod('post')) {
             $data = $request->all();
             if ($data['id'] == null) {
@@ -94,6 +93,7 @@ class CategoryController extends Controller
 
     public function view()
     {
+        Session::put('admin_page', 'category');
         $categories = Category::paginate(10);
         return view('admin.category', ['categories' => $categories]);
     }
