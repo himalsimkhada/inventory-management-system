@@ -3,17 +3,18 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Category</h4>
+            <h4 class="font-weight-bold">Brand</h4>
         </div>
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <button type="button" id='add' class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                            data-toggle="modal" data-target="#formModal">
+                    <button type="button" id='add'
+                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
+                        data-toggle="modal" data-target="#formModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor">
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
                     </button>
@@ -23,7 +24,7 @@
     </div>
 
     <div id="formModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle"
-         aria-hidden="true" style="display: none;">
+        aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -49,15 +50,16 @@
                             <div class="mb-3">
                                 <label for="image" class="form-label">Image</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <input type="file" class="custom-file-input" id="image" name="image">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="status" class="form-label">Status</label><br/>
+                                <label for="status" class="form-label">Status</label><br />
                                 <div class="custom-control custom-switch custom-control-inline">
                                     <input type="hidden" name="status" value="0">
-                                    <input type="checkbox" class="custom-control-input" id="status" name="status" value="1" checked="">
+                                    <input type="checkbox" class="custom-control-input" id="status" name="status" value="1"
+                                        checked="">
                                     <label class="custom-control-label" for="status"></label>
                                 </div>
                             </div>
@@ -83,24 +85,24 @@
                                 <div class="table-responsive">
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
-                                        <tr>
-                                            <th>S. No.</th>
-                                            <th>Name</th>
-                                            <th>Code</th>
-                                            <th>Image</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                <th>S. No.</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Image</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                         <tfoot>
-                                        <tr>
-                                            <th>S. No.</th>
-                                            <th>Name</th>
-                                            <th>Code</th>
-                                            <th>Image</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                <th>S. No.</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Image</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
                                         </tfoot>
                                     </table>
                                 </div>
@@ -117,122 +119,36 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            {{--$('#datatable').DataTable({--}}
-            {{--    processing: true,--}}
-            {{--    serverSide: true,--}}
-            {{--    ajax: "{{ route('getCategory') }}",--}}
-            {{--    columns: [{--}}
-            {{--        data: 'DT_RowIndex',--}}
-            {{--        name: 'DT_RowIndex'--}}
-            {{--    },--}}
-            {{--        {--}}
-            {{--            data: 'category_name',--}}
-            {{--            name: 'category_name'--}}
-            {{--        },--}}
-            {{--        {--}}
-            {{--            data: 'category_code',--}}
-            {{--            name: 'category_code'--}}
-            {{--        },--}}
-            {{--        {--}}
-            {{--            data: 'status',--}}
-            {{--            name: 'status'--}}
-            {{--        },--}}
-            {{--        {--}}
-            {{--            data: 'action',--}}
-            {{--            name: 'action'--}}
-            {{--        },--}}
-            {{--    ]--}}
-            {{--});--}}
-
-
-            $('form').on('submit', function(e) {
-                e.preventDefault();
-                var data = $('form').serialize();
-                var formData = new FormData(this);
-                console.log(data);
-                console.log(formData);
-                {{--$.ajax({--}}
-                {{--    headers: {--}}
-                {{--        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')--}}
-                {{--    },--}}
-                {{--    method: "post",--}}
-                {{--    url: "{{ route('storeCategory') }}",--}}
-                {{--    data: data,--}}
-                {{--    dataType: "json",--}}
-                {{--    success: function(response) {--}}
-                {{--        if (response == true) {--}}
-                {{--            $('#editModal').modal('hide');--}}
-                {{--            $('#datatable').DataTable().ajax.reload();--}}
-                {{--        }--}}
-                {{--    },--}}
-                {{--    error: function(response) {--}}
-                {{--        console.log(response);--}}
-                {{--    }--}}
-
-                {{--})--}}
-            })
-
-
-            $(document).on('click', '#edit', function() {
-                var id = $(this).data('id');
-                $.ajax({
-                    headers: {
-                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    method: "post",
-                    url: "{{ route('getCategory') }}",
-                    data: {
-                        id: id
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        console.log(response);
-                        if (response) {
-                            $('#id').val(response.id);
-                            $('#cat_name').val(response.category_name);
-                            $('#cat_code').val(response.category_code);
-                            $('#stat').val(response.status);
-                        }
-                    },
-                    error: function(response) {
-                        console.log('error');
-                    }
-
+                    $('#datatable').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        ajax: "{{ route('brand.get') }}",
+                        columns: [{
+                                data: 'DT_RowIndex',
+                                name: 'DT_RowIndex'
+                            },
+                            {
+                                data: 'brand_name',
+                                name: 'brand_name'
+                            },
+                            {
+                                data: 'brand_code',
+                                name: 'brand_code'
+                            },
+                            {
+                                data: 'image',
+                                name: 'image'
+                            },
+                            {
+                                data: 'status',
+                                name: 'status'
+                            },
+                            {
+                                data: 'action',
+                                name: 'action'
+                            },
+                        ],
+                    });
                 })
-            });
-
-            $(document).on('click', '#delete', function() {
-                var id = $(this).data('id');
-                if (confirm('Do you want to delete?')) {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        method: "post",
-                        url: "{{ route('category.destroy') }}",
-                        data: {
-                            id: id
-                        },
-                        dataType: "json",
-                        success: function(response) {
-                            if (response == 1) {
-                                $('#datatable').DataTable().ajax.reload();
-                            }
-                        },
-                        error: function(response) {
-                            console.log('error');
-                        }
-
-                    })
-                }
-            })
-
-            $('#add').on('click', function() {
-                $('#id').val('');
-                $('#cat_name').val('');
-                $('#cat_code').val('');
-                $('#stat').prop('selectedIndex', 0).val();
-            })
-        })
     </script>
 @endsection
