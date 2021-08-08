@@ -45,7 +45,6 @@
                                                 <th>S. No.</th>
                                                 <th>Name</th>
                                                 <th>Code</th>
-                                                <th>Slug</th>
                                                 <th>Status</th>
                                                 <th></th>
                                             </tr>
@@ -55,7 +54,6 @@
                                                 <th>S. No.</th>
                                                 <th>Name</th>
                                                 <th>Code</th>
-                                                <th>Slug</th>
                                                 <th>Status</th>
                                                 <th></th>
                                             </tr>
@@ -141,10 +139,6 @@
                     {
                         data: 'category_code',
                         name: 'category_code'
-                    },
-                    {
-                        data: 'slug',
-                        name: 'slug'
                     },
                     {
                         data: 'status',
