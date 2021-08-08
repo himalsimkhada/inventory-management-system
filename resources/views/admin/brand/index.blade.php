@@ -10,7 +10,7 @@
                 <div class="modal-product-search d-flex">
                     <button type="button" id='add'
                         class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                        data-toggle="modal" data-target="#formModal">
+                        data-toggle="modal" data-target="#brandModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div id="formModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle"
+    <div id="brandModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle"
         aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -33,7 +33,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div>
                             <div class="mb-3">
@@ -41,11 +41,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="branch_name" class="form-label">Branch Name</label>
-                                <input type="text" class="form-control" name="branch_name" id="branch_name">
+                                <input type="text" class="form-control" name="brand_name" id="brand_name">
                             </div>
                             <div class="mb-3">
                                 <label for="branch_code" class="form-label">Branch Code</label>
-                                <input type="text" class="form-control" name="branch_code" id="branch_code">
+                                <input type="text" class="form-control" name="brand_code" id="brand_code">
                             </div>
                             <div class="mb-3">
                                 <label for="image" class="form-label">Image</label>
@@ -119,36 +119,136 @@
 @section('js')
     <script>
         $(document).ready(function() {
-                    $('#datatable').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        ajax: "{{ route('brand.get') }}",
-                        columns: [{
-                                data: 'DT_RowIndex',
-                                name: 'DT_RowIndex'
-                            },
-                            {
-                                data: 'brand_name',
-                                name: 'brand_name'
-                            },
-                            {
-                                data: 'brand_code',
-                                name: 'brand_code'
-                            },
-                            {
-                                data: 'image',
-                                name: 'image'
-                            },
-                            {
-                                data: 'status',
-                                name: 'status'
-                            },
-                            {
-                                data: 'action',
-                                name: 'action'
-                            },
-                        ],
-                    });
+            $('#datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('brand.get') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'brand_name',
+                        name: 'brand_name'
+                    },
+                    {
+                        data: 'brand_code',
+                        name: 'brand_code'
+                    },
+                    {
+                        data: 'image',
+                        name: 'image'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    },
+                ],
+            });
+
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                var data = $('form').serialize();
+                console.log(data);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "post",
+                    url: "{{ route('brand.store') }}",
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response == true) {
+                            $('#brandModal').modal('hide');
+                            $('#datatable').DataTable().ajax.reload();
+                        }
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+
                 })
+            })
+
+
+            $(document).on('click', '#edit', function() {
+                var id = $(this).data('id');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "post",
+                    url: "{{ route('brand.get') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        console.log(response);
+                        if (response) {
+                            $('#id').val(response.id);
+                            $('#brand_name').val(response.brand_name);
+                            $('#brand_code').val(response.brand_code);
+                            $('#status').val(response.status);
+                        }
+                    },
+                    error: function(response) {
+                        console.log('error');
+                    }
+
+                })
+            });
+
+            $(document).on('click', '#delete', function() {
+                var id = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            method: "post",
+                            url: "{{ route('brand.destroy') }}",
+                            data: {
+                                id: id
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                if (response == 1) {
+                                    $('#datatable').DataTable().ajax.reload();
+                                }
+                            },
+                            error: function(response) {
+                                console.log('error');
+                            }
+
+                        })
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+
+            })
+        })
     </script>
+
+    {{-- Sweet Alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

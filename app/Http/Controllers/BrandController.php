@@ -21,16 +21,16 @@ class BrandController extends Controller
             $data = $request->all();
             if ($data['id'] == null) {
                 $brand = new Brand();
-                $brand->branch_name = $data['branch_name'];
-                $brand->branch_code = $data['branch_code'];
+                $brand->branch_name = $data['brand_name'];
+                $brand->branch_code = $data['brand_code'];
                 $brand->image = $data['image'];
                 $brand->status = $data['status'];
                 $brand->save();
                 return response()->json(true);
             } else {
                 $brand = Brand::findorfail($data['id']);
-                $brand->branch_name = $data['branch_name'];
-                $brand->branch_code = $data['branch_code'];
+                $brand->branch_name = $data['brand_name'];
+                $brand->branch_code = $data['brand_code'];
                 $brand->image = $data['image'];
                 $brand->status = $data['status'];
                 $brand->save();
@@ -49,7 +49,7 @@ class BrandController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<div class="btn-group"><button class="btn btn-primary" data-toggle="modal" data-target="#editModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button></div>';
+                    $actionBtn = '<div class="btn-group"><button class="btn btn-primary" data-toggle="modal" data-target="#brandModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button></div>';
 
                     return $actionBtn;
                 })
