@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Str;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
     public function category(Request $request)
     {
+        Session::put('admin_page', 'category');
         if ($request->isMethod('post')) {
             $data = $request->all();
             if ($data['id'] == null) {
@@ -44,7 +44,7 @@ class CategoryController extends Controller
             return response()->json($data);
         } else {
             $data = Category::all();
-            return Datatables::of($data)
+            return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<a class="" data-toggle="modal" data-target="#editModal" data-placement="top" title="" data-original-title="Edit" href="#" data-id="' . $row['id'] . '" id="edit">
@@ -62,9 +62,9 @@ class CategoryController extends Controller
                 ->addColumn('status', function ($row) {
                     $statusSign = null;
                     if ($row['status'] == 1) {
-                        $statusSign = '<span class="dot" style="background:green;height:25px;width:25px;border-radius:50%;display:inline-block;">.</span>';
+                        $statusSign = '<span class="dot" style="background:green;height:25px;width:25px;border-radius:50%;display:inline-block;"></span>';
                     } elseif ($row['status'] == 0) {
-                        $statusSign = '<span class="dot" style="background:red;height:25px;width:25px;border-radius:50%;display:inline-block;">.</span>';
+                        $statusSign = '<span class="dot" style="background:red;height:25px;width:25px;border-radius:50%;display:inline-block;"></span>';
                     }
                     return $statusSign;
                 })
@@ -95,11 +95,12 @@ class CategoryController extends Controller
     public function view()
     {
         $categories = Category::paginate(10);
-        return view('admin.category.viewCategory', ['categories' => $categories]);
+        return view('admin.category', ['categories' => $categories]);
     }
 
-    public function destroy(Request $request){
-        if($request->isMethod('post')) {
+    public function destroy(Request $request)
+    {
+        if ($request->isMethod('post')) {
             $data = $request->all();
             $student = Category::where('id', $data['id'])->delete();
             return response()->json($student);

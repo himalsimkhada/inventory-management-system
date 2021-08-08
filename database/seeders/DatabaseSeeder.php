@@ -18,31 +18,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
         Admin::insert([
             'name' => "Super Admin",
             'email' => "admin@admin.com",
             'password' => bcrypt('password'),
         ]);
-        Admin::insert([
-            'name' => "Super Admin",
-            'email' => "tomh8963@gmail.com",
-            'password' => bcrypt('password'),
-        ]);
+
 
         Details::insert([
             'name' => 'Test',
         ]);
-//        Category::factory()->count(20)->create();
 
-        for($i = 0; $i < 17; $i++){
-            $name = $faker->word . ' ' . $faker->word;
-            Category::insert([
-                'category_name' => $name,
-                'category_code' => $faker->randomNumber($nbDigits = 3, $strict = false),
-                'slug' => Str::slug($name, '-'),
-                'status' => 1,
-            ]);
-        }
+        Category::factory()->count(100)->create();
     }
 }

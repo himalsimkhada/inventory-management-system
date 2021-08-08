@@ -27,7 +27,7 @@ class CategoryFactory extends Factory
             'category_name' => $this->faker->word(),
             'category_code' => $this->faker->word(),
             'slug' => $this->faker->word(),
-            'status' => $this->faker->random_int(-1,2),
+            'status' => 1,
         ];
     }
 }
