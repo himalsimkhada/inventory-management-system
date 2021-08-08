@@ -52,6 +52,11 @@ Route::prefix('/admin')->group(function(){
         Route::match(['get', 'post'], '/category/add', 'CategoryController@create')->name('categoryCreate');
         Route::post('/category/delete', 'CategoryController@destroy')->name('category.destroy');
 
+        // Brand
+        Route::get('/brand', 'BrandController@index')->name('brand.index');
+        Route::match(['get', 'post'], '/getBrand', 'BrandController@get')->name('brand.get');
+        Route::post('storeBrand', 'BrandController@store')->name('brand.store');
+        Route::post('destroyBrand', 'BrandController@destroy')->name('brand.destroy');
     });
 
     // Admin Logout

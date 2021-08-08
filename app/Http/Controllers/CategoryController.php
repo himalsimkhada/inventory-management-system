@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
+use Str;
 
 class CategoryController extends Controller
 {
