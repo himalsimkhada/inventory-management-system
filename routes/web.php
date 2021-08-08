@@ -42,14 +42,15 @@ Route::prefix('/admin')->group(function(){
 
         // Category
         Route::match(['get', 'post'],'/category', 'CategoryController@category',)->name('category');
-        Route::get('/getCategory', 'CategoryController@getCategory')->name('getCategory');
+        Route::match(['get', 'post'], '/getCategory', 'CategoryController@getCategory')->name('getCategory');
 
-        Route::post('/storeCategory', 'CategoryController@storeCategory')->name('storeCategory');
+        Route::post('/storeCategory', 'CategoryController@category')->name('storeCategory');
         //Admin View Categories
         Route::get('/category/view', 'CategoryController@view')->name('categoryView');
 
         //Admin Add Category
         Route::match(['get', 'post'], '/category/add', 'CategoryController@create')->name('categoryCreate');
+        Route::post('/category/delete', 'CategoryController@destroy')->name('category.destroy');
 
     });
 
