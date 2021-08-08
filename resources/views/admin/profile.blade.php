@@ -34,7 +34,8 @@
 
                                                     <div class="form-group col-sm-6">
                                                         <label for="email">E-Mail Address</label>
-                                                        <input type="email" class="form-control" id="email" name="email" value="{{ $admin->email }}" disabled>
+                                                        <input type="email" class="form-control" id="email" name="email" aria-describedby="email-info" value="{{ $admin->email }}" disabled>
+                                                        <small id="email-info" class="form-text text-info">Please contact administrator to change your email address.</small>
                                                     </div>
 
                                                     <div class="form-group col-sm-6">

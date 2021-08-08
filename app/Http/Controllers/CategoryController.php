@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
+use Str;
 
 class CategoryController extends Controller
 {
@@ -95,7 +96,7 @@ class CategoryController extends Controller
     {
         Session::put('admin_page', 'category');
         $categories = Category::paginate(10);
-        return view('admin.category', ['categories' => $categories]);
+        return view('admin.category.index', ['categories' => $categories]);
     }
 
     public function destroy(Request $request)
