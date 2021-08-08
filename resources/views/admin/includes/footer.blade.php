@@ -46,8 +46,6 @@
 <script src="{{ asset('public/backend/assets/js/slider.js') }} "></script>
 
 
-
-
 <!-- app JavaScript -->
 <script src="{{ asset('public/backend//assets/js/app.js') }} "></script>
 

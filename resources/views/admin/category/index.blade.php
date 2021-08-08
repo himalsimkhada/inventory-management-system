@@ -68,60 +68,68 @@
         </div>
     </div>
 
-    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle"
-         aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add/Edit Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="" method="post">
-                    <div class="modal-body">
-
-                        <div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId"
-                                       placeholder="" hidden>
-                            </div>
-                            <div class="mb-3">
-                                <label for="cat_name" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" name="category_name" id="cat_name"
-                                       aria-describedby="cat_name_help" value="">
-                                <small id="cat_name_help" class="form-text text-muted">Please insert new category name
-                                    here.</small>
-                            </div>
-                            <div class="mb-3">
-                                <label for="cat_code" class="form-label">Category Code</label>
-                                <input type="text" class="form-control" name="category_code" id="cat_code"
-                                       aria-describedby="cat_code_help" placeholder="">
-                                <small id="cat_code_help" class="form-text text-muted">Please insert new category code
-                                    here.</small>
-                            </div>
-                            <div class="mb-3">
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId"
+                                   placeholder="" hidden>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cat_name" class="form-label">Category Name</label>
+                            <input type="text" class="form-control" name="category_name" id="cat_name"
+                                   aria-describedby="cat_name_help" value="">
+                            <small id="cat_name_help" class="form-text text-muted">Please insert new category name
+                                here.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cat_code" class="form-label">Category Code</label>
+                            <input type="text" class="form-control" name="category_code" id="cat_code"
+                                   aria-describedby="cat_code_help" placeholder="">
+                            <small id="cat_code_help" class="form-text text-muted">Please insert new category code
+                                here.</small>
+                        </div>
+                        {{-- <div class="mb-3">
                                 <label for="stat" class="form-label">Status</label>
                                 <select class="form-control" name="status" id="stat">
                                     <option value="" selected readonly></option>
                                     <option value="1">Active</option>
                                     <option value="0">Inactive</option>
                                 </select>
+                            </div> --}}
+                        <input type="hidden" name="status" value="0" readonly>
+                        <div class="mb-3">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" name="status"
+                                       id="stat" value="1">
+                                <label class="custom-control-label" for="customSwitch1">Status</label>
+                                <small id="status_help" class="form-text text-muted">ON is active and OFF is
+                                    inactive.</small>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('js')
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.js"></script> --}}
     <script>
         $(document).ready(function() {
             $('#datatable').DataTable({
@@ -208,28 +216,45 @@
 
             $(document).on('click', '#delete', function() {
                 var id = $(this).data('id');
-                if (confirm('Do you want to delete?')) {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        method: "post",
-                        url: "{{ route('category.destroy') }}",
-                        data: {
-                            id: id
-                        },
-                        dataType: "json",
-                        success: function(response) {
-                            if (response == 1) {
-                                $('#datatable').DataTable().ajax.reload();
-                            }
-                        },
-                        error: function(response) {
-                            console.log('error');
-                        }
 
-                    })
-                }
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            method: "post",
+                            url: "{{ route('category.destroy') }}",
+                            data: {
+                                id: id
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                if (response == 1) {
+                                    $('#datatable').DataTable().ajax.reload();
+                                }
+                            },
+                            error: function(response) {
+                                console.log('error');
+                            }
+
+                        })
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+
             })
 
             $('#add').on('click', function() {
@@ -240,4 +265,7 @@
             })
         })
     </script>
+
+    {{-- Sweet Alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
