@@ -279,9 +279,8 @@
                 $('#operation_value').val('');
             });
 
-            // check = $('#base_unit_check').prop('checked');
             $('#base_unit').on('change', function() {
-                if ($('#base_unit').val('')) {
+                if ($('#base_unit :selected').text() == 'None') {
                     $('#hidden-val').prop('hidden', true);
                 } else {
                     $('#hidden-val').prop('hidden', false);
