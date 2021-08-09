@@ -24,12 +24,15 @@ class BrandController extends Controller
             $rule = [
                 'brand_name' => 'required|max:255',
                 'brand_code' => 'required|max:255',
+                'image' => 'mimes:jpeg,png,jpg,gif|max:2048',
             ];
             $customMessage = [
-                'brand_name.required' => 'Please Enter E-Mail Address',
-                'brand_code.required' => 'Please Enter E-Mail Address',
+                'brand_name.required' => 'Brand name field is required.',
+                'brand_code.required' => 'Brand code field is required.',
+                'image.image' => 'Upload image must be an image.',
+                'image.max' => 'Upload image must be less than 2MB',
             ];
-//            $this->validate($request, $rule, $customMessage);
+            $this->validate($request, $rule, $customMessage);
             return response()->json($this->validate($request, $rule, $customMessage));
             $data = $request->all();
             $imageTmp = $request->file('image');

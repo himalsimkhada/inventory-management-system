@@ -167,7 +167,6 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        console.log(response);
                         if (response == true) {
                             $('#brandModal').modal('hide');
                             $('#datatable').DataTable().ajax.reload();
