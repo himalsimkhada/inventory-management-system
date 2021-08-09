@@ -10,8 +10,7 @@ use Illuminate\Support\Str;
 
 class WareHouseController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         Session::put('admin_page', 'wareHouse');
         return view('admin.wareHouse.index');
     }
@@ -53,11 +52,9 @@ class WareHouseController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request){
         if ($request->isMethod('post')) {
             $data = $request->all();
             $response = WareHouse::where('id', $data['id'])->delete();
