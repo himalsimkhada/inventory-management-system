@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Models\Brand;
 use DataTables;
 use Illuminate\Support\Str;
 use Image;
