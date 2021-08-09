@@ -47,7 +47,7 @@ class WareHouseController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<button class="btn btn-primary mr-2" data-toggle="modal" data-target="#wareHouseModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<button class="btn btn-primary mr-2" data-toggle="modal" data-target="#wareHouseModal,m" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
