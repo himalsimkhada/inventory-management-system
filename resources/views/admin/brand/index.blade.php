@@ -8,8 +8,9 @@
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <button type="button" id='add' class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                            data-toggle="modal" data-target="#brandModal">
+                    <button type="button" id='add'
+                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
+                        data-toggle="modal" data-target="#brandModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -22,7 +23,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="brandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade" id="brandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -37,11 +39,11 @@
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
                         <div class="form-group">
-                            <label for="branch_name" class="form-label">Branch Name</label>
+                            <label for="brand_name" class="form-label">Branch Name</label>
                             <input type="text" class="form-control" name="brand_name" id="brand_name">
                         </div>
                         <div class="form-group">
-                            <label for="branch_code" class="form-label">Branch Code</label>
+                            <label for="brand_code" class="form-label">Branch Code</label>
                             <input type="text" class="form-control" name="brand_code" id="brand_code">
                         </div>
                         <div class="form-group">
@@ -53,17 +55,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card">
-                                <img id="selectedImage" src="{{ asset('public/uploads/no-image.jpg') }}" class="img-fluid rounded" alt="#">
+                                <img id="selectedImage" src="{{ asset('public/uploads/no-image.jpg') }}"
+                                    class="img-fluid rounded" alt="#">
                             </div>
                             <div id="removeDiv" class="card" hidden="hidden">
                                 <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="status" class="form-label">Status</label><br/>
+                            <label for="status" class="form-label">Status</label><br />
                             <div class="custom-control custom-switch custom-control-inline">
                                 <input type="hidden" name="status" value="0">
-                                <input type="checkbox" class="custom-control-input" id="status" name="status" value="1" checked="">
+                                <input type="checkbox" class="custom-control-input" id="status" name="status" value="1"
+                                    checked="">
                                 <label class="custom-control-label" for="status"></label>
                             </div>
                         </div>
@@ -125,13 +129,30 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('brand.get') }}",
-                columns: [
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'brand_name', name: 'brand_name'},
-                    {data: 'brand_code', name: 'brand_code'},
-                    {data: 'image', name: 'image'},
-                    {data: 'status', name: 'status'},
-                    {data: 'action', name: 'action'},
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'brand_name',
+                        name: 'brand_name'
+                    },
+                    {
+                        data: 'brand_code',
+                        name: 'brand_code'
+                    },
+                    {
+                        data: 'image',
+                        name: 'image'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    },
                 ],
             });
 
@@ -147,8 +168,8 @@
                 $.ajax({
                     method: "post",
                     url: "{{ route('brand.store') }}",
-                    data:formData,
-                    cache:false,
+                    data: formData,
+                    cache: false,
                     contentType: false,
                     processData: false,
                     success: function(response) {
@@ -178,17 +199,20 @@
                             $('#id').val(response.id);
                             $('#brand_code').val(response.brand_code);
                             $('#brand_name').val(response.brand_name);
-                            if(response.image == ''){
-                                $('#selectedImage').prop('src', '{{ asset('public/uploads/no-image.jpg') }}');
+                            if (response.image == '') {
+                                $('#selectedImage').prop('src',
+                                    '{{ asset('public/uploads/no-image.jpg') }}');
                                 $('#image').val('');
                                 $('#image').next().text('Choose Image');
                                 $('#removeDiv').prop('hidden', true);
-                            }else{
-                                $('#selectedImage').prop('src', '{{ asset("public/uploads/brand") }}/' + response.image);
+                            } else {
+                                $('#selectedImage').prop('src',
+                                    '{{ asset('public/uploads/brand') }}/' + response
+                                    .image);
                                 $('#image').next().text(response.image);
                                 $('#removeDiv').prop('hidden', false);
                             }
-                            if(response.status == 0){
+                            if (response.status == 0) {
                                 $('#status').prop('checked', false);
                             }
                         }
@@ -201,30 +225,57 @@
 
             $(document).on('click', '#delete', function() {
                 var id = $(this).data('id');
-                if (confirm('Do you want to delete?')) {
-                    $.ajax({
-                        method: "post",
-                        url: "{{ route('brand.destroy') }}",
-                        data: {
-                            id: id
-                        },
-                        dataType: "json",
-                        success: function(response) {
-                            if (response == 1) {
-                                $('#datatable').DataTable().ajax.reload();
-                            }
-                        },
-                        error: function(response) {
-                            console.log('error');
-                        }
-                    })
-                }
-            });
 
-            $("#image").on('change', function(){
-                if (this.files && this.files[0]){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            method: "post",
+                            url: "{{ route('brand.destroy') }}",
+                            data: {
+                                id: id
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                if (response == 1) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                    )
+                                    $('#datatable').DataTable().ajax.reload();
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'There has been error deleting the data.',
+                                        'failed'
+                                    )
+                                }
+                            },
+                            error: function(response) {
+                                console.log('error');
+                            }
+
+                        })
+                    }
+                })
+
+            })
+
+            $("#image").on('change', function() {
+                if (this.files && this.files[0]) {
                     var reader = new FileReader();
-                    reader.onload = function(e){
+                    reader.onload = function(e) {
                         $('#selectedImage').attr('src', e.target.result);
                     }
                     reader.readAsDataURL(this.files[0]);
@@ -232,7 +283,7 @@
                 $('#removeDiv').prop('hidden', false);
             });
 
-            $('#removeImage').on('click', function(){
+            $('#removeImage').on('click', function() {
                 $('#image').val('');
                 $('#image').next().text('Choose Image');
                 $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
@@ -251,7 +302,4 @@
             });
         })
     </script>
-
-    {{-- Sweet Alert --}}
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
