@@ -88,17 +88,6 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>S. No.</th>
-                                                <th>Name</th>
-                                                <th>Short Name</th>
-                                                <th>Base Unit</th>
-                                                <th>Operator</th>
-                                                <th>Operation Value</th>
-                                                <th></th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
