@@ -9,12 +9,12 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
                     <button type="button" id='add'
-                            class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                            data-toggle="modal" data-target="#editModal">
+                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
+                        data-toggle="modal" data-target="#editModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor">
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
                     </button>
@@ -41,22 +41,22 @@
                                 <div class="table-responsive">
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
-                                        <tr>
-                                            <th>S. No.</th>
-                                            <th>Name</th>
-                                            <th>Code</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                <th>S. No.</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                         <tfoot>
-                                        <tr>
-                                            <th>S. No.</th>
-                                            <th>Name</th>
-                                            <th>Code</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                <th>S. No.</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
                                         </tfoot>
                                     </table>
                                 </div>
@@ -69,7 +69,7 @@
     </div>
 
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -82,19 +82,19 @@
                     <form action="" method="post">
                         <div class="mb-3">
                             <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId"
-                                   placeholder="" hidden>
+                                placeholder="" hidden>
                         </div>
                         <div class="mb-3">
                             <label for="cat_name" class="form-label">Category Name</label>
                             <input type="text" class="form-control" name="category_name" id="cat_name"
-                                   aria-describedby="cat_name_help" value="">
+                                aria-describedby="cat_name_help" value="">
                             <small id="cat_name_help" class="form-text text-muted">Please insert new category name
                                 here.</small>
                         </div>
                         <div class="mb-3">
                             <label for="cat_code" class="form-label">Category Code</label>
                             <input type="text" class="form-control" name="category_code" id="cat_code"
-                                   aria-describedby="cat_code_help" placeholder="">
+                                aria-describedby="cat_code_help" placeholder="">
                             <small id="cat_code_help" class="form-text text-muted">Please insert new category code
                                 here.</small>
                         </div>
@@ -110,7 +110,7 @@
                         <div class="mb-3">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch1" name="status"
-                                       id="stat" value="1">
+                                    id="stat" value="1">
                                 <label class="custom-control-label" for="customSwitch1">Status</label>
                                 <small id="status_help" class="form-text text-muted">ON is active and OFF is
                                     inactive.</small>
@@ -137,9 +137,9 @@
                 serverSide: true,
                 ajax: "{{ route('getCategory') }}",
                 columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
                     {
                         data: 'category_name',
                         name: 'category_name'
@@ -265,7 +265,4 @@
             })
         })
     </script>
-
-    {{-- Sweet Alert --}}
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

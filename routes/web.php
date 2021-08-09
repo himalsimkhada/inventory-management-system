@@ -53,10 +53,16 @@ Route::prefix('/admin')->group(function(){
         Route::post('/category/delete', 'CategoryController@destroy')->name('category.destroy');
 
         // Brand
-        Route::get('/brand', 'BrandController@index')->name('brand.index');
-        Route::match(['get', 'post'], '/getBrand', 'BrandController@get')->name('brand.get');
-        Route::post('storeBrand', 'BrandController@store')->name('brand.store');
-        Route::post('destroyBrand', 'BrandController@destroy')->name('brand.destroy');
+        Route::get('/brand/view', 'BrandController@index')->name('brand.index');
+        Route::match(['get', 'post'], '/brand/getBrand', 'BrandController@get')->name('brand.get');
+        Route::post('/brand/storeBrand', 'BrandController@store')->name('brand.store');
+        Route::post('brand/destroyBrand', 'BrandController@destroy')->name('brand.destroy');
+
+        //unit
+        Route::get('/unit/view', 'UnitController@index')->name('unit.index');
+        Route::match(['get', 'post'], '/unit/getUnit', 'UnitController@get')->name('unit.get');
+        Route::post('/unit/storeBrand', 'UnitController@store')->name('unit.store');
+        Route::post('/unit/destroyBrand', 'UnitController@destroy')->name('unit.destroy');
     });
 
     // Admin Logout

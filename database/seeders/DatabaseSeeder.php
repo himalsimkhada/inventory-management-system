@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Details;
+use App\Models\Unit;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,7 +35,8 @@ class DatabaseSeeder extends Seeder
             'logo' => 'logo.png',
         ]);
 
-        Category::factory()->count(100)->create();
+        Category::factory()->count(20)->create();
         Brand::factory()->count(20)->create();
+        Unit::factory()->count(20)->create();
     }
 }
