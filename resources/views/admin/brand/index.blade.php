@@ -169,6 +169,7 @@
                     success: function(response) {
                         if (response == true) {
                             $('#brandModal').modal('hide');
+                            $('#errors').html('');
                             $('#datatable').DataTable().ajax.reload();
                         }
                     },

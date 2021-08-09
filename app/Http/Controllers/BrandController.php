@@ -33,7 +33,6 @@ class BrandController extends Controller
                 'image.max' => 'Upload image must be less than 2MB',
             ];
             $this->validate($request, $rule, $customMessage);
-            return response()->json($this->validate($request, $rule, $customMessage));
             $data = $request->all();
             $imageTmp = $request->file('image');
             if($data['id'] == null){
