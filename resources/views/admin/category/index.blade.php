@@ -9,16 +9,61 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
                     <button type="button" id='add'
-                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                        data-toggle="modal" data-target="#editModal">
+                            class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
+                            data-toggle="modal" data-target="#categoryModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Store</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="id" id="id">
+                        </div>
+                        <div class="form-group">
+                            <label for="category_name" class="form-label">Category Name</label>
+                            <input type="text" class="form-control" name="category_name" id="category_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="category_code" class="form-label">Category Code</label>
+                            <input type="text" class="form-control" name="category_code" id="category_code">
+                        </div>
+                        <input type="hidden" name="status" value="0" readonly>
+                        <div
+                            class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                            <div class="custom-switch-inner">
+                                <p class="mb-0"> Status </p>
+                                <input type="checkbox" class="custom-control-input bg-success" id="status" name="status"
+                                       value="1" checked>
+                                <label class="custom-control-label" for="status" data-on-label="Active"
+                                       data-off-label="Inactive">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -29,25 +74,17 @@
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title">Category</h4>
-                                </div>
-                            </div>
-
-                            @include('admin.includes._message')
-
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
-                                            <tr>
-                                                <th>S. No.</th>
-                                                <th>Name</th>
-                                                <th>Code</th>
-                                                <th>Status</th>
-                                                <th></th>
-                                            </tr>
+                                        <tr>
+                                            <th>S. No.</th>
+                                            <th>Name</th>
+                                            <th>Code</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
                                         </thead>
                                     </table>
                                 </div>
@@ -58,73 +95,19 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add/Edit Category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId"
-                                placeholder="" hidden>
-                        </div>
-                        <div class="mb-3">
-                            <label for="cat_name" class="form-label">Category Name</label>
-                            <input type="text" class="form-control" name="category_name" id="cat_name"
-                                aria-describedby="cat_name_help" value="">
-                            <small id="cat_name_help" class="form-text text-muted">Please insert new category name
-                                here.</small>
-                        </div>
-                        <div class="mb-3">
-                            <label for="cat_code" class="form-label">Category Code</label>
-                            <input type="text" class="form-control" name="category_code" id="cat_code"
-                                aria-describedby="cat_code_help" placeholder="">
-                            <small id="cat_code_help" class="form-text text-muted">Please insert new category code
-                                here.</small>
-                        </div>
-                        <input type="hidden" name="status" value="0" readonly>
-                        <div
-                            class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
-                            <div class="custom-switch-inner">
-                                <p class="mb-0"> Base Unit </p>
-                                <input type="checkbox" class="custom-control-input bg-success" id="stat" name="status"
-                                    value="1">
-                                <label class="custom-control-label" for="stat" data-on-label="Active"
-                                    data-off-label="Inactive">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('js')
-
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.js"></script> --}}
     <script>
         $(document).ready(function() {
             $('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('getCategory') }}",
+                ajax: "{{ route('category.get') }}",
                 columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
-                    },
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
                     {
                         data: 'category_name',
                         name: 'category_name'
@@ -141,44 +124,42 @@
                         data: 'action',
                         name: 'action'
                     },
-                ]
+                ],
             });
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             $('form').on('submit', function(e) {
                 e.preventDefault();
-                var data = $('form').serialize();
-                console.log(data);
+                var formData = new FormData(this);
                 $.ajax({
-                    headers: {
-                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                    },
                     method: "post",
-                    url: "{{ route('storeCategory') }}",
-                    data: data,
-                    dataType: "json",
+                    url: "{{ route('category.store') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     success: function(response) {
                         if (response == true) {
-                            $('#editModal').modal('hide');
+                            $('#categoryModal').modal('hide');
                             $('#datatable').DataTable().ajax.reload();
                         }
                     },
                     error: function(response) {
                         console.log(response);
                     }
-
                 })
-            })
-
+            });
 
             $(document).on('click', '#edit', function() {
                 var id = $(this).data('id');
                 $.ajax({
-                    headers: {
-                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                    },
                     method: "post",
-                    url: "{{ route('getCategory') }}",
+                    url: "{{ route('category.get') }}",
                     data: {
                         id: id
                     },
@@ -187,21 +168,21 @@
                         console.log(response);
                         if (response) {
                             $('#id').val(response.id);
-                            $('#cat_name').val(response.category_name);
-                            $('#cat_code').val(response.category_code);
-                            $('#stat').val(response.status);
+                            $('#category_name').val(response.category_name);
+                            $('#category_code').val(response.category_code);
+                            if (response.status == 0) {
+                                $('#status').prop('checked', false);
+                            }
                         }
                     },
                     error: function(response) {
                         console.log('error');
                     }
-
                 })
             });
 
             $(document).on('click', '#delete', function() {
                 var id = $(this).data('id');
-
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -213,9 +194,6 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            headers: {
-                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                            },
                             method: "post",
                             url: "{{ route('category.destroy') }}",
                             data: {
@@ -241,19 +219,16 @@
                             error: function(response) {
                                 console.log('error');
                             }
-
                         })
                     }
                 })
-
             })
 
             $('#add').on('click', function() {
-                $('#id').val('');
-                $('#cat_name').val('');
-                $('#cat_code').val('');
-                $('#stat').prop('selectedIndex', 0).val();
-            })
+                $('#category_name').val('');
+                $('#category_code').val('');
+                $('#status').prop('checked', true);
+            });
         })
     </script>
 @endsection

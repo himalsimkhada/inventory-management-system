@@ -5,117 +5,70 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Yajra\DataTables\DataTables;
+use DataTables;
 use Str;
 
 class CategoryController extends Controller
 {
-    public function category(Request $request)
-    {
+    public function index(){
+        Session::put('admin_page', 'category');
+        return view('admin.category.index');
+    }
+
+    public function store(Request $request){
         if ($request->isMethod('post')) {
             $data = $request->all();
-            if ($data['id'] == null) {
+            if($data['id'] == null){
                 $category = new Category();
                 $category->category_name = $data['category_name'];
                 $category->category_code = $data['category_code'];
                 $category->slug = Str::slug($data['category_name'], '-');
                 $category->status = $data['status'];
-                // if ($request->has('status')) {
-                //     $category->status = 1;
-                // }else {
-                //     $category->status = 0;
-                // }
-                $category->save();
-                // Session::flash('info_message', 'Category Successfully Created');
-                return response()->json(true);
-            } else {
+                $response = $category->save();
+                return response()->json($response);
+            }else{
                 $category = Category::findorfail($data['id']);
                 $category->category_name = $data['category_name'];
                 $category->category_code = $data['category_code'];
                 $category->slug = Str::slug($data['category_name'], '-');
                 $category->status = $data['status'];
-                // if ($request->has('status')) {
-                //     $category->status = 1;
-                // }else {
-                //     $category->status = 0;
-                // }
-                $category->save();
-                // Session::flash('info_message', 'Category Successfully Updated');
-                return response()->json(true);
+                $response = $category->save();
+                return response()->json($response);
             }
         }
-        return view('admin.category');
     }
 
-    public function getCategory(Request $request)
-    {
+    public function get(Request $request){
         if ($request->isMethod('post')) {
             $data = Category::findorfail($request->input('id'));
             return response()->json($data);
         } else {
-            $data = Category::all();
+            $data = Category::all()->sortByDesc("id");
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    // $actionBtn = '<a class="" data-toggle="modal" data-target="#editModal" data-placement="top" title="" data-original-title="Edit" href="#" data-id="' . $row['id'] . '" id="edit">
-                    //     <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary mx-4" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    //         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                    //     </svg>
-                    // </a>
-                    // <a class="badge bg-danger" data-toggle="tooltips" data-placement="top" title="" data-original-title="Delete" href="#" data-id="' . $row['id'] . '" id="delete">
-                    //     <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    //         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                    //     </svg>
-                    // </a>';
-                    $actionBtn = '<div class="btn-group"><button class="btn btn-primary" data-toggle="modal" data-target="#editModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button></div>';
+                    $actionBtn = '<button class="btn btn-primary mr-2" data-toggle="modal" data-target="#categoryModal,m" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {
-                    $statusSign = null;
+                    $status = null;
                     if ($row['status'] == 1) {
-                        $statusSign = '<span class="dot" style="color:green;display:inline-block;">Active</span>';
+                        $status = '<span class="dot" style="color:green;display:inline-block;">Active</span>';
                     } elseif ($row['status'] == 0) {
-                        $statusSign = '<span class="dot" style="color:red;display:inline-block;">Inactive</span>';
+                        $status = '<span class="dot" style="color:red;display:inline-block;">Inactive</span>';
                     }
-                    return $statusSign;
+                    return $status;
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
         }
     }
 
-    public function create(Request $request)
-    {
+    public function destroy(Request $request){
         if ($request->isMethod('post')) {
             $data = $request->all();
-
-            $category = new Category();
-            $category->category_name = $data['category_name'];
-            $category->category_code = $data['category_code'];
-            $category->status = $data['category_status'];
-            $category->slug = Str::slug($data['category_name'], '-');
-
-            $category->save();
-            Session::flash('info_message', 'Category Successfully Created');
-            return redirect()->back();
-        } else {
-            return view('admin.category.addCategory');
-        }
-    }
-
-    public function view()
-    {
-        Session::put('admin_page', 'category');
-        $categories = Category::paginate(10);
-        return view('admin.category.index', ['categories' => $categories]);
-    }
-
-    public function destroy(Request $request)
-    {
-        if ($request->isMethod('post')) {
-            $data = $request->all();
-            $student = Category::where('id', $data['id'])->delete();
-            return response()->json($student);
+            $response = Category::where('id', $data['id'])->delete();
+            return response()->json($response);
         }
     }
 }

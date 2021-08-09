@@ -52,7 +52,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                     @endphp
                 @endif
                 <li class=" {{ $active }} sidebar-layout">
-                    <a href="{{ route('categoryView') }}" class="svg-icon ">
+                    <a href="{{ route('category.index') }}" class="svg-icon ">
                         <i class="">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">

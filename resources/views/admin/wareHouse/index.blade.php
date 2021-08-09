@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Brand</h4>
+            <h4 class="font-weight-bold">Ware House</h4>
         </div>
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
@@ -28,7 +28,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Store</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -214,11 +214,9 @@
                             error: function(response) {
                                 console.log('error');
                             }
-
                         })
                     }
                 })
-
             })
 
             $('#add').on('click', function() {
@@ -229,7 +227,4 @@
             });
         })
     </script>
-
-    {{-- Sweet Alert --}}
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
