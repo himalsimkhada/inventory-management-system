@@ -61,7 +61,7 @@
                                 <label for="operator" class="form-label">Operator</label>
                                 <div class="input-group">
                                     <select class="form-control" id="operator" name="operator">
-                                        <option disabled="" value="">Choose...</option>
+                                        <option disabled value="">Choose...</option>
                                         <option value="*">Multiply</option>
                                         <option value="/">Divide</option>
                                     </select>
