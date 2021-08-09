@@ -158,7 +158,6 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        console.log(response);
                         if (response) {
                             $('#id').val(response.id);
                             $('#name').val(response.name);
@@ -174,7 +173,6 @@
 
             $(document).on('click', '#delete', function() {
                 var id = $(this).data('id');
-
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",

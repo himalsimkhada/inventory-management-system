@@ -51,7 +51,7 @@
                             <select class="form-control" name="base_unit" id="base_unit">
                                 <option value="">None</option>
                                 @foreach ($base_units as $unit)
-                                    <option value="{{ $unit['name'] }}">{{ $unit['name'] }}</option>
+                                    <option value="{{ $unit['id'] }}">{{ $unit['name'] }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -61,9 +61,9 @@
                                 <label for="operator" class="form-label">Operator</label>
                                 <div class="input-group">
                                     <select class="form-control" id="operator" name="operator">
-                                        <option selected="" value="">Choose...</option>
-                                        <option value="multiply">Multiply</option>
-                                        <option value="divide">Divide</option>
+                                        <option disabled="" value="">Choose...</option>
+                                        <option value="*">Multiply</option>
+                                        <option value="/">Divide</option>
                                     </select>
                                 </div>
                             </div>
@@ -190,12 +190,16 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        console.log(response);
                         if (response) {
                             $('#id').val(response.id);
                             $('#name').val(response.name);
                             $('#short_name').val(response.short_name);
                             $('#base_unit').val(response.base_unit);
+                            if(response.base_unit != null){
+                                $('#hidden-val').prop('hidden', false);
+                            }else{
+                                $('#hidden-val').prop('hidden', true);
+                            }
                             $('#operator').val(response.operator);
                             $('#operation_value').val(response.operation_value);
                         }
@@ -265,8 +269,14 @@
             });
 
             $('#base_unit').on('change', function() {
-                if($(this).val() != ''){
-                    alert($(this).val());
+                if ($(this).val() != '') {
+                    $('#hidden-val').prop('hidden', false);
+                    $('#operator').val('');
+                    $('#operator_value').val('');
+                } else {
+                    $('#hidden-val').prop('hidden', true);
+                    $('#operator').val('');
+                    $('#operation_value').val('');
                 }
             })
         })

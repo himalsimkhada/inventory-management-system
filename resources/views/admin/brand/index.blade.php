@@ -187,7 +187,6 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        console.log(response);
                         if (response) {
                             $('#id').val(response.id);
                             $('#brand_code').val(response.brand_code);

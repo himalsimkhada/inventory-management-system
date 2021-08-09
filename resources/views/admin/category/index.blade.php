@@ -165,7 +165,6 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        console.log(response);
                         if (response) {
                             $('#id').val(response.id);
                             $('#category_name').val(response.category_name);
