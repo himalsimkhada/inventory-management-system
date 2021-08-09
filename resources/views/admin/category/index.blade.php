@@ -49,15 +49,6 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>S. No.</th>
-                                                <th>Name</th>
-                                                <th>Code</th>
-                                                <th>Status</th>
-                                                <th></th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
