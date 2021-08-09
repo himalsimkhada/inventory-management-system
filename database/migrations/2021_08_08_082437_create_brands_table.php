@@ -18,7 +18,7 @@ class CreateBrandsTable extends Migration
             $table->string('brand_name');
             $table->string('brand_code');
             $table->string('image')->nullable();
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

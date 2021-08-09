@@ -8,9 +8,8 @@
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <button type="button" id='add'
-                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                        data-toggle="modal" data-target="#brandModal">
+                    <button type="button" id='add' class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
+                            data-toggle="modal" data-target="#brandModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -23,48 +22,52 @@
         </div>
     </div>
 
-    <div id="brandModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle"
-        aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <div class="modal fade" id="brandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form method="post" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <div>
-                            <div class="mb-3">
-                                <input type="hidden" class="form-control" name="id" id="id">
-                            </div>
-                            <div class="mb-3">
-                                <label for="branch_name" class="form-label">Branch Name</label>
-                                <input type="text" class="form-control" name="brand_name" id="brand_name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="branch_code" class="form-label">Branch Code</label>
-                                <input type="text" class="form-control" name="brand_code" id="brand_code">
-                            </div>
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Image</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="image" name="image">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label><br />
-                                <div class="custom-control custom-switch custom-control-inline">
-                                    <input type="hidden" name="status" value="0">
-                                    <input type="checkbox" class="custom-control-input" id="status" name="status" value="1"
-                                        checked="">
-                                    <label class="custom-control-label" for="status"></label>
-                                </div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="id" id="id">
+                        </div>
+                        <div class="form-group">
+                            <label for="branch_name" class="form-label">Branch Name</label>
+                            <input type="text" class="form-control" name="brand_name" id="brand_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="branch_code" class="form-label">Branch Code</label>
+                            <input type="text" class="form-control" name="brand_code" id="brand_code">
+                        </div>
+                        <div class="form-group">
+                            <label for="image" class="form-label">Image</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="image" name="image" value="">
+                                <label class="custom-file-label" for="image">Choose Image</label>
                             </div>
                         </div>
-
+                        <div class="col-md-6">
+                            <div class="card">
+                                <input type="text" id="removeFlag" name="removeFlag" value="0 ">
+                                <img id="selectedImage" src="{{ asset('public/uploads/no-image.jpg') }}" class="img-fluid rounded" alt="#">
+                            </div>
+                            <div id="removeDiv" class="card" hidden="hidden">
+                                <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status" class="form-label">Status</label><br/>
+                            <div class="custom-control custom-switch custom-control-inline">
+                                <input type="hidden" name="status" value="0">
+                                <input type="checkbox" class="custom-control-input" id="status" name="status" value="1" checked="">
+                                <label class="custom-control-label" for="status"></label>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -123,45 +126,32 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('brand.get') }}",
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
-                    },
-                    {
-                        data: 'brand_name',
-                        name: 'brand_name'
-                    },
-                    {
-                        data: 'brand_code',
-                        name: 'brand_code'
-                    },
-                    {
-                        data: 'image',
-                        name: 'image'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'brand_name', name: 'brand_name'},
+                    {data: 'brand_code', name: 'brand_code'},
+                    {data: 'image', name: 'image'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action'},
                 ],
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
 
             $('form').on('submit', function(e) {
                 e.preventDefault();
-                var data = $('form').serialize();
-                console.log(data);
+                var formData = new FormData(this);
                 $.ajax({
-                    headers: {
-                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                    },
                     method: "post",
                     url: "{{ route('brand.store') }}",
-                    data: data,
-                    dataType: "json",
+                    data:formData,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
                     success: function(response) {
                         if (response == true) {
                             $('#brandModal').modal('hide');
@@ -171,17 +161,12 @@
                     error: function(response) {
                         console.log(response);
                     }
-
                 })
-            })
-
+            });
 
             $(document).on('click', '#edit', function() {
                 var id = $(this).data('id');
                 $.ajax({
-                    headers: {
-                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                    },
                     method: "post",
                     url: "{{ route('brand.get') }}",
                     data: {
@@ -192,60 +177,79 @@
                         console.log(response);
                         if (response) {
                             $('#id').val(response.id);
-                            $('#brand_name').val(response.brand_name);
                             $('#brand_code').val(response.brand_code);
-                            $('#status').val(response.status);
+                            $('#brand_name').val(response.brand_name);
+                            if(response.image == ''){
+                                $('#selectedImage').prop('src', '{{ asset('public/uploads/no-image.jpg') }}');
+                                $('#image').val('');
+                                $('#image').next().text('Choose Image');
+                                $('#removeDiv').prop('hidden', true);
+                            }else{
+                                $('#selectedImage').prop('src', '{{ asset("public/uploads/brand") }}/' + response.image);
+                                $('#image').next().text(response.image);
+                                $('#removeDiv').prop('hidden', false);
+                            }
+                            if(response.status == 0){
+                                $('#status').prop('checked', false);
+                            }
                         }
                     },
                     error: function(response) {
                         console.log('error');
                     }
-
                 })
             });
 
             $(document).on('click', '#delete', function() {
                 var id = $(this).data('id');
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            method: "post",
-                            url: "{{ route('brand.destroy') }}",
-                            data: {
-                                id: id
-                            },
-                            dataType: "json",
-                            success: function(response) {
-                                if (response == 1) {
-                                    $('#datatable').DataTable().ajax.reload();
-                                }
-                            },
-                            error: function(response) {
-                                console.log('error');
+                if (confirm('Do you want to delete?')) {
+                    $.ajax({
+                        method: "post",
+                        url: "{{ route('brand.destroy') }}",
+                        data: {
+                            id: id
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response == 1) {
+                                $('#datatable').DataTable().ajax.reload();
                             }
+                        },
+                        error: function(response) {
+                            console.log('error');
+                        }
+                    })
+                }
+            });
 
-                        })
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
+            $("#image").on('change', function(){
+                if (this.files && this.files[0]){
+                    var reader = new FileReader();
+                    reader.onload = function(e){
+                        $('#selectedImage').attr('src', e.target.result);
                     }
-                })
+                    reader.readAsDataURL(this.files[0]);
+                }
+                $('#removeDiv').prop('hidden', false);
+            });
 
-            })
+            $('#removeImage').on('click', function(){
+                $('#image').val('');
+                $('#image').next().text('Choose Image');
+                $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
+                $('#removeDiv').prop('hidden', true);
+            });
+
+            $('#add').on('click', function() {
+                $('#id').val('');
+                $('#brand_name').val('');
+                $('#brand_code').val('');
+                $('#image').val('');
+                $('#image').next().text('Choose Image');
+                $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
+                $('#removeDiv').prop('hidden', true);
+                $('#status').prop('checked', true);
+            });
         })
     </script>
 
