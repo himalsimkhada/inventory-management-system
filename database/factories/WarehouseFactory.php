@@ -2,19 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
+use App\Models\WareHouse;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-use function PHPSTORM_META\map;
-
-class CategoryFactory extends Factory
+class WarehouseFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Category::class;
+    protected $model = WareHouse::class;
 
     /**
      * Define the model's default state.
@@ -24,10 +22,9 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'category_name' => $this->faker->word(),
-            'category_code' => $this->faker->word(),
-            'slug' => $this->faker->word(),
-            'status' => 1,
+            'name' => $this->faker->name,
+            'detail' => $this->faker->sentence(),
+            'phone' => $this->faker->phoneNumber(),
         ];
     }
 }

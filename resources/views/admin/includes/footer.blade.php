@@ -8,15 +8,17 @@
                 </ul>
             </div>
             <div class="col-lg-6 text-right">
-                    <span class="mr-1">
-                        Copyright
-                        <script>document.write(new Date().getFullYear())</script>© <a href="index.html#" class="">Datum</a>
-                        All Rights Reserved.
-                    </span>
+                <span class="mr-1">
+                    Copyright
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>© <a href="index.html#" class="">Datum</a>
+                    All Rights Reserved.
+                </span>
             </div>
         </div>
     </div>
-</footer>    <!-- Backend Bundle JavaScript -->
+</footer> <!-- Backend Bundle JavaScript -->
 <!-- Backend Bundle JavaScript -->
 <script src="{{ asset('public/backend/assets/js/backend-bundle.min.js') }} "></script>
 <!-- Chart Custom JavaScript -->
@@ -46,12 +48,14 @@
 <script src="{{ asset('public/backend/assets/js/slider.js') }} "></script>
 
 
-
-
 <!-- app JavaScript -->
 <script src="{{ asset('public/backend//assets/js/app.js') }} "></script>
+
+{{-- Sweet Alert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @yield('js')
 
 </body>
+
 </html>

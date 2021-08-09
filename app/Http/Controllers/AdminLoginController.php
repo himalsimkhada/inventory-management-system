@@ -20,10 +20,10 @@ class AdminLoginController extends Controller
                'password' => 'required'
             ];
             $customMessage = [
-              'email.required' => 'Please Enter E-Mail Address',
-              'email.email' => 'Please Enter a Valid E-Mail Address',
-              'email.max' => 'You are not allowed to enter more than 255 characters',
-              'password.required' => 'Please Enter Password'
+                'email.required' => 'Please Enter E-Mail Address',
+                'email.email' => 'Please Enter a Valid E-Mail Address',
+                'email.max' => 'You are not allowed to enter more than 255 characters',
+                'password.required' => 'Please Enter Password'
             ];
             $this->validate($request, $rule, $customMessage);
 
@@ -43,6 +43,7 @@ class AdminLoginController extends Controller
 
     // Admin Dashboard
     public function dashboard(){
+        Session::put('admin_page', 'dashboard');
         return view ('admin.dashboard');
     }
 

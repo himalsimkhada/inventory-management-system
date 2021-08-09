@@ -32,20 +32,37 @@ Route::prefix('/admin')->group(function(){
         // Admin Profile Update
         Route::post('/profile/update/{id}', 'AdminProfileController@profileUpdate')->name('profileUpdate');
         // Admin Password Change
-
         Route::match(['get', 'post'], '/changePassword/', 'AdminProfileController@changePassword')->name('changePassword');
+        // Admin Check Password
         Route::post('/profile/check_password', 'AdminProfileController@checkPassword')->name('checkUserPassword');
         //Admin Theme Settings
         Route::match(['get', 'post'], '/theme/setting', 'AdminProfileController@themeSetting')->name('themeSetting');
         //Admin Mail Settings
         Route::match(['get', 'post'], '/mail/setting', 'AlterEnvController@caller')->name('mailSetting');
 
-        //Admin View Categories
-        Route::get('/category/view', 'CategoryController@view')->name('categoryView');
+        // Category
+        Route::get('/category/view', 'CategoryController@index')->name('category.index');
+        Route::match(['get', 'post'], '/category/get', 'CategoryController@get')->name('category.get');
+        Route::post('/category/store', 'CategoryController@store')->name('category.store');
+        Route::post('/category/destroy', 'CategoryController@destroy')->name('category.destroy');
 
-        //Admin Add Category
-        Route::match(['get', 'post'], '/category/add', 'CategoryController@create')->name('categoryCreate');
+        // Brand
+        Route::get('/brand/view', 'BrandController@index')->name('brand.index');
+        Route::match(['get', 'post'], '/brand/get', 'BrandController@get')->name('brand.get');
+        Route::post('/brand/store', 'BrandController@store')->name('brand.store');
+        Route::post('brand/destroy', 'BrandController@destroy')->name('brand.destroy');
 
+        //unit
+        Route::get('/unit/view', 'UnitController@index')->name('unit.index');
+        Route::match(['get', 'post'], '/unit/get', 'UnitController@get')->name('unit.get');
+        Route::post('/unit/store', 'UnitController@store')->name('unit.store');
+        Route::post('/unit/destroy', 'UnitController@destroy')->name('unit.destroy');
+
+        // Ware House
+        Route::get('/warehouse/view', 'WareHouseController@index')->name('wareHouse.index');
+        Route::match(['get', 'post'], '/warehouse/get', 'WareHouseController@get')->name('wareHouse.get');
+        Route::post('/warehouse/store', 'WareHouseController@store')->name('wareHouse.store');
+        Route::post('/warehouse/destroy', 'WareHouseController@destroy')->name('wareHouse.destroy');
     });
 
     // Admin Logout
