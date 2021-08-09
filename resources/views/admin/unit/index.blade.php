@@ -46,17 +46,28 @@
                             <label for="short_name" class="form-label">Unit Short Name</label>
                             <input type="text" class="form-control" name="short_name" id="short_name">
                         </div>
-                        <div class="form-group">
-                            <label for="base_unit" class="form-label">Base Unit</label>
-                            <input type="text" class="form-control" name="base_unit" id="base_unit">
+                        <div
+                            class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                            <div class="custom-switch-inner">
+                                <p class="mb-0"> Base Unit </p>
+                                <input type="checkbox" class="custom-control-input bg-success" id="base_unit_check">
+                                <label class="custom-control-label" for="base_unit_check" data-on-label="Yes"
+                                    data-off-label="No">
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="operator" class="form-label">Operator</label>
-                            <input type="text" class="form-control" name="operator" id="operator">
-                        </div>
-                        <div class="form-group">
-                            <label for="operation_value" class="form-label">Operation Value</label>
-                            <input type="text" class="form-control" name="operation_value" id="operation_value">
+                        <div id="hidden-val" hidden>
+                            <div class="form-group">
+                                <label for="base_unit" class="form-label">Base Unit</label>
+                                <input type="text" class="form-control" name="base_unit" id="base_unit">
+                            </div>
+                            <div class="form-group">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="operation_value" class="form-label">Operation Value</label>
+                                <input type="text" class="form-control" name="operation_value" id="operation_value">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -249,6 +260,15 @@
                 $('#operator').val('');
                 $('#operation_value').val('');
             });
+
+            // check = $('#base_unit_check').prop('checked');
+            $('#base_unit_check').on('click', function() {
+                if ($('#base_unit_check').is(':checked')) {
+                    $('#hidden-val').prop('hidden', false);
+                } else {
+                    $('#hidden-val').prop('hidden', true);
+                }
+            })
         })
     </script>
 @endsection

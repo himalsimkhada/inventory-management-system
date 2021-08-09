@@ -62,13 +62,16 @@
                                 <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="status" class="form-label">Status</label><br />
-                            <div class="custom-control custom-switch custom-control-inline">
-                                <input type="hidden" name="status" value="0">
-                                <input type="checkbox" class="custom-control-input" id="status" name="status" value="1"
-                                    checked="">
-                                <label class="custom-control-label" for="status"></label>
+                        <input type="hidden" name="status" value="0" readonly>
+                        <div
+                            class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                            <div class="custom-switch-inner">
+                                <p class="mb-0"> Status </p>
+                                <input type="checkbox" class="custom-control-input bg-success" id="status" name="status"
+                                    value="1" checked="checked">
+                                <label class="custom-control-label" for="status" data-on-label="Active"
+                                    data-off-label="Inactive">
+                                </label>
                             </div>
                         </div>
                     </div>
