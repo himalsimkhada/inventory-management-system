@@ -92,6 +92,7 @@
                                             <th>S. No.</th>
                                             <th>Name</th>
                                             <th>Code</th>
+                                            <th>Slug</th>
                                             <th>Status</th>
                                             <th></th>
                                         </tr>

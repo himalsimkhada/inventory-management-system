@@ -130,8 +130,6 @@ class AdminProfileController extends Controller
         if ($request->isMethod('post')) {
             $rule = [
                 'company_name' => 'required',
-                'fav_icon' => 'required|image',
-                'logo' => 'required|image',
             ];
 
             $customMessage = [
