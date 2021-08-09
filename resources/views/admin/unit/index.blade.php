@@ -62,7 +62,17 @@
                                 <input type="text" class="form-control" name="base_unit" id="base_unit">
                             </div>
                             <div class="form-group">
-                                
+                                <label for="operator" class="form-label">Operator</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="operator" name="operator">
+                                        <option selected="">Choose...</option>
+                                        <option value="multiply">Multiply</option>
+                                        <option value="divide">Divide</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="operator">Options</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="operation_value" class="form-label">Operation Value</label>
