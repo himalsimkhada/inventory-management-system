@@ -46,7 +46,7 @@
                             <label for="short_name" class="form-label">Unit Short Name</label>
                             <input type="text" class="form-control" name="short_name" id="short_name">
                         </div>
-                        <div
+                        {{-- <div
                             class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
                             <div class="custom-switch-inner">
                                 <p class="mb-0"> Base Unit </p>
@@ -55,23 +55,31 @@
                                     data-off-label="No">
                                 </label>
                             </div>
+                        </div> --}}
+
+                        {{-- <div class="form-group">
+                            <label for="base_unit" class="form-label">Base Unit</label>
+                            <input type="text" class="form-control" name="base_unit" id="base_unit">
+                        </div> --}}
+
+                        <div class="form-group">
+                            <label for="base_unit" class="form-label">Base Unit</label>
+                            <select class="custom-select custom-select-sm mb-3" name="base_unit" id="base_unit">
+                                <option selected default>None</option>
+                                @foreach ($base_units as $unit)
+                                    <option value="{{ $unit['name'] }}">{{ $unit['name'] }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div id="hidden-val" hidden>
-                            <div class="form-group">
-                                <label for="base_unit" class="form-label">Base Unit</label>
-                                <input type="text" class="form-control" name="base_unit" id="base_unit">
-                            </div>
                             <div class="form-group">
                                 <label for="operator" class="form-label">Operator</label>
                                 <div class="input-group">
                                     <select class="form-control" id="operator" name="operator">
-                                        <option selected="">Choose...</option>
+                                        <option selected="" value="">Choose...</option>
                                         <option value="multiply">Multiply</option>
                                         <option value="divide">Divide</option>
                                     </select>
-                                    <div class="input-group-append">
-                                        <label class="input-group-text" for="operator">Options</label>
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -272,11 +280,11 @@
             });
 
             // check = $('#base_unit_check').prop('checked');
-            $('#base_unit_check').on('click', function() {
-                if ($('#base_unit_check').is(':checked')) {
-                    $('#hidden-val').prop('hidden', false);
-                } else {
+            $('#base_unit').on('change', function() {
+                if ($('#base_unit').val('')) {
                     $('#hidden-val').prop('hidden', true);
+                } else {
+                    $('#hidden-val').prop('hidden', false);
                 }
             })
         })

@@ -14,7 +14,9 @@ class UnitController extends Controller
     {
         Session::put('admin_page', 'unit');
 
-        return view('admin.unit.index');
+        $base_unit = Unit::where('base_unit', '=', null)->get();
+
+        return view('admin.unit.index', ['base_units' => $base_unit]);
     }
 
     public function store(Request $request)
