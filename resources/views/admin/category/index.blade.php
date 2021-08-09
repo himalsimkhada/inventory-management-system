@@ -226,7 +226,8 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
-                    if (result.isConfirmed) {
+                    if (result.git pull
+                ) {
                         $.ajax({
                             headers: {
                                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
