@@ -33,6 +33,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @include('admin.includes._message')
                 <form method="post">
                     <div class="modal-body">
                         <div class="form-group">
@@ -195,9 +196,9 @@
                             $('#name').val(response.name);
                             $('#short_name').val(response.short_name);
                             $('#base_unit').val(response.base_unit);
-                            if(response.base_unit == '0'){
+                            if (response.base_unit == '0') {
                                 $('#hidden-val').prop('hidden', true);
-                            }else{
+                            } else {
                                 $('#hidden-val').prop('hidden', false);
                             }
                             $('#operator').val(response.operator);
@@ -266,6 +267,7 @@
                 $('#base_unit').val('0');
                 $('#operator').val('');
                 $('#operation_value').val('');
+                $('#hidden-val').prop('hidden', true);
             });
 
             $('#base_unit').on('change', function() {

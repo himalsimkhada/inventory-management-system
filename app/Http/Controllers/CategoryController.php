@@ -18,6 +18,22 @@ class CategoryController extends Controller
     public function store(Request $request){
         if ($request->isMethod('post')) {
             $data = $request->all();
+            $rule = [
+               'category_name' => 'required',
+               'category_code' => 'required',
+               'status' => 'required',
+            ];
+            $customMessage = [
+              'category_name.required' => 'Please Enter Category Name.',
+              'category_code.required' => 'Please Enter Category Code.',
+              'status.required' => 'Please Select Status.',
+            ];
+            $error = $this->validate($request, $rule, $customMessage);
+
+            if(!empty($error)) {
+                return response()->json(['error' => $error]);
+            }
+
             if($data['id'] == null){
                 $category = new Category();
                 $category->category_name = $data['category_name'];

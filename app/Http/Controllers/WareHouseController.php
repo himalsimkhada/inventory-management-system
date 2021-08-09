@@ -19,6 +19,17 @@ class WareHouseController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
+            $rule = [
+                'name' => 'required',
+                'detail' => 'required',
+                'phone' => 'required',
+            ];
+            $customMessage = [
+                'name.required' => 'Please Enter Warehouse Name.',
+                'detail.required' => 'Please Enter Detail.',
+                'phone.required' => 'Please Enter Phone Number.',
+            ];
+            $this->validate($request, $rule, $customMessage);
             if($data['id'] == null){
                 $wareHouse = new WareHouse();
                 $wareHouse->name = $data['name'];

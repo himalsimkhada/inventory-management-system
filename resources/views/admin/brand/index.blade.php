@@ -33,6 +33,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @include('admin.includes._message')
                 <form method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">

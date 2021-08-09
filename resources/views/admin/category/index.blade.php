@@ -9,12 +9,12 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
                     <button type="button" id='add'
-                            class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                            data-toggle="modal" data-target="#categoryModal">
+                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
+                        data-toggle="modal" data-target="#categoryModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor">
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
                     </button>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -32,6 +32,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                </div>
+                <div class="alert alert-danger print-error-msg" style="display:none">
+                    <ul></ul>
                 </div>
                 <form>
                     <div class="modal-body">
@@ -52,9 +55,9 @@
                             <div class="custom-switch-inner">
                                 <p class="mb-0"> Status </p>
                                 <input type="checkbox" class="custom-control-input bg-success" id="status" name="status"
-                                       value="1" checked>
+                                    value="1" checked>
                                 <label class="custom-control-label" for="status" data-on-label="Active"
-                                       data-off-label="Inactive">
+                                    data-off-label="Inactive">
                                 </label>
                             </div>
                         </div>
@@ -78,13 +81,13 @@
                                 <div class="table-responsive">
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
-                                        <tr>
-                                            <th>S. No.</th>
-                                            <th>Name</th>
-                                            <th>Code</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                <th>S. No.</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                     </table>
                                 </div>
@@ -105,9 +108,9 @@
                 serverSide: true,
                 ajax: "{{ route('category.get') }}",
                 columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
                     {
                         data: 'category_name',
                         name: 'category_name'
@@ -145,12 +148,13 @@
                     processData: false,
                     success: function(response) {
                         if (response == true) {
-                            $('#categoryModal').modal('hide');
+                            $('#categoryModal').modal('');
                             $('#datatable').DataTable().ajax.reload();
                         }
                     },
                     error: function(response) {
                         console.log(response);
+                        // alert('error');
                     }
                 })
             });
@@ -171,13 +175,13 @@
                             $('#category_code').val(response.category_code);
                             if (response.status == 0) {
                                 $('#status').prop('checked', false);
-                            }else{
+                            } else {
                                 $('#status').prop('checked', true);
                             }
                         }
                     },
                     error: function(response) {
-                        console.log('error');
+                        console.log(response);
                     }
                 })
             });
