@@ -9,11 +9,11 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
                     <button type="button" id='add' class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                            data-toggle="modal" data-target="#brandModal">
+                            data-toggle="modal" data-target="#wareHouseModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
                     </button>
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="brandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade" id="wareHouseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -31,41 +31,22 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" enctype="multipart/form-data">
+                <form>
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
                         <div class="form-group">
-                            <label for="branch_name" class="form-label">Branch Name</label>
-                            <input type="text" class="form-control" name="brand_name" id="brand_name">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" id="name">
                         </div>
                         <div class="form-group">
-                            <label for="branch_code" class="form-label">Branch Code</label>
-                            <input type="text" class="form-control" name="brand_code" id="brand_code">
+                            <label for="detail" class="form-label">Detail</label>
+                            <textarea class="form-control" id="detail" rows="4" name="detail" id="detail"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="image" class="form-label">Image</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image" value="">
-                                <label class="custom-file-label" for="image">Choose Image</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <img id="selectedImage" src="{{ asset('public/uploads/no-image.jpg') }}" class="img-fluid rounded" alt="#">
-                            </div>
-                            <div id="removeDiv" class="card" hidden="hidden">
-                                <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="status" class="form-label">Status</label><br/>
-                            <div class="custom-control custom-switch custom-control-inline">
-                                <input type="hidden" name="status" value="0">
-                                <input type="checkbox" class="custom-control-input" id="status" name="status" value="1" checked="">
-                                <label class="custom-control-label" for="status"></label>
-                            </div>
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" name="phone" id="phone">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -87,24 +68,22 @@
                                 <div class="table-responsive">
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
-                                            <tr>
-                                                <th>S. No.</th>
-                                                <th>Name</th>
-                                                <th>Code</th>
-                                                <th>Image</th>
-                                                <th>Status</th>
-                                                <th></th>
-                                            </tr>
+                                        <tr>
+                                            <th>S. No.</th>
+                                            <th>Name</th>
+                                            <th>Detail</th>
+                                            <th>Phone</th>
+                                            <th></th>
+                                        </tr>
                                         </thead>
                                         <tfoot>
-                                            <tr>
-                                                <th>S. No.</th>
-                                                <th>Name</th>
-                                                <th>Code</th>
-                                                <th>Image</th>
-                                                <th>Status</th>
-                                                <th></th>
-                                            </tr>
+                                        <tr>
+                                            <th>S. No.</th>
+                                            <th>Name</th>
+                                            <th>Detail</th>
+                                            <th>Phone</th>
+                                            <th></th>
+                                        </tr>
                                         </tfoot>
                                     </table>
                                 </div>
@@ -124,13 +103,12 @@
             $('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('brand.get') }}",
+                ajax: "{{ route('wareHouse.get') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'brand_name', name: 'brand_name'},
-                    {data: 'brand_code', name: 'brand_code'},
-                    {data: 'image', name: 'image'},
-                    {data: 'status', name: 'status'},
+                    {data: 'name', name: 'name'},
+                    {data: 'detail', name: 'detail'},
+                    {data: 'phone', name: 'phone'},
                     {data: 'action', name: 'action'},
                 ],
             });
@@ -146,14 +124,14 @@
                 var formData = new FormData(this);
                 $.ajax({
                     method: "post",
-                    url: "{{ route('brand.store') }}",
+                    url: "{{ route('wareHouse.store') }}",
                     data:formData,
                     cache:false,
                     contentType: false,
                     processData: false,
                     success: function(response) {
                         if (response == true) {
-                            $('#brandModal').modal('hide');
+                            $('#wareHouseModal').modal('hide');
                             $('#datatable').DataTable().ajax.reload();
                         }
                     },
@@ -167,7 +145,7 @@
                 var id = $(this).data('id');
                 $.ajax({
                     method: "post",
-                    url: "{{ route('brand.get') }}",
+                    url: "{{ route('wareHouse.get') }}",
                     data: {
                         id: id
                     },
@@ -176,21 +154,9 @@
                         console.log(response);
                         if (response) {
                             $('#id').val(response.id);
-                            $('#brand_code').val(response.brand_code);
-                            $('#brand_name').val(response.brand_name);
-                            if(response.image == ''){
-                                $('#selectedImage').prop('src', '{{ asset('public/uploads/no-image.jpg') }}');
-                                $('#image').val('');
-                                $('#image').next().text('Choose Image');
-                                $('#removeDiv').prop('hidden', true);
-                            }else{
-                                $('#selectedImage').prop('src', '{{ asset("public/uploads/brand") }}/' + response.image);
-                                $('#image').next().text(response.image);
-                                $('#removeDiv').prop('hidden', false);
-                            }
-                            if(response.status == 0){
-                                $('#status').prop('checked', false);
-                            }
+                            $('#name').val(response.name);
+                            $('#detail').val(response.detail);
+                            $('#phone').val(response.phone);
                         }
                     },
                     error: function(response) {
@@ -204,7 +170,7 @@
                 if (confirm('Do you want to delete?')) {
                     $.ajax({
                         method: "post",
-                        url: "{{ route('brand.destroy') }}",
+                        url: "{{ route('wareHouse.destroy') }}",
                         data: {
                             id: id
                         },
@@ -221,33 +187,11 @@
                 }
             });
 
-            $("#image").on('change', function(){
-                if (this.files && this.files[0]){
-                    var reader = new FileReader();
-                    reader.onload = function(e){
-                        $('#selectedImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                }
-                $('#removeDiv').prop('hidden', false);
-            });
-
-            $('#removeImage').on('click', function(){
-                $('#image').val('');
-                $('#image').next().text('Choose Image');
-                $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
-                $('#removeDiv').prop('hidden', true);
-            });
-
             $('#add').on('click', function() {
                 $('#id').val('');
-                $('#brand_name').val('');
-                $('#brand_code').val('');
-                $('#image').val('');
-                $('#image').next().text('Choose Image');
-                $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
-                $('#removeDiv').prop('hidden', true);
-                $('#status').prop('checked', true);
+                $('#name').val('');
+                $('#detail').val('');
+                $('#phone').val('');
             });
         })
     </script>
