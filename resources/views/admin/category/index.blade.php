@@ -89,22 +89,16 @@
                             <small id="cat_code_help" class="form-text text-muted">Please insert new category code
                                 here.</small>
                         </div>
-                        {{-- <div class="mb-3">
-                                <label for="stat" class="form-label">Status</label>
-                                <select class="form-control" name="status" id="stat">
-                                    <option value="" selected readonly></option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                            </div> --}}
                         <input type="hidden" name="status" value="0" readonly>
-                        <div class="mb-3">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch1" name="status"
-                                    id="stat" value="1">
-                                <label class="custom-control-label" for="customSwitch1">Status</label>
-                                <small id="status_help" class="form-text text-muted">ON is active and OFF is
-                                    inactive.</small>
+                        <div
+                            class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
+                            <div class="custom-switch-inner">
+                                <p class="mb-0"> Base Unit </p>
+                                <input type="checkbox" class="custom-control-input bg-success" id="stat" name="status"
+                                    value="1">
+                                <label class="custom-control-label" for="stat" data-on-label="Active"
+                                    data-off-label="Inactive">
+                                </label>
                             </div>
                         </div>
                         <div class="modal-footer">
