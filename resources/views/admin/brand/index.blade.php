@@ -207,6 +207,8 @@
                             }
                             if (response.status == 0) {
                                 $('#status').prop('checked', false);
+                            }else{
+                                $('#status').prop('checked', true);
                             }
                         }
                     },

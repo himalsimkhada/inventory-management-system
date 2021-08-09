@@ -172,6 +172,8 @@
                             $('#category_code').val(response.category_code);
                             if (response.status == 0) {
                                 $('#status').prop('checked', false);
+                            }else{
+                                $('#status').prop('checked', true);
                             }
                         }
                     },
@@ -225,6 +227,7 @@
             })
 
             $('#add').on('click', function() {
+                $('#id').val('');
                 $('#category_name').val('');
                 $('#category_code').val('');
                 $('#status').prop('checked', true);
