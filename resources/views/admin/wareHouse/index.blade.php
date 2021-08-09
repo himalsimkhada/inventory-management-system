@@ -8,12 +8,13 @@
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <button type="button" id='add' class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                            data-toggle="modal" data-target="#wareHouseModal">
+                    <button type="button" id='add'
+                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
+                        data-toggle="modal" data-target="#wareHouseModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor">
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
                     </button>
@@ -22,7 +23,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="wareHouseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade" id="wareHouseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,22 +70,22 @@
                                 <div class="table-responsive">
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
-                                        <tr>
-                                            <th>S. No.</th>
-                                            <th>Name</th>
-                                            <th>Detail</th>
-                                            <th>Phone</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                <th>S. No.</th>
+                                                <th>Name</th>
+                                                <th>Detail</th>
+                                                <th>Phone</th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                         <tfoot>
-                                        <tr>
-                                            <th>S. No.</th>
-                                            <th>Name</th>
-                                            <th>Detail</th>
-                                            <th>Phone</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                <th>S. No.</th>
+                                                <th>Name</th>
+                                                <th>Detail</th>
+                                                <th>Phone</th>
+                                                <th></th>
+                                            </tr>
                                         </tfoot>
                                     </table>
                                 </div>
@@ -104,12 +106,26 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('wareHouse.get') }}",
-                columns: [
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'name', name: 'name'},
-                    {data: 'detail', name: 'detail'},
-                    {data: 'phone', name: 'phone'},
-                    {data: 'action', name: 'action'},
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'detail',
+                        name: 'detail'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    },
                 ],
             });
 
@@ -125,8 +141,8 @@
                 $.ajax({
                     method: "post",
                     url: "{{ route('wareHouse.store') }}",
-                    data:formData,
-                    cache:false,
+                    data: formData,
+                    cache: false,
                     contentType: false,
                     processData: false,
                     success: function(response) {
@@ -167,25 +183,52 @@
 
             $(document).on('click', '#delete', function() {
                 var id = $(this).data('id');
-                if (confirm('Do you want to delete?')) {
-                    $.ajax({
-                        method: "post",
-                        url: "{{ route('wareHouse.destroy') }}",
-                        data: {
-                            id: id
-                        },
-                        dataType: "json",
-                        success: function(response) {
-                            if (response == 1) {
-                                $('#datatable').DataTable().ajax.reload();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            method: "post",
+                            url: "{{ route('wareHouse.destroy') }}",
+                            data: {
+                                id: id
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                if (response == 1) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                    )
+                                    $('#datatable').DataTable().ajax.reload();
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'There has been error deleting the data.',
+                                        'failed'
+                                    )
+                                }
+                            },
+                            error: function(response) {
+                                console.log('error');
                             }
-                        },
-                        error: function(response) {
-                            console.log('error');
-                        }
-                    })
-                }
-            });
+
+                        })
+                    }
+                })
+
+            })
 
             $('#add').on('click', function() {
                 $('#id').val('');

@@ -228,7 +228,18 @@
                             dataType: "json",
                             success: function(response) {
                                 if (response == 1) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                    )
                                     $('#datatable').DataTable().ajax.reload();
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'There has been error deleting the data.',
+                                        'failed'
+                                    )
                                 }
                             },
                             error: function(response) {
@@ -236,11 +247,6 @@
                             }
 
                         })
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
                     }
                 })
 
