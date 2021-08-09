@@ -21,14 +21,13 @@ class UnitController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            dd($data);
             if ($data['id'] == null) {
                 $unit = new Unit();
                 $unit->name = $data['name'];
                 $unit->short_name = $data['short_name'];
-                $unit->base_unit = ($data['base_unit']) ? $data['base_unit'] : 0;
-                $unit->operator = ($data['operator']) ? $data['operator'] : 0;
-                $unit->operation_value = ($data['operation_value']) ? $data['operation_value'] : 0;
+                $unit->base_unit = ($data['base_unit']);
+                $unit->operator = $data['operator'];
+                $unit->operation_value = $data['operation_value'];
                 $response = $unit->save();
 
                 return response()->json($response);

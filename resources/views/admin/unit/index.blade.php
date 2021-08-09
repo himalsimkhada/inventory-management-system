@@ -49,7 +49,7 @@
                         <div class="form-group">
                             <label for="base_unit" class="form-label">Base Unit</label>
                             <select class="form-control" name="base_unit" id="base_unit">
-                                <option value="">None</option>
+                                <option selected value="">None</option>
                                 @foreach ($base_units as $unit)
                                     <option value="{{ $unit['id'] }}">{{ $unit['name'] }}</option>
                                 @endforeach
@@ -237,7 +237,7 @@
                                 if (response == 1) {
                                     Swal.fire(
                                         'Deleted!',
-                                        'Your file has been deleted.',
+                                        'Your data has been deleted.',
                                         'success'
                                     )
                                     $('#datatable').DataTable().ajax.reload();
@@ -264,6 +264,7 @@
                 $('#name').val('');
                 $('#short_name').val('');
                 $('#base_unit').val('');
+                $('#hidden-val').prop('hidden', true);
                 $('#operator').val('');
                 $('#operation_value').val('');
             });
