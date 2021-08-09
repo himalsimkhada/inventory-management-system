@@ -35,6 +35,7 @@
                 </div>
                 <form method="post" enctype="multipart/form-data">
                     <div class="modal-body">
+                        <div id="errors"></div>
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
@@ -166,13 +167,20 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
+                        console.log(response);
                         if (response == true) {
                             $('#brandModal').modal('hide');
                             $('#datatable').DataTable().ajax.reload();
                         }
                     },
                     error: function(response) {
-                        console.log(response);
+                        console.log(response.responseJSON.errors);
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(e, i){
+                            error += '<li style="list-style-type: none">' + i + '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
                     }
                 })
             });

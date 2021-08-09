@@ -21,8 +21,17 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
+            $rule = [
+                'brand_name' => 'required|max:255',
+                'brand_code' => 'required|max:255',
+            ];
+            $customMessage = [
+                'brand_name.required' => 'Please Enter E-Mail Address',
+                'brand_code.required' => 'Please Enter E-Mail Address',
+            ];
+//            $this->validate($request, $rule, $customMessage);
+            return response()->json($this->validate($request, $rule, $customMessage));
             $data = $request->all();
-//            dd($data);
             $imageTmp = $request->file('image');
             if($data['id'] == null){
                 $brand = new Brand();

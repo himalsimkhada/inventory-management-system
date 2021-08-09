@@ -49,7 +49,7 @@
                         <div class="form-group">
                             <label for="base_unit" class="form-label">Base Unit</label>
                             <select class="form-control" name="base_unit" id="base_unit">
-                                <option selected value="">None</option>
+                                <option value="0" selected>None</option>
                                 @foreach ($base_units as $unit)
                                     <option value="{{ $unit['id'] }}">{{ $unit['name'] }}</option>
                                 @endforeach
@@ -195,10 +195,10 @@
                             $('#name').val(response.name);
                             $('#short_name').val(response.short_name);
                             $('#base_unit').val(response.base_unit);
-                            if(response.base_unit != null){
-                                $('#hidden-val').prop('hidden', false);
-                            }else{
+                            if(response.base_unit == '0'){
                                 $('#hidden-val').prop('hidden', true);
+                            }else{
+                                $('#hidden-val').prop('hidden', false);
                             }
                             $('#operator').val(response.operator);
                             $('#operation_value').val(response.operation_value);
@@ -263,19 +263,19 @@
                 $('#id').val('');
                 $('#name').val('');
                 $('#short_name').val('');
-                $('#base_unit').val('');
+                $('#base_unit').val('0');
                 $('#hidden-val').prop('hidden', true);
                 $('#operator').val('');
                 $('#operation_value').val('');
             });
 
             $('#base_unit').on('change', function() {
-                if ($(this).val() != '') {
-                    $('#hidden-val').prop('hidden', false);
+                if ($(this).val() == "0") {
+                    $('#hidden-val').prop('hidden', true);
                     $('#operator').val('');
                     $('#operator_value').val('');
                 } else {
-                    $('#hidden-val').prop('hidden', true);
+                    $('#hidden-val').prop('hidden', false);
                     $('#operator').val('');
                     $('#operation_value').val('');
                 }
