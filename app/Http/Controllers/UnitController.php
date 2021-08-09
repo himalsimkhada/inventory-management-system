@@ -21,6 +21,18 @@ class UnitController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
+            $rule = [
+                'name' => 'required|max:255',
+                'short_name' => 'required|max:255',
+                'base_unit' => 'required',
+            ];
+            $customMessage = [
+                'name.required' => 'Please Enter Unit Name.',
+                'short_name.required' => 'Please Enter Unit Short Name.',
+                'base_unit.required' => 'Please Choose Base Unit.',
+            ];
+            $this->validate($request, $rule, $customMessage);
+
             if ($data['id'] == null) {
                 $unit = new Unit();
                 $unit->name = $data['name'];

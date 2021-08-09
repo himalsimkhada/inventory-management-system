@@ -35,6 +35,7 @@
                 </div>
                 <form method="post">
                     <div class="modal-body">
+                        <div id="errors"></div>
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
@@ -175,7 +176,12 @@
                         }
                     },
                     error: function(response) {
-                        console.log(response);
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(key, value){
+                            error += '<li style="list-style-type: none">' + value + '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
                     }
                 })
             });
@@ -195,9 +201,9 @@
                             $('#name').val(response.name);
                             $('#short_name').val(response.short_name);
                             $('#base_unit').val(response.base_unit);
-                            if(response.base_unit == '0'){
+                            if (response.base_unit == '0') {
                                 $('#hidden-val').prop('hidden', true);
-                            }else{
+                            } else {
                                 $('#hidden-val').prop('hidden', false);
                             }
                             $('#operator').val(response.operator);

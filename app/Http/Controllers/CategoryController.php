@@ -10,15 +10,27 @@ use Str;
 
 class CategoryController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         Session::put('admin_page', 'category');
         return view('admin.category.index');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            if($data['id'] == null){
+            $rule = [
+                'category_name' => 'required|max:255',
+                'category_code' => 'required|max:255',
+            ];
+            $customMessage = [
+                'category_name.required' => 'Please Enter Category Name.',
+                'category_code.required' => 'Please Enter Category Code.',
+            ];
+            $this->validate($request, $rule, $customMessage);
+
+            if ($data['id'] == null) {
                 $category = new Category();
                 $category->category_name = $data['category_name'];
                 $category->category_code = $data['category_code'];
@@ -26,7 +38,7 @@ class CategoryController extends Controller
                 $category->status = $data['status'];
                 $response = $category->save();
                 return response()->json($response);
-            }else{
+            } else {
                 $category = Category::findorfail($data['id']);
                 $category->category_name = $data['category_name'];
                 $category->category_code = $data['category_code'];
@@ -38,7 +50,8 @@ class CategoryController extends Controller
         }
     }
 
-    public function get(Request $request){
+    public function get(Request $request)
+    {
         if ($request->isMethod('post')) {
             $data = Category::findorfail($request->input('id'));
             return response()->json($data);
@@ -64,7 +77,8 @@ class CategoryController extends Controller
         }
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request)
+    {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $response = Category::where('id', $data['id'])->delete();

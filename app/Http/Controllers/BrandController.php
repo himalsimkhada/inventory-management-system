@@ -9,6 +9,7 @@ use DataTables;
 use Illuminate\Support\Str;
 use Image;
 use File;
+use Illuminate\Support\Facades\Validator;
 
 class BrandController extends Controller
 {
@@ -21,6 +22,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
+            $data = $request->all();
             $rule = [
                 'brand_name' => 'required|max:255',
                 'brand_code' => 'required|max:255',
@@ -35,11 +37,11 @@ class BrandController extends Controller
             $this->validate($request, $rule, $customMessage);
             $data = $request->all();
             $imageTmp = $request->file('image');
-            if($data['id'] == null){
+            if ($data['id'] == null) {
                 $brand = new Brand();
                 $brand->brand_name = $data['brand_name'];
                 $brand->brand_code = $data['brand_code'];
-                if($imageTmp != null){
+                if ($imageTmp != null) {
                     $random = Str::random(10);
                     $extension = $imageTmp->getClientOriginalExtension();
                     $filename = $random . '.' . $extension;
@@ -47,23 +49,23 @@ class BrandController extends Controller
                     $image = $imagePath . $filename;
                     Image::make($imageTmp)->save($image);
                     $brand->image = $filename;
-                }else{
+                } else {
                     $brand->image = '';
                 }
                 $brand->status = $data['status'];
                 $response = $brand->save();
                 return response()->json($response);
-            }else{
+            } else {
                 $brand = Brand::findorfail($data['id']);
                 $brand->brand_name = $data['brand_name'];
                 $brand->brand_code = $data['brand_code'];
-                if($imageTmp != null){
+                if ($imageTmp != null) {
                     $random = Str::random(10);
                     $extension = $imageTmp->getClientOriginalExtension();
                     $filename = $random . '.' . $extension;
                     $imagePath = 'public/uploads/brand/';
                     $image = $imagePath . $filename;
-                    if($brand->image != ""){
+                    if ($brand->image != "") {
                         File::delete($imagePath . $brand->image);
                     }
                     Image::make($imageTmp)->save($image);
@@ -76,7 +78,8 @@ class BrandController extends Controller
         }
     }
 
-    public function get(Request $request){
+    public function get(Request $request)
+    {
         if ($request->isMethod('post')) {
             $data = Brand::findorfail($request->input('id'));
             return response()->json($data);
@@ -97,19 +100,18 @@ class BrandController extends Controller
                     }
                     return $status;
                 })
-                ->addColumn('image', function($row) {
-                    if($row['image'] != ''){
+                ->addColumn('image', function ($row) {
+                    if ($row['image'] != '') {
                         $imageFile = asset('public/uploads/brand/' . $row['image']);
-                    }else{
+                    } else {
                         $imageFile = asset('public/uploads/no-image.jpg');
                     }
-                    $image = '<img class="mr-3 avatar-70 img-fluid rounded" src="'. $imageFile . '">';
+                    $image = '<img class="mr-3 avatar-70 img-fluid rounded" src="' . $imageFile . '">';
                     return $image;
                 })
                 ->rawColumns(['action', 'status', 'image'])
                 ->make(true);
         }
-
     }
 
     public function destroy(Request $request)
@@ -118,7 +120,7 @@ class BrandController extends Controller
             $data = $request->all();
             $brand = Brand::findorfail($data['id']);
             $response = Brand::where('id', $data['id'])->delete();
-            if($brand->image != ""){
+            if ($brand->image != "") {
                 File::delete('public/uploads/brand/' . $brand->image);
             }
             return response()->json($response);

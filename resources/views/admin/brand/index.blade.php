@@ -28,7 +28,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add/Edit Brand</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,11 +40,11 @@
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
                         <div class="form-group">
-                            <label for="brand_name" class="form-label">Branch Name</label>
+                            <label for="brand_name" class="form-label">Brand Name</label>
                             <input type="text" class="form-control" name="brand_name" id="brand_name">
                         </div>
                         <div class="form-group">
-                            <label for="brand_code" class="form-label">Branch Code</label>
+                            <label for="brand_code" class="form-label">Brand Code</label>
                             <input type="text" class="form-control" name="brand_code" id="brand_code">
                         </div>
                         <div class="form-group">
@@ -174,10 +174,9 @@
                         }
                     },
                     error: function(response) {
-                        console.log(response.responseJSON.errors);
                         var error = '<div class="alert alert-danger"><ul>';
-                        $.each(response.responseJSON.errors, function(e, i){
-                            error += '<li style="list-style-type: none">' + i + '</li>'
+                        $.each(response.responseJSON.errors, function(key, value){
+                            error += '<li style="list-style-type: none">' + value + '</li>'
                         })
                         error += '</ul></div>'
                         $('#errors').html(error);
