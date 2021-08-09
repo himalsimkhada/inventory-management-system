@@ -244,7 +244,7 @@
                                 if (response == 1) {
                                     Swal.fire(
                                         'Deleted!',
-                                        'Your file has been deleted.',
+                                        'Your data has been deleted.',
                                         'success'
                                     )
                                     $('#datatable').DataTable().ajax.reload();

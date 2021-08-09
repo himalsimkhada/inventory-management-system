@@ -61,7 +61,7 @@
                                 <label for="operator" class="form-label">Operator</label>
                                 <div class="input-group">
                                     <select class="form-control" id="operator" name="operator">
-                                        <option disabled="" value="">Choose...</option>
+                                        <option readonly value="">Choose...</option>
                                         <option value="*">Multiply</option>
                                         <option value="/">Divide</option>
                                     </select>
@@ -237,7 +237,7 @@
                                 if (response == 1) {
                                     Swal.fire(
                                         'Deleted!',
-                                        'Your file has been deleted.',
+                                        'Your data has been deleted.',
                                         'success'
                                     )
                                     $('#datatable').DataTable().ajax.reload();
