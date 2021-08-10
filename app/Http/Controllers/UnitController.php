@@ -60,14 +60,12 @@ class UnitController extends Controller
 
     public function get(Request $request)
     {
-        // dd($request);
         if ($request->isMethod('post')) {
             $data = Unit::findorfail($request->input('id'));
 
             return response()->json($data);
         } else {
             $data = Unit::all()->sortByDesc('id');
-
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

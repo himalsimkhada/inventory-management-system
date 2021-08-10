@@ -63,6 +63,11 @@ Route::prefix('/admin')->group(function(){
         Route::match(['get', 'post'], '/warehouse/get', 'WareHouseController@get')->name('wareHouse.get');
         Route::post('/warehouse/store', 'WareHouseController@store')->name('wareHouse.store');
         Route::post('/warehouse/destroy', 'WareHouseController@destroy')->name('wareHouse.destroy');
+
+        // Product
+        Route::get('/product/add', function(){
+            return view('admin.product.add');
+        })->name('product.view');
     });
 
     // Admin Logout

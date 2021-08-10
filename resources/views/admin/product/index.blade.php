@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Category</h4>
+            <h4 class="font-weight-bold">Product</h4>
         </div>
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
@@ -36,7 +36,10 @@
                                             <th>S. No.</th>
                                             <th>Name</th>
                                             <th>Code</th>
-                                            <th>Status</th>
+                                            <th>Category</th>
+                                            <th>Brand</th>
+                                            <th>Barcode</th>
+                                            <th>Description</th>
                                             <th></th>
                                         </tr>
                                         </thead>
@@ -54,38 +57,7 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#datatable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('category.get') }}",
-                columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                    },
-                    {
-                        data: 'category_name',
-                        name: 'category_name'
-                    },
-                    {
-                        data: 'category_code',
-                        name: 'category_code'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
-                ],
-            });
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+            $('#datatable').DataTable();
         })
     </script>
 @endsection
