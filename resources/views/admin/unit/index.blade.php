@@ -275,6 +275,7 @@
                 $('#operator').val('');
                 $('#operation_value').val('');
                 $('#hidden-val').prop('hidden', true);
+                $('#errors').html('');
             });
 
             $('#base_unit').on('change', function() {

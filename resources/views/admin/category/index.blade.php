@@ -244,6 +244,7 @@
                 $('#category_name').val('');
                 $('#category_code').val('');
                 $('#status').prop('checked', true);
+                $('#errors').html('');
             });
         })
     </script>

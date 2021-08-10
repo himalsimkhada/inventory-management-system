@@ -230,6 +230,7 @@
                 $('#name').val('');
                 $('#detail').val('');
                 $('#phone').val('');
+                $('#errors').html('');
             });
         })
     </script>
