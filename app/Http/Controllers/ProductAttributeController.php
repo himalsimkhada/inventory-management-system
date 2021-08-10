@@ -32,11 +32,13 @@ class ProductAttributeController extends Controller
             $this->validate($request, $rule, $customMessage);
 
             if ($data['id'] == null) {
+                // dd($request->id);
                 $product_attribute = new ProductAttributes();
                 $product_attribute->size = $data['size'];
                 $product_attribute->color = $data['color'];
                 $product_attribute->price = $data['price'];
                 $product_attribute->sku = $data['sku'];
+                $product_attribute->product_id = $data['p_id'];
                 $response = $product_attribute->save();
                 return response()->json($response);
             } else {

@@ -41,6 +41,9 @@
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
                         <div class="form-group">
+                            <input type="hidden" class="form-control" name="p_id" id="p_id" value="{{ request()->id }}">
+                        </div>
+                        <div class="form-group">
                             <label for="size" class="form-label">Size</label>
                             <input type="text" class="form-control" name="size" id="size">
                         </div>
