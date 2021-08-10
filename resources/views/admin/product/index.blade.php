@@ -63,7 +63,7 @@
             $('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('category.get') }}",
+                ajax: "{{ route('product.get') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -81,30 +81,79 @@
                         name: 'product_code'
                     },
                     {
-                        data: 'category',
-                        name: 'category'
+                        data: 'category_id',
+                        name: 'category_id'
                     },
                     {
-                        data: 'brand',
-                        name: 'brand'
+                        data: 'brand_id',
+                        name: 'brand_id'
                     },
                     {
-                        data: 'unit',
-                        name: 'unit'
+                        data: 'unit_id',
+                        name: 'unit_id'
                     },
                     {
-                        data: 'tax_type',
-                        data: 'tax_type'
+                        data: 'tax_type_id',
+                        data: 'tax_type_id'
                     },
                     {
-                        data: 'description',
-                        name: 'description'
+                        data: 'product_description',
+                        name: 'product_description'
                     },
                     {
                         data: 'action',
                         name: 'action'
                     },
                 ],
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(document).on('click', '#delete', function() {
+                var id = $(this).data('id');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: "post",
+                            url: "{{ route('product.destroy') }}",
+                            data: {
+                                id: id
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                if (response == 1) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'A product has been deleted.',
+                                        'success'
+                                    )
+                                    $('#datatable').DataTable().ajax.reload();
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'There has been error deleting the data.',
+                                        'failed'
+                                    )
+                                }
+                            },
+                            error: function(response) {
+                                console.log('error');
+                            }
+                        })
+                    }
+                })
             });
         });
     </script>

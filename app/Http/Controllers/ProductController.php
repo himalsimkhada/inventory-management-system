@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -22,24 +23,32 @@ class ProductController extends Controller
             $data = Product::findorfail($request->input('id'));
             return response()->json($data);
         } else {
-            $data = Product::all()->sortByDesc("id");
-            dd($data);
+            $data = Product::all()->sortByDesc('id');
+            // $data = Image::all();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('image', function ($data) {
-                    return 'N/a';
+                    return Image::where('product_id', $data['id'])->first()->image;
                 })
-                ->editColumn('category', function ($data) {
-                    return 'N/a';
+                ->editColumn('category_id', function ($data) {
+                    if ($data->category_id == null) {
+                        return 'N/A';
+                    } else {
+                        return $data->category->category_name;
+                    }
                 })
-                ->editColumn('brand', function ($data) {
-                    return 'N/a';
+                ->editColumn('brand_id', function ($data) {
+                    if ($data->brand_id == null) {
+                        return 'N/A';
+                    } else {
+                        return $data->brand->brand_name;
+                    }
                 })
-                ->editColumn('unit', function ($data) {
-                    return 'N/a';
+                ->editColumn('unit_id', function ($data) {
+                    return $data->unit->name;
                 })
-                ->editColumn('tax_type', function ($data) {
-                    return 'N/a';
+                ->editColumn('tax_type_id', function ($data) {
+                    return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<button class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
@@ -56,6 +65,17 @@ class ProductController extends Controller
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            Image::where('product_id', $data['id'])->delete();
+            $response = Product::where('id', $data['id'])->delete();
+
+            return response()->json($response);
         }
     }
 }

@@ -66,6 +66,8 @@ Route::prefix('/admin')->group(function(){
 
         //Product
         Route::get('/product/view', 'ProductController@index')->name('product.index');
+        Route::get('/product/get', 'ProductController@get')->name('product.get');
+        Route::post('/product/destroy', 'ProductController@destroy')->name('product.destroy');
     });
 
     // Admin Logout
