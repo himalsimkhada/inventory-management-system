@@ -15,23 +15,18 @@ class AddProductsForeignKeys extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id');
-
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->unsignedBigInteger('brand_id');
-
             $table->foreign('brand_id')->references('id')->on('brands');
 
             $table->unsignedBigInteger('unit_id');
-
             $table->foreign('unit_id')->references('id')->on('units');
 
             $table->unsignedBigInteger('tax_type_id');
-
             $table->foreign('tax_type_id')->references('id')->on('tax_types');
 
             $table->unsignedBigInteger('product_attribute_id');
-
             $table->foreign('product_attribute_id')->references('id')->on('product_attributes');
         });
     }
