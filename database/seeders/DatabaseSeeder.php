@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Details;
+use App\Models\TaxType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,6 +31,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'IMS',
             'fav_icon' => 'favicon.ico.png',
             'logo' => 'logo.png',
+        ]);
+
+        TaxType::insert([
+            [ 'type' => 'exclusive' ],
+            [ 'type' => 'inclusive' ],
         ]);
     }
 }
