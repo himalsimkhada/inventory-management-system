@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Unit extends Model
 {
     use HasFactory;
+
+    public function unit(){
+        return $this->belongsTo(Unit::class, 'base_unit');
+    }
 }

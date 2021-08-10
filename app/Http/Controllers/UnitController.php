@@ -6,6 +6,7 @@ use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
+use DB;
 // use DataTables;
 
 class UnitController extends Controller
@@ -13,7 +14,7 @@ class UnitController extends Controller
     public function index()
     {
         Session::put('admin_page', 'unit');
-        $base_unit = Unit::where('base_unit', '=', '0')->get();
+        $base_unit = Unit::where('base_unit', '=', 0)->get();
         return view('admin.unit.index', ['base_units' => $base_unit]);
     }
 
@@ -73,6 +74,13 @@ class UnitController extends Controller
                     $actionBtn = '<button class="btn btn-primary mr-2" data-toggle="modal" data-target="#unitModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
+                ->editColumn('base_unit', function ($data) {
+                    if ($data->base_unit == 0) {
+                        return "Main Unit";
+                    } else {
+                        return $data->unit->name;
+                    }
+                })
                 ->rawColumns(['action'])
                 ->make(true);
         }
@@ -83,6 +91,7 @@ class UnitController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
             $response = Unit::where('id', $data['id'])->delete();
+            DB::table('units')->where('base_unit', $data['id'])->delete();
             return response()->json($response);
         }
     }
