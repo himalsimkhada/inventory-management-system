@@ -17,7 +17,15 @@ class CreateUnitsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('short_name');
+<<<<<<< HEAD
             $table->integer('base_unit')->default(0);
+=======
+<<<<<<< HEAD
+            $table->string('base_unit')->nullable()->default(0);
+=======
+            $table->string('base_unit')->default('0');
+>>>>>>> 8fff63f960b536cca343e08d6801b64927aee15d
+>>>>>>> 4243fae674fd399f572ce97c3c60a80f3da64f45
             $table->string('operator')->nullable();
             $table->string('operation_value')->nullable();
             $table->timestamps();

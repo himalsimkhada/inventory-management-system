@@ -62,7 +62,7 @@
                                 <label for="operator" class="form-label">Operator</label>
                                 <div class="input-group">
                                     <select class="form-control" id="operator" name="operator">
-                                        <option readonly value="">Choose...</option>
+                                        <option disabled value="">Choose...</option>
                                         <option value="*">Multiply</option>
                                         <option value="/">Divide</option>
                                     </select>
@@ -265,6 +265,7 @@
                 $('#name').val('');
                 $('#short_name').val('');
                 $('#base_unit').val('0');
+                $('#hidden-val').prop('hidden', true);
                 $('#operator').val('');
                 $('#operation_value').val('');
                 $('#hidden-val').prop('hidden', true);

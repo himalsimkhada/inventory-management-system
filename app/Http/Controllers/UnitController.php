@@ -37,7 +37,7 @@ class UnitController extends Controller
                 $unit = new Unit();
                 $unit->name = $data['name'];
                 $unit->short_name = $data['short_name'];
-                $unit->base_unit = $data['base_unit'];
+                $unit->base_unit = ($data['base_unit']);
                 $unit->operator = $data['operator'];
                 $unit->operation_value = $data['operation_value'];
                 $response = $unit->save();
