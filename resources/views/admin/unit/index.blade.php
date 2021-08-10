@@ -33,6 +33,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @include('admin.includes._message')
                 <form method="post">
                     <div class="modal-body">
                         <div id="errors"></div>
@@ -273,6 +274,8 @@
                 $('#hidden-val').prop('hidden', true);
                 $('#operator').val('');
                 $('#operation_value').val('');
+                $('#hidden-val').prop('hidden', true);
+                $('#errors').html('');
             });
 
             $('#base_unit').on('change', function() {

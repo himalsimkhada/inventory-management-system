@@ -33,6 +33,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @include('admin.includes._message')
                 <form>
                     <div class="modal-body">
                         <div id="errors"></div>
@@ -229,6 +230,7 @@
                 $('#name').val('');
                 $('#detail').val('');
                 $('#phone').val('');
+                $('#errors').html('');
             });
         })
     </script>

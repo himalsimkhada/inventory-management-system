@@ -33,6 +33,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="alert alert-danger print-error-msg" style="display:none">
+                    <ul></ul>
+                </div>
                 <form>
                     <div class="modal-body">
                         <div id="errors"></div>
@@ -241,6 +244,7 @@
                 $('#category_name').val('');
                 $('#category_code').val('');
                 $('#status').prop('checked', true);
+                $('#errors').html('');
             });
         })
     </script>

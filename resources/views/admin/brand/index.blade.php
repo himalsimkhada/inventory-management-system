@@ -33,6 +33,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @include('admin.includes._message')
                 <form method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div id="errors"></div>
@@ -169,7 +170,6 @@
                     success: function(response) {
                         if (response == true) {
                             $('#brandModal').modal('hide');
-                            $('#errors').html('');
                             $('#datatable').DataTable().ajax.reload();
                         }
                     },
@@ -300,6 +300,7 @@
                 $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
                 $('#removeDiv').prop('hidden', true);
                 $('#status').prop('checked', true);
+                $('#errors').html('');
             });
         })
     </script>
