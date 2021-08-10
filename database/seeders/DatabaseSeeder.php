@@ -3,8 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Details;
+use App\Models\Image;
+use App\Models\Product;
 use App\Models\TaxType;
+use App\Models\Unit;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,8 +39,71 @@ class DatabaseSeeder extends Seeder
         ]);
 
         TaxType::insert([
-            [ 'type' => 'exclusive' ],
-            [ 'type' => 'inclusive' ],
+            ['type' => 'exclusive'],
+            ['type' => 'inclusive'],
+        ]);
+
+        Brand::insert([
+            'brand_name' => 'SAMSUNG',
+            'brand_code' => '0001',
+            'status' => 1,
+        ]);
+
+        Category::insert([
+            'category_name' => 'Electronics',
+            'category_code' => '0001',
+            'slug' => 'electronics',
+            'status' => 1,
+        ]);
+
+        Unit::insert([
+            [
+                'name' => 'Dozen',
+                'short_name' => 'dz',
+                'base_unit' => 0,
+            ],
+        ]);
+
+        Unit::insert([
+            [
+                'name' => 'Pieces',
+                'short_name' => 'pcs',
+                'base_unit' => 1,
+                'operator' => '/',
+                'operation_value' => '12',
+            ]
+        ]);
+
+        Product::insert([
+            [
+                'product_name' => 'Smart Television',
+                'product_code' => '00001',
+                'barcode_symbology' => '####',
+                'product_description' => 'This is a description',
+                'category_id' => 1,
+                'brand_id' => 1,
+                'unit_id' => 1,
+                'tax_type_id' => 1,
+            ],
+        ]);
+
+        Product::insert([
+            'product_name' => 'Android Smartphone',
+            'product_code' => '000200',
+            'barcode_symbology' => '####',
+            'product_description' => 'This is a description',
+            'unit_id' => 2,
+            'tax_type_id' => 1,
+        ]);
+
+        Image::insert([
+            'image' => 'image.jpg',
+            'product_id' => 1,
+        ]);
+
+        Image::insert([
+            'image' => 'image.jpg',
+            'product_id' => 2,
         ]);
     }
 }

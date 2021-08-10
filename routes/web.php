@@ -64,10 +64,14 @@ Route::prefix('/admin')->group(function(){
         Route::post('/warehouse/store', 'WareHouseController@store')->name('wareHouse.store');
         Route::post('/warehouse/destroy', 'WareHouseController@destroy')->name('wareHouse.destroy');
 
-        // Product
-        Route::get('/product/add', function(){
-            return view('admin.product.add');
-        })->name('product.view');
+        //Product
+        Route::get('/product/view', 'ProductController@index')->name('product.index');
+        Route::get('/product/get/', 'ProductController@get')->name('product.get');
+        Route::get('/product/get/{id}', 'ProductController@get')->name('product.edit');
+        Route::post('/product/destroy', 'ProductController@destroy')->name('product.destroy');
+        Route::get('/product/add', 'ProductController@add')->name('product.add');
+        Route::post('/product/store', 'ProductController@store')->name('product.store');
+
     });
 
     // Admin Logout

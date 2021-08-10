@@ -22,7 +22,6 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
-            $data = $request->all();
             $rule = [
                 'brand_name' => 'required|max:255',
                 'brand_code' => 'required|max:255',
