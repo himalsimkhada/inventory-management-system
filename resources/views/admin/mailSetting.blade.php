@@ -27,7 +27,7 @@
 
                                     <div class="form-group col-sm-6">
                                         <label for="password">SMTP Password</label>
-                                        <input type="text" class="form-control" id="password" name="mail_password"
+                                        <input type="password" class="form-control" id="password" name="mail_password"
                                             value="{{ env('MAIL_PASSWORD') }}">
                                     </div>
 

@@ -3,14 +3,14 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Category</h4>
+            <h4 class="font-weight-bold">Ware House</h4>
         </div>
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
                     <button type="button" id='add'
                         class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                        data-toggle="modal" data-target="#categoryModal">
+                        data-toggle="modal" data-target="#wareHouseModal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -23,12 +23,12 @@
         </div>
     </div>
 
-    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    <div class="modal fade" id="wareHouseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add/Edit Category</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add/Edit Warehouse</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,24 +40,16 @@
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
                         <div class="form-group">
-                            <label for="category_name" class="form-label">Category Name</label>
-                            <input type="text" class="form-control" name="category_name" id="category_name">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" id="name">
                         </div>
                         <div class="form-group">
-                            <label for="category_code" class="form-label">Category Code</label>
-                            <input type="text" class="form-control" name="category_code" id="category_code">
+                            <label for="detail" class="form-label">Detail</label>
+                            <textarea class="form-control" id="detail" rows="4" name="detail" id="detail"></textarea>
                         </div>
-                        <input type="hidden" name="status" value="0" readonly>
-                        <div
-                            class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
-                            <div class="custom-switch-inner">
-                                <p class="mb-0"> Status </p>
-                                <input type="checkbox" class="custom-control-input bg-success" id="status" name="status"
-                                    value="1" checked>
-                                <label class="custom-control-label" for="status" data-on-label="Active"
-                                    data-off-label="Inactive">
-                                </label>
-                            </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" name="phone" id="phone">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -82,8 +74,8 @@
                                             <tr>
                                                 <th>S. No.</th>
                                                 <th>Name</th>
-                                                <th>Code</th>
-                                                <th>Status</th>
+                                                <th>Detail</th>
+                                                <th>Phone</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -96,6 +88,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('js')
@@ -104,22 +97,22 @@
             $('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('category.get') }}",
+                ajax: "{{ route('wareHouse.get') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'category_name',
-                        name: 'category_name'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
-                        data: 'category_code',
-                        name: 'category_code'
+                        data: 'detail',
+                        name: 'detail'
                     },
                     {
-                        data: 'status',
-                        name: 'status'
+                        data: 'phone',
+                        name: 'phone'
                     },
                     {
                         data: 'action',
@@ -139,21 +132,22 @@
                 var formData = new FormData(this);
                 $.ajax({
                     method: "post",
-                    url: "{{ route('category.store') }}",
+                    url: "{{ route('wareHouse.store') }}",
                     data: formData,
                     cache: false,
                     contentType: false,
                     processData: false,
                     success: function(response) {
                         if (response == true) {
-                            $('#categoryModal').modal('hide');
+                            $('#wareHouseModal').modal('hide');
                             $('#datatable').DataTable().ajax.reload();
                         }
                     },
                     error: function(response) {
                         var error = '<div class="alert alert-danger"><ul>';
-                        $.each(response.responseJSON.errors, function(e, i) {
-                            error += '<li style="list-style-type: none">' + i + '</li>'
+                        $.each(response.responseJSON.errors, function(key, value) {
+                            error += '<li style="list-style-type: none">' + value +
+                                '</li>'
                         })
                         error += '</ul></div>'
                         $('#errors').html(error);
@@ -165,7 +159,7 @@
                 var id = $(this).data('id');
                 $.ajax({
                     method: "post",
-                    url: "{{ route('category.get') }}",
+                    url: "{{ route('wareHouse.get') }}",
                     data: {
                         id: id
                     },
@@ -173,22 +167,13 @@
                     success: function(response) {
                         if (response) {
                             $('#id').val(response.id);
-                            $('#category_name').val(response.category_name);
-                            $('#category_code').val(response.category_code);
-                            if (response.status == 0) {
-                                $('#status').prop('checked', false);
-                            } else {
-                                $('#status').prop('checked', true);
-                            }
+                            $('#name').val(response.name);
+                            $('#detail').val(response.detail);
+                            $('#phone').val(response.phone);
                         }
                     },
                     error: function(response) {
-                        var error = '<div class="alert alert-danger"><ul>';
-                        $.each(response.responseJSON.errors, function(key, value){
-                            error += '<li style="list-style-type: none">' + value + '</li>'
-                        })
-                        error += '</ul></div>'
-                        $('#errors').html(error);
+                        console.log('error');
                     }
                 })
             });
@@ -206,8 +191,11 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            },
                             method: "post",
-                            url: "{{ route('category.destroy') }}",
+                            url: "{{ route('wareHouse.destroy') }}",
                             data: {
                                 id: id
                             },
@@ -238,9 +226,9 @@
 
             $('#add').on('click', function() {
                 $('#id').val('');
-                $('#category_name').val('');
-                $('#category_code').val('');
-                $('#status').prop('checked', true);
+                $('#name').val('');
+                $('#detail').val('');
+                $('#phone').val('');
             });
         })
     </script>

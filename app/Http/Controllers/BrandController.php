@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Yajra\DataTables\DataTables;
+use DataTables;
+use Illuminate\Support\Str;
+use Image;
+use File;
+use Illuminate\Support\Facades\Validator;
 
 class BrandController extends Controller
 {
@@ -19,22 +23,57 @@ class BrandController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
+            $rule = [
+                'brand_name' => 'required|max:255',
+                'brand_code' => 'required|max:255',
+                'image' => 'mimes:jpeg,png,jpg,gif|max:2048',
+            ];
+            $customMessage = [
+                'brand_name.required' => 'Brand name field is required.',
+                'brand_code.required' => 'Brand code field is required.',
+                'image.image' => 'Upload image must be an image.',
+                'image.max' => 'Upload image must be less than 2MB',
+            ];
+            $this->validate($request, $rule, $customMessage);
+            $data = $request->all();
+            $imageTmp = $request->file('image');
             if ($data['id'] == null) {
                 $brand = new Brand();
-                $brand->branch_name = $data['brand_name'];
-                $brand->branch_code = $data['brand_code'];
-                $brand->image = $data['image'];
+                $brand->brand_name = $data['brand_name'];
+                $brand->brand_code = $data['brand_code'];
+                if ($imageTmp != null) {
+                    $random = Str::random(10);
+                    $extension = $imageTmp->getClientOriginalExtension();
+                    $filename = $random . '.' . $extension;
+                    $imagePath = 'public/uploads/brand/';
+                    $image = $imagePath . $filename;
+                    Image::make($imageTmp)->save($image);
+                    $brand->image = $filename;
+                } else {
+                    $brand->image = '';
+                }
                 $brand->status = $data['status'];
-                $brand->save();
-                return response()->json(true);
+                $response = $brand->save();
+                return response()->json($response);
             } else {
                 $brand = Brand::findorfail($data['id']);
-                $brand->branch_name = $data['brand_name'];
-                $brand->branch_code = $data['brand_code'];
-                $brand->image = $data['image'];
+                $brand->brand_name = $data['brand_name'];
+                $brand->brand_code = $data['brand_code'];
+                if ($imageTmp != null) {
+                    $random = Str::random(10);
+                    $extension = $imageTmp->getClientOriginalExtension();
+                    $filename = $random . '.' . $extension;
+                    $imagePath = 'public/uploads/brand/';
+                    $image = $imagePath . $filename;
+                    if ($brand->image != "") {
+                        File::delete($imagePath . $brand->image);
+                    }
+                    Image::make($imageTmp)->save($image);
+                    $brand->image = $filename;
+                }
                 $brand->status = $data['status'];
-                $brand->save();
-                return response()->json(true);
+                $response = $brand->save();
+                return response()->json($response);
             }
         }
     }
@@ -49,22 +88,25 @@ class BrandController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<div class="btn-group"><button class="btn btn-primary" data-toggle="modal" data-target="#brandModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button></div>';
-
+                    $actionBtn = '<button class="btn btn-primary mr-2" data-toggle="modal" data-target="#brandModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {
-                    $statusSign = null;
+                    $status = null;
                     if ($row['status'] == 1) {
-                        $statusSign = '<span class="dot" style="color:green;display:inline-block;">Active</span>';
+                        $status = '<span class="dot" style="color:green;display:inline-block;">Active</span>';
                     } elseif ($row['status'] == 0) {
-                        $statusSign = '<span class="dot" style="color:red;display:inline-block;">Inactive</span>';
+                        $status = '<span class="dot" style="color:red;display:inline-block;">Inactive</span>';
                     }
-                    return $statusSign;
+                    return $status;
                 })
-                ->addColumn('image', function($row) {
-                    $img_file = asset('public/brand/images/' . $row['image']);
-                    $image = '<img class="mr-3 avatar-70 img-fluid rounded" src="'. $img_file . '">';
+                ->addColumn('image', function ($row) {
+                    if ($row['image'] != '') {
+                        $imageFile = asset('public/uploads/brand/' . $row['image']);
+                    } else {
+                        $imageFile = asset('public/uploads/no-image.jpg');
+                    }
+                    $image = '<img class="mr-3 avatar-70 img-fluid rounded" src="' . $imageFile . '">';
                     return $image;
                 })
                 ->rawColumns(['action', 'status', 'image'])
@@ -76,8 +118,12 @@ class BrandController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            $brand = Brand::where('id', $data['id'])->delete();
-            return response()->json($brand);
+            $brand = Brand::findorfail($data['id']);
+            $response = Brand::where('id', $data['id'])->delete();
+            if ($brand->image != "") {
+                File::delete('public/uploads/brand/' . $brand->image);
+            }
+            return response()->json($response);
         }
     }
 }

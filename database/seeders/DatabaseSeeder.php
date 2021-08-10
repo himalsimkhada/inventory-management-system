@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Details;
 use Illuminate\Database\Seeder;
 
@@ -33,8 +31,5 @@ class DatabaseSeeder extends Seeder
             'fav_icon' => 'favicon.ico.png',
             'logo' => 'logo.png',
         ]);
-
-        Category::factory()->count(100)->create();
-        Brand::factory()->count(20)->create();
     }
 }
