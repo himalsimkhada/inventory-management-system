@@ -28,7 +28,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Store</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add/Edit Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -38,6 +38,7 @@
                 </div>
                 <form>
                     <div class="modal-body">
+                        <div id="errors"></div>
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
@@ -153,8 +154,12 @@
                         }
                     },
                     error: function(response) {
-                        console.log(response);
-                        // alert('error');
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(e, i) {
+                            error += '<li style="list-style-type: none">' + i + '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
                     }
                 })
             });
@@ -181,7 +186,12 @@
                         }
                     },
                     error: function(response) {
-                        console.log(response);
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(key, value){
+                            error += '<li style="list-style-type: none">' + value + '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
                     }
                 })
             });

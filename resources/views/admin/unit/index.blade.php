@@ -36,6 +36,7 @@
                 @include('admin.includes._message')
                 <form method="post">
                     <div class="modal-body">
+                        <div id="errors"></div>
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="id" id="id">
                         </div>
@@ -176,7 +177,12 @@
                         }
                     },
                     error: function(response) {
-                        console.log(response);
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(key, value){
+                            error += '<li style="list-style-type: none">' + value + '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
                     }
                 })
             });
