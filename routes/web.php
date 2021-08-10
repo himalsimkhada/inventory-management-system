@@ -40,12 +40,23 @@ Route::prefix('/admin')->group(function(){
         //Admin Mail Settings
         Route::match(['get', 'post'], '/mail/setting', 'AlterEnvController@caller')->name('mailSetting');
 
+        // Category
+        Route::match(['get', 'post'],'/category', 'CategoryController@category',)->name('category');
+        Route::match(['get', 'post'], '/getCategory', 'CategoryController@getCategory')->name('getCategory');
 
-        // Category CRUD
-        Route::get('/category', 'CategoryController@index')->name('category.index');
+        Route::post('/storeCategory', 'CategoryController@category')->name('storeCategory');
+        //Admin View Categories
+        Route::get('/category/view', 'CategoryController@view')->name('categoryView');
 
+        //Admin Add Category
+        Route::match(['get', 'post'], '/category/add', 'CategoryController@create')->name('categoryCreate');
+        Route::post('/category/delete', 'CategoryController@destroy')->name('category.destroy');
 
-
+        // Brand
+        Route::get('/brand', 'BrandController@index')->name('brand.index');
+        Route::match(['get', 'post'], '/getBrand', 'BrandController@get')->name('brand.get');
+        Route::post('storeBrand', 'BrandController@store')->name('brand.store');
+        Route::post('destroyBrand', 'BrandController@destroy')->name('brand.destroy');
     });
 
     // Admin Logout
