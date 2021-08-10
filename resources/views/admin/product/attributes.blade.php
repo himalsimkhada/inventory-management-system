@@ -167,22 +167,22 @@
             });
 
             $(document).on('click', '#edit', function() {
-                var hid = $(this).data('id');
+                var id = $(this).data('id');
                 var product_id = "{{ request()->id }}";
                 $.ajax({
-                    method: "get",
+                    method: "post",
                     url: "{{ route('product.attr.get', ['id' => 'productId']) }}".replace(
                         'productId', product_id),
                     data: {
-                        id: hid
+                        id: id
                     },
                     dataType: "json",
                     success: function(response) {
                         if (response) {
-                            $('#id').val(response.hid);
+                            $('#id').val(response.id);
                             $('#size').val(response.size);
                             $('#color').val(response.color);
-                            $('price').val(response.price);
+                            $('#price').val(response.price);
                             $('#sku').val(response.sku);
                         }
                     },

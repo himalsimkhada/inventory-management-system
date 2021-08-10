@@ -71,7 +71,7 @@ Route::prefix('/admin')->group(function(){
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
-        Route::get('/product/{id}/get', 'ProductAttributeController@get')->name('product.attr.get');
+        Route::match(['get', 'post'], '/product/{id}/get', 'ProductAttributeController@get')->name('product.attr.get');
         Route::post('/product/attributes/store', 'ProductAttributeController@store')->name('product.attr.store');
         Route::post('/product/attribute/destroy', 'ProductAttributeController@destroy')->name('product.attr.destroy');
     });

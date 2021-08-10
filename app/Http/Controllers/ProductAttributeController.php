@@ -55,7 +55,7 @@ class ProductAttributeController extends Controller
     {
         // dd(request()->id);
         if ($request->isMethod('post')) {
-            $data = ProductAttributes::where('product_id', $request->id)->get();
+            $data = ProductAttributes::where('product_id', $request->id)->firstorfail();
             return response()->json($data);
         } else {
             $data = ProductAttributes::where('product_id', $request->id)->get()->sortByDesc('id');
