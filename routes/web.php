@@ -68,6 +68,12 @@ Route::prefix('/admin')->group(function(){
         Route::get('/product/view', 'ProductController@index')->name('product.index');
         Route::get('/product/get', 'ProductController@get')->name('product.get');
         Route::post('/product/destroy', 'ProductController@destroy')->name('product.destroy');
+
+        //Product Attribute
+        Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
+        Route::get('/product/{id}/get', 'ProductAttributeController@get')->name('product.attr.get');
+        Route::post('/product/attributes/store', 'ProductAttributeController@store')->name('product.attr.store');
+        Route::post('/product/attribute/destroy', 'ProductAttributeController@destroy')->name('product.attr.destroy');
     });
 
     // Admin Logout

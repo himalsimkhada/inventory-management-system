@@ -51,7 +51,7 @@ class ProductController extends Controller
                     return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<button class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="'. route('product.attr.index', ['id' => $row['id']]) .'">Attr</a></button><button class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {
