@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductAttributes;
 use App\Models\TaxType;
 use App\Models\Unit;
+use App\Models\WareHouse;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -73,6 +74,12 @@ class DatabaseSeeder extends Seeder
                 'operator' => '/',
                 'operation_value' => '12',
             ]
+        ]);
+
+        WareHouse::insert([
+            'name' => 'Electronic Warehouse',
+            'detail' => 'This warehouse stores all the electronic devices.',
+            'phone' => 'Phone number is not provided.',
         ]);
 
         Product::insert([
