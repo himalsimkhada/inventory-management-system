@@ -149,7 +149,7 @@
                     processData: false,
                     success: function(response) {
                         if (response == true) {
-                            $('#categoryModal').modal('');
+                            $('#categoryModal').modal('hide');
                             $('#datatable').DataTable().ajax.reload();
                         }
                     },
