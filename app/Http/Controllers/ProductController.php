@@ -8,6 +8,7 @@ use App\Models\Image;
 use App\Models\Product;
 use App\Models\TaxType;
 use App\Models\Unit;
+use App\Models\ProductAttributes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
@@ -49,6 +50,13 @@ class ProductController extends Controller
                     if ($data->image == null) {
                         return Image::where('product_id', $data['id'])->first()->image;
                     }
+//                    if (Image::where('product_id', $data['id'])->exists()) {
+//                        $image = Image::where('product_id', $data['id'])->first()->image;
+//                        $imageFile = asset('public/uploads/product/' . $image);
+//                    } else {
+//                        $imageFile = asset('public/uploads/no-image.jpg');
+//                    }
+//                    return '<img class="mr-3 avatar-70 img-fluid rounded" src="' . $imageFile . '">';
                 })
                 ->editColumn('category_id', function ($data) {
                     if ($data->category_id == null) {
@@ -71,7 +79,7 @@ class ProductController extends Controller
                     return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="'. route('product.attr.index', ['id' => $row['id']]) .'">Attr</a></button><a href="'. route('product.edit', ['id' => $row['id']]) .'" class="btn btn-primary mr-2" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="' . route('product.attr.index', ['id' => $row['id']]) . '">More</a></button><button class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {
@@ -92,9 +100,11 @@ class ProductController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            Img::where('product_id', $data['id'])->delete();
+            $product = Image::where('product_id', $data['id']);
+            $product->delete();
+            File::delete('public/uploads/product' . $product->image);
+            ProductAttributes::where('product_id', $data['id'])->delete();
             $response = Product::where('id', $data['id'])->delete();
-
             return response()->json($response);
         }
     }
