@@ -10,11 +10,11 @@ use App\Models\TaxType;
 use App\Models\Unit;
 use App\Models\ProductAttributes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Img;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller {
     public function index() {
@@ -22,7 +22,7 @@ class ProductController extends Controller {
         return view('admin.product.index');
     }
 
-    public function get($id = null)     {
+    public function get($id = null) {
         if ($id != '') {
             $category = Category::all()->sortByDesc("product_name");
             $product = Brand::all()->sortByDesc("product_name");
@@ -65,7 +65,7 @@ class ProductController extends Controller {
                     if ($data->brand_id == null) {
                         return 'N/A';
                     } else {
-                        return $data->brand->product_name;
+                        return $data->brand->brand_name;
                     }
                 })
                 ->editColumn('unit_id', function ($data) {
@@ -75,7 +75,7 @@ class ProductController extends Controller {
                     return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="' . route('product.attr.index', ['id' => $row['id']]) . '">More</a></button><a href="' . route('product.edit', ['id' => $row['id']]) . '" class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="' . route('product.attr.index', ['id' => $row['id']]) . '">More</a><a href="' . route('product.edit', ['id' => $row['id']]) . '" class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {
@@ -120,8 +120,8 @@ class ProductController extends Controller {
                 'image' => 'mimes:jpeg,png,jpg,gif|max:2048',
             ];
             $customMessage = [
-                'product_name.required' => 'Brand name field is required.',
-                'product_code.required' => 'Brand code field is required.',
+                'product_name.required' => 'Please Enter Product Name.',
+                'product_code.required' => 'Please Enter Product Code.',
                 'image.image' => 'Upload image must be an image.',
                 'image.max' => 'Upload image must be less than 2MB',
             ];
@@ -145,20 +145,23 @@ class ProductController extends Controller {
                     Img::make($imageTmp)->save($image);
                     $product->image = $filename;
                 } else {
-                    $product->image = '';
+                    if ($request->input('img_remove_val') == 'removed') {
+                        File::delete('public/uploads/product/' . $product->image);
+                        $product->image = null;
+                    }
                 }
                 $product->product_description = $data['description'];
                 $response = $product->save();
                 Session::flash('info_message', 'Product has been created successfully');
                 return redirect('admin/product/view');
             } else {
-                $product = Brand::findorfail($data['id']);
+                $product = Product::findorfail($data['id']);
                 $product->product_name = $data['product_name'];
                 $product->product_code = $data['product_code'];
                 $product->category_id = $data['category_id'];
                 $product->brand_id = $data['brand_id'];
                 $product->unit_id = $data['unit_id'];
-                $product->tax_id = $data['tax_id'];
+                $product->tax_type_id = $data['tax_id'];
                 if ($imageTmp != null) {
                     $random = Str::random(10);
                     $extension = $imageTmp->getClientOriginalExtension();
@@ -168,14 +171,19 @@ class ProductController extends Controller {
                     if ($product->image != "") {
                         File::delete($imagePath . $product->image);
                     }
-                    Img::make($imageTmp)->save($image);
                     $product->image = $filename;
+                    Img::make($imageTmp)->save($image);
                 } else {
-                    $imagePath = 'public/uploads/product/';
-                    if ($product->image != "") {
-                        File::delete($imagePath . $product->image);
+                    if ($request->input('img_remove_val') == 'removed') {
+                        File::delete('public/uploads/product/' . $product->image);
+                        $product->image = null;
                     }
-                    $product->image = '';
-           }
-product_description
-                dd('asdasd');
+                }
+                $product->product_description = $data['description'];
+                $response = $product->save();
+                Session::flash('info_message', 'Product has been updated successfully');
+                return redirect('admin/product/view');
+            }
+        }
+    }
+}
