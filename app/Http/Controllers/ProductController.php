@@ -75,7 +75,7 @@ class ProductController extends Controller {
                     return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="' . route('product.attr.index', ['id' => $row['id']]) . '">More</a></button><a href="' . route('product.edit', ['id' => $row['id']]) . '" class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="' . route('product.attr.index', ['id' => $row['id']]) . '">More</a><a href="' . route('product.edit', ['id' => $row['id']]) . '" class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {
@@ -168,8 +168,8 @@ class ProductController extends Controller {
                     if ($product->image != "") {
                         File::delete($imagePath . $product->image);
                     }
-                    Img::make($imageTmp)->save($image);
                     $product->image = $filename;
+                    Img::make($imageTmp)->save($image);
                 } else {
                     $imagePath = 'public/uploads/product/';
                     if ($product->image != "") {
