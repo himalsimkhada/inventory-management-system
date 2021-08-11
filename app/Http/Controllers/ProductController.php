@@ -24,11 +24,15 @@ class ProductController extends Controller
         return view('admin.product.index');
     }
 
-    public function get(Request $request)
+    public function get($id=null)
     {
-        if ($request->isMethod('post')) {
-            $data = Product::findorfail($request->input('id'));
-            return response()->json($data);
+        if ($id != ''){
+            $category = Category::all()->sortByDesc("product_name");
+            $product = Brand::all()->sortByDesc("product_name");
+            $unit = Unit::all()->sortByDesc("name");
+            $tax = TaxType::all()->sortByDesc("type");
+            $editData = Product::findorfail($id);
+            return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData]);
         } else {
             $data = Product::all()->sortByDesc('id');
             // $data = Image::all();
@@ -67,8 +71,8 @@ class ProductController extends Controller
                     return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
-                    $a = '"product//get//"';
-                    $actionBtn = '<a class="btn btn-primary mr-2" href="{{ route() }}" id="edit">Edit</a><a class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</a>';
+//                    $a = route('product/get');
+                    $actionBtn = '<a class="btn btn-primary mr-2" href="get/'.$row['id'].'" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {
@@ -101,7 +105,7 @@ class ProductController extends Controller
         $product = Brand::all()->sortByDesc("product_name");
         $unit = Unit::all()->sortByDesc("name");
         $tax = TaxType::all()->sortByDesc("type");
-        return view('admin.product.add', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax]);
+        return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax]);
     }
 
     public function store(Request $request){
@@ -142,7 +146,7 @@ class ProductController extends Controller
                 $product->product_description = $data['description'];
                 $response = $product->save();
                 Session::flash('info_message', 'Product has been created successfully');
-                    return redirect('admin/product/view');
+                return redirect('admin/product/view');
             } else {
                 $product = Brand::findorfail($data['id']);
                 $product->product_name = $data['product_name'];
@@ -172,7 +176,7 @@ class ProductController extends Controller
                 $product->description = $data['description'];
                 $response = $product->save();
                 Session::flash('info_message', 'Product has been updated successfully');
-                return redirect('admin.product.index');
+                return redirect('admin.product.view');
             }
         }
     }

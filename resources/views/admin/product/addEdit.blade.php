@@ -29,7 +29,7 @@
                     <h5 class="font-weight-bold mb-3">Basic Information</h5>
                     <form class="row g-3" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" id="id" name="id">
+                        <input type="text" id="id" name="id" value="{{ isset($editData) }}">
                         <div class="col-md-6 mb-3">
                             <label for="product_name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
                             <input type="text" class="form-control" id="product_name" name="product_name">
