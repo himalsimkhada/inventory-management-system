@@ -7,6 +7,8 @@ use App\Models\ProductAttributes;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use DNS1D;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Str;
 
 class ProductAttributeController extends Controller {
     public function index(Request $request) {
@@ -34,8 +36,12 @@ class ProductAttributeController extends Controller {
                 $product_attribute->size = $data['size'];
                 $product_attribute->color = $data['color'];
                 $product_attribute->price = $data['price'];
-                $prod_name = strtoupper(substr(Product::where('id', $data['p_id'])->first()->product_name, 0, 3));
-                $product_attribute->sku = $prod_name . '-' . strtoupper(substr($data['size'], 0, 3)) . '-' . strtoupper(substr($data['color'], 0, 3));
+                $sku = strtoupper(substr(Product::where('id', $data['p_id'])->first()->product_name, 0, 3)) . '-' . strtoupper(substr($data['size'], 0, 3)) . '-' . strtoupper(substr($data['color'], 0, 3));
+                $product_attribute->sku = $sku;
+                $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
+                $name = Str::random(10) . '.png';
+                Image::make($barcode)->save('public/uploads/' . $name);
+                $product_attribute->barcode = $name;
                 $product_attribute->product_id = $data['p_id'];
                 $response = $product_attribute->save();
                 return response()->json($response);
@@ -44,8 +50,12 @@ class ProductAttributeController extends Controller {
                 $product_attribute->size = $data['size'];
                 $product_attribute->color = $data['color'];
                 $product_attribute->price = $data['price'];
-                $prod_name = strtoupper(substr(Product::where('id', $request->id)->first()->name, 0, 3));
-                $product_attribute->sku = $prod_name . '-' . strtoupper(substr($data['size'], 0, 3)) . '-' . strtoupper(substr($data['color'], 0, 3));
+                $sku = strtoupper(substr(Product::where('id', $data['p_id'])->first()->product_name, 0, 3)) . '-' . strtoupper(substr($data['size'], 0, 3)) . '-' . strtoupper(substr($data['color'], 0, 3));
+                $product_attribute->sku = $sku;
+                $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
+                $name = Str::random(10) . '.png';
+                Image::make($barcode)->save('public/uploads/' . $name);
+                $product_attribute->barcode = $name;
                 $response = $product_attribute->save();
                 return response()->json($response);
             }
@@ -61,9 +71,8 @@ class ProductAttributeController extends Controller {
             $data = ProductAttributes::where('product_id', $request->id)->get()->sortByDesc('id');
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('barcode', function($row) {
-                    $barcode = DNS1D::getBarcodeSVG($row['sku'], 'C39+',1,33);
-
+                ->addColumn('barcode', function ($row) {
+                    $barcode = DNS1D::getBarcodeSVG($row['sku'], 'C39+', 1, 33);
                     return $barcode;
                 })
                 ->addColumn('action', function ($row) {
