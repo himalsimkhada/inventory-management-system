@@ -10,11 +10,11 @@ use App\Models\TaxType;
 use App\Models\Unit;
 use App\Models\ProductAttributes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
-use Str;
 use Intervention\Image\ImageManagerStatic as Img;
-use File;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller {
     public function index() {
