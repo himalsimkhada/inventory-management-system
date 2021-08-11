@@ -26,10 +26,11 @@
         <div class="col-lg-12 mb-3 d-flex justify-content-between">
             <h4 class="font-weight-bold d-flex align-items-center">New Product</h4>
         </div>
+        @include('admin.includes._message');
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="font-weight-bold mb-3">Basic Information</h5>
+                    <h5 class="font-weight-bold mb-3">Product Information</h5>
                     <form class="row g-3" method="post" action="{{ route('product.store') }}"
                         enctype="multipart/form-data">
                         @csrf
@@ -94,20 +95,21 @@
                         <div class="col-md-6 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image" value="">
+                                <input type="file" class="custom-file-input" id="image" name="image" value=""
+                                    accept="image/*">
                                 <label class="custom-file-label" for="image">Choose Image</label>
                             </div>
                         </div>
                         <div class="col-md-3 mb3">
                             <div class="card">
                                 <img id="selectedImage"
-                                    src="{{ isset($editData) ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
+                                    src="{{ isset($editData) && $editData->image != '' ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
                                     class="img-fluid rounded" alt="#">
                             </div>
                         </div>
                         <div class="col-md-3 mb3">
                             <div id="removeDiv" class="card"
-                                {{ isset($editData) ? ($editData->product_description ? 'hidden="hidden"' : '') : 'hidden="hidden"' }}>
+                                {{ isset($editData) ? ($editData->image != '' ? '' : 'hidden="hidden"') : 'hidden="hidden"' }}>
                                 <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
                             </div>
                         </div>
@@ -117,6 +119,7 @@
                             <textarea class="form-control" id="description" rows="2"
                                 name="description">{{ isset($editData) ? $editData->product_description : '' }}</textarea>
                         </div>
+                        <input type="hidden" name="img_remove_val" id="img_remove_val" value="">
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary">
                                 Create Product
@@ -145,6 +148,7 @@
 
             $('#removeImage').on('click', function() {
                 $('#image').val('');
+                $('#img_remove_val').val('removed');
                 $('#image').next().text('Choose Image');
                 $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
                 $('#removeDiv').prop('hidden', true);
