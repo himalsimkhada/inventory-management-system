@@ -97,8 +97,8 @@ class ProductController extends Controller {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $product = Image::where('product_id', $data['id']);
-            $product->delete();
             File::delete('public/uploads/product' . $product->image);
+            $product->delete();
             ProductAttributes::where('product_id', $data['id'])->delete();
             $response = Product::where('id', $data['id'])->delete();
             return response()->json($response);
