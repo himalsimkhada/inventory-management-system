@@ -28,8 +28,14 @@ class ProductController extends Controller
             // $data = Image::all();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->editColumn('image', function ($data) {
-                    return Image::where('product_id', $data['id'])->first()->image;
+                ->addColumn('image', function ($data) {
+                    if (Image::where('product_id', $data['id']) == null) {
+                        $imageFile = asset('public/uploads/no-image.jpg');
+                    } else {
+                        $image = Image::where('product_id', $data['id'])->first()->image;
+                        $imageFile = asset('public/uploads/product/' . $image);
+                    }
+                    return '<img class="mr-3 avatar-70 img-fluid rounded" src="' . $imageFile . '">';
                 })
                 ->editColumn('category_id', function ($data) {
                     if ($data->category_id == null) {
@@ -52,7 +58,7 @@ class ProductController extends Controller
                     return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="'. route('product.attr.index', ['id' => $row['id']]) .'">More</a></button><button class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="' . route('product.attr.index', ['id' => $row['id']]) . '">More</a></button><button class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {
@@ -64,7 +70,7 @@ class ProductController extends Controller
                     }
                     return $status;
                 })
-                ->rawColumns(['action', 'status'])
+                ->rawColumns(['action', 'status', 'image'])
                 ->make(true);
         }
     }
