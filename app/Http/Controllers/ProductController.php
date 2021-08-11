@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 use Intervention\Image\ImageManagerStatic as Img;
 use Illuminate\Support\Str;
+use DNS1D;
 
 class ProductController extends Controller {
     public function index() {
@@ -87,7 +88,7 @@ class ProductController extends Controller {
                     }
                     return $status;
                 })
-                ->rawColumns(['action', 'status', 'image'])
+                ->rawColumns(['action', 'status', 'image', 'barcode'])
                 ->make(true);
         }
     }

@@ -55,10 +55,6 @@
                             <label for="price" class="form-label">Price</label>
                             <input type="text" class="form-control" name="price" id="price">
                         </div>
-                        <div class="form-group">
-                            <label for="sku" class="form-label">SKU</label>
-                            <input type="text" class="form-control" name="sku" id="sku">
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -85,6 +81,7 @@
                                                 <th>Color</th>
                                                 <th>Price</th>
                                                 <th>SKU</th>
+                                                <th>Barcode</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -128,6 +125,10 @@
                     {
                         data: 'sku',
                         name: 'sku'
+                    },
+                    {
+                        data: 'barcode',
+                        name: 'barcode'
                     },
                     {
                         data: 'action',
@@ -186,7 +187,6 @@
                             $('#size').val(response.size);
                             $('#color').val(response.color);
                             $('#price').val(response.price);
-                            $('#sku').val(response.sku);
                         }
                     },
                     error: function(response) {
@@ -249,7 +249,6 @@
                 $('#size').val('');
                 $('#color').val('');
                 $('#price').val('');
-                $('#sku').val('');
                 $('#errors').html('');
             });
         });
