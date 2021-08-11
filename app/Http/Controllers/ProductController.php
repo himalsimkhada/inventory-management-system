@@ -29,11 +29,11 @@ class ProductController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($data) {
-                    if (Image::where('product_id', $data['id']) == null) {
-                        $imageFile = asset('public/uploads/no-image.jpg');
-                    } else {
+                    if (Image::where('product_id', $data['id'])->exists()) {
                         $image = Image::where('product_id', $data['id'])->first()->image;
                         $imageFile = asset('public/uploads/product/' . $image);
+                    } else {
+                        $imageFile = asset('public/uploads/no-image.jpg');
                     }
                     return '<img class="mr-3 avatar-70 img-fluid rounded" src="' . $imageFile . '">';
                 })
