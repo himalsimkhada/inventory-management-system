@@ -83,12 +83,12 @@
                         </div>
                         <div class="col-md-3 mb3">
                             <div class="card">
-                                <img id="selectedImage" src="{{ (isset($editData)) ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
+                                <img id="selectedImage" src="{{ (isset($editData) && $editData->image != '') ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
                                      class="img-fluid rounded" alt="#">
                             </div>
                         </div>
                         <div class="col-md-3 mb3">
-                            <div id="removeDiv" class="card" {{ (isset($editData)) ? ($editData->product_description) ? 'hidden="hidden"' : '' : 'hidden="hidden"' }}>
+                            <div id="removeDiv" class="card" {{ (isset($editData)) ? ($editData->image != '') ? '' : 'hidden="hidden"' : 'hidden="hidden"' }}>
                                 <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
                             </div>
                         </div>
