@@ -65,7 +65,7 @@ class ProductController extends Controller {
                     if ($data->brand_id == null) {
                         return 'N/A';
                     } else {
-                        return $data->brand->product_name;
+                        return $data->brand->brand_name;
                     }
                 })
                 ->editColumn('unit_id', function ($data) {

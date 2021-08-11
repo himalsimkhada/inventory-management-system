@@ -51,7 +51,7 @@
                             <label for="category"
                                 class="form-label font-weight-bold text-muted text-uppercase">Category</label>
                             <select id="category" class="form-select form-control choicesjs" name="category_id">
-                                <option value="selected">Select Category</option>
+                                <option selected value="">Select Category</option>
                                 @foreach ($category as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->category_id == $value->id ? 'selected' : '') : '' }}>
@@ -62,7 +62,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="brand" class="form-label font-weight-bold text-muted text-uppercase">Brand</label>
                             <select id="brand" class="form-select form-control choicesjs" name="brand_id">
-                                <option value="selected">Select Brand</option>
+                                <option selected value="">Select Brand</option>
                                 @foreach ($brand as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->brand_id == $value->id ? 'selected' : '') : '' }}>
@@ -84,7 +84,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="tax" class="form-label font-weight-bold text-muted text-uppercase">Tax</label>
                             <select id="tax" class="form-select form-control choicesjs" name="tax_id">
-                                <option value="selected">Select Tax</option>
+                                <option selected value="">Select Tax</option>
                                 @foreach ($tax as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->tax_type_id == $value->id ? 'selected' : '') : '' }}>
