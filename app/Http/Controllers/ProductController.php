@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 use Str;
-use Intervention\Image\ImageManagerStatic as Img;
+use Intervention\Image\ImageManager as Img;
 use File;
 
 class ProductController extends Controller
@@ -173,7 +173,7 @@ class ProductController extends Controller
                     if ($product->image != "") {
                         File::delete($imagePath . $product->image);
                     }
-                    Img::make($imageTmp)->save($image);
+                    Image::make($imageTmp)->save($image);
                     $product->image = $filename;
                 } else {
                     $imagePath = 'public/uploads/product/';

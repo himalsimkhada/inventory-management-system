@@ -3,24 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use DataTables;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use DataTables;
 use Illuminate\Support\Str;
 use Image;
-use File;
-use Illuminate\Support\Facades\Validator;
 
-class BrandController extends Controller
-{
-    public function index()
-    {
+class BrandController extends Controller {
+    public function index() {
         Session::put('admin_page', 'brand');
         return view('admin.brand.index');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         if ($request->isMethod('post')) {
             $rule = [
                 'brand_name' => 'required|max:255',
@@ -83,8 +79,7 @@ class BrandController extends Controller
         }
     }
 
-    public function get(Request $request)
-    {
+    public function get(Request $request) {
         if ($request->isMethod('post')) {
             $data = Brand::findorfail($request->input('id'));
             return response()->json($data);
@@ -119,8 +114,7 @@ class BrandController extends Controller
         }
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request) {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $brand = Brand::findorfail($data['id']);

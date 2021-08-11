@@ -12,9 +12,12 @@
                         </ol>
                     </nav>
                 </div>
-                <a href="{{ route('product.index') }}" class="btn btn-primary btn-sm d-flex align-items-center justify-content-between ml-2">
+                <a href="{{ route('product.index') }}"
+                    class="btn btn-primary btn-sm d-flex align-items-center justify-content-between ml-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                            clip-rule="evenodd" />
                     </svg>
                     <span class="ml-2">Back</span>
                 </a>
@@ -27,23 +30,31 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="font-weight-bold mb-3">Basic Information</h5>
-                    <form class="row g-3" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
+                    <form class="row g-3" method="post" action="{{ route('product.store') }}"
+                        enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" id="id" name="id" value="{{ (isset($editData)) ? $editData->id : '' }}">
+                        <input type="hidden" id="id" name="id" value="{{ isset($editData) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
-                            <label for="product_name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
-                            <input type="text" class="form-control" id="product_name" name="product_name" value="{{ (isset($editData)) ? $editData->product_name : '' }}">
+                            <label for="product_name" class="form-label font-weight-bold text-muted text-uppercase">Product
+                                Name</label>
+                            <input type="text" class="form-control" id="product_name" name="product_name"
+                                value="{{ isset($editData) ? $editData->product_name : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="product_code" class="form-label font-weight-bold text-muted text-uppercase">Product Code</label>
-                            <input type="text" class="form-control" id="product_code" name="product_code" value="{{ (isset($editData)) ? $editData->product_code : '' }}">
+                            <label for="product_code" class="form-label font-weight-bold text-muted text-uppercase">Product
+                                Code</label>
+                            <input type="text" class="form-control" id="product_code" name="product_code"
+                                value="{{ isset($editData) ? $editData->product_code : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="category" class="form-label font-weight-bold text-muted text-uppercase">Category</label>
+                            <label for="category"
+                                class="form-label font-weight-bold text-muted text-uppercase">Category</label>
                             <select id="category" class="form-select form-control choicesjs" name="category_id">
                                 <option value="selected">Select Category</option>
-                                @foreach($category as $value)
-                                    <option value="{{ $value->id }}" {{(isset($editData)) ? $editData->category_id == $value->id  ? 'selected' : '' : ''}}>{{ $value->category_name}}</option>
+                                @foreach ($category as $value)
+                                    <option value="{{ $value->id }}"
+                                        {{ isset($editData) ? ($editData->category_id == $value->id ? 'selected' : '') : '' }}>
+                                        {{ $value->category_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -51,8 +62,10 @@
                             <label for="brand" class="form-label font-weight-bold text-muted text-uppercase">Brand</label>
                             <select id="brand" class="form-select form-control choicesjs" name="brand_id">
                                 <option value="selected">Select Brand</option>
-                                @foreach($brand as $value)
-                                    <option value="{{ $value->id }}" {{(isset($editData)) ? $editData->brand_id == $value->id  ? 'selected' : '' : ''}}>{{ $value->brand_name }}</option>
+                                @foreach ($brand as $value)
+                                    <option value="{{ $value->id }}"
+                                        {{ isset($editData) ? ($editData->brand_id == $value->id ? 'selected' : '') : '' }}>
+                                        {{ $value->brand_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -60,8 +73,10 @@
                             <label for="unit" class="form-label font-weight-bold text-muted text-uppercase">Unit</label>
                             <select id="unit" class="form-select form-control choicesjs" name="unit_id">
                                 <option value="">Select Unit</option>
-                                @foreach($unit as $value)
-                                    <option value="{{ $value->id }}" {{(isset($editData)) ? $editData->unit_id == $value->id  ? 'selected' : '' : ''}}>{{ $value->name }}</option>
+                                @foreach ($unit as $value)
+                                    <option value="{{ $value->id }}"
+                                        {{ isset($editData) ? ($editData->unit_id == $value->id ? 'selected' : '') : '' }}>
+                                        {{ $value->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -69,8 +84,10 @@
                             <label for="tax" class="form-label font-weight-bold text-muted text-uppercase">Tax</label>
                             <select id="tax" class="form-select form-control choicesjs" name="tax_id">
                                 <option value="selected">Select Tax</option>
-                                @foreach($tax as $value)
-                                    <option value="{{ $value->id }}" {{(isset($editData)) ? $editData->tax_type_id == $value->id  ? 'selected' : '' : ''}}>{{ $value->type }}</option>
+                                @foreach ($tax as $value)
+                                    <option value="{{ $value->id }}"
+                                        {{ isset($editData) ? ($editData->tax_type_id == $value->id ? 'selected' : '') : '' }}>
+                                        {{ $value->type }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -83,18 +100,22 @@
                         </div>
                         <div class="col-md-3 mb3">
                             <div class="card">
-                                <img id="selectedImage" src="{{ (isset($editData)) ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
-                                     class="img-fluid rounded" alt="#">
+                                <img id="selectedImage"
+                                    src="{{ isset($editData) ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
+                                    class="img-fluid rounded" alt="#">
                             </div>
                         </div>
                         <div class="col-md-3 mb3">
-                            <div id="removeDiv" class="card" {{ (isset($editData)) ? ($editData->product_description) ? 'hidden="hidden"' : '' : 'hidden="hidden"' }}>
+                            <div id="removeDiv" class="card"
+                                {{ isset($editData) ? ($editData->product_description ? 'hidden="hidden"' : '') : 'hidden="hidden"' }}>
                                 <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label for="description" class="form-label font-weight-bold text-muted text-uppercase">Description</label>
-                            <textarea class="form-control" id="description" rows="2" name="description">{{ (isset($editData)) ? $editData->product_description : '' }}</textarea>
+                            <label for="description"
+                                class="form-label font-weight-bold text-muted text-uppercase">Description</label>
+                            <textarea class="form-control" id="description" rows="2"
+                                name="description">{{ isset($editData) ? $editData->product_description : '' }}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary">
@@ -110,7 +131,7 @@
 
 @section('js')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $("#image").on('change', function() {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
@@ -131,5 +152,3 @@
         })
     </script>
 @endsection
-
-
