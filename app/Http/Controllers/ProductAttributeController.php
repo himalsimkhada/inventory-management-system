@@ -7,6 +7,7 @@ use App\Models\ProductAttributes;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use DNS1D;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Str;
 
@@ -40,7 +41,7 @@ class ProductAttributeController extends Controller {
                 $product_attribute->sku = $sku;
                 $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
                 $name = Str::random(10) . '.png';
-                Image::make($barcode)->save('public/uploads/' . $name);
+                Image::make($barcode)->save('public/uploads/barcode/' . $name);
                 $product_attribute->barcode = $name;
                 $product_attribute->product_id = $data['p_id'];
                 $response = $product_attribute->save();
@@ -50,11 +51,14 @@ class ProductAttributeController extends Controller {
                 $product_attribute->size = $data['size'];
                 $product_attribute->color = $data['color'];
                 $product_attribute->price = $data['price'];
+                if($product_attribute->barcode != ''){
+                    File::delete('public/uploads/barcode/' . $product_attribute->barcode);
+                }
                 $sku = strtoupper(substr(Product::where('id', $data['p_id'])->first()->product_name, 0, 3)) . '-' . strtoupper(substr($data['size'], 0, 3)) . '-' . strtoupper(substr($data['color'], 0, 3));
                 $product_attribute->sku = $sku;
                 $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
                 $name = Str::random(10) . '.png';
-                Image::make($barcode)->save('public/uploads/' . $name);
+                Image::make($barcode)->save('public/uploads/barcode/' . $name);
                 $product_attribute->barcode = $name;
                 $response = $product_attribute->save();
                 return response()->json($response);
