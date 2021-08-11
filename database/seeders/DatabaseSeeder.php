@@ -86,7 +86,6 @@ class DatabaseSeeder extends Seeder
             [
                 'product_name' => 'Smart Television',
                 'product_code' => '00001',
-                'barcode_symbology' => '####',
                 'product_description' => 'This is a description',
                 'category_id' => 1,
                 'brand_id' => 1,
@@ -98,7 +97,6 @@ class DatabaseSeeder extends Seeder
         Product::insert([
             'product_name' => 'Android Smartphone',
             'product_code' => '000200',
-            'barcode_symbology' => '####',
             'product_description' => 'This is a description',
             'unit_id' => 2,
             'tax_type_id' => 1,
@@ -108,7 +106,6 @@ class DatabaseSeeder extends Seeder
             'size' => 'Large',
             'color' => 'Black',
             'price' => '1200',
-            'sku' => 'default',
             'product_id' => 1,
          ]);
 

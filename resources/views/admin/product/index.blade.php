@@ -42,6 +42,7 @@
                                                 <th>Unit</th>
                                                 <th>Tax Type</th>
                                                 <th>Description</th>
+                                                <th>Barcode</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
