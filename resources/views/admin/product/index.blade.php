@@ -41,7 +41,6 @@
                                                 <th>Brand</th>
                                                 <th>Unit</th>
                                                 <th>Tax Type</th>
-                                                <th>Description</th>
                                                 <th>Barcode</th>
                                                 <th></th>
                                             </tr>
@@ -95,10 +94,6 @@
                     {
                         data: 'tax_type_id',
                         data: 'tax_type_id'
-                    },
-                    {
-                        data: 'product_description',
-                        name: 'product_description'
                     },
                     {
                         data: 'action',
