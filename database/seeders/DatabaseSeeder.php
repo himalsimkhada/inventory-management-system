@@ -8,8 +8,10 @@ use App\Models\Category;
 use App\Models\Details;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\ProductAttributes;
 use App\Models\TaxType;
 use App\Models\Unit;
+use App\Models\WareHouse;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -74,6 +76,12 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        WareHouse::insert([
+            'name' => 'Electronic Warehouse',
+            'detail' => 'This warehouse stores all the electronic devices.',
+            'phone' => 'Phone number is not provided.',
+        ]);
+
         Product::insert([
             [
                 'product_name' => 'Smart Television',
@@ -95,6 +103,14 @@ class DatabaseSeeder extends Seeder
             'unit_id' => 2,
             'tax_type_id' => 1,
         ]);
+
+        ProductAttributes::insert([
+            'size' => 'Large',
+            'color' => 'Black',
+            'price' => '1200',
+            'sku' => 'default',
+            'product_id' => 1,
+         ]);
 
         Image::insert([
             'image' => 'image.jpg',

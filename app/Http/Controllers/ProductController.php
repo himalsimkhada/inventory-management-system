@@ -71,8 +71,7 @@ class ProductController extends Controller
                     return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
-//                    $a = route('product/get');
-                    $actionBtn = '<a class="btn btn-primary mr-2" href="get/'.$row['id'].'" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="'. route('product.attr.index', ['id' => $row['id']]) .'">Attr</a></button><a href="'. route('product.edit', ['id' => $row['id']]) .'" class="btn btn-primary mr-2" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
                 ->addColumn('status', function ($row) {

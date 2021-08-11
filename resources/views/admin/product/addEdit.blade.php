@@ -29,21 +29,21 @@
                     <h5 class="font-weight-bold mb-3">Basic Information</h5>
                     <form class="row g-3" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <input type="text" id="id" name="id" value="{{ isset($editData) }}">
+                        <input type="hidden" id="id" name="id" value="{{ (isset($editData)) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
                             <label for="product_name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
-                            <input type="text" class="form-control" id="product_name" name="product_name">
+                            <input type="text" class="form-control" id="product_name" name="product_name" value="{{ (isset($editData)) ? $editData->product_name : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="product_code" class="form-label font-weight-bold text-muted text-uppercase">Product Code</label>
-                            <input type="text" class="form-control" id="product_code" name="product_code">
+                            <input type="text" class="form-control" id="product_code" name="product_code" value="{{ (isset($editData)) ? $editData->product_code : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="category" class="form-label font-weight-bold text-muted text-uppercase">Category</label>
                             <select id="category" class="form-select form-control choicesjs" name="category_id">
                                 <option value="selected">Select Category</option>
                                 @foreach($category as $value)
-                                    <option value="{{ $value->id }}">{{ $value->category_name }}</option>
+                                    <option value="{{ $value->id }}" {{(isset($editData)) ? $editData->category_id == $value->id  ? 'selected' : '' : ''}}>{{ $value->category_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -52,7 +52,7 @@
                             <select id="brand" class="form-select form-control choicesjs" name="brand_id">
                                 <option value="selected">Select Brand</option>
                                 @foreach($brand as $value)
-                                    <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
+                                    <option value="{{ $value->id }}" {{(isset($editData)) ? $editData->brand_id == $value->id  ? 'selected' : '' : ''}}>{{ $value->brand_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -61,7 +61,7 @@
                             <select id="unit" class="form-select form-control choicesjs" name="unit_id">
                                 <option value="">Select Unit</option>
                                 @foreach($unit as $value)
-                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                    <option value="{{ $value->id }}" {{(isset($editData)) ? $editData->unit_id == $value->id  ? 'selected' : '' : ''}}>{{ $value->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -70,7 +70,7 @@
                             <select id="tax" class="form-select form-control choicesjs" name="tax_id">
                                 <option value="selected">Select Tax</option>
                                 @foreach($tax as $value)
-                                    <option value="{{ $value->id }}">{{ $value->type }}</option>
+                                    <option value="{{ $value->id }}" {{(isset($editData)) ? $editData->tax_type_id == $value->id  ? 'selected' : '' : ''}}>{{ $value->type }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -83,18 +83,18 @@
                         </div>
                         <div class="col-md-3 mb3">
                             <div class="card">
-                                <img id="selectedImage" src="{{ asset('public/uploads/no-image.jpg') }}"
+                                <img id="selectedImage" src="{{ (isset($editData)) ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
                                      class="img-fluid rounded" alt="#">
                             </div>
                         </div>
                         <div class="col-md-3 mb3">
-                            <div id="removeDiv" class="card" hidden="hidden">
+                            <div id="removeDiv" class="card" {{ (isset($editData)) ? ($editData->product_description) ? 'hidden="hidden"' : '' : 'hidden="hidden"' }}>
                                 <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="description" class="form-label font-weight-bold text-muted text-uppercase">Description</label>
-                            <textarea class="form-control" id="description" rows="2" name="description"></textarea>
+                            <textarea class="form-control" id="description" rows="2" name="description">{{ (isset($editData)) ? $editData->product_description : '' }}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary">

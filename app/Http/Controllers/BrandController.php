@@ -49,7 +49,7 @@ class BrandController extends Controller
                     Image::make($imageTmp)->save($image);
                     $brand->image = $filename;
                 } else {
-                    $brand->image = '';
+                    $brand->image = null;
                 }
                 $brand->status = $data['status'];
                 $response = $brand->save();
@@ -69,6 +69,12 @@ class BrandController extends Controller
                     }
                     Image::make($imageTmp)->save($image);
                     $brand->image = $filename;
+                } else {
+                    $imagePath = 'public/uploads/brand/';
+                    if ($brand->image != "") {
+                        File::delete($imagePath . $brand->image);
+                    }
+                    $brand->image = null;
                 }
                 $brand->status = $data['status'];
                 $response = $brand->save();
