@@ -144,8 +144,6 @@ class ProductController extends Controller {
                     $image = $imagePath . $filename;
                     Img::make($imageTmp)->save($image);
                     $product->image = $filename;
-                } else {
-                    $product->image = '';
                 }
                 $product->product_description = $data['description'];
                 $response = $product->save();
