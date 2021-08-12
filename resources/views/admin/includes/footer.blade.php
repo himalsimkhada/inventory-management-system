@@ -67,6 +67,7 @@
     })
 </script>
 
+<script type="text/javascript" src="{{ asset('public/backend/assets/multipleImage/image-uploader.js') }}"></script>
 
 @yield('js')
 

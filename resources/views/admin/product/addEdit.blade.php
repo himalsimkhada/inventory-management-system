@@ -26,7 +26,7 @@
         <div class="col-lg-12 mb-3 d-flex justify-content-between">
             <h4 class="font-weight-bold d-flex align-items-center">New Product</h4>
         </div>
-        @include('admin.includes._message')
+        @include('admin.includes._message');
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -114,9 +114,9 @@
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label for="description"
-                            class="form-label font-weight-bold text-muted text-uppercase">Description</label>
-                            <textarea class="form-control" id="description" row="3" name="description">{{ isset($editData) ? $editData->product_description : '' }}</textarea>
+                            <label for="description" class="form-label font-weight-bold text-muted text-uppercase">Description</label>
+                            <textarea class="form-control" id="description" rows="2"
+                                name="description">{{ isset($editData) ? $editData->product_description : '' }}</textarea>
                         </div>
                         <input type="hidden" name="img_remove_val" id="img_remove_val" value="">
                         <div class="col-md-12 mb-3">
@@ -135,7 +135,7 @@
     <script>
         $(document).ready(function() {
             CKEDITOR.replace('description');
-            
+
             $("#image").on('change', function() {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
