@@ -36,16 +36,16 @@
                         @csrf
                         <input type="hidden" id="id" name="id" value="{{ isset($editData) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
-                            <label for="product_name" class="form-label font-weight-bold text-muted text-uppercase">Product
+                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
                                 Name</label>
-                            <input type="text" class="form-control" id="product_name" name="product_name"
-                                value="{{ isset($editData) ? $editData->product_name : '' }}">
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="{{ isset($editData) ? $editData->name : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="product_code" class="form-label font-weight-bold text-muted text-uppercase">Product
+                            <label for="code" class="form-label font-weight-bold text-muted text-uppercase">Product
                                 Code</label>
-                            <input type="text" class="form-control" id="product_code" name="product_code"
-                                value="{{ isset($editData) ? $editData->product_code : '' }}">
+                            <input type="text" class="form-control" id="code" name="code"
+                                value="{{ isset($editData) ? $editData->code : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="category"
@@ -103,7 +103,7 @@
                         <div class="col-md-3 mb3">
                             <div class="card">
                                 <img id="selectedImage"
-                                    src="{{ isset($editData) && $editData->image != '' ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
+                                    src="{{ isset($editData) && $image->image != '' ? asset('public/uploads/product/' . $image->image) : asset('public/uploads/no-image.jpg') }}"
                                     class="img-fluid rounded" alt="#">
                             </div>
                         </div>
@@ -115,8 +115,9 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="description"
-                            class="form-label font-weight-bold text-muted text-uppercase">Description</label>
-                            <textarea class="form-control" id="description" row="3" name="description">{{ isset($editData) ? $editData->product_description : '' }}</textarea>
+                                class="form-label font-weight-bold text-muted text-uppercase">Description</label>
+                            <textarea class="form-control" id="description" row="3"
+                                name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
                         <input type="hidden" name="img_remove_val" id="img_remove_val" value="">
                         <div class="col-md-12 mb-3">
@@ -134,7 +135,11 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            CKEDITOR.replace('description');
+            CKEDITOR.replace('description', {
+                filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
+                filebrowserUploadMethod: 'form'
+            });
+
             $("#image").on('change', function() {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();

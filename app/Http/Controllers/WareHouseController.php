@@ -20,6 +20,7 @@ class WareHouseController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
+            // dd($data);
             $rule = [
                 'name' => 'required|max:255',
                 'detail' => 'required|max:255',

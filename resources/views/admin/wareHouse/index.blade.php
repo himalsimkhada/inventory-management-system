@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" name="phone" id="phone">
+                            <input type="text" class="form-control onlyNumber" name="phone" id="phone">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -95,6 +95,8 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            CKEDITOR.replace('detail');
+
             $('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
@@ -128,7 +130,7 @@
                 }
             });
 
-            $('form').on('submit', function(e) {
+            $(document).on('submit', 'form', function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
                 $.ajax({
@@ -169,7 +171,7 @@
                         if (response) {
                             $('#id').val(response.id);
                             $('#name').val(response.name);
-                            $('#detail').val(response.detail);
+                            CKEDITOR.instances['detail'].setData(response.detail);
                             $('#phone').val(response.phone);
                         }
                     },
@@ -228,10 +230,11 @@
             $('#add').on('click', function() {
                 $('#id').val('');
                 $('#name').val('');
-                $('#detail').val('');
+                CKEDITOR.instances['detail'].setData('');
                 $('#phone').val('');
                 $('#errors').html('');
             });
+
         })
     </script>
 @endsection

@@ -18,11 +18,12 @@
             </div>
         </div>
     </div>
-</footer> <!-- Backend Bundle JavaScript -->
+</footer>
+<!-- Backend Bundle JavaScript -->
 <!-- Backend Bundle JavaScript -->
 <script src="{{ asset('public/backend/assets/js/backend-bundle.min.js') }} "></script>
 <!-- Chart Custom JavaScript -->
-<script src="{{ asset('public/backend/assets/js/customizer.js') }} "></script>
+<script src="{{ asset('public/backend/assets/js/customizer.js') }} "></sc>
 
 <script src="{{ asset('public/backend/assets/js/sidebar.js') }} "></script>
 
@@ -52,10 +53,19 @@
 <script src="{{ asset('public/backend/assets/js/app.js') }} "></script>
 
 {{-- Sweet Alert --}}
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('public/js/sweetalert2.all.min.js') }}"></script>
 
 {{-- ckeditor --}}
 <script src="{{ asset('public/backend/assets/js/ckeditor/ckeditor.js') }}"></script>
+
+{{-- only Number --}}
+<script>
+    $('.onlyNumber').on('keypress', function(e){
+        if($.isNumeric(e.key) == false){
+            e.preventDefault();
+        }
+    })
+</script>
 
 
 @yield('js')
