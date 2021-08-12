@@ -49,10 +49,14 @@
 
 
 <!-- app JavaScript -->
-<script src="{{ asset('public/backend//assets/js/app.js') }} "></script>
+<script src="{{ asset('public/backend/assets/js/app.js') }} "></script>
 
 {{-- Sweet Alert --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- ckeditor --}}
+<script src="{{ asset('public/backend/assets/js/ckeditor/ckeditor.js') }}"></script>
+
 
 @yield('js')
 
