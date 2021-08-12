@@ -14,10 +14,10 @@ class AddProductsForeignKeys extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
 
-            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('brand_id')->nullable();
             $table->foreign('brand_id')->references('id')->on('brands');
 
             $table->unsignedBigInteger('unit_id');
@@ -25,9 +25,6 @@ class AddProductsForeignKeys extends Migration
 
             $table->unsignedBigInteger('tax_type_id');
             $table->foreign('tax_type_id')->references('id')->on('tax_types');
-
-            $table->unsignedBigInteger('product_attribute_id');
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes');
         });
     }
 

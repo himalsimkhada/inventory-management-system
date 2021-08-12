@@ -4,25 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
-use DataTables;
 use Illuminate\Support\Str;
-use Image;
-use File;
-use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Image;
+use Yajra\DataTables\DataTables;
 
-class BrandController extends Controller
-{
-    public function index()
-    {
+class BrandController extends Controller {
+    public function index() {
         Session::put('admin_page', 'brand');
         return view('admin.brand.index');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         if ($request->isMethod('post')) {
-            $data = $request->all();
             $rule = [
                 'brand_name' => 'required|max:255',
                 'brand_code' => 'required|max:255',
@@ -50,7 +45,7 @@ class BrandController extends Controller
                     Image::make($imageTmp)->save($image);
                     $brand->image = $filename;
                 } else {
-                    $brand->image = '';
+                    $brand->image = null;
                 }
                 $brand->status = $data['status'];
                 $response = $brand->save();
@@ -70,6 +65,12 @@ class BrandController extends Controller
                     }
                     Image::make($imageTmp)->save($image);
                     $brand->image = $filename;
+                } else {
+                    $imagePath = 'public/uploads/brand/';
+                    if ($brand->image != "") {
+                        File::delete($imagePath . $brand->image);
+                    }
+                    $brand->image = null;
                 }
                 $brand->status = $data['status'];
                 $response = $brand->save();
@@ -78,8 +79,7 @@ class BrandController extends Controller
         }
     }
 
-    public function get(Request $request)
-    {
+    public function get(Request $request) {
         if ($request->isMethod('post')) {
             $data = Brand::findorfail($request->input('id'));
             return response()->json($data);
@@ -114,8 +114,7 @@ class BrandController extends Controller
         }
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request) {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $brand = Brand::findorfail($data['id']);

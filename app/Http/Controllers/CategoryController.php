@@ -60,19 +60,10 @@ class CategoryController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<button class="btn btn-primary mr-2" data-toggle="modal" data-target="#categoryModal,m" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<button class="btn btn-primary mr-2" data-toggle="modal" data-target="#categoryModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
-                ->addColumn('status', function ($row) {
-                    $status = null;
-                    if ($row['status'] == 1) {
-                        $status = '<span class="dot" style="color:green;display:inline-block;">Active</span>';
-                    } elseif ($row['status'] == 0) {
-                        $status = '<span class="dot" style="color:red;display:inline-block;">Inactive</span>';
-                    }
-                    return $status;
-                })
-                ->rawColumns(['action', 'status'])
+                ->rawColumns(['action'])
                 ->make(true);
         }
     }

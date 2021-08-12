@@ -17,8 +17,9 @@ class CreateProductAttributesTable extends Migration
             $table->id();
             $table->string('size');
             $table->string('color');
-            $table->string('sku');
+            $table->string('sku')->nullable();
             $table->string('price');
+            $table->string('barcode')->nullable();
             $table->timestamps();
         });
     }
