@@ -103,7 +103,7 @@
                         <div class="col-md-3 mb3">
                             <div class="card">
                                 <img id="selectedImage"
-                                    src="{{ isset($editData) && $editData->image != '' ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
+                                    src="{{ isset($editData) && $image->image != '' ? asset('public/uploads/product/' . $image->image) : asset('public/uploads/no-image.jpg') }}"
                                     class="img-fluid rounded" alt="#">
                             </div>
                         </div>
@@ -135,7 +135,7 @@
     <script>
         $(document).ready(function() {
             CKEDITOR.replace('description');
-            
+
             $("#image").on('change', function() {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();

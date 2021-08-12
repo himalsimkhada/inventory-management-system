@@ -29,22 +29,20 @@ class ProductController extends Controller {
             $unit = Unit::all()->sortByDesc("name");
             $tax = TaxType::all()->sortByDesc("type");
             $editData = Product::findorfail($id);
-            return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData]);
+            $image = Image::where('product_id', $id)->first();
+            return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData, 'image' => $image]);
         } else {
             $data = Product::all()->sortByDesc('id');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($data) {
-                    if ($data['image'] != '') {
-                        $imageFile = asset('public/uploads/product/' . $data['image']);
+                    if (Image::where('product_id', $data['id'])->first()->exists()) {
+                        $imageFile = asset('public/uploads/product/' . Image::where('product_id', $data['id'])->first()->image);
                     } else {
                         $imageFile = asset('public/uploads/no-image.jpg');
                     }
                     $image = '<img class="mr-3 avatar-70 img-fluid rounded" src="' . $imageFile . '">';
                     return $image;
-                    if ($data->image == null) {
-                        return Image::where('product_id', $data['id'])->first()->image;
-                    }
                 })
                 ->editColumn('category_id', function ($data) {
                     if ($data->category_id == null) {
