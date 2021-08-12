@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" name="phone" id="phone">
+                            <input type="text" class="form-control onlyNumber" name="phone" id="phone">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -234,6 +234,7 @@
                 $('#phone').val('');
                 $('#errors').html('');
             });
+
         })
     </script>
 @endsection

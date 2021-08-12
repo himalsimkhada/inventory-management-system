@@ -57,6 +57,15 @@
 {{-- ckeditor --}}
 <script src="{{ asset('public/backend/assets/js/ckeditor/ckeditor.js') }}"></script>
 
+{{-- only Number --}}
+<script>
+    $('.onlyNumber').on('keypress', function(e){
+        if($.isNumeric(e.key) == false){
+            e.preventDefault();
+        }
+    })
+</script>
+
 
 @yield('js')
 
