@@ -17,8 +17,10 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('product_name');
             $table->string('product_code');
-            $table->string('image')->nullable();
             $table->string('product_description');
+            $table->double('price');
+            $table->integer('quantity');
+            $table->string('barcode_symbology')->nullable();
             $table->timestamps();
         });
     }
