@@ -26,7 +26,7 @@
         <div class="col-lg-12 mb-3 d-flex justify-content-between">
             <h4 class="font-weight-bold d-flex align-items-center">New Product</h4>
         </div>
-        @include('admin.includes._message');
+        @include('admin.includes._message')
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
