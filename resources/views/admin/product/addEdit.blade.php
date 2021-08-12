@@ -135,6 +135,7 @@
     <script>
         $(document).ready(function() {
             CKEDITOR.replace('description');
+            
             $("#image").on('change', function() {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
