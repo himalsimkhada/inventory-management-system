@@ -18,11 +18,12 @@
             </div>
         </div>
     </div>
-</footer> <!-- Backend Bundle JavaScript -->
+</footer>
+<!-- Backend Bundle JavaScript -->
 <!-- Backend Bundle JavaScript -->
 <script src="{{ asset('public/backend/assets/js/backend-bundle.min.js') }} "></script>
 <!-- Chart Custom JavaScript -->
-<script src="{{ asset('public/backend/assets/js/customizer.js') }} "></script>
+<script src="{{ asset('public/backend/assets/js/customizer.js') }} "></sc>
 
 <script src="{{ asset('public/backend/assets/js/sidebar.js') }} "></script>
 
