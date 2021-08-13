@@ -26,26 +26,25 @@
         <div class="col-lg-12 mb-3 d-flex justify-content-between">
             <h4 class="font-weight-bold d-flex align-items-center">New Product</h4>
         </div>
-        @include('admin.includes._message');
+        @include('admin.includes._message')
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <h5 class="font-weight-bold mb-3">Product Information</h5>
-                    <form class="row g-3" method="post" action="{{ route('product.store') }}"
-                        enctype="multipart/form-data">
+                    <form class="row g-3" class="dropzone" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" id="id" name="id" value="{{ isset($editData) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
-                            <label for="product_name" class="form-label font-weight-bold text-muted text-uppercase">Product
+                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
                                 Name</label>
-                            <input type="text" class="form-control" id="product_name" name="product_name"
-                                value="{{ isset($editData) ? $editData->product_name : '' }}">
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="{{ isset($editData) ? $editData->name : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="product_code" class="form-label font-weight-bold text-muted text-uppercase">Product
+                            <label for="code" class="form-label font-weight-bold text-muted text-uppercase">Product
                                 Code</label>
-                            <input type="text" class="form-control" id="product_code" name="product_code"
-                                value="{{ isset($editData) ? $editData->product_code : '' }}">
+                            <input type="text" class="form-control" id="code" name="code"
+                                value="{{ isset($editData) ? $editData->code : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="category"
@@ -92,18 +91,21 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-12 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
-                            <div class="custom-file">
+                            <input name="file" type="file" multiple />
+
+                            {{-- <div class="input-images"></div> --}}
+                            {{-- <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="image" name="image" value=""
                                     accept="image/*">
                                 <label class="custom-file-label" for="image">Choose Image</label>
-                            </div>
+                            </div> --}}
                         </div>
-                        <div class="col-md-3 mb3">
+                        {{-- <div class="col-md-3 mb3">
                             <div class="card">
                                 <img id="selectedImage"
-                                    src="{{ isset($editData) && $editData->image != '' ? asset('public/uploads/product/' . $editData->image) : asset('public/uploads/no-image.jpg') }}"
+                                    src="{{ isset($editData) && $image->image != '' ? asset('public/uploads/product/' . $image->image) : asset('public/uploads/no-image.jpg') }}"
                                     class="img-fluid rounded" alt="#">
                             </div>
                         </div>
@@ -112,11 +114,12 @@
                                 {{ isset($editData) ? ($editData->image != '' ? '' : 'hidden="hidden"') : 'hidden="hidden"' }}>
                                 <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-12 mb-3">
-                            <label for="description" class="form-label font-weight-bold text-muted text-uppercase">Description</label>
-                            <textarea class="form-control" id="description" rows="2"
-                                name="description">{{ isset($editData) ? $editData->product_description : '' }}</textarea>
+                            <label for="description"
+                                class="form-label font-weight-bold text-muted text-uppercase">Description</label>
+                            <textarea class="form-control" id="description" row="3"
+                                name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
                         <input type="hidden" name="img_remove_val" id="img_remove_val" value="">
                         <div class="col-md-12 mb-3">
@@ -134,26 +137,39 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            CKEDITOR.replace('description');
-
-            $("#image").on('change', function() {
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#selectedImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                }
-                $('#removeDiv').prop('hidden', false);
+            CKEDITOR.replace('description', {
+                filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
+                filebrowserUploadMethod: 'form'
             });
 
-            $('#removeImage').on('click', function() {
-                $('#image').val('');
-                $('#img_remove_val').val('removed');
-                $('#image').next().text('Choose Image');
-                $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
-                $('#removeDiv').prop('hidden', true);
-            });
+            // $(document).on('change', '#images', function(){
+            //     console.log($this.files);
+            // });
+
+            // $("#image").on('change', function() {
+            //     if (this.files && this.files[0]) {
+            //         var reader = new FileReader();
+            //         reader.onload = function(e) {
+            //             $('#selectedImage').attr('src', e.target.result);
+            //         }
+            //         reader.readAsDataURL(this.files[0]);
+            //     }
+            //     $('#removeDiv').prop('hidden', false);
+            // });
+
+            // $('#removeImage').on('click', function() {
+            //     $('#image').val('');
+            //     $('#img_remove_val').val('removed');
+            //     $('#image').next().text('Choose Image');
+            //     $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
+            //     $('#removeDiv').prop('hidden', true);
+            // });
+
+            // $(document).on('change', 'image', function(){
+            //     console.log(this,files);
+            // })
+
+            // $('.input-images').imageUploader();
         })
     </script>
 @endsection

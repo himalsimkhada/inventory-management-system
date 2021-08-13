@@ -84,9 +84,11 @@ class DatabaseSeeder extends Seeder
 
         Product::insert([
             [
-                'product_name' => 'Smart Television',
-                'product_code' => '00001',
-                'product_description' => 'This is a description',
+                'name' => 'Smart Television',
+                'code' => '00001',
+                'description' => 'This is a description',
+                'price' => 1200,
+                'quantity' => 12,
                 'category_id' => 1,
                 'brand_id' => 1,
                 'unit_id' => 1,
@@ -95,9 +97,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::insert([
-            'product_name' => 'Android Smartphone',
-            'product_code' => '000200',
-            'product_description' => 'This is a description',
+            'name' => 'Android Smartphone',
+            'code' => '000200',
+            'description' => 'This is a description',
+            'price' => 150,
+            'quantity' => 1,
             'unit_id' => 2,
             'tax_type_id' => 1,
         ]);
@@ -105,7 +109,7 @@ class DatabaseSeeder extends Seeder
         ProductAttributes::insert([
             'size' => 'Large',
             'color' => 'Black',
-            'price' => '1200',
+            'additional_price' => '1200',
             'product_id' => 1,
          ]);
 

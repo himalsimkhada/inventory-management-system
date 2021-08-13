@@ -35,13 +35,12 @@
                                             <tr>
                                                 <th>S. No.</th>
                                                 <th>Image</th>
-                                                <th>Product Name</th>
-                                                <th>Product Code</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
                                                 <th>Category</th>
                                                 <th>Brand</th>
                                                 <th>Unit</th>
-                                                <th>Tax Type</th>
-                                                <th>Barcode</th>
+                                                <th>Price</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -72,12 +71,12 @@
                         name: 'image'
                     },
                     {
-                        data: 'product_name',
-                        name: 'product_name'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
-                        data: 'product_code',
-                        name: 'product_code'
+                        data: 'code',
+                        name: 'code'
                     },
                     {
                         data: 'category_id',
@@ -92,8 +91,8 @@
                         name: 'unit_id'
                     },
                     {
-                        data: 'tax_type_id',
-                        data: 'tax_type_id'
+                        data: 'price',
+                        name: 'price',
                     },
                     {
                         data: 'action',

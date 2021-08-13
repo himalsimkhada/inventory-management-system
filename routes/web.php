@@ -20,11 +20,11 @@ Route::get('/', function () {
 });
 
 
-Route::prefix('/admin')->group(function(){
+Route::prefix('/admin')->group(function () {
     // Admin Login
     Route::match(['get', 'post'], '/login', 'AdminLoginController@adminLogin')->name('adminLogin');
 
-    Route::group(['middleware' => 'admin'], function(){
+    Route::group(['middleware' => 'admin'], function () {
         // Admin Dashboard
         Route::get('/dashboard', 'AdminLoginController@dashboard')->name('adminDashboard');
         // Admin Profile
@@ -77,6 +77,9 @@ Route::prefix('/admin')->group(function(){
         Route::match(['get', 'post'], '/product/{id}/get', 'ProductAttributeController@get')->name('product.attr.get');
         Route::post('/product/attributes/store', 'ProductAttributeController@store')->name('product.attr.store');
         Route::post('/product/attribute/destroy', 'ProductAttributeController@destroy')->name('product.attr.destroy');
+
+        //CKEditor
+        Route::post('ckeditor', 'CkeditorFileUploadController@store')->name('ckeditor.store');
     });
 
     // Admin Logout
@@ -86,5 +89,4 @@ Route::prefix('/admin')->group(function(){
 
     // Forget Password
     Route::match(['get', 'post'], '/forget-password', 'AdminLoginController@forgetPassword')->name('forgetPassword');
-
 });

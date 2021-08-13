@@ -81,7 +81,6 @@
                                                 <th>Color</th>
                                                 <th>Price</th>
                                                 <th>SKU</th>
-                                                <th>Barcode</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -119,16 +118,12 @@
                         name: 'color'
                     },
                     {
-                        data: 'price',
-                        name: 'price'
+                        data: 'additional_price',
+                        name: 'additional_price'
                     },
                     {
                         data: 'sku',
                         name: 'sku'
-                    },
-                    {
-                        data: 'barcode',
-                        name: 'barcode'
                     },
                     {
                         data: 'action',

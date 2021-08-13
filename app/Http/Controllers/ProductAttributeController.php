@@ -36,7 +36,7 @@ class ProductAttributeController extends Controller {
                 $product_attribute = new ProductAttributes();
                 $product_attribute->size = $data['size'];
                 $product_attribute->color = $data['color'];
-                $product_attribute->price = $data['price'];
+                $product_attribute->additional_price = $data['price'];
                 $sku = strtoupper(substr(Product::where('id', $data['p_id'])->first()->product_name, 0, 3)) . '-' . strtoupper(substr($data['size'], 0, 3)) . '-' . strtoupper(substr($data['color'], 0, 3));
                 $product_attribute->sku = $sku;
                 $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
@@ -50,7 +50,7 @@ class ProductAttributeController extends Controller {
                 $product_attribute = ProductAttributes::findorfail($data['id']);
                 $product_attribute->size = $data['size'];
                 $product_attribute->color = $data['color'];
-                $product_attribute->price = $data['price'];
+                $product_attribute->additional_price = $data['price'];
                 if($product_attribute->barcode != ''){
                     File::delete('public/uploads/barcode/' . $product_attribute->barcode);
                 }
@@ -74,10 +74,6 @@ class ProductAttributeController extends Controller {
             $data = ProductAttributes::where('product_id', $request->id)->get()->sortByDesc('id');
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('barcode', function ($row) {
-                    $barcode = DNS1D::getBarcodeSVG($row['sku'], 'C39+', 1, 33);
-                    return $barcode;
-                })
                 ->addColumn('action', function ($row) {
                     $actionBtn = '</button><button class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit" data-toggle="modal" data-target="#attributesModal">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
