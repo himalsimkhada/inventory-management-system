@@ -31,7 +31,8 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="font-weight-bold mb-3">Product Information</h5>
-                    <form class=" dropzone row g-3" method="post" action="{{ route('product.store') }}" id="addEditProduct" enctype="multipart/form-data">
+                    <form class="row g-3" method="post" action="{{ route('product.store') }}"
+                        enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" id="id" name="id" value="{{ isset($editData) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
@@ -91,27 +92,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        {{-- <form class="dropzone col-md-6 mb-3"> --}}
-                            {{-- <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image" value=""
-                                    accept="image/*">
-                                <label class="custom-file-label" for="image">Choose Image</label>
-                            </div> --}}
-                        {{-- </form> --}}
-                        {{-- <div class="col-md-3 mb3">
-                            <div class="card">
-                                <img id="selectedImage"
-                                    src="{{ isset($editData) && $image->image != '' ? asset('public/uploads/product/' . $image->image) : asset('public/uploads/no-image.jpg') }}"
-                                    class="img-fluid rounded" alt="#">
-                            </div>
+                        <div class="dropzone col-12" id="fileUpload">
                         </div>
-                        <div class="col-md-3 mb3">
-                            <div id="removeDiv" class="card"
-                                {{ isset($editData) ? ($editData->image != '' ? '' : 'hidden="hidden"') : 'hidden="hidden"' }}>
-                                <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
-                            </div>
-                        </div> --}}
                         <div class="col-md-12 mb-3">
                             <label for="description"
                                 class="form-label font-weight-bold text-muted text-uppercase">Description</label>
@@ -120,7 +102,7 @@
                         </div>
                         <input type="hidden" name="img_remove_val" id="img_remove_val" value="">
                         <div class="col-md-12 mb-3">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" id="submitForm">
                                 Create Product
                             </button>
                         </div>
@@ -133,18 +115,19 @@
 
 @section('js')
     <script>
+        Dropzone.autoDiscover = false;
         $(document).ready(function() {
-            Dropzone.options.addEditProduct = {
-                paramName: "image", // The name that will be used to transfer the file
-                maxFilesize: 2, // MB
-                accept: function(file, done) {
-                    if (file.name == "justinbieber.jpg") {
-                        done("Naha, you don't.");
-                    } else {
-                        done();
-                    }
+            $("div#fileUpload").dropzone({
+                url: "/file/post",
+                autoProcessQueue: false,
+                addRemoveLinks: true,
+                init: function() {
+                    $('#submitForm').on('click', function(e) {
+                        console.log('success');
+                    })
                 }
-            };
+            });
+
             CKEDITOR.replace('description', {
                 filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
                 filebrowserUploadMethod: 'form'
