@@ -29,9 +29,10 @@
         @include('admin.includes._message')
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" id="dropzone">
                     <h5 class="font-weight-bold mb-3">Product Information</h5>
-                    <form class=" dropzone row g-3" method="post" action="{{ route('product.store') }}" id="addEditProduct" enctype="multipart/form-data">
+                    <form class="dropzone needsclick row g-3" method="post" action="{{ route('product.store') }}"
+                        id="addEditProduct" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" id="id" name="id" value="{{ isset($editData) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
@@ -92,7 +93,7 @@
                             </select>
                         </div>
                         {{-- <form class="dropzone col-md-6 mb-3"> --}}
-                            {{-- <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
+                        {{-- <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="image" name="image" value=""
                                     accept="image/*">
@@ -118,6 +119,11 @@
                             <textarea class="form-control" id="description" row="3"
                                 name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
+                        {{-- Select Image for Products --}}
+                        <div class="dropzone col-12" id="fileUpload">
+
+                        </div>
+
                         <input type="hidden" name="img_remove_val" id="img_remove_val" value="">
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary">
@@ -133,18 +139,14 @@
 
 @section('js')
     <script>
+        Dropzone.autoDiscover = false;
         $(document).ready(function() {
-            Dropzone.options.addEditProduct = {
-                paramName: "image", // The name that will be used to transfer the file
-                maxFilesize: 2, // MB
-                accept: function(file, done) {
-                    if (file.name == "justinbieber.jpg") {
-                        done("Naha, you don't.");
-                    } else {
-                        done();
-                    }
-                }
-            };
+            $("div#fileUpload").dropzone({
+                url: "/file/post",
+                addRemoveLinks: true,
+                autoProcessQueue: false,
+            });
+
             CKEDITOR.replace('description', {
                 filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
                 filebrowserUploadMethod: 'form'
