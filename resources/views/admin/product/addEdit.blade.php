@@ -31,8 +31,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="font-weight-bold mb-3">Product Information</h5>
-                    <form class="row g-3" method="post" action="{{ route('product.store') }}"
-                        enctype="multipart/form-data">
+                    <form class=" dropzone row g-3" method="post" action="{{ route('product.store') }}" id="addEditProduct" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" id="id" name="id" value="{{ isset($editData) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
@@ -92,15 +91,15 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
+                        {{-- <form class="dropzone col-md-6 mb-3"> --}}
+                            {{-- <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="image" name="image" value=""
                                     accept="image/*">
                                 <label class="custom-file-label" for="image">Choose Image</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb3">
+                            </div> --}}
+                        {{-- </form> --}}
+                        {{-- <div class="col-md-3 mb3">
                             <div class="card">
                                 <img id="selectedImage"
                                     src="{{ isset($editData) && $image->image != '' ? asset('public/uploads/product/' . $image->image) : asset('public/uploads/no-image.jpg') }}"
@@ -112,7 +111,7 @@
                                 {{ isset($editData) ? ($editData->image != '' ? '' : 'hidden="hidden"') : 'hidden="hidden"' }}>
                                 <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-12 mb-3">
                             <label for="description"
                                 class="form-label font-weight-bold text-muted text-uppercase">Description</label>
@@ -135,6 +134,17 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            Dropzone.options.addEditProduct = {
+                paramName: "image", // The name that will be used to transfer the file
+                maxFilesize: 2, // MB
+                accept: function(file, done) {
+                    if (file.name == "justinbieber.jpg") {
+                        done("Naha, you don't.");
+                    } else {
+                        done();
+                    }
+                }
+            };
             CKEDITOR.replace('description', {
                 filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
                 filebrowserUploadMethod: 'form'

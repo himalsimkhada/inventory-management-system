@@ -56,7 +56,11 @@
 <script src="{{ asset('public/js/sweetalert2.all.min.js') }}"></script>
 
 {{-- ckeditor --}}
-<script src="{{ asset('public/backend/assets/js/ckeditor/ckeditor.js') }}"></script>
+// <script src="{{ asset('public/backend/assets/js/ckeditor/ckeditor.js') }}"></script>
+
+// dropzone
+
+<script src="{{ asset('public/js/dropzone.js') }}"></script>
 
 {{-- only Number --}}
 <script>
