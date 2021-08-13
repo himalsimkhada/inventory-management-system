@@ -94,12 +94,8 @@
                         </div>
                         <div class=" col-md-12 mb-3">
                             <label for="" class="form-label font-weight-bold text-muted text-uppercase">Select Image</label>
-                           
-                                
-                                <div class="dropzone border-light" id="fileUpload">
-
-                                </div>
-                           
+                            <div class="dropzone border rounded" id="fileUpload">
+                            </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="description"
