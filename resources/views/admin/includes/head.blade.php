@@ -13,7 +13,6 @@
 
     <link rel="stylesheet" href="{{ asset('public/backend/assets/css/backend-plugin.min.css' ) }} ">
     <link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css' ) }} ">
+    <link rel="stylesheet" href="{{ asset('public/css/dropzone.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="{{  asset('public/backend/assets/dropzone/dist/dropzone.css') }}">
 </head>

@@ -31,8 +31,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="font-weight-bold mb-3">Product Information</h5>
-                    <form class="row g-3" class="dropzone" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
-                        @csrf
+                    <form class=" row g-3" method="post" action="{{ route('product.store') }}"
+                        enctype="multipart/form-data">
+                        {{-- @csrf --}}
                         <input type="hidden" id="id" name="id" value="{{ isset($editData) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
@@ -93,35 +94,17 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
-                            <input name="file" type="file" multiple />
+                            <div class="dropzone" id="image">
 
-                            {{-- <div class="input-images"></div> --}}
-                            {{-- <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image" value=""
-                                    accept="image/*">
-                                <label class="custom-file-label" for="image">Choose Image</label>
-                            </div> --}}
-                        </div>
-                        {{-- <div class="col-md-3 mb3">
-                            <div class="card">
-                                <img id="selectedImage"
-                                    src="{{ isset($editData) && $image->image != '' ? asset('public/uploads/product/' . $image->image) : asset('public/uploads/no-image.jpg') }}"
-                                    class="img-fluid rounded" alt="#">
                             </div>
+                            <button type="button" class="btn btn-primary" id="check">check</button>
                         </div>
-                        <div class="col-md-3 mb3">
-                            <div id="removeDiv" class="card"
-                                {{ isset($editData) ? ($editData->image != '' ? '' : 'hidden="hidden"') : 'hidden="hidden"' }}>
-                                <button type="button" class="btn btn-danger" id="removeImage">Remove Image</button>
-                            </div>
-                        </div> --}}
                         <div class="col-md-12 mb-3">
                             <label for="description"
                                 class="form-label font-weight-bold text-muted text-uppercase">Description</label>
                             <textarea class="form-control" id="description" row="3"
                                 name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
-                        <input type="hidden" name="img_remove_val" id="img_remove_val" value="">
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary">
                                 Create Product
@@ -136,40 +119,67 @@
 
 @section('js')
     <script>
+        Dropzone.autoDiscover = false;
         $(document).ready(function() {
             CKEDITOR.replace('description', {
                 filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
                 filebrowserUploadMethod: 'form'
             });
 
-            // $(document).on('change', '#images', function(){
-            //     console.log($this.files);
-            // });
+            var id = null;
 
-            // $("#image").on('change', function() {
-            //     if (this.files && this.files[0]) {
-            //         var reader = new FileReader();
-            //         reader.onload = function(e) {
-            //             $('#selectedImage').attr('src', e.target.result);
-            //         }
-            //         reader.readAsDataURL(this.files[0]);
-            //     }
-            //     $('#removeDiv').prop('hidden', false);
-            // });
+            var image = new Dropzone("#image", {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: 'post',
+                url: '{{ route('product.image') }}',
+                init: function() {
+                    this.on("sending", function(file, xhr, formData){
+                            formData.append("product_id", id);
+                    });
+                },
+                maxFilesize: 2,
+                autoProcessQueue: false,
+                parallelUploads: 50,
+                addRemoveLinks: true,
+            });
+            
+            $('#check').click(function(){
+                image.processQueue();
+            });
 
-            // $('#removeImage').on('click', function() {
-            //     $('#image').val('');
-            //     $('#img_remove_val').val('removed');
-            //     $('#image').next().text('Choose Image');
-            //     $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
-            //     $('#removeDiv').prop('hidden', true);
-            // });
 
-            // $(document).on('change', 'image', function(){
-            //     console.log(this,files);
-            // })
 
-            // $('.input-images').imageUploader();
+            $(document).on('submit', 'form', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "post",
+                    url: "{{ route('product.store') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if(response.success == true){
+                            id = response.lastId;
+                        }
+                    },
+                    error: function(response) {
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(key, value) {
+                            error += '<li style="list-style-type: none">' + value +
+                                '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
+                    }
+                })
+            });
         })
     </script>
 @endsection

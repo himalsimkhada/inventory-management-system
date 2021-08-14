@@ -97,7 +97,7 @@ class ProductController extends Controller {
 
     public function store(Request $request) {
         if ($request->isMethod('post')) {
-            dd($request->all());
+            // dd($request->all());
             $rule = [
                 'name' => 'required|max:255',
                 'code' => 'required|max:255',
@@ -120,24 +120,13 @@ class ProductController extends Controller {
                 $product->brand_id = $data['brand_id'];
                 $product->unit_id = $data['unit_id'];
                 $product->tax_type_id = $data['tax_id'];
-                if ($imageTmp != null) {
-                    $random = Str::random(10);
-                    $extension = $imageTmp->getClientOriginalExtension();
-                    $filename = $random . '.' . $extension;
-                    $imagePath = 'public/uploads/product/';
-                    $image = $imagePath . $filename;
-                    Img::make($imageTmp)->save($image);
-                    $product->image = $filename;
-                } else {
-                    if ($request->input('img_remove_val') == 'removed') {
-                        File::delete('public/uploads/product/' . $product->image);
-                        $product->image = null;
-                    }
-                }
                 $product->description = $data['description'];
-                $response = $product->save();
-                Session::flash('info_message', 'Product has been created successfully');
-                return redirect('admin/product/view');
+                $store = $product->save();
+                $response = ['success' => $store];
+                if($store == true){
+                    $response['lastId'] = $product->id;
+                }
+                return $response;
             } else {
                 $product = Product::findorfail($data['id']);
                 $product->name = $data['name'];
@@ -146,34 +135,29 @@ class ProductController extends Controller {
                 $product->brand_id = $data['brand_id'];
                 $product->unit_id = $data['unit_id'];
                 $product->tax_type_id = $data['tax_id'];
-                // dd('here');
-                if ($imageTmp != null) {
-                    foreach($imageTmp as $imageTmp){
-                        $imagePhoto = new Image();
-                        $random = Str::random(10);
-                        $extension = $imageTmp->getClientOriginalExtension();
-                        $filename = $random . '.' . $extension;
-                        $imagePath = 'public/uploads/product/';
-                        $image = $imagePath . $filename;
-                        if ($imagePhoto->image != "") {
-                            File::delete($imagePath . $product->image);
-                        }
-                        $imagePhoto->image = $filename;
-                        $imagePhoto->product_id = $data['id'];
-                        $imagePhoto->save();
-                        Img::make($imageTmp)->save($image);
-                    }
-                } else {
-                    if ($request->input('img_remove_val') == 'removed') {
-                        File::delete('public/uploads/product/' . $product->image);
-                        $product->image = null;
-                    }
-                }
                 $product->description = $data['description'];
-                $response = $product->save();
-                Session::flash('info_message', 'Product has been updated successfully');
-                return redirect('admin/product/view');
+                $store = $product->save();
+                $response = ['success' => $store];
+                if($store == true){
+                    $response['lastId'] = $product->id;
+                }
+                return $response;
             }
         }
+    }
+
+    public function image(Request $request){
+        $data = $request->all();
+        $productImage = new Image();
+        $imageTmp = $data['file'];
+        $random = Str::random(10);
+        $extension = $imageTmp->getClientOriginalExtension();
+        $filename = $random . '.' . $extension;
+        $imagePath = 'public/uploads/product/';
+        $image = $imagePath . $filename;
+        Img::make($imageTmp)->save($image);
+        $productImage->image = $filename;
+        $productImage->product_id = $data['product_id'];
+        $productImage->save();
     }
 }
