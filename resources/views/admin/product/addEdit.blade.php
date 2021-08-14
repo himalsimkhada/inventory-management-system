@@ -94,10 +94,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
-                            <div class="dropzone" id="image">
-
-                            </div>
-                            <button type="button" class="btn btn-primary" id="check">check</button>
+                            <div class="dropzone" id="image"></div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="description"
@@ -144,12 +141,6 @@
                 parallelUploads: 50,
                 addRemoveLinks: true,
             });
-            
-            $('#check').click(function(){
-                image.processQueue();
-            });
-
-
 
             $(document).on('submit', 'form', function(e) {
                 e.preventDefault();
@@ -167,6 +158,7 @@
                     success: function(response) {
                         if(response.success == true){
                             id = response.lastId;
+                            image.processQueue();
                         }
                     },
                     error: function(response) {
