@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
-                            <div class="dropzone" id="image"></div>
+                            <div class="dropzone border" id="image"></div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="description"
@@ -118,6 +118,20 @@
     <script>
         Dropzone.autoDiscover = false;
         $(document).ready(function() {
+            $("div#fileUpload").dropzone({
+                url: "/file/post",
+                autoProcessQueue: false,
+                addRemoveLinks: true,
+                init: function() {
+                    $('#clear-dropzone').on('click', function(e) {
+                        dropzone.removeAllFiles();
+                    });
+                    $('#submitForm').on('click', function(e) {
+                        console.log('success');
+                    });
+                }
+            });
+
             CKEDITOR.replace('description', {
                 filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
                 filebrowserUploadMethod: 'form'
@@ -141,7 +155,6 @@
                 parallelUploads: 50,
                 addRemoveLinks: true,
             });
-
             $(document).on('submit', 'form', function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
