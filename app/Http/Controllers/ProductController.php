@@ -65,7 +65,11 @@ class ProductController extends Controller {
                     return $data->tax_type->type;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<a class="btn btn-info mr-2" id="attributes" href="' . route('product.attr.index', ['id' => $row['id']]) . '">More</a><a href="' . route('product.edit', ['id' => $row['id']]) . '" class="btn btn-primary mr-2" data-id="' . $row['id'] . '" id="edit">Edit</a><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
+                    $actionBtn = '<button id="btnGroupDrop1" type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>';
+                    $actionBtn .= '<div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">';
+
+                    $actionBtn .= '<a class="dropdown-item" href="' . route('product.edit', ['id' => $row['id']]) . '" id="edit">Edit</a>';
+                    $actionBtn .= '<a class="dropdown-item" data-id="' . $row['id'] . '" id="delete">Delete</a></div>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action', 'image'])
@@ -77,7 +81,7 @@ class ProductController extends Controller {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $product = Image::where('id', $data['id']);
-            if($product->exists()){
+            if ($product->exists()) {
                 File::delete('public/uploads/product' . $product->first()->image);
                 $product->delete();
             }

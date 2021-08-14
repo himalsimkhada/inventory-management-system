@@ -29,7 +29,7 @@
         @include('admin.includes._message')
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" id="dropzone">
                     <h5 class="font-weight-bold mb-3">Product Information</h5>
                     <form class=" row g-3" method="post" action="{{ route('product.store') }}"
                         enctype="multipart/form-data">
@@ -106,7 +106,7 @@
                                 name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" id="submitForm">
                                 Create Product
                             </button>
                         </div>
