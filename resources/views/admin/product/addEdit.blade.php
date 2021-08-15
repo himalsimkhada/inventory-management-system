@@ -51,7 +51,7 @@
                             <label for="category"
                                 class="form-label font-weight-bold text-muted text-uppercase">Category</label>
                             <select id="category" class="form-select form-control choicesjs" name="category_id">
-                                <option selected value="">Select Category</option>
+                                <option selected value="" disabled>Select Category</option>
                                 @foreach ($category as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->category_id == $value->id ? 'selected' : '') : '' }}>
@@ -62,7 +62,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="brand" class="form-label font-weight-bold text-muted text-uppercase">Brand</label>
                             <select id="brand" class="form-select form-control choicesjs" name="brand_id">
-                                <option selected value="">Select Brand</option>
+                                <option selected value="" disabled>Select Brand</option>
                                 @foreach ($brand as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->brand_id == $value->id ? 'selected' : '') : '' }}>
@@ -73,7 +73,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="unit" class="form-label font-weight-bold text-muted text-uppercase">Unit</label>
                             <select id="unit" class="form-select form-control choicesjs" name="unit_id">
-                                <option value="">Select Unit</option>
+                                <option value="" disabled>Select Unit</option>
                                 @foreach ($unit as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->unit_id == $value->id ? 'selected' : '') : '' }}>
@@ -84,7 +84,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="tax" class="form-label font-weight-bold text-muted text-uppercase">Tax</label>
                             <select id="tax" class="form-select form-control choicesjs" name="tax_id">
-                                <option selected value="">Select Tax</option>
+                                <option selected value="" disabled>Select Tax</option>
                                 @foreach ($tax as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->tax_type_id == $value->id ? 'selected' : '') : '' }}>
@@ -94,12 +94,10 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="price" class="form-label font-weight-bold text-muted text-uppercase">Price</label>
-                            <input type="text" name="price" class="form-control onlyNumber" id="price" value="{{ isset($editData) ? $editData->price : '' }}">
+                            <input type="text" name="price" class="form-control onlyNumber" id="price"
+                                value="{{ isset($editData) ? $editData->price : '' }}">
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
-                            <div class="dropzone border" id="image"></div>
-                        </div>
+
                         <div class="col-md-12 mb-3">
                             <label for="description"
                                 class="form-label font-weight-bold text-muted text-uppercase">Description</label>
@@ -110,14 +108,14 @@
                             @php
                                 if (request()->id) {
                                     echo '<button type="submit" class="btn btn-primary" id="submitForm">
-                                                               Update Product
-                                                            </button>';
+                                                                                               Update Product
+                                                                                            </button>';
                                 } else {
                                     echo '<button type="submit" class="btn btn-primary" id="submitForm">
-                                                               Add Product
-                                                            </button>';
+                                                                                               Add Product
+                                                                                            </button>';
                                 }
-
+                                
                             @endphp
                         </div>
                     </form>
@@ -195,6 +193,7 @@
                         if (response.success == true) {
                             id = response.lastId;
                             image.processQueue();
+                            window.location.href = "{{ route('product.index') }}";
                         }
                     },
                     error: function(response) {
