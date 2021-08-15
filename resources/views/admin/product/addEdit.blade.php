@@ -96,6 +96,7 @@
                             <label for="" class="form-label font-weight-bold text-muted text-uppercase">Select Image</label>
                             <div class="dropzone border rounded" id="fileUpload">
                             </div>
+                            <button id="clear-dropzone" type="button">Clear Dropzone</button>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="description"
@@ -125,9 +126,12 @@
                 autoProcessQueue: false,
                 addRemoveLinks: true,
                 init: function() {
+                    $('#clear-dropzone').on('click', function(e) {
+                        dropzone.removeAllFiles();
+                    });
                     $('#submitForm').on('click', function(e) {
                         console.log('success');
-                    })
+                    });
                 }
             });
 
