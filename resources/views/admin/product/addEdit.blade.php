@@ -107,9 +107,18 @@
                                 name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <button type="submit" class="btn btn-primary" id="submitForm">
-                                Create Product
-                            </button>
+                            @php
+                                if (request()->id) {
+                                    echo '<button type="submit" class="btn btn-primary" id="submitForm">
+                                                               Update Product
+                                                            </button>';
+                                } else {
+                                    echo '<button type="submit" class="btn btn-primary" id="submitForm">
+                                                               Add Product
+                                                            </button>';
+                                }
+                                
+                            @endphp
                         </div>
                     </form>
                 </div>
