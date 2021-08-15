@@ -124,7 +124,8 @@
                                                     class="avatar-40 rounded">
                                             </div>
                                         </td>
-                                        <td><button type="button" class="btn btn-sm btn-danger" data-img_id="{{ $img['id'] }}" id="delete">X</button>
+                                        <td><button type="button" class="btn btn-sm btn-danger"
+                                                data-img_id="{{ $img['id'] }}" id="delete">X</button>
                                         </td>
                                     </tr>
                                     <?php
@@ -153,12 +154,12 @@
                     @php
                         if (request()->id) {
                             echo '<button type="submit" class="btn btn-primary" id="submitForm">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Update Product
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </button>';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Update Product
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </button>';
                         } else {
                             echo '<button type="submit" class="btn btn-primary" id="submitForm">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Add Product
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </button>';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Add Product
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </button>';
                         }
 
                     @endphp
@@ -285,7 +286,7 @@
                                         'success'
                                     );
                                     // $('#datatable').DataTable().ajax.reload();
-                                    console.log(thisButton.parent().parent().remove());
+                                    thisButton.parent().parent().remove();
                                 } else {
                                     Swal.fire(
                                         'Error!',
