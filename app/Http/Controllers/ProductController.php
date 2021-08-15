@@ -164,13 +164,15 @@ class ProductController extends Controller {
     }
 
     public function image(Request $request) {
+        $imagePath = 'public/uploads/product/';
+        // $ds = DIRECTORY_SEPARATOR;
+
         $data = $request->all();
         $productImage = new Image();
         $imageTmp = $data['file'];
         $random = Str::random(10);
         $extension = $imageTmp->getClientOriginalExtension();
         $filename = $random . '.' . $extension;
-        $imagePath = 'public/uploads/product/';
         $image = $imagePath . $filename;
         Img::make($imageTmp)->save($image);
         $productImage->image = $filename;
