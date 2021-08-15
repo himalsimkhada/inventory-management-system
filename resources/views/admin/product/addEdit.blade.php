@@ -31,9 +31,9 @@
             <div class="card">
                 <div class="card-body" id="dropzone">
                     <h5 class="font-weight-bold mb-3">Product Information</h5>
-                    <form class="row g-3" method="post" action="{{ route('product.store') }}"
+                    <form class=" row g-3" method="post" action="{{ route('product.store') }}"
                         enctype="multipart/form-data">
-                        @csrf
+                        {{-- @csrf --}}
                         <input type="hidden" id="id" name="id" value="{{ isset($editData) ? $editData->id : '' }}">
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
@@ -92,9 +92,10 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class=" col-md-12 mb-3">
-                            <label for="" class="form-label font-weight-bold text-muted text-uppercase">Select Image</label>
-                            <div class="dropzone border rounded" id="fileUpload">
+                        <div class="col-md-12 mb-3">
+                            <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
+                            <div class="dropzone" id="image">
+
                             </div>
                             <button id="clear-dropzone" type="button">Clear Dropzone</button>
                         </div>
@@ -104,7 +105,6 @@
                             <textarea class="form-control" id="description" row="3"
                                 name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
-                        <input type="hidden" name="img_remove_val" id="img_remove_val" value="">
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
                                 Create Product
@@ -140,23 +140,59 @@
                 filebrowserUploadMethod: 'form'
             });
 
-            $("#image").on('change', function() {
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#selectedImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                }
-                $('#removeDiv').prop('hidden', false);
+            var id = null;
+
+            var image = new Dropzone("#image", {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: 'post',
+                url: '{{ route('product.image') }}',
+                init: function() {
+                    this.on("sending", function(file, xhr, formData){
+                            formData.append("product_id", id);
+                    });
+                },
+                maxFilesize: 2,
+                autoProcessQueue: false,
+                parallelUploads: 50,
+                addRemoveLinks: true,
             });
 
-            $('#removeImage').on('click', function() {
-                $('#image').val('');
-                $('#img_remove_val').val('removed');
-                $('#image').next().text('Choose Image');
-                $('#selectedImage').attr('src', '{{ asset('public/uploads/no-image.jpg') }}');
-                $('#removeDiv').prop('hidden', true);
+            $('#check').click(function(){
+                image.processQueue();
+            });
+
+
+
+            $(document).on('submit', 'form', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "post",
+                    url: "{{ route('product.store') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if(response.success == true){
+                            id = response.lastId;
+                        }
+                    },
+                    error: function(response) {
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(key, value) {
+                            error += '<li style="list-style-type: none">' + value +
+                                '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
+                    }
+                })
             });
         })
     </script>

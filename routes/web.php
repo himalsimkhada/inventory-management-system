@@ -80,6 +80,8 @@ Route::prefix('/admin')->group(function () {
 
         //CKEditor
         Route::post('ckeditor', 'CkeditorFileUploadController@store')->name('ckeditor.store');
+
+        Route::post('/image', 'ProductController@image')->name('product.image');
     });
 
     // Admin Logout
