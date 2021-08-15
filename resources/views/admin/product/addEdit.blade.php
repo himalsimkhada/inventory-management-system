@@ -124,7 +124,7 @@
                                                     class="avatar-40 rounded">
                                             </div>
                                         </td>
-                                        <td><button class="btn btn-sm btn-danger" data-id="{{ $img['id'] }}" id="delete">X</button>
+                                        <td><button type="button" class="btn btn-sm btn-danger" data-id="{{ $img['id'] }}" id="delete">X</button>
                                         </td>
                                     </tr>
                                     <?php
@@ -238,6 +238,7 @@
                         if (response.success == true) {
                             id = response.lastId;
                             image.processQueue();
+                            window.location.href = "{{ route('product.index') }}";
                         }
                     },
                     error: function(response) {
