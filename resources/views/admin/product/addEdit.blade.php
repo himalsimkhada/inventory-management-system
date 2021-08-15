@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="price" class="form-label font-weight-bold text-muted text-uppercase">Price</label>
-                            <input type="text" name="price" class="form-control onlyNumber" id="price">
+                            <input type="text" name="price" class="form-control onlyNumber" id="price" value="{{ isset($editData) ? $editData->price : '' }}">
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
@@ -117,7 +117,7 @@
                                                                Add Product
                                                             </button>';
                                 }
-                                
+
                             @endphp
                         </div>
                     </form>
