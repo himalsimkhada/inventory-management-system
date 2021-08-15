@@ -124,7 +124,7 @@
                                                     class="avatar-40 rounded">
                                             </div>
                                         </td>
-                                        <td><button type="button" class="btn btn-sm btn-danger" data-id="{{ $img['id'] }}" id="delete">X</button>
+                                        <td><button type="button" class="btn btn-sm btn-danger" data-img_id="{{ $img['id'] }}" id="delete">X</button>
                                         </td>
                                     </tr>
                                     <?php
@@ -254,7 +254,8 @@
             });
 
             $(document).on('click', '#delete', function() {
-                var id = $(this).data('id');
+                var id = $(this).data('img_id');
+                var thisButton = $(this);
 
                 Swal.fire({
                     title: 'Are you sure?',
@@ -282,8 +283,9 @@
                                         'Deleted!',
                                         'Image has been deleted.',
                                         'success'
-                                    )
-                                    $('#datatable').DataTable().ajax.reload();
+                                    );
+                                    // $('#datatable').DataTable().ajax.reload();
+                                    console.log(thisButton.parent().parent().remove());
                                 } else {
                                     Swal.fire(
                                         'Error!',
