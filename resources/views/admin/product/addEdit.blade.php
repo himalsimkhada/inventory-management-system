@@ -93,6 +93,10 @@
                             </select>
                         </div>
                         <div class="col-md-12 mb-3">
+                            <label for="price" class="form-label font-weight-bold text-muted text-uppercase">Price</label>
+                            <input type="text" name="price" class="form-control onlyNumber" id="price">
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
                             <div class="dropzone border" id="image"></div>
                         </div>
@@ -132,6 +136,16 @@
                 autoProcessQueue: false,
                 addRemoveLinks: true,
                 init: function() {
+                    // let myDropzone = this;
+
+                    // // If you only have access to the original image sizes on your server,
+                    // // and want to resize them in the browser:
+                    // let mockFile = {
+                    //     name: "Filename 2",
+                    //     size: 12345
+                    // };
+                    // myDropzone.displayExistingFile(mockFile,
+                    //     "https://i.picsum.photos/id/959/600/600.jpg");
                     $('#clear-dropzone').on('click', function(e) {
                         dropzone.removeAllFiles();
                     });

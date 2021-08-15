@@ -41,6 +41,7 @@
                                                 <th>Brand</th>
                                                 <th>Unit</th>
                                                 <th>Price</th>
+                                                <th>Quantity</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -93,6 +94,10 @@
                     {
                         data: 'price',
                         name: 'price',
+                    },
+                    {
+                        data: 'quantity',
+                        name: 'quantity'
                     },
                     {
                         data: 'action',
