@@ -30,15 +30,14 @@ class ProductController extends Controller {
             $unit = Unit::all()->sortByDesc("name");
             $tax = TaxType::all()->sortByDesc("type");
             $editData = Product::findorfail($id);
-            $variant = ProductAttributes::where('product_id', $id)->get();
-            $image = Image::where('product_id', $id)->first();
-            return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData, 'image' => $image, 'variant' => $variant]);
+            $image = Image::where('product_id', $id)->get();
+            return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData, 'image' => $image]);
         } else {
             $data = Product::all()->sortByDesc('id');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($data) {
-                    if (Image::where('product_id', $data['id'])->first()->exists()) {
+                    if (Image::where('product_id', $data['id'])->exists()) {
                         $imageFile = asset('public/uploads/product/' . Image::where('product_id', $data['id'])->first()->image);
                     } else {
                         $imageFile = asset('public/uploads/no-image.jpg');
@@ -229,20 +228,5 @@ class ProductController extends Controller {
                 return $response;
             }
         }
-    }
-
-    public function image(Request $request) {
-        $data = $request->all();
-        $productImage = new Image();
-        $imageTmp = $data['file'];
-        $random = Str::random(10);
-        $extension = $imageTmp->getClientOriginalExtension();
-        $filename = $random . '.' . $extension;
-        $imagePath = 'public/uploads/product/';
-        $image = $imagePath . $filename;
-        Img::make($imageTmp)->save($image);
-        $productImage->image = $filename;
-        $productImage->product_id = $data['product_id'];
-        $productImage->save();
     }
 }

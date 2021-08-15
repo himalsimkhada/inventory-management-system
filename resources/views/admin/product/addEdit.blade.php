@@ -96,10 +96,46 @@
                             <label for="price" class="form-label font-weight-bold text-muted text-uppercase">Price</label>
                             <input type="text" name="price" class="form-control onlyNumber" id="price" value="{{ isset($editData) ? $editData->price : '' }}">
                         </div>
+                        @if(request()->id)
+                        <div class="col-md-6 mb-3">
+                        @else
                         <div class="col-md-12 mb-3">
+                        @endif
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
                             <div class="dropzone border" id="image"></div>
                         </div>
+                        @if(request()->id)
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label font-weight-bold text-muted text-uppercase">Image Preview</label>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($image as $img) {
+                                        ?>
+                                    <tr>
+                                        <td>
+                                            <div class=" iq-avatar">
+                                                <img src="{{ asset('public/uploads/product/' . $img['image']) }}" alt=""
+                                                    class="avatar-40 rounded">
+                                            </div>
+                                        </td>
+                                        <td><button type="button" class="btn btn-sm btn-danger"
+                                                data-img_id="{{ $img['id'] }}" id="delete">X</button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        @endif
                         <div class="col-md-12 mb-3">
                             <label for="description"
                                 class="form-label font-weight-bold text-muted text-uppercase">Description</label>
