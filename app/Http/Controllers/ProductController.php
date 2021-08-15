@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
-use Intervention\Image\ImageManagerStatic as Img;
-use Illuminate\Support\Str;
 
 class ProductController extends Controller {
     public function index() {
@@ -29,7 +27,7 @@ class ProductController extends Controller {
             $unit = Unit::all()->sortByDesc("name");
             $tax = TaxType::all()->sortByDesc("type");
             $editData = Product::findorfail($id);
-            $image = Image::where('product_id', $id)->first();
+            $image = Image::where('product_id', $id)->get();
             return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData, 'image' => $image]);
         } else {
             $data = Product::all()->sortByDesc('id');
@@ -161,22 +159,5 @@ class ProductController extends Controller {
                 return $response;
             }
         }
-    }
-
-    public function image(Request $request) {
-        $imagePath = 'public/uploads/product/';
-        // $ds = DIRECTORY_SEPARATOR;
-
-        $data = $request->all();
-        $productImage = new Image();
-        $imageTmp = $data['file'];
-        $random = Str::random(10);
-        $extension = $imageTmp->getClientOriginalExtension();
-        $filename = $random . '.' . $extension;
-        $image = $imagePath . $filename;
-        Img::make($imageTmp)->save($image);
-        $productImage->image = $filename;
-        $productImage->product_id = $data['product_id'];
-        $productImage->save();
     }
 }

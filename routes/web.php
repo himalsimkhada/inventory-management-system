@@ -81,7 +81,9 @@ Route::prefix('/admin')->group(function () {
         //CKEditor
         Route::post('ckeditor', 'CkeditorFileUploadController@store')->name('ckeditor.store');
 
-        Route::post('/image', 'ProductController@image')->name('product.image');
+        //Dropzone
+        Route::post('/image', 'ImageController@store')->name('product.image');
+        Route::post('/product/image/destroy', 'ImageController@destroy')->name('image.destroy');
     });
 
     // Admin Logout
