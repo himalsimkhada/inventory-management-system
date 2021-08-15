@@ -172,6 +172,7 @@
                         if(response.success == true){
                             id = response.lastId;
                             image.processQueue();
+                            window.location.href = '{{ route('product.index') }}';
                         }
                     },
                     error: function(response) {
