@@ -34,7 +34,7 @@ class ProductController extends Controller {
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($data) {
-                    if (Image::where('product_id', $data['id'])->first()->exists()) {
+                    if (Image::where('product_id', $data['id'])->exists()) {
                         $imageFile = asset('public/uploads/product/' . Image::where('product_id', $data['id'])->first()->image);
                     } else {
                         $imageFile = asset('public/uploads/no-image.jpg');
