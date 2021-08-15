@@ -103,6 +103,29 @@
                                 name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
+                            <label for="variant" class="form-label font-weight-bold text-muted text-uppercase">Variant</label>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><label class="form-label text-muted text-uppercase">Size</label></th>
+                                        <th><label class="form-label text-muted text-uppercase">Color</label></th>
+                                        <th><label class="form-label text-muted text-uppercase">Quantity</label></th>
+                                        <th><label class="form-label text-muted text-uppercase">Price</label></th>
+                                        <th><button type="button" id="plus" class="btn btn-success btn-sm mr-2">+</button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" class="form-control size" name="size[]"></td>
+                                        <td><input type="text" class="form-control color" name="color[]"></td>
+                                        <td><input type="text" class="form-control quantity" name="quantity[]"></td>
+                                        <td><input type="text" class="form-control price" name="price[]"></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
                                 Create Product
                             </button>
@@ -155,6 +178,7 @@
                 parallelUploads: 50,
                 addRemoveLinks: true,
             });
+
             $(document).on('submit', 'form', function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
@@ -185,6 +209,21 @@
                         $('#errors').html(error);
                     }
                 })
+            });
+
+            $(document).on('click', '#plus', function(){
+                var row = '<tr>' +
+                    '<td><input type="text" class="form-control size" name="size[]"></td>' +
+                    '<td><input type="text" class="form-control color" name="color[]"></td>' +
+                    '<td><input type="text" class="form-control quantity" name="quantity[]"></td>' +
+                    '<td><input type="text" class="form-control price" name="price[]"></td>' +
+                    '<td><button type="button" id="minus" class="btn btn-danger btn-sm mr-2">-</button></td>' +
+                '</tr>';
+                $('tbody').append(row);
+            });
+
+            $(document).on('click', '#minus', function(){
+                $(this).parent().parent().remove();
             });
         })
     </script>

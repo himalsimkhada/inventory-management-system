@@ -101,7 +101,7 @@ class ProductController extends Controller {
 
     public function store(Request $request) {
         if ($request->isMethod('post')) {
-            // dd($request->all());
+            dd($request->all());
             $rule = [
                 'name' => 'required|max:255',
                 'code' => 'required|max:255',
@@ -128,6 +128,18 @@ class ProductController extends Controller {
                 $store = $product->save();
                 $response = ['success' => $store];
                 if($store == true){
+                    $productAttr = new ProductAttributes();
+                    $count = count($data['size']);
+                    for ($i=0; $i < $count; $i++) {
+                        $productAttr->size = $data['size'][$i];
+                        $productAttr->color = $data['color'][$i];
+                        $productAttr->quantity = $data['quantity'][$i];
+                        $productAttr->price = $data['price'][$i];
+                        $store2 = $productAttr->save();
+                        if($store2){
+                            $response = ['success2' => $store2];
+                        }
+                    }
                     $response['lastId'] = $product->id;
                 }
                 return $response;
