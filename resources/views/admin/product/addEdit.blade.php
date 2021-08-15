@@ -97,31 +97,76 @@
                             <input type="text" name="price" class="form-control onlyNumber" id="price"
                                 value="{{ isset($editData) ? $editData->price : '' }}">
                         </div>
-
-                        <div class="col-md-12 mb-3">
-                            <label for="description"
-                                class="form-label font-weight-bold text-muted text-uppercase">Description</label>
-                            <textarea class="form-control" id="description" row="3"
-                                name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
+                        <?php
+                            if (request()->id) {
+                                echo '<div class="col-md-6 mb-3">';
+                                echo '<label for="imageDiv" class="form-label font-weight-bold text-muted text-uppercase">Image</label>';
+                                echo '<div class="dropzone border" id="image"></div>';
+                                echo '</div>';
+                                ?>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label font-weight-bold text-muted text-uppercase">Image Preview</label>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($image as $img) {
+                                        ?>
+                                    <tr>
+                                        <td>
+                                            <div class=" iq-avatar">
+                                                <img src="{{ asset('public/uploads/product/' . $img['image']) }}" alt=""
+                                                    class="avatar-40 rounded">
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-sm btn-danger" data-id="{{ $img['id'] }}" id="delete">X</button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            @php
-                                if (request()->id) {
-                                    echo '<button type="submit" class="btn btn-primary" id="submitForm">
-                                                                                               Update Product
-                                                                                            </button>';
-                                } else {
-                                    echo '<button type="submit" class="btn btn-primary" id="submitForm">
-                                                                                               Add Product
-                                                                                            </button>';
-                                }
-                                
-                            @endphp
-                        </div>
-                    </form>
+                        <?php
+                        } else {
+                        echo '<div class="col-md-12 mb-3">';
+                            echo '<label for="imageDiv"
+                                class="form-label font-weight-bold text-muted text-uppercase">Image</label>';
+                            echo '<div class="dropzone border" id="image"></div>';
+                            echo '</div>';
+                        }
+                        ?>
                 </div>
+                <div class="col-md-12 mb-3">
+                    <label for="description"
+                        class="form-label font-weight-bold text-muted text-uppercase">Description</label>
+                    <textarea class="form-control" id="description" row="3"
+                        name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
+                </div>
+                <div class="col-md-12 mb-3">
+                    @php
+                        if (request()->id) {
+                            echo '<button type="submit" class="btn btn-primary" id="submitForm">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Update Product
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </button>';
+                        } else {
+                            echo '<button type="submit" class="btn btn-primary" id="submitForm">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Add Product
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </button>';
+                        }
+
+                    @endphp
+                </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
@@ -193,7 +238,7 @@
                         if (response.success == true) {
                             id = response.lastId;
                             image.processQueue();
-                            window.location.href = "{{ route('product.index') }}";
+                            // window.location.href = "{{ route('product.index') }}";
                         }
                     },
                     error: function(response) {
@@ -206,6 +251,55 @@
                         $('#errors').html(error);
                     }
                 })
+            });
+
+            $(document).on('click', '#delete', function() {
+                var id = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            method: "post",
+                            url: "{{ route('image.destroy') }}",
+                            data: {
+                                id: id
+                            },
+                            dataType: "json",
+                            success: function(response) {
+                                if (response == 1) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Image has been deleted.',
+                                        'success'
+                                    )
+                                    $('#datatable').DataTable().ajax.reload();
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'There has been error deleting the data.',
+                                        'failed'
+                                    )
+                                }
+                            },
+                            error: function(response) {
+                                console.log('error');
+                            }
+
+                        })
+                    }
+                })
+
             });
         })
     </script>
