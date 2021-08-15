@@ -64,6 +64,17 @@ class ProductController extends Controller {
                 ->editColumn('tax_type_id', function ($data) {
                     return $data->tax_type->type;
                 })
+                ->editColumn('quantity', function ($data) {
+                    $attribute = ProductAttributes::where('product_id', $data['id'])->get();
+
+                    $total_quantity = 0;
+
+                    foreach ($attribute as $quantity) {
+                        $total_quantity = $total_quantity + $quantity['quantity'];
+                    }
+
+                    return $total_quantity;
+                })
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<button id="btnGroupDrop1" type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>';
                     $actionBtn .= '<div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">';
@@ -128,7 +139,7 @@ class ProductController extends Controller {
                 $product->price = $data['price'];
                 $store = $product->save();
                 $response = ['success' => $store];
-                if($store == true){
+                if ($store == true) {
                     $response['lastId'] = $product->id;
                 }
                 return $response;
@@ -144,7 +155,7 @@ class ProductController extends Controller {
                 $product->price = $data['price'];
                 $store = $product->save();
                 $response = ['success' => $store];
-                if($store == true){
+                if ($store == true) {
                     $response['lastId'] = $product->id;
                 }
                 return $response;
@@ -152,7 +163,7 @@ class ProductController extends Controller {
         }
     }
 
-    public function image(Request $request){
+    public function image(Request $request) {
         $data = $request->all();
         $productImage = new Image();
         $imageTmp = $data['file'];
