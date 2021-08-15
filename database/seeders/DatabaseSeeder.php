@@ -88,7 +88,6 @@ class DatabaseSeeder extends Seeder
                 'code' => '00001',
                 'description' => 'This is a description',
                 'price' => 1200,
-                'quantity' => 12,
                 'category_id' => 1,
                 'brand_id' => 1,
                 'unit_id' => 1,
@@ -101,7 +100,6 @@ class DatabaseSeeder extends Seeder
             'code' => '000200',
             'description' => 'This is a description',
             'price' => 150,
-            'quantity' => 1,
             'unit_id' => 2,
             'tax_type_id' => 1,
         ]);
@@ -110,6 +108,8 @@ class DatabaseSeeder extends Seeder
             'size' => 'Large',
             'color' => 'Black',
             'additional_price' => '1200',
+            'sku' => 'SMA-LAR-BLA',
+            'quantity' => 12,
             'product_id' => 1,
          ]);
 

@@ -125,6 +125,7 @@ class ProductController extends Controller {
                 $product->unit_id = $data['unit_id'];
                 $product->tax_type_id = $data['tax_id'];
                 $product->description = $data['description'];
+                $product->price = $data['price'];
                 $store = $product->save();
                 $response = ['success' => $store];
                 if($store == true){
@@ -140,6 +141,7 @@ class ProductController extends Controller {
                 $product->unit_id = $data['unit_id'];
                 $product->tax_type_id = $data['tax_id'];
                 $product->description = $data['description'];
+                $product->price = $data['price'];
                 $store = $product->save();
                 $response = ['success' => $store];
                 if($store == true){
