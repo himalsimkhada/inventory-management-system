@@ -17,10 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->string('description');
-            $table->double('price');
-            $table->integer('quantity');
-            $table->string('barcode_symbology')->nullable();
+            $table->longText('description');
+            $table->double('price')->nullable();
             $table->timestamps();
         });
     }

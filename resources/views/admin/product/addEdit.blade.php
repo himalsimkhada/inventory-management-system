@@ -93,6 +93,10 @@
                             </select>
                         </div>
                         <div class="col-md-12 mb-3">
+                            <label for="price" class="form-label font-weight-bold text-muted text-uppercase">Price</label>
+                            <input type="text" name="price" class="form-control onlyNumber" id="price" value="{{ isset($editData) ? $editData->price : '' }}">
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
                             <div class="dropzone border" id="image"></div>
                         </div>
@@ -115,13 +119,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if(isset($variant) && !empty($variant))
+                                        @foreach($variant as $value)
+                                        <tr>
+                                            <td><input type="text" name="attrId" value={{ $value->id }}><input type="text" class="form-control size" name="size[]" value={{ $value->size }}></td>
+                                            <td><input type="text" class="form-control color" name="color[]" value={{ $value->color }}></td>
+                                            <td><input type="text" class="form-control quantity" name="quantity[]" value={{ $value->quantity }}></td>
+                                            <td><input type="text" class="form-control price" name="additionalPrice[]" value={{ $value->additional_price }}></td>
+                                            <td></td>
+                                        </tr>
+                                        @endforeach
+                                    @else
                                     <tr>
-                                        <td><input type="text" class="form-control size" name="size[]"></td>
+                                        <td><input type="text" name="attrId"><input type="text" class="form-control size" name="size[]"></td>
                                         <td><input type="text" class="form-control color" name="color[]"></td>
                                         <td><input type="text" class="form-control quantity" name="quantity[]"></td>
-                                        <td><input type="text" class="form-control price" name="price[]"></td>
+                                        <td><input type="text" class="form-control price" name="additionalPrice[]"></td>
                                         <td></td>
                                     </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -146,6 +162,16 @@
                 autoProcessQueue: false,
                 addRemoveLinks: true,
                 init: function() {
+                    // let myDropzone = this;
+
+                    // // If you only have access to the original image sizes on your server,
+                    // // and want to resize them in the browser:
+                    // let mockFile = {
+                    //     name: "Filename 2",
+                    //     size: 12345
+                    // };
+                    // myDropzone.displayExistingFile(mockFile,
+                    //     "https://i.picsum.photos/id/959/600/600.jpg");
                     $('#clear-dropzone').on('click', function(e) {
                         dropzone.removeAllFiles();
                     });
@@ -169,8 +195,8 @@
                 method: 'post',
                 url: '{{ route('product.image') }}',
                 init: function() {
-                    this.on("sending", function(file, xhr, formData){
-                            formData.append("product_id", id);
+                    this.on("sending", function(file, xhr, formData) {
+                        formData.append("product_id", id);
                     });
                 },
                 maxFilesize: 2,
@@ -193,10 +219,10 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        if(response.success == true){
+                        if (response.success == true) {
                             id = response.lastId;
                             image.processQueue();
-                            window.location.href = '{{ route('product.index') }}';
+                            window.location.href = '{{ route("product.index") }}';
                         }
                     },
                     error: function(response) {
@@ -216,7 +242,7 @@
                     '<td><input type="text" class="form-control size" name="size[]"></td>' +
                     '<td><input type="text" class="form-control color" name="color[]"></td>' +
                     '<td><input type="text" class="form-control quantity" name="quantity[]"></td>' +
-                    '<td><input type="text" class="form-control price" name="price[]"></td>' +
+                    '<td><input type="text" class="form-control price" name="additionalPrice[]"></td>' +
                     '<td><button type="button" id="minus" class="btn btn-danger btn-sm mr-2">-</button></td>' +
                 '</tr>';
                 $('tbody').append(row);
