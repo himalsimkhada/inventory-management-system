@@ -94,16 +94,17 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="price" class="form-label font-weight-bold text-muted text-uppercase">Price</label>
-                            <input type="text" name="price" class="form-control onlyNumber" id="price"
-                                value="{{ isset($editData) ? $editData->price : '' }}">
+                            <input type="text" name="price" class="form-control onlyNumber" id="price" value="{{ isset($editData) ? $editData->price : '' }}">
                         </div>
-                        <?php
-                            if (request()->id) {
-                                echo '<div class="col-md-6 mb-3">';
-                                echo '<label for="imageDiv" class="form-label font-weight-bold text-muted text-uppercase">Image</label>';
-                                echo '<div class="dropzone border" id="image"></div>';
-                                echo '</div>';
-                                ?>
+                        @if(request()->id)
+                        <div class="col-md-6 mb-3">
+                        @else
+                        <div class="col-md-12 mb-3">
+                        @endif
+                            <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
+                            <div class="dropzone border" id="image"></div>
+                        </div>
+                        @if(request()->id)
                         <div class="col-md-6 mb-3">
                             <label class="form-label font-weight-bold text-muted text-uppercase">Image Preview</label>
                             <table class="table table-striped table-bordered">
@@ -134,40 +135,57 @@
                                 </tbody>
                             </table>
                         </div>
-                        <?php
-                        } else {
-                        echo '<div class="col-md-12 mb-3">';
-                            echo '<label for="imageDiv"
-                                class="form-label font-weight-bold text-muted text-uppercase">Image</label>';
-                            echo '<div class="dropzone border" id="image"></div>';
-                            echo '</div>';
-                        }
-                        ?>
+                        @endif
+                        <div class="col-md-12 mb-3">
+                            <label for="description"
+                                class="form-label font-weight-bold text-muted text-uppercase">Description</label>
+                            <textarea class="form-control" id="description" row="3"
+                                name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="variant" class="form-label font-weight-bold text-muted text-uppercase">Variant</label>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><label class="form-label text-muted text-uppercase">Size</label></th>
+                                        <th><label class="form-label text-muted text-uppercase">Color</label></th>
+                                        <th><label class="form-label text-muted text-uppercase">Quantity</label></th>
+                                        <th><label class="form-label text-muted text-uppercase">Price</label></th>
+                                        <th><button type="button" id="plus" class="btn btn-success btn-sm mr-2">+</button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(isset($variant) && !empty($variant))
+                                        @foreach($variant as $value)
+                                        <tr>
+                                            <td><input type="text" name="attrId" value={{ $value->id }}><input type="text" class="form-control size" name="size[]" value={{ $value->size }}></td>
+                                            <td><input type="text" class="form-control color" name="color[]" value={{ $value->color }}></td>
+                                            <td><input type="text" class="form-control quantity" name="quantity[]" value={{ $value->quantity }}></td>
+                                            <td><input type="text" class="form-control price" name="additionalPrice[]" value={{ $value->additional_price }}></td>
+                                            <td></td>
+                                        </tr>
+                                        @endforeach
+                                    @else
+                                    <tr>
+                                        <td><input type="text" name="attrId"><input type="text" class="form-control size" name="size[]"></td>
+                                        <td><input type="text" class="form-control color" name="color[]"></td>
+                                        <td><input type="text" class="form-control quantity" name="quantity[]"></td>
+                                        <td><input type="text" class="form-control price" name="additionalPrice[]"></td>
+                                        <td></td>
+                                    </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <button type="submit" class="btn btn-primary" id="submitForm">
+                                Create Product
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-12 mb-3">
-                    <label for="description"
-                        class="form-label font-weight-bold text-muted text-uppercase">Description</label>
-                    <textarea class="form-control" id="description" row="3"
-                        name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
-                </div>
-                <div class="col-md-12 mb-3">
-                    @php
-                        if (request()->id) {
-                            echo '<button type="submit" class="btn btn-primary" id="submitForm">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Update Product
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </button>';
-                        } else {
-                            echo '<button type="submit" class="btn btn-primary" id="submitForm">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Add Product
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </button>';
-                        }
-
-                    @endphp
-                </div>
-                </form>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 
@@ -222,6 +240,7 @@
                 parallelUploads: 50,
                 addRemoveLinks: true,
             });
+
             $(document).on('submit', 'form', function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
@@ -239,7 +258,7 @@
                         if (response.success == true) {
                             id = response.lastId;
                             image.processQueue();
-                            window.location.href = "{{ route('product.index') }}";
+                            window.location.href = '{{ route("product.index") }}';
                         }
                     },
                     error: function(response) {
@@ -254,55 +273,19 @@
                 })
             });
 
-            $(document).on('click', '#delete', function() {
-                var id = $(this).data('img_id');
-                var thisButton = $(this);
+            $(document).on('click', '#plus', function(){
+                var row = '<tr>' +
+                    '<td><input type="text" class="form-control size" name="size[]"></td>' +
+                    '<td><input type="text" class="form-control color" name="color[]"></td>' +
+                    '<td><input type="text" class="form-control quantity" name="quantity[]"></td>' +
+                    '<td><input type="text" class="form-control price" name="additionalPrice[]"></td>' +
+                    '<td><button type="button" id="minus" class="btn btn-danger btn-sm mr-2">-</button></td>' +
+                '</tr>';
+                $('tbody').append(row);
+            });
 
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            method: "post",
-                            url: "{{ route('image.destroy') }}",
-                            data: {
-                                id: id
-                            },
-                            dataType: "json",
-                            success: function(response) {
-                                if (response == 1) {
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'Image has been deleted.',
-                                        'success'
-                                    );
-                                    // $('#datatable').DataTable().ajax.reload();
-                                    thisButton.parent().parent().remove();
-                                } else {
-                                    Swal.fire(
-                                        'Error!',
-                                        'There has been error deleting the data.',
-                                        'failed'
-                                    )
-                                }
-                            },
-                            error: function(response) {
-                                console.log('error');
-                            }
-
-                        })
-                    }
-                })
-
+            $(document).on('click', '#minus', function(){
+                $(this).parent().parent().remove();
             });
         })
     </script>

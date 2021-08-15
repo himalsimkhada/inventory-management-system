@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
+use Intervention\Image\ImageManagerStatic as Img;
+use Illuminate\Support\Str;
+use DNS1D;
 
 class ProductController extends Controller {
     public function index() {
@@ -133,11 +136,44 @@ class ProductController extends Controller {
                 $product->brand_id = $data['brand_id'];
                 $product->unit_id = $data['unit_id'];
                 $product->tax_type_id = $data['tax_id'];
-                $product->description = $data['description'];
                 $product->price = $data['price'];
+                $product->description = $data['description'];
                 $store = $product->save();
                 $response = ['success' => $store];
-                if ($store == true) {
+                if($store == true){
+                    $count = count($data['size']);
+                    $data2 =[];
+                    for ($i=0; $i < $count; $i++){
+                        $product_name = Product::findorfail($product->id)->name;
+                        $sku = strtoupper(substr($product_name, 0, 3)) . '-' . strtoupper(substr($data['size'][$i], 0, 3)) . '-' . strtoupper(substr($data['color'][$i], 0, 3));
+                        $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
+                        if($data['attrId'] == ''){
+                            $data2[] = [
+                                'size' => $data['size'][$i],
+                                'color' => $data['color'][$i],
+                                'quantity' => $data['quantity'][$i],
+                                'additional_price' => $data['additionalPrice'][$i],
+                                'sku' => $sku,
+                                'size' => $data['size'][$i],
+                                'barcode' => $barcode,
+                                'product_id' => $product->id,
+                            ];
+                        }else{
+                            $data2 = [
+                                'size' => $data['size'][$i],
+                                'color' => $data['color'][$i],
+                                'quantity' => $data['quantity'][$i],
+                                'additional_price' => $data['additionalPrice'][$i],
+                                'sku' => $sku,
+                                'size' => $data['size'][$i],
+                                'barcode' => $barcode,
+                            ];
+                            ProductAttributes::where('id', $data['attrId']);
+                        }
+                    }
+                    if(!empty($data2)){
+                        ProductAttributes::insert($data2);
+                    }
                     $response['lastId'] = $product->id;
                 }
                 return $response;
@@ -150,11 +186,44 @@ class ProductController extends Controller {
                 $product->unit_id = $data['unit_id'];
                 $product->tax_type_id = $data['tax_id'];
                 $product->description = $data['description'];
-                $product->price = $data['price'];
                 $store = $product->save();
                 $response = ['success' => $store];
                 if ($store == true) {
+                    $count = count($data['size']);
+                    $data2 =[];
+                    for ($i=0; $i < $count; $i++){
+                        $product_name = Product::findorfail($product->id)->name;
+                        $sku = strtoupper(substr($product_name, 0, 3)) . '-' . strtoupper(substr($data['size'][$i], 0, 3)) . '-' . strtoupper(substr($data['color'][$i], 0, 3));
+                        $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
+                        if($data['attrId'] == ''){
+                            $data2[] = [
+                                'size' => $data['size'][$i],
+                                'color' => $data['color'][$i],
+                                'quantity' => $data['quantity'][$i],
+                                'additional_price' => $data['additionalPrice'][$i],
+                                'sku' => $sku,
+                                'size' => $data['size'][$i],
+                                'barcode' => $barcode,
+                                'product_id' => $product->id,
+                            ];
+                        }else{
+                            $data2 = [
+                                'size' => $data['size'][$i],
+                                'color' => $data['color'][$i],
+                                'quantity' => $data['quantity'][$i],
+                                'additional_price' => $data['additionalPrice'][$i],
+                                'sku' => $sku,
+                                'size' => $data['size'][$i],
+                                'barcode' => $barcode,
+                            ];
+                            dd(data2);
+                            ProductAttributes::where('id', $data['attrId']);
+                        }
+                    }
                     $response['lastId'] = $product->id;
+                }
+                if(!empty($data2)){
+                    ProductAttributes::insert($data2);
                 }
                 return $response;
             }
