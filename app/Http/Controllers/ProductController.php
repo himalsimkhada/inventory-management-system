@@ -26,13 +26,13 @@ class ProductController extends Controller {
     public function get($id = null) {
         if ($id != '') {
             $category = Category::all()->sortByDesc("name");
-            $product = Brand::all()->sortByDesc("name");
+            $brand = Brand::all()->sortByDesc("name");
             $unit = Unit::all()->sortByDesc("name");
             $tax = TaxType::all()->sortByDesc("type");
             $editData = Product::findorfail($id);
             $image = Image::where('product_id', $id)->get();
             $variant = ProductAttributes::where('product_id', $id)->get();
-            return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData, 'image' => $image, 'variant' => $variant]);
+            return view('admin.product.addEdit', ['category' => $category, 'brand' => $brand, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData, 'image' => $image, 'variant' => $variant]);
         } else {
             $data = Product::all()->sortByDesc('id');
             return DataTables::of($data)
@@ -141,16 +141,16 @@ class ProductController extends Controller {
                 $product->description = $data['description'];
                 $store = $product->save();
                 $response = ['success' => $store];
-                if($store == true){
-                    if(isset($data['attrId'])){
+                if ($store == true) {
+                    if (isset($data['attrId'])) {
                         $count = count($data['attrId']);
-                        $insert =[];
-                        if($count>0){
-                            for ($i=0; $i < $count; $i++){
+                        $insert = [];
+                        if ($count > 0) {
+                            for ($i = 0; $i < $count; $i++) {
                                 $product_name = Product::findorfail($product->id)->name;
                                 $sku = strtoupper(substr($product_name, 0, 3)) . '-' . strtoupper(substr($data['size'][$i], 0, 3)) . '-' . strtoupper(substr($data['color'][$i], 0, 3));
                                 $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
-                                if($data['attrId'][$i] == ''){
+                                if ($data['attrId'][$i] == '') {
                                     $insert[] = [
                                         'size' => $data['size'][$i],
                                         'color' => $data['color'][$i],
@@ -163,7 +163,7 @@ class ProductController extends Controller {
                                     ];
                                 }
                             }
-                            if(!empty($insert)){
+                            if (!empty($insert)) {
                                 ProductAttributes::insert($insert);
                             }
                         }
@@ -183,16 +183,16 @@ class ProductController extends Controller {
                 $store = $product->save();
                 $response = ['success' => $store];
                 if ($store == true) {
-                    if(isset($data['attrId'])){
+                    if (isset($data['attrId'])) {
                         $count = count($data['size']);
-                        $insert =[];
-                        $update =[];
-                        if($count>0){
-                            for ($i=0; $i < $count; $i++){
+                        $insert = [];
+                        $update = [];
+                        if ($count > 0) {
+                            for ($i = 0; $i < $count; $i++) {
                                 $product_name = Product::findorfail($product->id)->name;
                                 $sku = strtoupper(substr($product_name, 0, 3)) . '-' . strtoupper(substr($data['size'][$i], 0, 3)) . '-' . strtoupper(substr($data['color'][$i], 0, 3));
                                 $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
-                                if($data['attrId'][$i] == ''){
+                                if ($data['attrId'][$i] == '') {
                                     $insert[] = [
                                         'size' => $data['size'][$i],
                                         'color' => $data['color'][$i],
@@ -203,7 +203,7 @@ class ProductController extends Controller {
                                         'barcode' => $barcode,
                                         'product_id' => $product->id,
                                     ];
-                                }else{
+                                } else {
                                     $update = [
                                         'size' => $data['size'][$i],
                                         'color' => $data['color'][$i],
@@ -214,22 +214,46 @@ class ProductController extends Controller {
                                         'barcode' => $barcode,
                                     ];
                                 }
-                                if(!empty($update)){
+                                if (!empty($update)) {
                                     ProductAttributes::where('id', $data['attrId'][$i])->where('product_id', $product->id)->update($update);
                                 }
                             }
-                            if(!empty($insert)){
+                            if (!empty($insert)) {
                                 ProductAttributes::insert($insert);
                             }
                         }
                     }
                     $response['lastId'] = $product->id;
                 }
-                if(!empty($data2)){
+                if (!empty($data2)) {
                     ProductAttributes::insert($data2);
                 }
                 return $response;
             }
         }
+    }
+
+    public function image(Request $request) {
+        $data = $request->all();
+        $get = Image::where('product_id', $data['id'])->get();
+        // dd($get);
+        $fileList = [];
+        $dir = 'public/uploads/product/';
+        foreach($get as $value){
+            $file_path = $dir . $value->image;
+            $size = filesize($file_path);
+            $fileList[] = ['name' => $value->image, 'size' => $size, 'path' => $file_path, 'id' => $value->id];
+        }
+        return response()->json($fileList);
+    }
+
+    public function removeImage(Request $request){
+        $id = $request->input('data');
+        $image = Image::findorfail($id);
+        $response = Image::where('id', $id)->delete();
+        if ($image->image != "") {
+            File::delete('public/uploads/product/' . $image->image);
+        }
+        return response()->json($response);
     }
 }

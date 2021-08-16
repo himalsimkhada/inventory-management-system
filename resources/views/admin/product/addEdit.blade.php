@@ -96,46 +96,10 @@
                             <label for="price" class="form-label font-weight-bold text-muted text-uppercase">Price</label>
                             <input type="text" name="price" class="form-control onlyNumber" id="price" value="{{ isset($editData) ? $editData->price : '' }}">
                         </div>
-                        @if(request()->id)
-                        <div class="col-md-6 mb-3">
-                        @else
                         <div class="col-md-12 mb-3">
-                        @endif
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
                             <div class="dropzone border" id="image"></div>
                         </div>
-                        @if(request()->id)
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label font-weight-bold text-muted text-uppercase">Image Preview</label>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($image as $img) {
-                                        ?>
-                                    <tr>
-                                        <td>
-                                            <div class=" iq-avatar">
-                                                <img src="{{ asset('public/uploads/product/' . $img['image']) }}" alt=""
-                                                    class="avatar-40 rounded">
-                                            </div>
-                                        </td>
-                                        <td><button type="button" class="btn btn-sm btn-danger"
-                                                data-img_id="{{ $img['id'] }}" id="delete">X</button>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        @endif
                         <div class="col-md-12 mb-3">
                             <label for="description"
                                 class="form-label font-weight-bold text-muted text-uppercase">Description</label>
@@ -179,7 +143,11 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
+                                @if(request()->id)
+                                Edit Product
+                                @else
                                 Create Product
+                                @endif
                             </button>
                         </div>
                     </form>
@@ -193,29 +161,6 @@
     <script>
         Dropzone.autoDiscover = false;
         $(document).ready(function() {
-            $("div#fileUpload").dropzone({
-                url: "/file/post",
-                autoProcessQueue: false,
-                addRemoveLinks: true,
-                init: function() {
-                    // let myDropzone = this;
-
-                    // // If you only have access to the original image sizes on your server,
-                    // // and want to resize them in the browser:
-                    // let mockFile = {
-                    //     name: "Filename 2",
-                    //     size: 12345
-                    // };
-                    // myDropzone.displayExistingFile(mockFile,
-                    //     "https://i.picsum.photos/id/959/600/600.jpg");
-                    $('#clear-dropzone').on('click', function(e) {
-                        dropzone.removeAllFiles();
-                    });
-                    $('#submitForm').on('click', function(e) {
-                        console.log('success');
-                    });
-                }
-            });
 
             CKEDITOR.replace('description', {
                 filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
@@ -223,6 +168,11 @@
             });
 
             var id = null;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            })
 
             var image = new Dropzone("#image", {
                 headers: {
@@ -231,6 +181,21 @@
                 method: 'post',
                 url: '{{ route('product.image') }}',
                 init: function() {
+                    var myDropzone = this;
+                    $.ajax({
+                        url: '{{ route("product.images") }}',
+                        dataType: 'json',
+                        method: 'post',
+                        data: {id: {{ request()->id }}},
+                        success: function(response){
+                            $.each(response, function(key,value) {
+                                var mockFile = { name: value.name, size: value.size, id:value.id};
+                                myDropzone.emit("addedfile", mockFile);
+                                myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
+                                myDropzone.emit("complete", mockFile);
+                            });
+                        }
+                    });
                     this.on("sending", function(file, xhr, formData) {
                         formData.append("product_id", id);
                     });
@@ -239,6 +204,32 @@
                 autoProcessQueue: false,
                 parallelUploads: 50,
                 addRemoveLinks: true,
+                removedfile: function(file){
+                    $.ajax({
+                        url: '{{ route("product.image.remove") }}',
+                        method: 'post',
+                        data: {data: file.id},
+                        success: function(response){
+                            console.log(response);
+                        }
+                    });
+                    $('div.dz-image-preview').remove();
+                    var myDropzone = this;
+                    $.ajax({
+                        url: '{{ route("product.images") }}',
+                        dataType: 'json',
+                        method: 'post',
+                        data: {id: {{ request()->id }}},
+                        success: function(response){
+                            $.each(response, function(key,value) {
+                                var mockFile = { name: value.name, size: value.size, id:value.id};
+                                myDropzone.emit("addedfile", mockFile);
+                                myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
+                                myDropzone.emit("complete", mockFile);
+                            });
+                        }
+                    });
+                }
             });
 
             $(document).on('submit', 'form', function(e) {
