@@ -62,7 +62,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">Category</span>
                             </a>
                         </li>
-                        <li class="sidebar-layout">
+                        <li class="sidebar-layout {{ Session::get('admin_page') == 'product' ? 'active' : '' }}">
                             <a href="{{ route('product.index') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"

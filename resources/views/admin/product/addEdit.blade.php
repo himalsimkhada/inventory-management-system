@@ -158,7 +158,7 @@
                                     @if(isset($variant) && !empty($variant))
                                         @foreach($variant as $value)
                                         <tr>
-                                            <td><input type="text" name="attrId" value={{ $value->id }}><input type="text" class="form-control size" name="size[]" value={{ $value->size }}></td>
+                                            <td><input type="hidden" name="attrId[]" value={{ $value->id }}><input type="text" class="form-control size" name="size[]" value={{ $value->size }}></td>
                                             <td><input type="text" class="form-control color" name="color[]" value={{ $value->color }}></td>
                                             <td><input type="text" class="form-control quantity" name="quantity[]" value={{ $value->quantity }}></td>
                                             <td><input type="text" class="form-control price" name="additionalPrice[]" value={{ $value->additional_price }}></td>
@@ -167,11 +167,11 @@
                                         @endforeach
                                     @else
                                     <tr>
-                                        <td><input type="text" name="attrId"><input type="text" class="form-control size" name="size[]"></td>
+                                        <td><input type="hidden" name="attrId[]"><input type="text" class="form-control size" name="size[]"></td>
                                         <td><input type="text" class="form-control color" name="color[]"></td>
                                         <td><input type="text" class="form-control quantity" name="quantity[]"></td>
                                         <td><input type="text" class="form-control price" name="additionalPrice[]"></td>
-                                        <td></td>
+                                        <td><button type="button" class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>
                                     </tr>
                                     @endif
                                 </tbody>
@@ -275,7 +275,7 @@
 
             $(document).on('click', '.addAttr', function(){
                 var row = '<tr>' +
-                    '<td><input type="text" name="attrId"><input type="text" class="form-control size" name="size[]"></td>' +
+                    '<td><input type="hidden" name="attrId[]"><input type="text" class="form-control size" name="size[]"></td>' +
                     '<td><input type="text" class="form-control color" name="color[]"></td>' +
                     '<td><input type="text" class="form-control quantity" name="quantity[]"></td>' +
                     '<td><input type="text" class="form-control price" name="additionalPrice[]"></td>' +
@@ -286,16 +286,6 @@
 
             $(document).on('click', '.removeAttr', function(){
                 $(this).parent().parent().remove();
-                if($('tbody#attrBody').children().length == 0){
-                    var row = '<tr>' +
-                    '<td><input type="text" name="attrId"><input type="text" class="form-control size" name="size[]"></td>' +
-                    '<td><input type="text" class="form-control color" name="color[]"></td>' +
-                    '<td><input type="text" class="form-control quantity" name="quantity[]"></td>' +
-                    '<td><input type="text" class="form-control price" name="additionalPrice[]"></td>' +
-                    '<td><button type="button" class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>' +
-                '</tr>';
-                $('tbody#attrBody').append(row);
-                }
             });
         })
     </script>
