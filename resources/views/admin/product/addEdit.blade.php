@@ -94,7 +94,8 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="price" class="form-label font-weight-bold text-muted text-uppercase">Price</label>
-                            <input type="text" name="price" class="form-control onlyNumber" id="price" value="{{ isset($editData) ? $editData->price : '' }}">
+                            <input type="text" name="price" class="form-control onlyNumber" id="price"
+                                value="{{ isset($editData) ? $editData->price : '' }}">
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="image" class="form-label font-weight-bold text-muted text-uppercase">Image</label>
@@ -107,7 +108,8 @@
                                 name="description">{{ isset($editData) ? $editData->description : '' }}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label for="variant" class="form-label font-weight-bold text-muted text-uppercase">Variant</label>
+                            <label for="variant"
+                                class="form-label font-weight-bold text-muted text-uppercase">Variant</label>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -115,38 +117,47 @@
                                         <th><label class="form-label text-muted text-uppercase">Color</label></th>
                                         <th><label class="form-label text-muted text-uppercase">Quantity</label></th>
                                         <th><label class="form-label text-muted text-uppercase">Price</label></th>
-                                        <th><button type="button" class="btn btn-success btn-sm mr-2 addAttr">+</button></th>
+                                        <th><button type="button" class="btn btn-success btn-sm mr-2 addAttr">+</button>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="attrBody">
-                                    @if(isset($variant) && !empty($variant))
-                                        @foreach($variant as $value)
-                                        <tr>
-                                            <td><input type="hidden" name="attrId[]" value={{ $value->id }}><input type="text" class="form-control size" name="size[]" value={{ $value->size }}></td>
-                                            <td><input type="text" class="form-control color" name="color[]" value={{ $value->color }}></td>
-                                            <td><input type="text" class="form-control quantity" name="quantity[]" value={{ $value->quantity }}></td>
-                                            <td><input type="text" class="form-control price" name="additionalPrice[]" value={{ $value->additional_price }}></td>
-                                            <td><button type="button" id="{{ $value->id }}" class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>
-                                        </tr>
+                                    @if (isset($variant) && !empty($variant))
+                                        @foreach ($variant as $value)
+                                            <tr>
+                                                <td><input type="hidden" name="attrId[]" value={{ $value->id }}><input
+                                                        type="text" class="form-control size" name="size[]"
+                                                        value={{ $value->size }}></td>
+                                                <td><input type="text" class="form-control color" name="color[]"
+                                                        value={{ $value->color }}></td>
+                                                <td><input type="text" class="form-control quantity" name="quantity[]"
+                                                        value={{ $value->quantity }}></td>
+                                                <td><input type="text" class="form-control price" name="additionalPrice[]"
+                                                        value={{ $value->additional_price }}></td>
+                                                <td><button type="button" id="{{ $value->id }}"
+                                                        class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>
+                                            </tr>
                                         @endforeach
                                     @else
-                                    <tr>
-                                        <td><input type="hidden" name="attrId[]"><input type="text" class="form-control size" name="size[]"></td>
-                                        <td><input type="text" class="form-control color" name="color[]"></td>
-                                        <td><input type="text" class="form-control quantity" name="quantity[]"></td>
-                                        <td><input type="text" class="form-control price" name="additionalPrice[]"></td>
-                                        <td><button type="button" class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>
-                                    </tr>
+                                        <tr>
+                                            <td><input type="hidden" name="attrId[]"><input type="text"
+                                                    class="form-control size" name="size[]"></td>
+                                            <td><input type="text" class="form-control color" name="color[]"></td>
+                                            <td><input type="text" class="form-control quantity" name="quantity[]"></td>
+                                            <td><input type="text" class="form-control price" name="additionalPrice[]"></td>
+                                            <td><button type="button"
+                                                    class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>
+                                        </tr>
                                     @endif
                                 </tbody>
                             </table>
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
-                                @if(request()->id)
-                                Edit Product
+                                @if (request()->id)
+                                    Edit Product
                                 @else
-                                Create Product
+                                    Create Product
                                 @endif
                             </button>
                         </div>
@@ -183,13 +194,19 @@
                 init: function() {
                     var myDropzone = this;
                     $.ajax({
-                        url: '{{ route("product.images") }}',
+                        url: '{{ route('product.images') }}',
                         dataType: 'json',
                         method: 'post',
-                        data: {id: {{ request()->id }}},
-                        success: function(response){
-                            $.each(response, function(key,value) {
-                                var mockFile = { name: value.name, size: value.size, id:value.id};
+                        data: {
+                            id: {{ request()->id }}
+                        },
+                        success: function(response) {
+                            $.each(response, function(key, value) {
+                                var mockFile = {
+                                    name: value.name,
+                                    size: value.size,
+                                    id: value.id
+                                };
                                 myDropzone.emit("addedfile", mockFile);
                                 myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
                                 myDropzone.emit("complete", mockFile);
@@ -204,31 +221,49 @@
                 autoProcessQueue: false,
                 parallelUploads: 50,
                 addRemoveLinks: true,
-                removedfile: function(file){
-                    $.ajax({
-                        url: '{{ route("product.image.remove") }}',
-                        method: 'post',
-                        data: {data: file.id},
-                        success: function(response){
-                            console.log(response);
-                        }
-                    });
-                    $('div.dz-image-preview').remove();
+                removedfile: function(file) {
                     var myDropzone = this;
-                    $.ajax({
-                        url: '{{ route("product.images") }}',
-                        dataType: 'json',
-                        method: 'post',
-                        data: {id: {{ request()->id }}},
-                        success: function(response){
-                            $.each(response, function(key,value) {
-                                var mockFile = { name: value.name, size: value.size, id:value.id};
-                                myDropzone.emit("addedfile", mockFile);
-                                myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
-                                myDropzone.emit("complete", mockFile);
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '{{ route('product.image.remove') }}',
+                                method: 'post',
+                                data: {
+                                    data: file.id
+                                },
+                                success: function(response) {
+                                    if (response == true) {
+                                        $('div.dz-image-preview').remove();
+                                        $.ajax({
+                                            url: '{{ route('product.images') }}',
+                                            dataType: 'json',
+                                            method: 'post',
+                                            data: {
+                                                id: {{ request()->id }}
+                                            },
+                                            success: function(response) {
+                                                $.each(response,function(key, value) {
+                                                    var mockFile = {name: value.name, size: value.size, id: value.id};
+                                                    myDropzone.emit("addedfile", mockFile);
+                                                    myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
+                                                    myDropzone.emit("complete", mockFile);
+                                                });
+                                            }
+                                        });
+                                    }
+                                }
                             });
+
                         }
-                    });
+                    })
                 }
             });
 
@@ -249,7 +284,7 @@
                         if (response.success == true) {
                             id = response.lastId;
                             image.processQueue();
-                            window.location.href = '{{ route("product.index") }}';
+                            window.location.href = '{{ route('product.index') }}';
                         }
                     },
                     error: function(response) {
@@ -264,18 +299,18 @@
                 })
             });
 
-            $(document).on('click', '.addAttr', function(){
+            $(document).on('click', '.addAttr', function() {
                 var row = '<tr>' +
                     '<td><input type="hidden" name="attrId[]"><input type="text" class="form-control size" name="size[]"></td>' +
                     '<td><input type="text" class="form-control color" name="color[]"></td>' +
                     '<td><input type="text" class="form-control quantity" name="quantity[]"></td>' +
                     '<td><input type="text" class="form-control price" name="additionalPrice[]"></td>' +
                     '<td><button type="button" class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>' +
-                '</tr>';
+                    '</tr>';
                 $('tbody#attrBody').append(row);
             });
 
-            $(document).on('click', '.removeAttr', function(){
+            $(document).on('click', '.removeAttr', function() {
                 $(this).parent().parent().remove();
             });
         })
