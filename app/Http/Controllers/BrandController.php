@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use Intervention\Image\Image;
+use Image;
 use Yajra\DataTables\DataTables;
 
 class BrandController extends Controller {
