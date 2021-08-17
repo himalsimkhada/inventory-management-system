@@ -73,6 +73,7 @@ Route::prefix('/admin')->group(function () {
         Route::post('/product/store', 'ProductController@store')->name('product.store');
         Route::post('/product/images', 'ProductController@image')->name('product.images');
         Route::post('/product/image/remove', 'ProductController@removeImage')->name('product.image.remove');
+        Route::post('/product/detail', 'ProductController@detail')->name('product.detail');
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');

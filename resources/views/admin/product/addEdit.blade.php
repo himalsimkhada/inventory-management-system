@@ -117,6 +117,7 @@
                                         <th><label class="form-label text-muted text-uppercase">Color</label></th>
                                         <th><label class="form-label text-muted text-uppercase">Quantity</label></th>
                                         <th><label class="form-label text-muted text-uppercase">Price</label></th>
+                                        <th><label class="form-label text-muted text-uppercase">Barcode</label></th>
                                         <th><button type="button" class="btn btn-success btn-sm mr-2 addAttr">+</button>
                                         </th>
                                     </tr>
@@ -134,6 +135,7 @@
                                                         value={{ $value->quantity }}></td>
                                                 <td><input type="text" class="form-control price" name="additionalPrice[]"
                                                         value={{ $value->additional_price }}></td>
+                                                <td><img src="{{ $value->barcode }}"></td>
                                                 <td><button type="button" id="{{ $value->id }}"
                                                         class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>
                                             </tr>
