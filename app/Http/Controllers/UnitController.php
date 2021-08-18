@@ -13,7 +13,7 @@ class UnitController extends Controller
 {
     public function index()
     {
-        Session::put('admin_page', 'unit');
+        Session::put('admin_page', 'Unit');
         $base_unit = Unit::where('base_unit', '=', 0)->get();
         return view('admin.unit.index', ['base_units' => $base_unit]);
     }

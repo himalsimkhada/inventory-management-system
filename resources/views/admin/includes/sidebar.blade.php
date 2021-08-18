@@ -21,7 +21,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
     <div class="data-scrollbar" data-scroll="1">
         <nav class="iq-sidebar-menu">
             <ul id="iq-sidebar-toggle" class="side-menu">
-                <li class="{{ Session::get('admin_page') == 'dashboard' ? 'active' : '' }} sidebar-layout">
+                <li class="{{ Session::get('admin_page') == 'Dashboard' ? 'active' : '' }} sidebar-layout">
                     <a href="{{ route('adminDashboard') }}" class="svg-icon">
                         <i class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24"
@@ -33,7 +33,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         <span class="ml-2">Dashboard</span>
                     </a>
                 </li>
-                <li class=" {{ Session::get('admin_page') == 'product' ? 'active' : '' }} sidebar-layout">
+                <li class=" {{ Session::get('admin_page') == 'Product' ? 'active' : '' }} sidebar-layout">
                     <a href="#product" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -49,7 +49,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         </svg>
                     </a>
                     <ul id="product" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class=" {{ Session::get('admin_page') == 'category' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'Category' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('category.index') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -62,7 +62,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">Category</span>
                             </a>
                         </li>
-                        <li class="sidebar-layout {{ Session::get('admin_page') == 'product' ? 'active' : '' }}">
+                        <li class="sidebar-layout {{ Session::get('admin_page') == 'Product' ? 'active' : '' }}">
                             <a href="{{ route('product.index') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
@@ -109,7 +109,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         </svg>
                     </a>
                     <ul id="app2" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class=" {{ Session::get('admin_page') == 'brand' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'Brand' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('brand.index') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -121,7 +121,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">Brand</span>
                             </a>
                         </li>
-                        <li class=" {{ Session::get('admin_page') == 'unit' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'Unit' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('unit.index') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -133,7 +133,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">Unit</span>
                             </a>
                         </li>
-                        <li class=" {{ Session::get('admin_page') == 'wareHouse' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'WareHouse' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('wareHouse.index') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"

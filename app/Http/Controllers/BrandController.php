@@ -12,7 +12,7 @@ use Yajra\DataTables\DataTables;
 
 class BrandController extends Controller {
     public function index() {
-        Session::put('admin_page', 'brand');
+        Session::put('admin_page', 'Brand');
         return view('admin.brand.index');
     }
 

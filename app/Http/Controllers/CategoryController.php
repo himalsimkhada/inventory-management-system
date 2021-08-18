@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        Session::put('admin_page', 'category');
+        Session::put('admin_page', 'Category');
         return view('admin.category.index');
     }
 

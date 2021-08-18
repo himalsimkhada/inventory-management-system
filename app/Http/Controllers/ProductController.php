@@ -19,7 +19,7 @@ use DNS1D;
 
 class ProductController extends Controller {
     public function index() {
-        Session::put('admin_page', 'product');
+        Session::put('admin_page', 'Product');
         return view('admin.product.index');
     }
 

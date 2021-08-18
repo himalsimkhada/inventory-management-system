@@ -12,7 +12,7 @@ class WareHouseController extends Controller
 {
     public function index()
     {
-        Session::put('admin_page', 'wareHouse');
+        Session::put('admin_page', 'WareHouse');
         return view('admin.wareHouse.index');
     }
 

@@ -137,6 +137,12 @@
     <script>
         $(document).ready(function() {
             var table = $('#datatable').DataTable({
+                dom: 'Bfrtip',
+                buttons:[
+                    {extend: 'pdf', className: 'btn btn-primary', text: 'pdf'},
+                    {extend: 'excel', className: 'btn btn-primary', text: 'excel'},
+                    {extend: 'print', className: 'btn btn-primary', text: 'print'},
+                ],
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('product.get') }}",
