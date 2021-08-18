@@ -81,7 +81,7 @@ class ProductController extends Controller {
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<button id="btnGroupDrop1" data-id="' . $row['id'] . '" type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>';
                     $actionBtn .= '<div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">';
-
+                    $actionBtn .= '<a class="dropdown-item" href="' . route('product.detail2', ['id' => $row['id']]) . '" id="edit">View</a>';
                     $actionBtn .= '<a class="dropdown-item" href="' . route('product.edit', ['id' => $row['id']]) . '" id="edit">Edit</a>';
                     $actionBtn .= '<a class="dropdown-item" data-id="' . $row['id'] . '" id="delete">Delete</a></div>';
                     return $actionBtn;
@@ -258,14 +258,19 @@ class ProductController extends Controller {
         return response()->json($response);
     }
 
-    public function detail(Request $request){
-        $id = $request->input('id');
-        $product = Product::where('id', $id)->get();
+    public function detail(Request $request, $id = null){
+        (request()->isMethod('post')) ? $id = $request->input('id') : '';
+        $product = Product::where('id', $id)->first();
         $image = Image::where('product_id', $id)->get();
         $variant = ProductAttributes::where('product_id', $id)->get();
-        ($product->isEmpty() == false) ? $response['product'] = $product : $response['product'] = '';
-        ($image->isEmpty() == false) ? $response['image'] = $image : $response['image'] = '';
-        ($variant->isEmpty() == false) ? $response['variant'] = $variant : $response['variant'] = '';
-        return response()->json($response);
+        $response = [];
+        ($product) ? $response['product'] = $product : $response['product'] = '';
+        ($image) ? $response['image'] = $image : $response['image'] = '';
+        ($variant) ? $response['variant'] = $variant : $response['variant'] = '';
+        if(request()->isMethod('post')){
+            return response()->json($response);
+        }else{
+            return view('admin.product.detail', ['detail' => $response]); 
+        }
     }
 }

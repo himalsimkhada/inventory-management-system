@@ -67,16 +67,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-6 col-lg-6">
+                        <div class="col-sm-5 col-lg-5">
                             <div class="card-body">
                                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators" id="indicators">
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                                     </ol>
                                     <div class="carousel-inner" id="carouselItem">
-
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
                                         data-slide="prev">
@@ -91,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-6">
+                        <div class="col-sm-7 col-lg-7">
                             <div class="card-body">
                                 <table class="table table-borderless">
                                     <tr>
@@ -264,8 +260,8 @@
                         }
                         $('#carouselItem').html(carouselItem);
                         $('#indicators').html(indicators);
-                        if (response.product.length > 0) {
-                            var data = response.product[0];
+                        if (response.product) {
+                            var data = response.product;
                             $('#productName').html(data.name);
                             $('#productCode').html(data.code);
                             $('#productCategory').html(data.name);
