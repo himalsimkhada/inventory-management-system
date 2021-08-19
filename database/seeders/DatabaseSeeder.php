@@ -14,15 +14,13 @@ use App\Models\Unit;
 use App\Models\WareHouse;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
-{
+class DatabaseSeeder extends Seeder {
     /**
      * Seed the application's database.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         Admin::insert([
             'name' => "Super Admin",
             'email' => "admin@admin.com",
@@ -111,6 +109,6 @@ class DatabaseSeeder extends Seeder
             'sku' => 'SMA-LAR-BLA',
             'quantity' => 12,
             'product_id' => 1,
-         ]);
+        ]);
     }
 }

@@ -74,23 +74,19 @@
                                 </tr>
                                 <tr>
                                     <th>Category</th>
-                                    <td id="productCategory">{{ $detail['product']->name }}</td>
+                                    <td id="productCategory">{{ ($detail['product']->category != null) ? $detail['product']->category->category_name : 'N/a' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Brand</th>
-                                    <td id="productBrand">{{ $detail['product']->name }}</td>
+                                    <td id="productBrand">{{ ($detail['product']->brand != null) ? $detail['brand']->brand->brand_name : 'N/a' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Unit</th>
-                                    <td id="productUnit">{{ $detail['product']->name }}</td>
+                                    <td id="productUnit">{{ $detail['product']->unit->name }}</td>
                                 </tr>
                                 <tr>
                                     <th>Price</th>
                                     <td id="productPrice">{{ $detail['product']->price }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Description</th>
-                                    <td id="productDescription">{{ strip_tags($detail['product']->description) }}</td>
                                 </tr>
                             </table>
                         </div>

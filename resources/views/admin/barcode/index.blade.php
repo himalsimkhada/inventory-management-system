@@ -31,6 +31,7 @@
             background-color: #f8f9fa;
             border-radius: 5px;
             color: #212529;
+            cursor: pointer;
         }
     </style>
     <div class="row">

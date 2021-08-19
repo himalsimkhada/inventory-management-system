@@ -38,7 +38,7 @@ class ProductController extends Controller {
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($data) {
-                    
+
                     if (Image::where('product_id', $data['id'])->exists()) {
                         $imageFile = asset('public/uploads/product/' . Image::where('product_id', $data['id'])->first()->image);
                     } else {
@@ -227,7 +227,11 @@ class ProductController extends Controller {
                     $response['lastId'] = $product->id;
                 }
                 if (!empty($data2)) {
-                    ProductAttributes::insert($data2);
+                    if ($data['attrId'] == '') {
+                        ProductAttributes::insert($data2);
+                    } else {
+                        ProductAttributes::where('id', $data['attrId'])->update($data2);
+                    }
                 }
                 return $response;
             }
@@ -270,7 +274,7 @@ class ProductController extends Controller {
         if(request()->isMethod('post')){
             return response()->json($response);
         }else{
-            return view('admin.product.detail', ['detail' => $response]); 
+            return view('admin.product.detail', ['detail' => $response]);
         }
     }
 
