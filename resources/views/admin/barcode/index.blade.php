@@ -61,6 +61,34 @@
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>S.N.</th>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Samsung</td>
+                                        <td>123123</td>
+                                        <td>
+                                            <input type="number" name="quantity" id="quantity" value="1">
+                                        </td>
+                                        <td>45000</td>
+                                        <td>45000</td>
+                                        <td><button type="button">Delete</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
                                 Create
                             </button>
