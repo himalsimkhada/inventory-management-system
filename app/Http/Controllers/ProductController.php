@@ -277,4 +277,11 @@ class ProductController extends Controller {
             return view('admin.product.detail', ['detail' => $response]);
         }
     }
+
+    public function search(Request $request){
+        $name = $request->input('name');
+        $product = Product::where('name', $name)->orWhere('name', 'like', '%' . $name . '%')->get();
+        $response = $product;
+        return response()->json($response);
+    }
 }
