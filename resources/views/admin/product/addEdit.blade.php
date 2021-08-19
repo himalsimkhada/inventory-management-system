@@ -228,52 +228,52 @@
                 },
                 removedfile: function(file) {
                     var myDropzone = this;
-                    var paramId = '{{ request()->id }}';
-                    if(paramId !=''){
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $.ajax({
-                                    url: '{{ route('product.image.remove') }}',
-                                    method: 'post',
-                                    data: {
-                                        data: file.id
-                                    },
-                                    success: function(response) {
-                                        if (response == true) {
-                                            $('div.dz-image-preview').remove();
-                                            $.ajax({
-                                                url: '{{ route('product.images') }}',
-                                                dataType: 'json',
-                                                method: 'post',
-                                                data: {
-                                                    id: paramId
-                                                },
-                                                success: function(response) {
-                                                    $.each(response,function(key, value) {
-                                                        var mockFile = {name: value.name, size: value.size, id: value.id};
-                                                        myDropzone.emit("addedfile", mockFile);
-                                                        myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
-                                                        myDropzone.emit("complete", mockFile);
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
+                    // var paramId = '{{ request()->id }}';
+                    // if(paramId !=''){
+                    //     Swal.fire({
+                    //         title: 'Are you sure?',
+                    //         text: "You won't be able to revert this!",
+                    //         icon: 'warning',
+                    //         showCancelButton: true,
+                    //         confirmButtonColor: '#3085d6',
+                    //         cancelButtonColor: '#d33',
+                    //         confirmButtonText: 'Yes, delete it!'
+                    //     }).then((result) => {
+                    //         if (result.isConfirmed) {
+                    //             $.ajax({
+                    //                 url: '{{ route('product.image.remove') }}',
+                    //                 method: 'post',
+                    //                 data: {
+                    //                     data: file.id
+                    //                 },
+                    //                 success: function(response) {
+                    //                     if (response == true) {
+                    //                         $('div.dz-image-preview').remove();
+                    //                         $.ajax({
+                    //                             url: '{{ route('product.images') }}',
+                    //                             dataType: 'json',
+                    //                             method: 'post',
+                    //                             data: {
+                    //                                 id: paramId
+                    //                             },
+                    //                             success: function(response) {
+                    //                                 $.each(response,function(key, value) {
+                    //                                     var mockFile = {name: value.name, size: value.size, id: value.id};
+                    //                                     myDropzone.emit("addedfile", mockFile);
+                    //                                     myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
+                    //                                     myDropzone.emit("complete", mockFile);
+                    //                                 });
+                    //                             }
+                    //                         });
+                    //                     }
+                    //                 }
+                    //             });
 
-                            }
-                        })
-                    }else{
+                    //         }
+                    //     })
+                    // }else{
                         this.removeFile(file);
-                    }
+                    // }
                 }
             });
 
