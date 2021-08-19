@@ -112,15 +112,5 @@ class DatabaseSeeder extends Seeder
             'quantity' => 12,
             'product_id' => 1,
          ]);
-
-        Image::insert([
-            'image' => 'image.jpg',
-            'product_id' => 1,
-        ]);
-
-        Image::insert([
-            'image' => 'image.jpg',
-            'product_id' => 2,
-        ]);
     }
 }
