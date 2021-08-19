@@ -64,7 +64,6 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>S.N.</th>
                                         <th>Name</th>
                                         <th>Code</th>
                                         <th>Quantity</th>
@@ -75,11 +74,10 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
                                         <td>Samsung</td>
                                         <td>123123</td>
                                         <td>
-                                            <input type="number" name="quantity" id="quantity" value="1">
+                                            <input class="form-control" type="number" name="quantity" id="quantity" value="1">
                                         </td>
                                         <td>45000</td>
                                         <td>45000</td>
@@ -111,7 +109,6 @@
 
         $(document).on('keyup', '#productSearch', function(e){
             var name = $(this).val();
-            console.log(name);
             $.ajax({
                 url: '{{ route('product.search') }}',
                 dataType: 'json',
@@ -128,7 +125,7 @@
                         $('#searchBox').html('');
                         var results = '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
                         $.each(response, function(i, e){
-                            results += '<a class="searchResult dismiss" id="' + e.id + '">' + e.name + '</a>';
+                            results += '<a class="searchResult dismiss" data-id="' + e.id + '" data-code="' + e.code + '" data-price="' + e.price + '">' + e.name + '</a>';
                         });
                         $('#searchBox').html(results);
                         $('#searchBox').prop('hidden', false);

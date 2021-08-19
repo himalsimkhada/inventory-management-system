@@ -12,5 +12,5 @@ class BarcodeController extends Controller
         return view('admin.barcode.index');
     }
 
-
+    
 }
