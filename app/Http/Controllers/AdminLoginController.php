@@ -43,7 +43,7 @@ class AdminLoginController extends Controller
 
     // Admin Dashboard
     public function dashboard(){
-        Session::put('admin_page', 'dashboard');
+        Session::put('admin_page', 'Dashboard');
         return view ('admin.dashboard');
     }
 

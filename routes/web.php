@@ -71,6 +71,13 @@ Route::prefix('/admin')->group(function () {
         Route::post('/product/destroy', 'ProductController@destroy')->name('product.destroy');
         Route::get('/product/add', 'ProductController@add')->name('product.add');
         Route::post('/product/store', 'ProductController@store')->name('product.store');
+        Route::post('/product/images', 'ProductController@image')->name('product.images');
+        Route::post('/product/image/remove', 'ProductController@removeImage')->name('product.image.remove');
+        Route::post('/product/detail/', 'ProductController@detail')->name('product.detail');
+        Route::get('/product/detail/{id}', 'ProductController@detail')->name('product.detail2');
+
+        // Barcode
+        Route::get('/barcode', 'ProductController@index')->name('barcode.index');
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');

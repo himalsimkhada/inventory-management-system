@@ -19,31 +19,32 @@ use DNS1D;
 
 class ProductController extends Controller {
     public function index() {
-        Session::put('admin_page', 'product');
+        Session::put('admin_page', 'Product');
         return view('admin.product.index');
     }
 
     public function get($id = null) {
         if ($id != '') {
             $category = Category::all()->sortByDesc("name");
-            $product = Brand::all()->sortByDesc("name");
+            $brand = Brand::all()->sortByDesc("name");
             $unit = Unit::all()->sortByDesc("name");
             $tax = TaxType::all()->sortByDesc("type");
             $editData = Product::findorfail($id);
             $image = Image::where('product_id', $id)->get();
             $variant = ProductAttributes::where('product_id', $id)->get();
-            return view('admin.product.addEdit', ['category' => $category, 'brand' => $product, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData, 'image' => $image, 'variant' => $variant]);
+            return view('admin.product.addEdit', ['category' => $category, 'brand' => $brand, 'unit' => $unit, 'tax' => $tax, 'editData' => $editData, 'image' => $image, 'variant' => $variant]);
         } else {
             $data = Product::all()->sortByDesc('id');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($data) {
+                    
                     if (Image::where('product_id', $data['id'])->exists()) {
                         $imageFile = asset('public/uploads/product/' . Image::where('product_id', $data['id'])->first()->image);
                     } else {
                         $imageFile = asset('public/uploads/no-image.jpg');
                     }
-                    $image = '<img class="mr-3 avatar-70 img-fluid rounded" src="' . $imageFile . '">';
+                    $image = '<span id="' . $data['id'] . '"></span><img class="mr-3 avatar-70 img-fluid rounded" src="' . $imageFile . '">';
                     return $image;
                 })
                 ->editColumn('category_id', function ($data) {
@@ -78,9 +79,9 @@ class ProductController extends Controller {
                     return $total_quantity;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<button id="btnGroupDrop1" type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>';
+                    $actionBtn = '<button id="btnGroupDrop1" data-id="' . $row['id'] . '" type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>';
                     $actionBtn .= '<div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">';
-
+                    $actionBtn .= '<a class="dropdown-item" href="' . route('product.detail2', ['id' => $row['id']]) . '" id="edit">View</a>';
                     $actionBtn .= '<a class="dropdown-item" href="' . route('product.edit', ['id' => $row['id']]) . '" id="edit">Edit</a>';
                     $actionBtn .= '<a class="dropdown-item" data-id="' . $row['id'] . '" id="delete">Delete</a></div>';
                     return $actionBtn;
@@ -141,17 +142,17 @@ class ProductController extends Controller {
                 $product->description = $data['description'];
                 $store = $product->save();
                 $response = ['success' => $store];
-                if($store == true){
-                    if(isset($data['attrId'])){
+                if ($store == true) {
+                    if (isset($data['attrId'])) {
                         $count = count($data['attrId']);
-                        $data2 =[];
-                        if($count>0){
-                            for ($i=0; $i < $count; $i++){
+                        $insert = [];
+                        if ($count > 0) {
+                            for ($i = 0; $i < $count; $i++) {
                                 $product_name = Product::findorfail($product->id)->name;
                                 $sku = strtoupper(substr($product_name, 0, 3)) . '-' . strtoupper(substr($data['size'][$i], 0, 3)) . '-' . strtoupper(substr($data['color'][$i], 0, 3));
-                                $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
-                                if($data['attrId'] == ''){
-                                    $data2[] = [
+                                $barcode = 'data:image/png;base64,'.DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
+                                if ($data['attrId'][$i] == '') {
+                                    $insert[] = [
                                         'size' => $data['size'][$i],
                                         'color' => $data['color'][$i],
                                         'quantity' => $data['quantity'][$i],
@@ -163,7 +164,9 @@ class ProductController extends Controller {
                                     ];
                                 }
                             }
-                            ProductAttributes::insert($data2);
+                            if (!empty($insert)) {
+                                ProductAttributes::insert($insert);
+                            }
                         }
                     }
                     $response['lastId'] = $product->id;
@@ -181,44 +184,93 @@ class ProductController extends Controller {
                 $store = $product->save();
                 $response = ['success' => $store];
                 if ($store == true) {
-                    $count = count($data['size']);
-                    $data2 =[];
-                    for ($i=0; $i < $count; $i++){
-                        $product_name = Product::findorfail($product->id)->name;
-                        $sku = strtoupper(substr($product_name, 0, 3)) . '-' . strtoupper(substr($data['size'][$i], 0, 3)) . '-' . strtoupper(substr($data['color'][$i], 0, 3));
-                        $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
-                        if($data['attrId'] == ''){
-                            $data2[] = [
-                                'size' => $data['size'][$i],
-                                'color' => $data['color'][$i],
-                                'quantity' => $data['quantity'][$i],
-                                'additional_price' => $data['additionalPrice'][$i],
-                                'sku' => $sku,
-                                'size' => $data['size'][$i],
-                                'barcode' => $barcode,
-                                'product_id' => $product->id,
-                            ];
-                        }else{
-                            $data2 = [
-                                'size' => $data['size'][$i],
-                                'color' => $data['color'][$i],
-                                'quantity' => $data['quantity'][$i],
-                                'additional_price' => $data['additionalPrice'][$i],
-                                'sku' => $sku,
-                                'size' => $data['size'][$i],
-                                'barcode' => $barcode,
-                            ];
-                            dd($data2);
-                            ProductAttributes::where('id', $data['attrId']);
+                    if (isset($data['attrId'])) {
+                        $count = count($data['size']);
+                        $insert = [];
+                        $update = [];
+                        if ($count > 0) {
+                            for ($i = 0; $i < $count; $i++) {
+                                $product_name = Product::findorfail($product->id)->name;
+                                $sku = strtoupper(substr($product_name, 0, 3)) . '-' . strtoupper(substr($data['size'][$i], 0, 3)) . '-' . strtoupper(substr($data['color'][$i], 0, 3));
+                                $barcode = 'data:image/png;base64,'.DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
+                                if ($data['attrId'][$i] == '') {
+                                    $insert[] = [
+                                        'size' => $data['size'][$i],
+                                        'color' => $data['color'][$i],
+                                        'quantity' => $data['quantity'][$i],
+                                        'additional_price' => $data['additionalPrice'][$i],
+                                        'sku' => $sku,
+                                        'size' => $data['size'][$i],
+                                        'barcode' => $barcode,
+                                        'product_id' => $product->id,
+                                    ];
+                                } else {
+                                    $update = [
+                                        'size' => $data['size'][$i],
+                                        'color' => $data['color'][$i],
+                                        'quantity' => $data['quantity'][$i],
+                                        'additional_price' => $data['additionalPrice'][$i],
+                                        'sku' => $sku,
+                                        'size' => $data['size'][$i],
+                                        'barcode' => $barcode,
+                                    ];
+                                }
+                                if (!empty($update)) {
+                                    ProductAttributes::where('id', $data['attrId'][$i])->where('product_id', $product->id)->update($update);
+                                }
+                            }
+                            if (!empty($insert)) {
+                                ProductAttributes::insert($insert);
+                            }
                         }
                     }
                     $response['lastId'] = $product->id;
                 }
-                if(!empty($data2)){
+                if (!empty($data2)) {
                     ProductAttributes::insert($data2);
                 }
                 return $response;
             }
+        }
+    }
+
+    public function image(Request $request) {
+        $data = $request->all();
+        $get = Image::where('product_id', $data['id'])->get();
+        // dd($get);
+        $fileList = [];
+        $dir = 'public/uploads/product/';
+        foreach($get as $value){
+            $file_path = $dir . $value->image;
+            $size = filesize($file_path);
+            $fileList[] = ['name' => $value->image, 'size' => $size, 'path' => $file_path, 'id' => $value->id];
+        }
+        return response()->json($fileList);
+    }
+
+    public function removeImage(Request $request){
+        $id = $request->input('data');
+        $image = Image::findorfail($id);
+        $response = Image::where('id', $id)->delete();
+        if ($image->image != "") {
+            File::delete('public/uploads/product/' . $image->image);
+        }
+        return response()->json($response);
+    }
+
+    public function detail(Request $request, $id = null){
+        (request()->isMethod('post')) ? $id = $request->input('id') : '';
+        $product = Product::where('id', $id)->first();
+        $image = Image::where('product_id', $id)->get();
+        $variant = ProductAttributes::where('product_id', $id)->get();
+        $response = [];
+        ($product) ? $response['product'] = $product : $response['product'] = '';
+        ($image) ? $response['image'] = $image : $response['image'] = '';
+        ($variant) ? $response['variant'] = $variant : $response['variant'] = '';
+        if(request()->isMethod('post')){
+            return response()->json($response);
+        }else{
+            return view('admin.product.detail', ['detail' => $response]); 
         }
     }
 }

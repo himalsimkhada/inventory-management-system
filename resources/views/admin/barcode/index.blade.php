@@ -51,7 +51,7 @@
                             <label for="category"
                                 class="form-label font-weight-bold text-muted text-uppercase">Category</label>
                             <select id="category" class="form-select form-control choicesjs" name="category_id">
-                                <option selected value="" disabled>Select Category</option>
+                                <option selected value="">Select Category</option>
                                 @foreach ($category as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->category_id == $value->id ? 'selected' : '') : '' }}>
@@ -62,7 +62,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="brand" class="form-label font-weight-bold text-muted text-uppercase">Brand</label>
                             <select id="brand" class="form-select form-control choicesjs" name="brand_id">
-                                <option selected value="" disabled>Select Brand</option>
+                                <option selected value="">Select Brand</option>
                                 @foreach ($brand as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->brand_id == $value->id ? 'selected' : '') : '' }}>
@@ -73,7 +73,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="unit" class="form-label font-weight-bold text-muted text-uppercase">Unit</label>
                             <select id="unit" class="form-select form-control choicesjs" name="unit_id">
-                                <option value="" disabled>Select Unit</option>
+                                <option value="">Select Unit</option>
                                 @foreach ($unit as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->unit_id == $value->id ? 'selected' : '') : '' }}>
@@ -84,7 +84,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="tax" class="form-label font-weight-bold text-muted text-uppercase">Tax</label>
                             <select id="tax" class="form-select form-control choicesjs" name="tax_id">
-                                <option selected value="" disabled>Select Tax</option>
+                                <option selected value="">Select Tax</option>
                                 @foreach ($tax as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->tax_type_id == $value->id ? 'selected' : '') : '' }}>
@@ -168,161 +168,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        Dropzone.autoDiscover = false;
-        $(document).ready(function() {
-
-            CKEDITOR.replace('description', {
-                filebrowserUploadUrl: "{{ route('ckeditor.store', ['_token' => csrf_token()]) }}",
-                filebrowserUploadMethod: 'form'
-            });
-
-            var id = null;
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-            })
-
-            var image = new Dropzone("#image", {
-                maxFilesize: 2,
-                autoProcessQueue: false,
-                parallelUploads: 50,
-                addRemoveLinks: true,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                method: 'post',
-                url: '{{ route('product.image') }}',
-                init: function() {
-                    var paramId = '{{ request()->id }}';
-                    if(paramId != ''){
-                        var myDropzone = this;
-                        $.ajax({
-                            url: '{{ route('product.images') }}',
-                            dataType: 'json',
-                            method: 'post',
-                            data: {
-                                id: paramId
-                            },
-                            success: function(response) {
-                                $.each(response, function(key, value) {
-                                    var mockFile = {
-                                        name: value.name,
-                                        size: value.size,
-                                        id: value.id
-                                    };
-                                    myDropzone.emit("addedfile", mockFile);
-                                    myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
-                                    myDropzone.emit("complete", mockFile);
-                                });
-                            }
-                        });
-                    }
-                    this.on("sending", function(file, xhr, formData) {
-                        formData.append("product_id", id);
-                    });
-                },
-                removedfile: function(file) {
-                    var myDropzone = this;
-                    var paramId = '{{ request()->id }}';
-                    if(paramId !=''){
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $.ajax({
-                                    url: '{{ route('product.image.remove') }}',
-                                    method: 'post',
-                                    data: {
-                                        data: file.id
-                                    },
-                                    success: function(response) {
-                                        if (response == true) {
-                                            $('div.dz-image-preview').remove();
-                                            $.ajax({
-                                                url: '{{ route('product.images') }}',
-                                                dataType: 'json',
-                                                method: 'post',
-                                                data: {
-                                                    id: paramId
-                                                },
-                                                success: function(response) {
-                                                    $.each(response,function(key, value) {
-                                                        var mockFile = {name: value.name, size: value.size, id: value.id};
-                                                        myDropzone.emit("addedfile", mockFile);
-                                                        myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
-                                                        myDropzone.emit("complete", mockFile);
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
-
-                            }
-                        })
-                    }else{
-                        this.removeFile(file);
-                    }
-                }
-            });
-
-            $(document).on('submit', 'form', function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    method: "post",
-                    url: "{{ route('product.store') }}",
-                    data: formData,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response.success == true) {
-                            id = response.lastId;
-                            image.processQueue();
-                            window.location.href = '{{ route('product.index') }}';
-                        }
-                    },
-                    error: function(response) {
-                        var error = '<div class="alert alert-danger"><ul>';
-                        $.each(response.responseJSON.errors, function(key, value) {
-                            error += '<li style="list-style-type: none">' + value +
-                                '</li>'
-                        })
-                        error += '</ul></div>'
-                        $('#errors').html(error);
-                    }
-                })
-            });
-
-            $(document).on('click', '.addAttr', function() {
-                var row = '<tr>' +
-                    '<td><input type="hidden" name="attrId[]"><input type="text" class="form-control size" name="size[]"></td>' +
-                    '<td><input type="text" class="form-control color" name="color[]"></td>' +
-                    '<td><input type="text" class="form-control quantity" name="quantity[]"></td>' +
-                    '<td><input type="text" class="form-control price" name="additionalPrice[]"></td>' +
-                    '<td><button type="button" class="btn btn-danger btn-sm mr-2 removeAttr">-</button></td>' +
-                    '</tr>';
-                $('tbody#attrBody').append(row);
-            });
-
-            $(document).on('click', '.removeAttr', function() {
-                $(this).parent().parent().remove();
-            });
-        })
-    </script>
 @endsection
