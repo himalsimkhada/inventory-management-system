@@ -75,6 +75,7 @@ Route::prefix('/admin')->group(function () {
         Route::post('/product/image/remove', 'ProductController@removeImage')->name('product.image.remove');
         Route::post('/product/detail/', 'ProductController@detail')->name('product.detail');
         Route::get('/product/detail/{id}', 'ProductController@detail')->name('product.detail2');
+        Route::post('/product/search', 'ProductController@search')->name('product.search');
 
         // Barcode
         Route::get('/barcode', 'BarcodeController@index')->name('barcode.index');
