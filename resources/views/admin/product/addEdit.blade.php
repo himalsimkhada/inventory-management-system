@@ -231,7 +231,7 @@
                 removedfile: function(file) {
                     var myDropzone = this;
                     var paramId = '{{ request()->id }}';
-                    if(paramId !=''){
+                    if (paramId != '') {
                         Swal.fire({
                             title: 'Are you sure?',
                             text: "You won't be able to revert this!",
@@ -258,13 +258,39 @@
                                                 data: {
                                                     id: paramId
                                                 },
-                                                success: function(response) {
-                                                    $.each(response,function(key, value) {
-                                                        var mockFile = {name: value.name, size: value.size, id: value.id};
-                                                        myDropzone.emit("addedfile", mockFile);
-                                                        myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
-                                                        myDropzone.emit("complete", mockFile);
-                                                    });
+                                                success: function(
+                                                response) {
+                                                    $.each(response,
+                                                        function(
+                                                            key,
+                                                            value) {
+                                                            var mockFile = {
+                                                                name: value
+                                                                    .name,
+                                                                size: value
+                                                                    .size,
+                                                                id: value
+                                                                    .id
+                                                            };
+                                                            myDropzone
+                                                                .emit(
+                                                                    "addedfile",
+                                                                    mockFile
+                                                                    );
+                                                            myDropzone
+                                                                .emit(
+                                                                    "thumbnail",
+                                                                    mockFile,
+                                                                    "{{ asset('') }}" +
+                                                                    value
+                                                                    .path
+                                                                    );
+                                                            myDropzone
+                                                                .emit(
+                                                                    "complete",
+                                                                    mockFile
+                                                                    );
+                                                        });
                                                 }
                                             });
                                         }
@@ -273,7 +299,7 @@
 
                             }
                         })
-                    }else{
+                    } else {
                         this.removeFile(file);
                     }
                 }
@@ -323,6 +349,25 @@
             });
 
             $(document).on('click', '.removeAttr', function() {
+                var id = $(this).attr('id');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "post",
+                    url: "{{ route('product.attr.destroy') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+
+                    },
+                    error: function(response) {
+                        console.log('error');
+                    }
+
+                })
                 $(this).parent().parent().remove();
             });
         })
