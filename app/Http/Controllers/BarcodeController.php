@@ -11,6 +11,4 @@ class BarcodeController extends Controller
         Session::put('admin_page', 'Barcode');
         return view('admin.barcode.index');
     }
-
-    
 }

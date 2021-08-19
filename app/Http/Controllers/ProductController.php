@@ -38,7 +38,7 @@ class ProductController extends Controller {
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($data) {
-                    
+
                     if (Image::where('product_id', $data['id'])->exists()) {
                         $imageFile = asset('public/uploads/product/' . Image::where('product_id', $data['id'])->first()->image);
                     } else {
@@ -227,7 +227,11 @@ class ProductController extends Controller {
                     $response['lastId'] = $product->id;
                 }
                 if (!empty($data2)) {
-                    ProductAttributes::insert($data2);
+                    if ($data['attrId'] == '') {
+                        ProductAttributes::insert($data2);
+                    } else {
+                        ProductAttributes::where('id', $data['attrId'])->update($data2);
+                    }
                 }
                 return $response;
             }
@@ -260,7 +264,8 @@ class ProductController extends Controller {
 
     public function detail(Request $request, $id = null){
         (request()->isMethod('post')) ? $id = $request->input('id') : '';
-        $product = Product::where('id', $id)->first();
+        $product = Product::with('category', 'brand', 'unit')->where('id', $id)->first();
+        // dd($product);
         $image = Image::where('product_id', $id)->get();
         $variant = ProductAttributes::where('product_id', $id)->get();
         $response = [];
@@ -270,7 +275,7 @@ class ProductController extends Controller {
         if(request()->isMethod('post')){
             return response()->json($response);
         }else{
-            return view('admin.product.detail', ['detail' => $response]); 
+            return view('admin.product.detail', ['detail' => $response]);
         }
     }
 

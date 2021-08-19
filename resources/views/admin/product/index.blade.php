@@ -247,6 +247,7 @@
                     },
                     dataType: "json",
                     success: function(response) {
+                        console.log(response);
                         if (response.image.length > 0) {
                             $.each(response.image, function(i, e){
                                 var active = (i == 0) ? 'active' : '';
@@ -262,11 +263,12 @@
                         $('#indicators').html(indicators);
                         if (response.product) {
                             var data = response.product;
+                            console.log(data);
                             $('#productName').html(data.name);
                             $('#productCode').html(data.code);
-                            $('#productCategory').html(data.name);
-                            $('#productBrand').html(data.name);
-                            $('#productUnit').html(data.name);
+                            $('#productCategory').html(data.category.category_name);
+                            $('#productBrand').html(data.brand.brand_name);
+                            $('#productUnit').html(data.unit.name);
                             $('#productPrice').html(data.price);
                             $('#productDescription').html(data.description);
                         }else{

@@ -199,7 +199,7 @@
                 url: '{{ route('product.image') }}',
                 init: function() {
                     var paramId = '{{ request()->id }}';
-                    if(paramId != ''){
+                    if (paramId != '') {
                         var myDropzone = this;
                         $.ajax({
                             url: '{{ route('product.images') }}',
@@ -217,7 +217,8 @@
                                         id: value.id
                                     };
                                     myDropzone.emit("addedfile", mockFile);
-                                    myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
+                                    myDropzone.emit("thumbnail", mockFile,
+                                        "{{ asset('') }}" + value.path);
                                     myDropzone.emit("complete", mockFile);
                                 });
                             }

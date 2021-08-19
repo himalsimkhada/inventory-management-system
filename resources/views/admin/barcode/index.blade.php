@@ -73,16 +73,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Samsung</td>
-                                        <td>123123</td>
-                                        <td>
-                                            <input class="form-control" type="number" name="quantity" id="quantity" value="1">
-                                        </td>
-                                        <td>45000</td>
-                                        <td>45000</td>
-                                        <td><button type="button">Delete</button></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -140,6 +130,22 @@
             })
             
         });
+
+        $(document).on('click', '.searchResult', function(){
+            var product = $(this);
+            var row = '<tr>' +
+                '<td id="name">' + product.html() + '</td>' +
+                '<td id="code">' + product.data('code') + '</td>' +
+                '<td id="count">' +
+                    '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1">' +
+                '</td>' +
+                '<td id="price">' + product.data('price') +'</td>' +
+                '<td id="total">' + product.data('price') +'</td>' +
+                '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
+            '</tr>';
+            $('tbody').append(row);
+
+        })
         
         $(document).on('click', '.dismiss', function(){
             $('#searchBox').prop('hidden', true);
