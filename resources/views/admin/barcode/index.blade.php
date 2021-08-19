@@ -27,9 +27,10 @@
             background-color: transparent;
             border: 0;
         }
-
-        .searchResult a{
-            text-decoration: none;
+        .searchResult:hover{
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            color: #212529;
         }
     </style>
     <div class="row">
@@ -52,19 +53,11 @@
             <div class="card">
                 <div class="card-body" id="dropzone">
                     <p>Provide Product Information.</p>
-                    <form class=" row g-3" method="post" action="{{ route('product.store') }}"
-                        enctype="multipart/form-data">
+                    <form class=" row g-3" method="post" action="">
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
-                            <input type="text" id="productSearch" class="form-control searchBox" name="name" autocomplete="off" >
-                            <div class="col-md-12 searchBox" id="searchBox">
-                                <div class="col-lg-12">
-                                    <a type="button" class="close qwe">
-                                        <span aria-hidden="true">&times;</span>
-                                    </a>
-                                </div>
-                                <a class="dropdown-item qwe" href="#">asdasdasdasdasdasdasdasdasdasd asd asd asd asd as das das das das das das das das das dasd asd as dasd asd as dasd asd as das dasdasd link</a>
-                                <a class="searchResult qwe" href="#">Dropasdasdasdasdasddown link</a>
+                            <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
+                            <div class=" searchBox" id="searchBox" hidden="">
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -82,17 +75,50 @@
 @section('js')
 <script>
     $(document).ready(function(){
-        $(document).on('keyup', '#productSearch', function(){
-            $('#searchResult').prop('hidden', false);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        });
 
+        $(document).on('keyup', '#productSearch', function(e){
+            var name = $(this).val();
+            console.log(name);
+            $.ajax({
+                url: '{{ route('product.search') }}',
+                dataType: 'json',
+                method: 'post',
+                data: {
+                    name: name
+                },
+                success: function(response) {
+                    console.log(response);
+                    if(response.length > 0){
+                        if(e.key === "Escape"){
+                            $('#searchBox').prop('hidden', true);
+                        }
+                        $('#searchBox').html('');
+                        var results = '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
+                        $.each(response, function(i, e){
+                            results += '<a class="searchResult dismiss" id="' + e.id + '">' + e.name + '</a>';
+                        });
+                        $('#searchBox').html(results);
+                        $('#searchBox').prop('hidden', false);
+                    }else{
+                        $('#searchBox').html('');
+                        $('#searchBox').prop('hidden', true);
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            })
+            
         });
         
-        $(document).on('click', '.qwe', function(){
-            console.log('qwe class clicked');
-            $('#searchResult').prop('hidden', true);
+        $(document).on('click', '.dismiss', function(){
+            $('#searchBox').prop('hidden', true);
         });
-
-        console.log($('.qwe'));
     })  
 </script>
 @endsection
