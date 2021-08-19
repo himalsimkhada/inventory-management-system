@@ -55,15 +55,24 @@
 <!-- app JavaScript -->
 <script src="{{ asset('public/backend/assets/js/app.js') }} "></script>
 
-{{-- Sweet Alert --}}
+<!-- Sweet Alert -->
 <script src="{{ asset('public/js/sweetalert2.all.min.js') }}"></script>
 
-{{-- ckeditor --}}
+<!-- ckeditor -->
 <script src="{{ asset('public/backend/assets/js/ckeditor/ckeditor.js') }}"></script>
 
+<!-- dropzone -->
 <script src="{{ asset('public/js/dropzone.js') }}"></script>
 
-{{-- only Number --}}
+<!-- datatable button -->
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
+<!-- only Number -->
 <script>
     $('.onlyNumber').on('keypress', function(e) {
         if ($.isNumeric(e.key) == false) {

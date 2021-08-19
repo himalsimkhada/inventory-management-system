@@ -54,12 +54,91 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="productDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Product Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-5 col-lg-5">
+                            <div class="card-body">
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators" id="indicators">
+                                    </ol>
+                                    <div class="carousel-inner" id="carouselItem">
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                        data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                        data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 col-lg-7">
+                            <div class="card-body">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <td id="productName"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Product Code</th>
+                                        <td id="productCode"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Category</th>
+                                        <td id="productCategory"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Brand</th>
+                                        <td id="productBrand"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Unit</th>
+                                        <td id="productUnit"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Price</th>
+                                        <td id="productPrice"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Description</th>
+                                        <td id="productDescription"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#datatable').DataTable({
+            var table = $('#datatable').DataTable({
+                dom: 'Bfrtip',
+                buttons:[
+                    {extend: 'pdf', className: 'btn btn-primary', text: 'pdf'},
+                    {extend: 'excel', className: 'btn btn-primary', text: 'excel'},
+                    {extend: 'print', className: 'btn btn-primary', text: 'print'},
+                ],
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('product.get') }}",
@@ -154,6 +233,66 @@
                     }
                 })
             });
+
+            $(document).on('click', '#datatable tbody tr td:not(:last-child)', function() {
+                var carouselItem = '';
+                var indicators = '';
+                var id = $(this).parent().find("td:eq(1)").children().eq(0).attr('id');
+                $('#productDetail').modal('show');
+                $.ajax({
+                    method: "post",
+                    url: "{{ route('product.detail') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.image.length > 0) {
+                            $.each(response.image, function(i, e){
+                                var active = (i == 0) ? 'active' : '';
+                                var src = '{{ asset("public/uploads/product") }}/' + e.image;
+                                carouselItem += '<div class="carousel-item ' + active + '"><img src="' + src + '" class="d-block w-100" alt="' + e.image +'"></div>';
+                                indicators += '<li data-target="#carouselExampleIndicators" data-slide-to="' + i + '" class="' + active + '"></li>';
+                            })
+                        }else{
+                            carouselItem += '<div class="carousel-item active"><img src="{{ asset("public/uploads/no-image.jpg") }}" class="d-block w-100" alt="no-image.jpg"></div>';
+                            indicators += '<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>';
+                        }
+                        $('#carouselItem').html(carouselItem);
+                        $('#indicators').html(indicators);
+                        if (response.product) {
+                            var data = response.product;
+                            $('#productName').html(data.name);
+                            $('#productCode').html(data.code);
+                            $('#productCategory').html(data.name);
+                            $('#productBrand').html(data.name);
+                            $('#productUnit').html(data.name);
+                            $('#productPrice').html(data.price);
+                            $('#productDescription').html(data.description);
+                        }else{
+                            var data = response.product[0];
+                            $('#productName').html('n/a');
+                            $('#productCode').html('n/a');
+                            $('#productCategory').html('n/a');
+                            $('#productBrand').html('n/a');
+                            $('#productUnit').html('n/a');
+                            $('#productPrice').html('n/a');
+                            $('#productDescription').html('n/a');
+                        }
+                    },
+                    error: function(response) {
+                        $('#carouselItem').html('<div class="carousel-item active"><img src="{{ asset("public/uploads/no-image.jpg") }}" class="d-block w-100" alt="no-image.jpg"></div>');
+                        $('#indicators').html('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>');
+                        $('#productName').html('n/a');
+                        $('#productCode').html('n/a');
+                        $('#productCategory').html('n/a');
+                        $('#productBrand').html('n/a');
+                        $('#productUnit').html('n/a');
+                        $('#productPrice').html('n/a');
+                        $('#productDescription').html('n/a');
+                    }
+                })
+            })
         });
     </script>
 @endsection
