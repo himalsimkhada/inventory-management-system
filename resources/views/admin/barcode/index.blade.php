@@ -2,7 +2,7 @@
 
 @section('content')
     <style>
-        .searchBox{
+        .searchBox {
             min-width: 10rem;
             padding: .5rem;
             margin: .125rem 0 0;
@@ -12,11 +12,12 @@
             z-index: 1000;
             background-color: #fff;
             color: #324253;
-            border: 1px solid rgba(0,0,0,.15); 
+            border: 1px solid rgba(0, 0, 0, .15);
             border-radius: 5px;
             word-wrap: normal;
         }
-        .searchResult{
+
+        .searchResult {
             display: block;
             width: 100%;
             padding: .5rem 1rem;
@@ -27,11 +28,13 @@
             background-color: transparent;
             border: 0;
         }
-        .searchResult:hover{
+
+        .searchResult:hover {
             background-color: #f8f9fa;
             border-radius: 5px;
             color: #212529;
         }
+
     </style>
     <div class="row">
         <div class="col-lg-12">
@@ -55,7 +58,8 @@
                     <p>Provide Product Information.</p>
                     <form class=" row g-3" method="post" action="">
                         <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
+                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
+                                Name</label>
                             <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
                             <div class=" searchBox" id="searchBox" hidden="">
                             </div>
@@ -89,67 +93,69 @@
 @endsection
 
 @section('js')
-<script>
-    $(document).ready(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-        });
-
-        $(document).on('keyup', '#productSearch', function(e){
-            var name = $(this).val();
-            $.ajax({
-                url: '{{ route('product.search') }}',
-                dataType: 'json',
-                method: 'post',
-                data: {
-                    name: name
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function(response) {
-                    console.log(response);
-                    if(response.length > 0){
-                        if(e.key === "Escape"){
+            });
+
+            $(document).on('keyup', '#productSearch', function(e) {
+                var name = $(this).val();
+                $.ajax({
+                    url: '{{ route('product.search') }}',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        name: name
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.length > 0) {
+                            $('#searchBox').html('');
+                            var results =
+                                '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
+                            $.each(response, function(i, e) {
+                                results += '<a class="searchResult dismiss" data-id="' +
+                                    e.id + '" data-code="' + e.code + '" data-price="' +
+                                    e.price + '">' + e.name + '</a>';
+                            });
+                            $('#searchBox').html(results);
+                            $('#searchBox').prop('hidden', false);
+                        } else {
+                            $('#searchBox').html('');
                             $('#searchBox').prop('hidden', true);
                         }
-                        $('#searchBox').html('');
-                        var results = '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
-                        $.each(response, function(i, e){
-                            results += '<a class="searchResult dismiss" data-id="' + e.id + '" data-code="' + e.code + '" data-price="' + e.price + '">' + e.name + '</a>';
-                        });
-                        $('#searchBox').html(results);
-                        $('#searchBox').prop('hidden', false);
-                    }else{
-                        $('#searchBox').html('');
-                        $('#searchBox').prop('hidden', true);
+                        if (e.key === "Escape" || e.key === "Esc") {
+                            $('#searchBox').prop('hidden', true);
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
                     }
-                },
-                error: function(error){
-                    console.log(error);
-                }
-            })
-            
-        });
+                })
+            });
 
-        $(document).on('click', '.searchResult', function(){
-            var product = $(this);
-            var row = '<tr>' +
-                '<td id="name">' + product.html() + '</td>' +
-                '<td id="code">' + product.data('code') + '</td>' +
-                '<td id="count">' +
+            $(document).on('click', '.searchResult', function() {
+                var product = $(this);
+                var row = '<tr>' +
+                    '<td id="name">' + product.html() + '</td>' +
+                    '<td id="code">' + product.data('code') + '</td>' +
+                    '<td id="count">' +
                     '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1">' +
-                '</td>' +
-                '<td id="price">' + product.data('price') +'</td>' +
-                '<td id="total">' + product.data('price') +'</td>' +
-                '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
-            '</tr>';
-            $('tbody').append(row);
+                    '</td>' +
+                    '<td id="price">' + product.data('price') + '</td>' +
+                    '<td id="total">' + product.data('price') + '</td>' +
+                    '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
+                    '</tr>';
+                $('tbody').append(row);
 
+            })
+
+            $(document).on('click', '.dismiss', function() {
+                $('#searchBox').prop('hidden', true);
+            });
         })
-        
-        $(document).on('click', '.dismiss', function(){
-            $('#searchBox').prop('hidden', true);
-        });
-    })  
-</script>
+    </script>
 @endsection
