@@ -134,10 +134,30 @@
         $(document).ready(function() {
             var table = $('#datatable').DataTable({
                 dom: 'Bfrtip',
-                buttons:[
-                    {extend: 'pdf', className: 'btn btn-primary', text: 'pdf'},
-                    {extend: 'excel', className: 'btn btn-primary', text: 'excel'},
-                    {extend: 'print', className: 'btn btn-primary', text: 'print'},
+                buttons: [{
+                        extend: 'pdf',
+                        className: 'btn btn-outline-danger',
+                        text: 'pdf',
+                        exportOptions: {
+                            columns: 'th:not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn btn-outline-success',
+                        text: 'excel',
+                        exportOptions: {
+                            columns: 'th:not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-outline-secondary',
+                        text: 'print',
+                        exportOptions: {
+                            columns: 'th:not(:last-child)',
+                        }
+                    },
                 ],
                 processing: true,
                 serverSide: true,
@@ -249,15 +269,23 @@
                     success: function(response) {
                         console.log(response);
                         if (response.image.length > 0) {
-                            $.each(response.image, function(i, e){
+                            $.each(response.image, function(i, e) {
                                 var active = (i == 0) ? 'active' : '';
-                                var src = '{{ asset("public/uploads/product") }}/' + e.image;
-                                carouselItem += '<div class="carousel-item ' + active + '"><img src="' + src + '" class="d-block w-100" alt="' + e.image +'"></div>';
-                                indicators += '<li data-target="#carouselExampleIndicators" data-slide-to="' + i + '" class="' + active + '"></li>';
+                                var src = '{{ asset('public/uploads/product') }}/' + e
+                                    .image;
+                                carouselItem += '<div class="carousel-item ' + active +
+                                    '"><img src="' + src +
+                                    '" class="d-block w-100" alt="' + e.image +
+                                    '"></div>';
+                                indicators +=
+                                    '<li data-target="#carouselExampleIndicators" data-slide-to="' +
+                                    i + '" class="' + active + '"></li>';
                             })
-                        }else{
-                            carouselItem += '<div class="carousel-item active"><img src="{{ asset("public/uploads/no-image.jpg") }}" class="d-block w-100" alt="no-image.jpg"></div>';
-                            indicators += '<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>';
+                        } else {
+                            carouselItem +=
+                                '<div class="carousel-item active"><img src="{{ asset('public/uploads/no-image.jpg') }}" class="d-block w-100" alt="no-image.jpg"></div>';
+                            indicators +=
+                                '<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>';
                         }
                         $('#carouselItem').html(carouselItem);
                         $('#indicators').html(indicators);
@@ -271,7 +299,7 @@
                             $('#productUnit').html(data.unit.name);
                             $('#productPrice').html(data.price);
                             $('#productDescription').html(data.description);
-                        }else{
+                        } else {
                             var data = response.product[0];
                             $('#productName').html('n/a');
                             $('#productCode').html('n/a');
@@ -283,8 +311,12 @@
                         }
                     },
                     error: function(response) {
-                        $('#carouselItem').html('<div class="carousel-item active"><img src="{{ asset("public/uploads/no-image.jpg") }}" class="d-block w-100" alt="no-image.jpg"></div>');
-                        $('#indicators').html('<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>');
+                        $('#carouselItem').html(
+                            '<div class="carousel-item active"><img src="{{ asset('public/uploads/no-image.jpg') }}" class="d-block w-100" alt="no-image.jpg"></div>'
+                        );
+                        $('#indicators').html(
+                            '<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>'
+                        );
                         $('#productName').html('n/a');
                         $('#productCode').html('n/a');
                         $('#productCategory').html('n/a');
