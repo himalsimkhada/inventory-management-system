@@ -65,7 +65,6 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>S.N.</th>
                                         <th>Name</th>
                                         <th>Code</th>
                                         <th>Quantity</th>
@@ -75,17 +74,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Samsung</td>
-                                        <td>123123</td>
-                                        <td>
-                                            <input type="number" name="quantity" id="quantity" value="1">
-                                        </td>
-                                        <td>45000</td>
-                                        <td>45000</td>
-                                        <td><button type="button">Delete</button></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -112,7 +100,6 @@
 
         $(document).on('keyup', '#productSearch', function(e){
             var name = $(this).val();
-            console.log(name);
             $.ajax({
                 url: '{{ route('product.search') }}',
                 dataType: 'json',
@@ -129,7 +116,7 @@
                         $('#searchBox').html('');
                         var results = '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
                         $.each(response, function(i, e){
-                            results += '<a class="searchResult dismiss" id="' + e.id + '">' + e.name + '</a>';
+                            results += '<a class="searchResult dismiss" data-id="' + e.id + '" data-code="' + e.code + '" data-price="' + e.price + '">' + e.name + '</a>';
                         });
                         $('#searchBox').html(results);
                         $('#searchBox').prop('hidden', false);
@@ -144,6 +131,22 @@
             })
             
         });
+
+        $(document).on('click', '.searchResult', function(){
+            var product = $(this);
+            var row = '<tr>' +
+                '<td id="name">' + product.html() + '</td>' +
+                '<td id="code">' + product.data('code') + '</td>' +
+                '<td id="count">' +
+                    '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1">' +
+                '</td>' +
+                '<td id="price">' + product.data('price') +'</td>' +
+                '<td id="total">' + product.data('price') +'</td>' +
+                '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
+            '</tr>';
+            $('tbody').append(row);
+
+        })
         
         $(document).on('click', '.dismiss', function(){
             $('#searchBox').prop('hidden', true);

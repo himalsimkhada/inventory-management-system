@@ -265,6 +265,7 @@ class ProductController extends Controller {
     public function detail(Request $request, $id = null){
         (request()->isMethod('post')) ? $id = $request->input('id') : '';
         $product = Product::with('category', 'brand', 'unit')->where('id', $id)->first();
+        // dd($product);
         $image = Image::where('product_id', $id)->get();
         $variant = ProductAttributes::where('product_id', $id)->get();
         $response = [];
