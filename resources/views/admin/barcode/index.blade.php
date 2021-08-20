@@ -175,13 +175,25 @@
 
             $(document).on('click', '#submitForm', function() {
                 var id = [];
+
                 $('.id').each(function(i, v) {
                     // console.log(v.id);
                     id[i] = v.id;
 
-                    var barcode = "{{ DNS1D::getBarcodeHTML('saral', 'C39+', 1, 33) }}";
-                    var barcodes = '<p>' + barcode + '</p>';
-                    $('#barcode_mat').append(barcodes);
+                    // $('#barcode_mat').append('q');
+                })
+
+                $.ajax({
+                    url: '{{ route('product.barcode') }}',
+                    dataType: 'json',
+                    method: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        // console.log(response);
+                        $('#barcode_mat').append(response);
+                    }
                 })
 
                 $('#modal').modal('show');

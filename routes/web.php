@@ -79,6 +79,7 @@ Route::prefix('/admin')->group(function () {
 
         // Barcode
         Route::get('/barcode', 'BarcodeController@index')->name('barcode.index');
+        Route::get('/get/barcode', 'BarcodeController@get')->name('product.barcode');
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
