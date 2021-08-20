@@ -56,7 +56,7 @@
             <div class="card">
                 <div class="card-body" id="dropzone">
                     <p>Provide Product Information.</p>
-                    <form class=" row g-3" method="post" action="">
+                    <form class=" row g-3">
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
                                 Name</label>
@@ -73,7 +73,6 @@
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th>Total</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -81,11 +80,30 @@
                             </table>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <button type="submit" class="btn btn-primary" id="submitForm">
+                            <button type="button" class="btn btn-primary" id="submitForm">
                                 Create
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{-- <h5 class="modal-title" id="print">Print</h5> --}}
+                    <button type="button" class="btn btn-outline-secondary" id="print">Print</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="barcode_mat">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -140,10 +158,12 @@
             $(document).on('click', '.searchResult', function() {
                 var product = $(this);
                 var row = '<tr>' +
+                    '<td id="' + product.data('id') + '" class="id" hidden>' + product.data('id') +
+                    '</td>' +
                     '<td id="name">' + product.html() + '</td>' +
                     '<td id="code">' + product.data('code') + '</td>' +
                     '<td id="count">' +
-                    '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1">' +
+                    '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1" min="0">' +
                     '</td>' +
                     '<td id="price">' + product.data('price') + '</td>' +
                     '<td id="total">' + product.data('price') + '</td>' +
@@ -152,6 +172,29 @@
                 $('tbody').append(row);
 
             })
+
+            $(document).on('click', '#submitForm', function() {
+                var id = [];
+                $('.id').each(function(i, v) {
+                    // console.log(v.id);
+                    id[i] = v.id;
+
+                    var barcode = "{{ DNS1D::getBarcodeHTML('saral', 'C39+', 1, 33) }}";
+                    var barcodes = '<p>' + barcode + '</p>';
+                    $('#barcode_mat').append(barcodes);
+                })
+
+                $('#modal').modal('show');
+
+                $('#print').on('click', function() {
+                    var divtoprint = document.getElementById('barcode_mat');
+                    newWin = window.open("");
+                    newWin.document.write(divtoprint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                })
+
+            });
 
             $(document).on('click', '.dismiss', function() {
                 $('#searchBox').prop('hidden', true);
