@@ -158,19 +158,32 @@
 
             $(document).on('click', '.searchResult', function() {
                 var product = $(this);
-                var row = '<tr>' +
-                    '<td id="' + product.data('id') + '" class="id" hidden>' + product.data('id') +
-                    '</td>' +
-                    '<td id="name">' + product.html() + '</td>' +
-                    '<td id="code">' + product.data('code') + '</td>' +
-                    '<td id="count">' +
-                    '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1" min="0">' +
-                    '</td>' +
-                    '<td id="price">' + product.data('price') + '</td>' +
-                    '<td id="total">' + product.data('price') + '</td>' +
-                    '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
-                    '</tr>';
-                $('tbody').append(row);
+                $('.id').each(function(i, v) {
+                    console.log(v.id);
+                    var id = v.id;
+
+                    if (id !== product.data('id')) {
+                        console.log('id');
+                        var row = '<tr>' +
+                            '<td id="' + product.data('id') + '" class="id" hidden>' + product.data(
+                                'id') +
+                            '</td>' +
+                            '<td id="name">' + product.html() + '</td>' +
+                            '<td id="code">' + product.data('code') + '</td>' +
+                            '<td id="count">' +
+                            '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1" min="0">' +
+                            '</td>' +
+                            '<td id="price">' + product.data('price') + '</td>' +
+                            '<td id="total">' + product.data('price') + '</td>' +
+                            '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
+                            '</tr>';
+                        $('tbody').append(row);
+
+                    }
+                    else{
+                        alert('Already Exist!');
+                    }
+                })
 
             })
 
