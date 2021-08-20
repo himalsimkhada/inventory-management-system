@@ -128,7 +128,7 @@
                             $('#searchBox').html('');
                             $('#searchBox').prop('hidden', true);
                         }
-                        if (e.key === "Escape") {
+                        if (e.key === "Escape" || e.key === "Esc") {
                             $('#searchBox').prop('hidden', true);
                         }
                     },
@@ -136,7 +136,6 @@
                         console.log(error);
                     }
                 })
-
             });
 
             $(document).on('click', '.searchResult', function() {
