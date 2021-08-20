@@ -18,7 +18,7 @@ class BarcodeController extends Controller {
 
         $barcodes = '';
 
-        // dd($data['id']);
+        dd($data['id']);
 
         foreach ($data['id'] as $id) {
             $product = ProductAttributes::where('product_id', $id)->first();
