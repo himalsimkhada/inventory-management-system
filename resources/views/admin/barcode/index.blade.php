@@ -234,7 +234,7 @@
             var product = $(this);
             var error = false;
             $.each($('#tbody').children(), function(){
-                if(product.data('id') == $(this).attr('id')){
+                if(parseInt(product.data('id')) == parseInt($(this).attr('id'))){
                     error = true;
                 }
             });
