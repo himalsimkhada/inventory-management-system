@@ -8,16 +8,13 @@ use Illuminate\Support\Facades\Session;
 use DataTables;
 use Str;
 
-class CategoryController extends Controller
-{
-    public function index()
-    {
+class CategoryController extends Controller {
+    public function index() {
         Session::put('admin_page', 'Category');
         return view('admin.category.index');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $rule = [
@@ -50,8 +47,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function get(Request $request)
-    {
+    public function get(Request $request) {
         if ($request->isMethod('post')) {
             $data = Category::findorfail($request->input('id'));
             return response()->json($data);
@@ -59,17 +55,25 @@ class CategoryController extends Controller
             $data = Category::all()->sortByDesc("id");
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('status', function ($row) {
+                    $status = null;
+                    if ($row['status'] == 1) {
+                        $status = '<span class="dot" style="color:green;display:inline-block;">Active</span>';
+                    } elseif ($row['status'] == 0) {
+                        $status = '<span class="dot" style="color:red;display:inline-block;">Inactive</span>';
+                    }
+                    return $status;
+                })
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<button class="btn btn-primary mr-2" data-toggle="modal" data-target="#categoryModal" data-id="' . $row['id'] . '" id="edit">Edit</button><button class="btn btn-danger" data-id="' . $row['id'] . '" id="delete">Delete</button>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['status','action'])
                 ->make(true);
         }
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request) {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $response = Category::where('id', $data['id'])->delete();

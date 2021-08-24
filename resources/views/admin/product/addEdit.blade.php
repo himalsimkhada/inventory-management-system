@@ -24,7 +24,11 @@
             </div>
         </div>
         <div class="col-lg-12 mb-3 d-flex justify-content-between">
-            <h4 class="font-weight-bold d-flex align-items-center">New Product</h4>
+            <h4 class="font-weight-bold d-flex align-items-center">@if (request()->id)
+                Update Product
+            @else
+                New Product
+            @endif</h4>
         </div>
         @include('admin.includes._message')
         <div class="col-lg-12">
@@ -51,7 +55,7 @@
                             <label for="category"
                                 class="form-label font-weight-bold text-muted text-uppercase">Category</label>
                             <select id="category" class="form-select form-control choicesjs" name="category_id">
-                                <option selected value="">Select Category</option>
+                                <option selected value="" disabled>Select Category</option>
                                 @foreach ($category as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->category_id == $value->id ? 'selected' : '') : '' }}>
@@ -62,7 +66,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="brand" class="form-label font-weight-bold text-muted text-uppercase">Brand</label>
                             <select id="brand" class="form-select form-control choicesjs" name="brand_id">
-                                <option selected value="">Select Brand</option>
+                                <option selected value="" disabled>Select Brand</option>
                                 @foreach ($brand as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->brand_id == $value->id ? 'selected' : '') : '' }}>
@@ -73,7 +77,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="unit" class="form-label font-weight-bold text-muted text-uppercase">Unit</label>
                             <select id="unit" class="form-select form-control choicesjs" name="unit_id">
-                                <option value="">Select Unit</option>
+                                <option value="" disabled>Select Unit</option>
                                 @foreach ($unit as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->unit_id == $value->id ? 'selected' : '') : '' }}>
@@ -84,7 +88,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="tax" class="form-label font-weight-bold text-muted text-uppercase">Tax</label>
                             <select id="tax" class="form-select form-control choicesjs" name="tax_id">
-                                <option selected value="">Select Tax</option>
+                                <option selected value="" disabled>Select Tax</option>
                                 @foreach ($tax as $value)
                                     <option value="{{ $value->id }}"
                                         {{ isset($editData) ? ($editData->tax_type_id == $value->id ? 'selected' : '') : '' }}>
@@ -157,7 +161,7 @@
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
                                 @if (request()->id)
-                                    Edit Product
+                                    Update Product
                                 @else
                                     Create Product
                                 @endif
@@ -231,7 +235,7 @@
                 removedfile: function(file) {
                     var myDropzone = this;
                     var paramId = '{{ request()->id }}';
-                    if(paramId !=''){
+                    if (paramId != '') {
                         Swal.fire({
                             title: 'Are you sure?',
                             text: "You won't be able to revert this!",
@@ -258,13 +262,39 @@
                                                 data: {
                                                     id: paramId
                                                 },
-                                                success: function(response) {
-                                                    $.each(response,function(key, value) {
-                                                        var mockFile = {name: value.name, size: value.size, id: value.id};
-                                                        myDropzone.emit("addedfile", mockFile);
-                                                        myDropzone.emit("thumbnail", mockFile, "{{ asset('') }}" + value.path);
-                                                        myDropzone.emit("complete", mockFile);
-                                                    });
+                                                success: function(
+                                                response) {
+                                                    $.each(response,
+                                                        function(
+                                                            key,
+                                                            value) {
+                                                            var mockFile = {
+                                                                name: value
+                                                                    .name,
+                                                                size: value
+                                                                    .size,
+                                                                id: value
+                                                                    .id
+                                                            };
+                                                            myDropzone
+                                                                .emit(
+                                                                    "addedfile",
+                                                                    mockFile
+                                                                    );
+                                                            myDropzone
+                                                                .emit(
+                                                                    "thumbnail",
+                                                                    mockFile,
+                                                                    "{{ asset('') }}" +
+                                                                    value
+                                                                    .path
+                                                                    );
+                                                            myDropzone
+                                                                .emit(
+                                                                    "complete",
+                                                                    mockFile
+                                                                    );
+                                                        });
                                                 }
                                             });
                                         }
@@ -273,7 +303,7 @@
 
                             }
                         })
-                    }else{
+                    } else {
                         this.removeFile(file);
                     }
                 }
@@ -323,6 +353,25 @@
             });
 
             $(document).on('click', '.removeAttr', function() {
+                var id = $(this).attr('id');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    method: "post",
+                    url: "{{ route('product.attr.destroy') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+
+                    },
+                    error: function(response) {
+                        console.log('error');
+                    }
+
+                })
                 $(this).parent().parent().remove();
             });
         })

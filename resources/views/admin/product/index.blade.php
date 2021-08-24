@@ -294,9 +294,9 @@
                             console.log(data);
                             $('#productName').html(data.name);
                             $('#productCode').html(data.code);
-                            $('#productCategory').html(data.category.category_name);
-                            $('#productBrand').html(data.brand.brand_name);
-                            $('#productUnit').html(data.unit.name);
+                            (data.category) ? $('#productCategory').html(data.category.category_name) : $('#productCategory').html('N/a');
+                            (data.brand) ? $('#productBrand').html(data.brand.brand_name) : $('#productBrand').html('N/a');
+                            (data.unit) ? $('#productUnit').html(data.unit.name) : $('#productUnit').html('N/a');
                             $('#productPrice').html(data.price);
                             $('#productDescription').html(data.description);
                         } else {

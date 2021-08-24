@@ -2,7 +2,7 @@
 
 @section('content')
     <style>
-        .searchBox{
+        .searchBox {
             min-width: 10rem;
             padding: .5rem;
             margin: .125rem 0 0;
@@ -12,11 +12,12 @@
             z-index: 1000;
             background-color: #fff;
             color: #324253;
-            border: 1px solid rgba(0,0,0,.15); 
+            border: 1px solid rgba(0, 0, 0, .15);
             border-radius: 5px;
             word-wrap: normal;
         }
-        .searchResult{
+
+        .searchResult {
             display: block;
             width: 100%;
             padding: .5rem 1rem;
@@ -27,19 +28,12 @@
             background-color: transparent;
             border: 0;
         }
-        .searchResult:hover{
+
+        .searchResult:hover {
             background-color: #f8f9fa;
             border-radius: 5px;
             color: #212529;
-        }
-        .barcodePreview{
-            padding: 1.3rem;
-            /* border: 1px solid rgba(0,0,0,.15); */
-            /* border-radius: 5px; */
-            /* width: auto; */
-        }
-        #barcodeTable td{
-            text-align: center;
+            cursor: pointer;
         }
     </style>
     <div class="row">
@@ -62,9 +56,10 @@
             <div class="card">
                 <div class="card-body" id="dropzone">
                     <p>Provide Product Information.</p>
-                    <form class=" row g-3" method="post" action="">
+                    <form class=" row g-3">
                         <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
+                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
+                                Name</label>
                             <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
                             <div class=" searchBox" id="searchBox" hidden="">
                             </div>
@@ -78,7 +73,6 @@
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th>Total</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -188,87 +182,161 @@
             </div>
         </div>
     </div>
+    <div class="modal" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{-- <h5 class="modal-title" id="print">Print</h5> --}}
+                    <button type="button" class="btn btn-outline-secondary" id="print">Print</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="barcode_mat">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('js')
-<script>
-    $(document).ready(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-        });
-
-        $(document).on('keyup', '#productSearch', function(e){
-            var name = $(this).val();
-            $.ajax({
-                url: '{{ route('product.search') }}',
-                dataType: 'json',
-                method: 'post',
-                data: {
-                    name: name
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function(response) {
-                    if(response.length > 0){
-                        $('#searchBox').html('');
-                        var results = '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
-                        $.each(response, function(i, e){
-                            results += '<a class="searchResult dismiss" data-id="' + e.id + '" data-code="' + e.code + '" data-price="' + e.price + '" data-sku="' + e.sku + '">' + e.name + '</a>';
-                        });
-                        $('#searchBox').html(results);
-                        $('#searchBox').prop('hidden', false);
-                        if(e.key === "Escape"){
+            });
+
+            $(document).on('keyup', '#productSearch', function(e) {
+                var name = $(this).val();
+                $.ajax({
+                    url: '{{ route('product.search') }}',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        name: name
+                    },
+                    success: function(response) {
+                        // console.log(response);
+                        if (response.length > 0) {
+                            $('#searchBox').html('');
+                            var results =
+                                '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
+                            $.each(response, function(i, e) {
+                                results += '<a class="searchResult dismiss" data-id="' +
+                                    e.id + '" data-code="' + e.code + '" data-price="' +
+                                    e.price + '">' + e.name + '</a>';
+                            });
+                            $('#searchBox').html(results);
+                            $('#searchBox').prop('hidden', false);
+                        } else {
+                            $('#searchBox').html('');
                             $('#searchBox').prop('hidden', true);
                         }
-                    }else{
-                        $('#searchBox').html('');
-                        $('#searchBox').prop('hidden', true);
+                        if (e.key === "Escape" || e.key === "Esc") {
+                            $('#searchBox').prop('hidden', true);
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
                     }
-                },
-                error: function(error){
-                    console.log(error);
+                })
+            });
+
+            $(document).on('click', '.searchResult', function() {
+                var product = $(this);
+                // console.log(product);
+                if ($('.id').length >= 1) {
+                    console.log('if working');
+                    $('.id').each(function(i, v) {
+                        // console.log(v.id);
+                        var id = v.id;
+
+                        if (id != product.data('id')) {
+                            console.log('ifx2 working');
+                            var row = '<tr>' +
+                                '<td id="' + product.data('id') + '" class="id" hidden>' + product
+                                .data(
+                                    'id') +
+                                '</td>' +
+                                '<td id="name">' + product.html() + '</td>' +
+                                '<td id="code">' + product.data('code') + '</td>' +
+                                '<td id="count">' +
+                                '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1" min="0">' +
+                                '</td>' +
+                                '<td id="price">' + product.data('price') + '</td>' +
+                                '<td id="total">' + product.data('price') + '</td>' +
+                                '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
+                                '</tr>';
+                            $('tbody').append(row);
+
+                        } else {
+                            alert('Already Exist!');
+                        }
+                    })
+                } else {
+                    console.log('else working');
+                    var row = '<tr>' +
+                        '<td id="' + product.data('id') + '" class="id" hidden>' + product.data(
+                            'id') +
+                        '</td>' +
+                        '<td id="name">' + product.html() + '</td>' +
+                        '<td id="code">' + product.data('code') + '</td>' +
+                        '<td id="count">' +
+                        '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1" min="0">' +
+                        '</td>' +
+                        '<td id="price">' + product.data('price') + '</td>' +
+                        '<td id="total">' + product.data('price') + '</td>' +
+                        '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
+                        '</tr>';
+                    $('tbody').append(row);
                 }
+
             })
-            
-        });
 
-        $(document).on('click', '.searchResult', function(){
-            var product = $(this);
-            var row = '<tr id="' + product.data('id') + '">' +
-                '<td id="name">' + product.html() + '</td>' +
-                '<td id="code">' + product.data('code') + '</td>' +
-                '<td id="count">' +
-                    '<input class="form-control quantity" type="number" type="number" name="quantity" value="1">' +
-                '</td>' +
-                '<td id="price">' + product.data('price') +'</td>' +
-                '<td id="total">' + product.data('price') +'</td>' +
-                '<td><button type="button minus" class="btn btn-danger btn-sm">-</button></td>' +
-            '</tr>';
-            $('#tbody').append(row);
-            $('#productSearch').val('');
-        });
+            $(document).on('click', '#submitForm', function() {
+                var id = [];
 
-        $(document).on('click', '.minus', function(){
-            $(this).parent().parent().remove();
-        });
+                $('.id').each(function(i, v) {
+                    // console.log(v.id);
+                    id[i] = v.id;
 
-        $(document).on('change', '.quantity', function(){
-            var quantity = $(this).val();
-            var thisPrice = $(this).parent().next().html();
-            var total = parseInt(quantity) * parseInt(thisPrice);
-            var thisTotal = $(this).parent().next().next().html(total);
+                    // $('#barcode_mat').append('q');
+                })
+
+                $.ajax({
+                    url: '{{ route('product.barcode') }}',
+                    dataType: 'json',
+                    method: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        // console.log(response);
+                        $('#barcode_mat').append(response);
+                    }
+                })
+
+                $('#modal').modal('show');
+
+                $('#print').on('click', function() {
+                    var divtoprint = document.getElementById('barcode_mat');
+                    newWin = window.open("");
+                    newWin.document.write(divtoprint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                })
+
+            });
+
+            $(document).on('click', '.dismiss', function() {
+                $('#searchBox').prop('hidden', true);
+            });
         })
-
-        $(document).on('click', '#create', function(){
-            $.each($('#tbody').children(), function(i, e){
-                console.log(i);
-                console.log(e);
-            })
-        })
-        
-        $(document).on('click', '.dismiss', function(){
-            $('#searchBox').prop('hidden', true);
-        });
-    })  
-</script>
+    </script>
 @endsection
