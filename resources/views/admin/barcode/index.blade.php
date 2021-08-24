@@ -32,6 +32,15 @@
             border-radius: 5px;
             color: #212529;
         }
+        .barcodePreview{
+            padding: 1.3rem;
+            /* border: 1px solid rgba(0,0,0,.15); */
+            /* border-radius: 5px; */
+            /* width: auto; */
+        }
+        #barcodeTable td{
+            text-align: center;
+        }
     </style>
     <div class="row">
         <div class="col-lg-12">
@@ -72,14 +81,107 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                 </tbody>
                             </table>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <button type="submit" class="btn btn-primary" id="submitForm">
+                            <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
                                 Create
                             </button>
+                        </div>
+                        <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn btn-primary">Print</button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <table class="table table-borderless" id="barcodeTable">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                SAM-NOR-BLA
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                SAM-NOR-BLA
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                SAM-NOR-BLA
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                SAM-NOR-BLA
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                SAM-NOR-BLA
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                SAM-NOR-BLA
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                SAM-NOR-BLA
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                SAM-NOR-BLA
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -107,18 +209,17 @@
                     name: name
                 },
                 success: function(response) {
-                    console.log(response);
                     if(response.length > 0){
-                        if(e.key === "Escape"){
-                            $('#searchBox').prop('hidden', true);
-                        }
                         $('#searchBox').html('');
                         var results = '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
                         $.each(response, function(i, e){
-                            results += '<a class="searchResult dismiss" data-id="' + e.id + '" data-code="' + e.code + '" data-price="' + e.price + '">' + e.name + '</a>';
+                            results += '<a class="searchResult dismiss" data-id="' + e.id + '" data-code="' + e.code + '" data-price="' + e.price + '" data-sku="' + e.sku + '">' + e.name + '</a>';
                         });
                         $('#searchBox').html(results);
                         $('#searchBox').prop('hidden', false);
+                        if(e.key === "Escape"){
+                            $('#searchBox').prop('hidden', true);
+                        }
                     }else{
                         $('#searchBox').html('');
                         $('#searchBox').prop('hidden', true);
@@ -133,18 +234,36 @@
 
         $(document).on('click', '.searchResult', function(){
             var product = $(this);
-            var row = '<tr>' +
+            var row = '<tr id="' + product.data('id') + '">' +
                 '<td id="name">' + product.html() + '</td>' +
                 '<td id="code">' + product.data('code') + '</td>' +
                 '<td id="count">' +
-                    '<input class="form-control" type="number" type="number" name="quantity" id="quantity" value="1">' +
+                    '<input class="form-control quantity" type="number" type="number" name="quantity" value="1">' +
                 '</td>' +
                 '<td id="price">' + product.data('price') +'</td>' +
                 '<td id="total">' + product.data('price') +'</td>' +
-                '<td><button type="button" class="btn btn-danger btn-sm">-</button></td>' +
+                '<td><button type="button minus" class="btn btn-danger btn-sm">-</button></td>' +
             '</tr>';
-            $('tbody').append(row);
+            $('#tbody').append(row);
+            $('#productSearch').val('');
+        });
 
+        $(document).on('click', '.minus', function(){
+            $(this).parent().parent().remove();
+        });
+
+        $(document).on('change', '.quantity', function(){
+            var quantity = $(this).val();
+            var thisPrice = $(this).parent().next().html();
+            var total = parseInt(quantity) * parseInt(thisPrice);
+            var thisTotal = $(this).parent().next().next().html(total);
+        })
+
+        $(document).on('click', '#create', function(){
+            $.each($('#tbody').children(), function(i, e){
+                console.log(i);
+                console.log(e);
+            })
         })
         
         $(document).on('click', '.dismiss', function(){
