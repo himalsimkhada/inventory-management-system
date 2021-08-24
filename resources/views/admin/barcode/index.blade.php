@@ -62,128 +62,126 @@
             <div class="card">
                 <div class="card-body" id="dropzone">
                     <p>Provide Product Information.</p>
-                    <form class=" row g-3" method="post" action="">
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
-                            <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
-                            <div class=" searchBox" id="searchBox" hidden="">
-                            </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
+                        <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
+                        <div class=" searchBox" id="searchBox" hidden="">
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Code</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Total</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
-                                Create
-                            </button>
-                        </div>
-                        <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-xl" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="btn btn-primary">Print</button>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <table class="table table-borderless" id="barcodeTable">
-                                                    <tr>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                            </div>
-                                                            <div class="text-center">
-                                                                SAM-NOR-BLA
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                            </div>
-                                                            <div class="text-center">
-                                                                SAM-NOR-BLA
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                            </div>
-                                                            <div class="text-center">
-                                                                SAM-NOR-BLA
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                            </div>
-                                                            <div class="text-center">
-                                                                SAM-NOR-BLA
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                            </div>
-                                                            <div class="text-center">
-                                                                SAM-NOR-BLA
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                            </div>
-                                                            <div class="text-center">
-                                                                SAM-NOR-BLA
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                            </div>
-                                                            <div class="text-center">
-                                                                SAM-NOR-BLA
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                            </div>
-                                                            <div class="text-center">
-                                                                SAM-NOR-BLA
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
+                            Create
+                        </button>
+                    </div>
+                    <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn btn-primary">Print</button>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <table class="table table-borderless" id="barcodeTable">
+                                                <tr>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            SAM-NOR-BLA
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            SAM-NOR-BLA
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            SAM-NOR-BLA
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            SAM-NOR-BLA
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            SAM-NOR-BLA
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            SAM-NOR-BLA
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            SAM-NOR-BLA
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            SAM-NOR-BLA
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -234,18 +232,28 @@
 
         $(document).on('click', '.searchResult', function(){
             var product = $(this);
-            var row = '<tr id="' + product.data('id') + '">' +
-                '<td id="name">' + product.html() + '</td>' +
-                '<td id="code">' + product.data('code') + '</td>' +
-                '<td id="count">' +
-                    '<input class="form-control quantity" type="number" type="number" name="quantity" value="1">' +
-                '</td>' +
-                '<td id="price">' + product.data('price') +'</td>' +
-                '<td id="total">' + product.data('price') +'</td>' +
-                '<td><button type="button minus" class="btn btn-danger btn-sm">-</button></td>' +
-            '</tr>';
-            $('#tbody').append(row);
-            $('#productSearch').val('');
+            var error = false;
+            $.each($('#tbody').children(), function(){
+                if(product.data('id') == $(this).attr('id')){
+                    error = true;
+                }
+            });
+            if(error == false){
+                var row = '<tr id="' + product.data('id') + '">' +
+                    '<td id="name">' + product.html() + '</td>' +
+                    '<td id="code">' + product.data('code') + '</td>' +
+                    '<td id="count">' +
+                        '<input class="form-control quantity" type="number" type="number" name="quantity" value="1">' +
+                    '</td>' +
+                    '<td id="price">' + product.data('price') +'</td>' +
+                    '<td id="total">' + product.data('price') +'</td>' +
+                    '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
+                '</tr>';
+                $('#tbody').append(row);
+                $('#productSearch').val('');
+            }else{
+                alert('duplicate input is not allowed!');
+            }
         });
 
         $(document).on('click', '.minus', function(){
