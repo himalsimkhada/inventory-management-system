@@ -14,17 +14,10 @@ class BarcodeController extends Controller {
     }
 
     public function get(Request $request) {
-        $data = $request->all();
-
-        $barcodes = '';
-
-        dd($data['id']);
-
-        foreach ($data['id'] as $id) {
-            $product = ProductAttributes::where('product_id', $id)->first();
-            $barcodes .= DNS1D::getBarcodeHTML($product->sku, 'C39+', 1, 33) . "<br>";
-        }
-
-        return response()->json($barcodes);
+        $data = $request->input('ids');
+        $id = str_split($data, 1);
+        $barcode = ProductAttributes::whereIn('product_id', $id)->get();
+        dd($barcode);
+        return response()->json($barcode);
     }
 }

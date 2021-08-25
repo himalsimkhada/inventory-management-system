@@ -279,10 +279,14 @@ class ProductController extends Controller {
         }
     }
 
-    public function search(Request $request){
+    public function productSearch(Request $request){
         $name = $request->input('name');
-        $product = Product::where('name', $name)->orWhere('name', 'like', '%' . $name . '%')->get();
-        $response = $product;
+        $response = Product::where('name', $name)->orWhere('name', 'like', '%' . $name . '%')->get();
+        return response()->json($response);
+    }
+
+    public function skuSearch(Request $request){
+        $response = ProductAttributes::where('product_id', $request->input('id'))->get();
         return response()->json($response);
     }
 }

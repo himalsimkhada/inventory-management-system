@@ -75,11 +75,12 @@ Route::prefix('/admin')->group(function () {
         Route::post('/product/image/remove', 'ProductController@removeImage')->name('product.image.remove');
         Route::post('/product/detail/', 'ProductController@detail')->name('product.detail');
         Route::get('/product/detail/{id}', 'ProductController@detail')->name('product.detail2');
-        Route::post('/product/search', 'ProductController@search')->name('product.search');
-
+        
         // Barcode
         Route::get('/barcode', 'BarcodeController@index')->name('barcode.index');
-        Route::get('/get/barcode', 'BarcodeController@get')->name('product.barcode');
+        Route::post('/product/search', 'ProductController@productSearch')->name('product.search');
+        Route::post('/product/sku/search', 'ProductController@productSearch')->name('product.sku.search');
+        Route::post('/barcode/get', 'BarcodeController@get')->name('barcode.get');
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');

@@ -239,11 +239,29 @@
                 }
             });
             if(error == false){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '{{ route('barcode.get') }}',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        ids: ids
+                    },
+                    success: function(response) {
+                    }
+                })
                 var row = '<tr id="' + product.data('id') + '">' +
                     '<td id="name">' + product.html() + '</td>' +
                     '<td id="code">' + product.data('code') + '</td>' +
                     '<td id="count">' +
-                        '<input class="form-control quantity" type="number" type="number" name="quantity" value="1">' +
+                        '<input class="form-control quantity" type="number" name="quantity" value="1">' +
+                    '</td>' +
+                    '<td id="count">' +
+                        '<select class="form-control sku" name="sku">' +
+                            '<option value=""></option>' +
+                        '</select>' +
                     '</td>' +
                     '<td id="price">' + product.data('price') +'</td>' +
                     '<td id="total">' + product.data('price') +'</td>' +
@@ -268,9 +286,22 @@
         })
 
         $(document).on('click', '#create', function(){
-            $.each($('#tbody').children(), function(i, e){
-                console.log(i);
-                console.log(e);
+            var ids = '';
+            $.each($('#tbody').children(), function(){
+                ids += $(this).attr('id');
+            });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ route('barcode.get') }}',
+                dataType: 'json',
+                method: 'post',
+                data: {
+                    ids: ids
+                },
+                success: function(response) {
+                }
             })
         })
         
