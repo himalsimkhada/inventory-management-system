@@ -61,35 +61,37 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <p>Provide Product Information.</p>
-                    <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
-                        <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
-                        <div class=" searchBox" id="searchBox" hidden="">
+                    <form>
+                        <p>Provide Product Information.</p>
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
+                            <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
+                            <div class=" searchBox" id="searchBox" hidden="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>SKU</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
-                            Create
-                        </button>
-                    </div>
+                        <div class="col-md-12 mb-3">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>SKU</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
+                                Create
+                            </button>
+                        </div>
+                    </form>
                     <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
                         aria-hidden="true">
                         <div class="modal-dialog modal-xl" role="document">
@@ -104,78 +106,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <table class="table table-borderless" id="barcodeTable">
-                                                <tr>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                
                                             </table>
                                         </div>
                                     </div>
@@ -228,7 +159,18 @@
             
         });
 
+        var rowBefore;
         $(document).on('click', '.searchResult', function(){
+            rowBefore = $('#tbody').children();
+            if(rowBefore){
+                $.each(rowBefore, function(){
+                    if($(this).children().eq(2).children().val() == ''){
+                        $(this).children().eq(2).children().focus();
+                        alert('Select the SKU of previous product');
+                        exit;
+                    }
+                })
+            }
             var product = $(this);
             $.ajax({
                 headers:{
@@ -249,7 +191,7 @@
                         '<td>' + product.html() + '</td>' +
                         '<td>' + product.data('code') + '</td>' +
                         '<td>' +
-                            '<select class="form-control sku" name="sku">' +
+                            '<select class="form-control sku" name="sku" required>' +
                                 option +
                             '</select>' +
                         '</td>' +
@@ -275,13 +217,39 @@
             var thisPrice = $(this).parent().next().html();
             var total = parseInt(quantity) * parseInt(thisPrice);
             var thisTotal = $(this).parent().next().next().html(total);
-        })
+        });
+        
+        $(document).on('click', '.dismiss', function(){
+            $('#searchBox').prop('hidden', true);
+        });
+        
+        $(document).on('change', '.sku', function(){
+            var currentSku = $(this);
+            var quantity = $(this).find('option:selected').data('quantity');
+            $(this).closest('td').next('td').find('input[type="number"]').val(1);
+            $(this).closest('td').next('td').find('input[type="number"]').prop('max', quantity);
+            $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td').next('td').html());
+            var sku = $(this).val();
+            
+        });
+
+        $(document).on('change', '.quantity', function(){
+            var sku = $(this).closest('td').prev('td').find('select').val();
+            if(sku == ''){
+                $(this).closest('td').prev('td').find('select').focus();
+                alert('Please select SKU');
+                $(this).val(1);
+            }
+        });
 
         $(document).on('click', '#create', function(){
-            var ids = '';
+            var id = [];
+            var quantity = [];
             $.each($('#tbody').children(), function(){
-                ids += $(this).attr('id');
+                id.push($(this).find('.sku').val());
+                quantity.push($(this).find('.quantity').val());
             });
+            console.log(quantity);
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -290,31 +258,30 @@
                 dataType: 'json',
                 method: 'post',
                 data: {
-                    ids: ids
+                    id: id
                 },
                 success: function(response) {
+                    console.log(response);
+                    if(response){
+                        var row = '';
+                        $.each(response, function(i, e){
+                            for(var j = 0; j < quantity[i]; j++){
+                                row += '<tr>' + 
+                                    '<td>' +
+                                        '<div class="text-center">' +
+                                            '<img src="' + e.barcode + '">' +
+                                        '</div>' +
+                                        '<div class="text-center">' +
+                                            e.sku +
+                                        '</div>' +
+                                    '</td>' + 
+                                '</tr>';
+                            }
+                        });
+                        $('#barcodeTable').html(row);
+                    }
                 }
             })
-        })
-        
-        $(document).on('click', '.dismiss', function(){
-            $('#searchBox').prop('hidden', true);
-        });
-        
-        $(document).on('change', '.sku', function(){
-            var quantity = $(this).find('option:selected').data('quantity');
-            $(this).closest('td').next('td').find('input[type="number"]').val(1);
-            $(this).closest('td').next('td').find('input[type="number"]').prop('max', quantity);
-            $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td').next('td').html());
-
-        });
-
-        $(document).on('change', '.quantity', function(){
-            var sku = $(this).closest('td').prev('td').find('select').val();
-            if(sku == ''){
-                alert('please select SKU');
-                $(this).val(1);
-            }
         });
     })  
 </script>

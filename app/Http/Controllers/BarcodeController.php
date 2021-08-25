@@ -14,10 +14,8 @@ class BarcodeController extends Controller {
     }
 
     public function get(Request $request) {
-        $data = $request->input('ids');
-        $id = str_split($data, 1);
-        $barcode = ProductAttributes::whereIn('product_id', $id)->get();
-        dd($barcode);
+        $id = $request->input('id');
+        $barcode = ProductAttributes::whereIn('id', $id)->get();
         return response()->json($barcode);
     }
 }
