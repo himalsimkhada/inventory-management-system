@@ -86,6 +86,15 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-md-4">
+                        <label for="paper_size" class="form-label">Paper Size</label>
+                        <select name="size" id="paper_size" class="form-control">
+                            <option value="">Select Size</option>
+                            <option value="1">36 mm (1.4 inch) </option>
+                            <option value="2">24 mm (0.94 inch)</option>
+                            <option value="3">18 mm (0.7 inch)</option>
+                        </select>
+                    </div>
                     <div class="col-md-12 mb-3">
                         <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
                             Create
@@ -106,73 +115,11 @@
                                         <div class="row" id="printable">
                                             <table class="table table-borderless" id="barcodeTable">
                                                 <tr>
-                                                    <td>
+                                                    <td class="barcode">
                                                         <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
+                                                            <img class="img_size" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
                                                         </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            SAM-NOR-BLA
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAhAQMAAAD6VzWzAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADFJREFUKJFj6N6169ErvXeLut6t63u96NWjrne79Hb1vdLrXte9i2FUclRyVHLQSgIAxKltc+8zx7UAAAAASUVORK5CYII=">
-                                                        </div>
-                                                        <div class="text-center">
+                                                        <div class="text-center text_size">
                                                             SAM-NOR-BLA
                                                         </div>
                                                     </td>
@@ -324,6 +271,22 @@
                     newWin.document.write(divtoprint.outerHTML);
                     newWin.print();
                     newWin.close();
+                })
+                $(document).on('change', '#paper_size', function(){
+                    if($('#paper_size').val() == 1){
+                         $('.img_size').css("width","1.4in");
+                        $('.text_size').css("font-size","4mm");
+                        // console.log('Hello from here');
+                    }
+                    else if($('#paper_size').val() == 2){
+                        $('.img_size').css("width","0.9in");
+                        $('.text_size').css("font-size","3mm");
+                    }
+                    else if($('#paper_size').val() == 3){
+                        $('.img_size').css("width","0.7in");
+                        $('.text_size').css("font-size","2mm");
+                    }
+                  
                 })
 
     })
