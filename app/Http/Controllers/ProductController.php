@@ -106,6 +106,7 @@ class ProductController extends Controller {
     }
 
     public function add() {
+        Session::put('admin_page', 'Add Product');
         $category = Category::all()->sortByDesc("name");
         $product = Brand::all()->sortByDesc("name");
         $unit = Unit::all()->sortByDesc("name");
