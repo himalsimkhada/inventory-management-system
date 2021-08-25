@@ -12,7 +12,7 @@
             z-index: 1000;
             background-color: #fff;
             color: #324253;
-            border: 1px solid rgba(0,0,0,.15); 
+            border: 1px solid rgba(0,0,0,.15);
             border-radius: 5px;
             word-wrap: normal;
         }
@@ -69,42 +69,52 @@
                             <div class=" searchBox" id="searchBox" hidden="">
                             </div>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Code</th>
-                                        <th>SKU</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Total</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
-                                Create
-                            </button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>SKU</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                    <th>SKU</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="paper_size" class="form-label">Paper Size</label>
+                        <select name="size" id="paper_size" class="form-control">
+                            <option value="">Select Size</option>
+                            <option value="1">36 mm (1.4 inch) </option>
+                            <option value="2">24 mm (0.94 inch)</option>
+                            <option value="3">18 mm (0.7 inch)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
+                            Create
+                        </button>
+                    </div>
                     <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
                         aria-hidden="true">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="btn btn-primary">Print</button>
+                                    <button type="button" class="btn btn-primary" id="print">Print</button>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="card-body">
-                                        <div class="row">
+                                        <div class="row" id="printable">
                                             <table class="table table-borderless" id="barcodeTable">
                                                 
                                             </table>
@@ -156,7 +166,7 @@
                     console.log(error);
                 }
             })
-            
+
         });
 
         var rowBefore;
@@ -222,7 +232,7 @@
         $(document).on('click', '.dismiss', function(){
             $('#searchBox').prop('hidden', true);
         });
-        
+
         $(document).on('change', '.sku', function(){
             var currentSku = $(this);
             var quantity = $(this).find('option:selected').data('quantity');
@@ -269,9 +279,9 @@
                                 row += '<tr>' + 
                                     '<td>' +
                                         '<div class="text-center">' +
-                                            '<img src="' + e.barcode + '">' +
+                                            '<img class="img_size"" src="' + e.barcode + '">' +
                                         '</div>' +
-                                        '<div class="text-center">' +
+                                        '<div class="text-center text_size">' +
                                             e.sku +
                                         '</div>' +
                                     '</td>' + 
@@ -283,6 +293,31 @@
                 }
             })
         });
+
+        $(document).on('click', '#print', function() {
+            var divtoprint = document.getElementById('printable');
+            newWin = window.open("");
+            newWin.document.write(divtoprint.outerHTML);
+            newWin.print();
+            newWin.close();
+        })
+
+        $(document).on('change', '#paper_size', function(){
+            if($('#paper_size').val() == 1){
+                    $('.img_size').css("width","1.4in");
+                $('.text_size').css("font-size","4mm");
+                // console.log('Hello from here');
+            }
+            else if($('#paper_size').val() == 2){
+                $('.img_size').css("width","0.9in");
+                $('.text_size').css("font-size","3mm");
+            }
+            else if($('#paper_size').val() == 3){
+                $('.img_size').css("width","0.7in");
+                $('.text_size').css("font-size","2mm");
+            }
+            
+        })
     })  
 </script>
 @endsection
