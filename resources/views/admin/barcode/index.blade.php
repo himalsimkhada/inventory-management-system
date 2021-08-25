@@ -82,6 +82,7 @@
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Total</th>
+                                    <th>SKU</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -106,14 +107,14 @@
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn btn-primary">Print</button>
+                    <button type="button" class="btn btn-primary" id="print">Print</button>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row" id="printable">
                             <table class="table table-borderless" id="barcodeTable">
                                 <tr>
                                     <td>
@@ -213,6 +214,14 @@
                 },
             });
 
+            $(document).on('click', '#print', function() {
+                var divToPrint = document.getElementById('printable');
+                newWin = window.open("");
+                newWin.document.write(divToPrint.outerHTML);
+                newWin.print();
+                newWin.close();
+            });
+
             $(document).on('keyup', '#productSearch', function(e) {
                 var name = $(this).val();
                 $.ajax({
@@ -249,43 +258,6 @@
                 })
 
             });
-<<<<<<< HEAD
-            if(error == false){
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: '{{ route('barcode.get') }}',
-                    dataType: 'json',
-                    method: 'post',
-                    data: {
-                        ids: ids
-                    },
-                    success: function(response) {
-                    }
-                })
-                var row = '<tr id="' + product.data('id') + '">' +
-                    '<td id="name">' + product.html() + '</td>' +
-                    '<td id="code">' + product.data('code') + '</td>' +
-                    '<td id="count">' +
-                        '<input class="form-control quantity" type="number" name="quantity" value="1">' +
-                    '</td>' +
-                    '<td id="count">' +
-                        '<select class="form-control sku" name="sku">' +
-                            '<option value=""></option>' +
-                        '</select>' +
-                    '</td>' +
-                    '<td id="price">' + product.data('price') +'</td>' +
-                    '<td id="total">' + product.data('price') +'</td>' +
-                    '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
-                '</tr>';
-                $('#tbody').append(row);
-                $('#productSearch').val('');
-            }else{
-                alert('duplicate input is not allowed!');
-            }
-        });
-=======
 
             $(document).on('click', '.searchResult', function() {
                 var product = $(this);
@@ -304,6 +276,7 @@
                         '</td>' +
                         '<td id="price">' + product.data('price') + '</td>' +
                         '<td id="total">' + product.data('price') + '</td>' +
+                        '<td><select id="test"><option>One</option></select></td>' +
                         '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
                         '</tr>';
                     $('#tbody').append(row);
@@ -312,7 +285,6 @@
                     alert('duplicate input is not allowed!');
                 }
             });
->>>>>>> 1dc2354057b90acde40b753b925546da3451fd3e
 
             $(document).on('click', '.minus', function() {
                 $(this).parent().parent().remove();
@@ -325,31 +297,11 @@
                 var thisTotal = $(this).parent().next().next().html(total);
             })
 
-<<<<<<< HEAD
-        $(document).on('click', '#create', function(){
-            var ids = '';
-            $.each($('#tbody').children(), function(){
-                ids += $(this).attr('id');
-            });
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '{{ route('barcode.get') }}',
-                dataType: 'json',
-                method: 'post',
-                data: {
-                    ids: ids
-                },
-                success: function(response) {
-                }
-=======
             $(document).on('click', '#create', function() {
                 $.each($('#tbody').children(), function(i, e) {
                     console.log(i);
                     console.log(e);
                 })
->>>>>>> 1dc2354057b90acde40b753b925546da3451fd3e
             })
 
             $(document).on('click', '.dismiss', function() {
