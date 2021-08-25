@@ -74,7 +74,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">Product List</span>
                             </a>
                         </li>
-                        <li class="sidebar-layout">
+                        <li class="sidebar-layout {{ Session::get('admin_page') == 'Add Product' ? 'active' : '' }}">
                             <a href="{{ route('product.add') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
