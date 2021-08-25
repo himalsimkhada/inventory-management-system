@@ -79,7 +79,7 @@ Route::prefix('/admin')->group(function () {
         // Barcode
         Route::get('/barcode', 'BarcodeController@index')->name('barcode.index');
         Route::post('/product/search', 'ProductController@productSearch')->name('product.search');
-        Route::post('/product/sku/search', 'ProductController@productSearch')->name('product.sku.search');
+        Route::post('/product/sku/search', 'ProductController@skuSearch')->name('product.sku.search');
         Route::post('/barcode/get', 'BarcodeController@get')->name('barcode.get');
 
         //Product Attribute
