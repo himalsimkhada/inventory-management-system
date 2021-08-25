@@ -12,7 +12,7 @@
             z-index: 1000;
             background-color: #fff;
             color: #324253;
-            border: 1px solid rgba(0,0,0,.15); 
+            border: 1px solid rgba(0,0,0,.15);
             border-radius: 5px;
             word-wrap: normal;
         }
@@ -78,6 +78,7 @@
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Total</th>
+                                    <th>SKU</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -95,14 +96,14 @@
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="btn btn-primary">Print</button>
+                                    <button type="button" class="btn btn-primary" id="print">Print</button>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="card-body">
-                                        <div class="row">
+                                        <div class="row" id="printable">
                                             <table class="table table-borderless" id="barcodeTable">
                                                 <tr>
                                                     <td>
@@ -225,7 +226,7 @@
                     console.log(error);
                 }
             })
-            
+
         });
 
         $(document).on('click', '.searchResult', function(){
@@ -296,11 +297,11 @@
                 }
             })
         })
-        
+
         $(document).on('click', '.dismiss', function(){
             $('#searchBox').prop('hidden', true);
         });
-        
+
         $(document).on('change', '.sku', function(){
             var quantity = $(this).find('option:selected').data('quantity');
             $(this).closest('td').next('td').find('input[type="number"]').val(1);
@@ -316,6 +317,15 @@
                 $(this).val(1);
             }
         });
-    })  
+
+        $(document).on('click', '#print', function() {
+                    var divtoprint = document.getElementById('printable');
+                    newWin = window.open("");
+                    newWin.document.write(divtoprint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                })
+
+    })
 </script>
 @endsection
