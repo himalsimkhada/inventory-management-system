@@ -66,64 +66,61 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <form>
-                        <p>Provide Product Information.</p>
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
-                                Name</label>
-                            <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
-                            <div class=" searchBox" id="searchBox" hidden="">
-                            </div>
+                    <p>Provide Product Information.</p>
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product
+                            Name</label>
+                        <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
+                        <div class=" searchBox" id="searchBox" hidden="">
                         </div>
-                </div>
-                <div class="col-md-12 mb-3">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Code</th>
-                                <th>SKU</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                                <th>SKU</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-4">
-                    <label for="paper_size" class="form-label">Paper Size</label>
-                    <select name="size" id="paper_size" class="form-control">
-                        <option value="">Select Size</option>
-                        <option value="1">76mm x 36mm </option>
-                        <option value="2">40mm x 24mm</option>
-                        <option value="3">30mm x 18mm</option>
-                    </select>
-                </div>
-                <div class="col-md-12 mb-3">
-                    <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
-                        Create
-                    </button>
-                </div>
-                <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="btn btn-primary" id="print">Print</button>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="card-body">
-                                    <div class="row" id="printable">
-                                        <table class="table table-borderless" id="barcodeTable">
-
-                                        </table>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>SKU</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="paper_size" class="form-label font-weight-bold text-muted text-uppercase">Paper Size</label>
+                        <select name="size" id="paper_size" class="form-control">
+                            <option value="">Select Size</option>
+                            <option value="1">76mm x 36mm </option>
+                            <option value="2">40mm x 24mm</option>
+                            <option value="3">30mm x 18mm</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
+                            Create
+                        </button>
+                    </div>
+                    <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn btn-primary" id="print">Print</button>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card-body">
+                                        <div class="row" id="printable">
+                                            <table class="table table-borderless" id="barcodeTable">
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
