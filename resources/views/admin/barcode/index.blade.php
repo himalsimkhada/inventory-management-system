@@ -98,9 +98,15 @@
                     <label for="paper_size" class="form-label">Paper Size</label>
                     <select name="size" id="paper_size" class="form-control">
                         <option value="">Select Size</option>
+<<<<<<< HEAD
                         <option value="1">36 mm (1.4 inch) </option>
                         <option value="2">24 mm (0.94 inch)</option>
                         <option value="3">18 mm (0.7 inch)</option>
+=======
+                        <option value="1">76mm x 36mm </option>
+                        <option value="2">40mm x 24mm</option>
+                        <option value="3">30mm x 18mm</option>
+>>>>>>> da8aff9e30edd36b7a06148f679003ec183da9bc
                     </select>
                 </div>
                 <div class="col-md-12 mb-3">
@@ -304,6 +310,7 @@
                             });
                             $('#barcodeTable').html(row);
                             if ($('#paper_size').val() == 1) {
+<<<<<<< HEAD
                                 $('.img_size').css("width", "1.4in");
                                 $('.text_size').css("font-size", "4mm");
                                 // console.log('Hello from here');
@@ -312,12 +319,23 @@
                                 $('.text_size').css("font-size", "3mm");
                             } else if ($('#paper_size').val() == 3) {
                                 $('.img_size').css("width", "0.7in");
+=======
+                                $('.img_size').css({"width": "76mm", "height": "36mm"});
+                                $('.text_size').css("font-size", "4mm");
+                                console.log('Hello from here');
+                            } else if ($('#paper_size').val() == 2) {
+                                $('.img_size').css({"width": "40mm", "height": "24mm"});
+                                $('.text_size').css("font-size", "3mm");
+                            } else if ($('#paper_size').val() == 3) {
+                                $('.img_size').css({"width": "30mm", "height": "18mm"});
+>>>>>>> da8aff9e30edd36b7a06148f679003ec183da9bc
                                 $('.text_size').css("font-size", "2mm");
                             }
                         }
                     }
                 })
             });
+<<<<<<< HEAD
 
             $(document).on('click', '#print', function() {
                 var divtoprint = document.getElementById('printable');
@@ -326,6 +344,21 @@
                 newWin.print();
                 newWin.close();
             })
+=======
+
+            $(document).on('click', '#print', function() {
+                var divtoprint = document.getElementById('printable');
+                newWin = window.open("");
+                newWin.document.write(divtoprint.outerHTML);
+                newWin.print();
+                newWin.close();
+            })
+
+            // $(document).on('change', '#paper_size', function() {
+
+
+            // })
+>>>>>>> da8aff9e30edd36b7a06148f679003ec183da9bc
         })
     </script>
 @endsection

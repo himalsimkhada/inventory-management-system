@@ -39,10 +39,12 @@ class ProductAttributeController extends Controller {
                 $product_attribute->additional_price = $data['price'];
                 $sku = strtoupper(substr(Product::where('id', $data['p_id'])->first()->product_name, 0, 3)) . '-' . strtoupper(substr($data['size'], 0, 3)) . '-' . strtoupper(substr($data['color'], 0, 3));
                 $product_attribute->sku = $sku;
-                $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
-                $name = Str::random(10) . '.png';
-                Image::make($barcode)->save('public/uploads/barcode/' . $name);
-                $product_attribute->barcode = $name;
+                $barcode = base64_decode(DNS1D::getBarcodeHTML($sku, 'C39+', 1, 33));
+
+                // dd($barcode);
+                // $name = Str::random(10) . '.png';
+                // Image::make($barcode)->save('public/uploads/barcode/' . $name);
+                $product_attribute->barcode = $barcode;
                 $product_attribute->product_id = $data['p_id'];
                 $response = $product_attribute->save();
                 return response()->json($response);
@@ -56,10 +58,12 @@ class ProductAttributeController extends Controller {
                 }
                 $sku = strtoupper(substr(Product::where('id', $data['p_id'])->first()->product_name, 0, 3)) . '-' . strtoupper(substr($data['size'], 0, 3)) . '-' . strtoupper(substr($data['color'], 0, 3));
                 $product_attribute->sku = $sku;
-                $barcode = DNS1D::getBarcodePNG($sku, 'C39+', 1, 33);
-                $name = Str::random(10) . '.png';
-                Image::make($barcode)->save('public/uploads/barcode/' . $name);
-                $product_attribute->barcode = $name;
+                $barcode = base64_decode(DNS1D::getBarcodeHTML($sku, 'C39+', 1, 33));
+
+                // dd($barcode);
+                // $name = Str::random(10) . '.png';
+                // Image::make($barcode)->save('public/uploads/barcode/' . $name);
+                $product_attribute->barcode = $barcode;
                 $response = $product_attribute->save();
                 return response()->json($response);
             }
