@@ -49,25 +49,24 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-0 mb-0">
                             <li class="breadcrumb-item"><a href="{{ route('product.index') }}">Products</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Print Barcode</li>
+                            <li class="breadcrumb-item active" aria-current="page">POS</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
         <div class="col-lg-12 mb-3 d-flex justify-content-between">
-            <h4 class="font-weight-bold d-flex align-items-center">Barcode</h4>
+            <h4 class="font-weight-bold d-flex align-items-center">POS</h4>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-7">
             <div class="card">
                 <div class="card-body">
-                    <form>
-                        <p>Provide Product Information.</p>
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label font-weight-bold text-muted text-uppercase">Product Name</label>
-                            <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
-                            <div class=" searchBox" id="searchBox" hidden="">
-                            </div>
+                    <p>Provide Product Information.</p>
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label text-muted">Product
+                            Name</label>
+                        <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
+                        <div class="searchBox" id="searchBox" hidden="">
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
@@ -75,12 +74,10 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Code</th>
                                     <th>SKU</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Total</th>
-                                    <th>SKU</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -88,41 +85,110 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-4">
-                        <label for="paper_size" class="form-label">Paper Size</label>
-                        <select name="size" id="paper_size" class="form-control">
-                            <option value="">Select Size</option>
-                            <option value="1">36 mm (1.4 inch) </option>
-                            <option value="2">24 mm (0.94 inch)</option>
-                            <option value="3">18 mm (0.7 inch)</option>
-                        </select>
-                    </div>
                     <div class="col-md-12 mb-3">
                         <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
                             Create
                         </button>
                     </div>
-                    <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="btn btn-primary" id="print">Print</button>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="card-body">
-                                        <div class="row" id="printable">
-                                            <table class="table table-borderless" id="barcodeTable">
-                                                
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label text-muted">Category</label>
+                            <select class="form-control" name="category" id="category">
+                                <option selected value="" disabled>Select Category</option>
+                                @foreach ($category as $value)
+                                    <option value="{{ $value->id }}">{{ $value->category_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label text-muted">Brand</label>
+                            <select class="form-control" name="brand" id="brand">
+                                <option selected value="" disabled>Select Brand</option>
+                                @foreach ($brand as $value)
+                                    <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <ul class="list-unstyled p-0 m-0 row" style="overflow:hidden; overflow-y:scroll;">
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
+                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
+                                <div class="text-center">
+                                    <label class="form-label text-muted text-center">Image Name</label>
+                                </div>
+                            </li>
+                         </ul>
                     </div>
                 </div>
             </div>
@@ -133,6 +199,8 @@
 @section('js')
 <script>
     $(document).ready(function(){
+        $('.side-menu-bt-sidebar').click();
+
         $(document).on('keyup', '#productSearch', function(e){
             var name = $(this).val();
             $.ajax({
@@ -198,8 +266,7 @@
                         option += '<option value="' + this.id + '" data-quantity="' + this.quantity + '">' + this.sku + '(' + this.size + '/ ' + this.color + ')</option>';
                     });
                     var row = '<tr id="' + product.data('id') + '">' +
-                        '<td>' + product.html() + '</td>' +
-                        '<td>' + product.data('code') + '</td>' +
+                        '<td>' + product.html() + '<br />(' + product.data('code') + ')</td>' +
                         '<td>' +
                             '<select class="form-control sku" name="sku" required>' +
                                 option +
