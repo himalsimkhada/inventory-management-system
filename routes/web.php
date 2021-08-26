@@ -75,7 +75,7 @@ Route::prefix('/admin')->group(function () {
         Route::post('/product/image/remove', 'ProductController@removeImage')->name('product.image.remove');
         Route::post('/product/detail/', 'ProductController@detail')->name('product.detail');
         Route::get('/product/detail/{id}', 'ProductController@detail')->name('product.detail2');
-        
+
         // Barcode
         Route::get('/barcode', 'BarcodeController@index')->name('barcode.index');
         Route::post('/product/search', 'ProductController@productSearch')->name('product.search');
@@ -97,6 +97,10 @@ Route::prefix('/admin')->group(function () {
         //Dropzone
         Route::post('/image', 'ImageController@store')->name('product.image');
         Route::post('/product/image/destroy', 'ImageController@destroy')->name('image.destroy');
+
+        //Sale
+        Route::get('/sale/index', 'SaleController@index')->name('sale.index');
+        Route::get('/sale/pos', 'SaleController@pos')->name('sale.pos');
     });
 
     // Admin Logout
