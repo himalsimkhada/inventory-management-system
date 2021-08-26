@@ -121,7 +121,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                     </a>
                     <ul id="sale" class="submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li class=" {{ Session::get('admin_page') == 'pos' ? 'active' : '' }} sidebar-layout">
-                            <a href="{{ route('sale.pos') }}" class="svg-icon ">
+                            <a href="{{ route('pos.index') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
