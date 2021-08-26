@@ -41,6 +41,10 @@
         #barcodeTable td{
             text-align: center;
         }
+
+        .cursor {
+            cursor: pointer;
+        }
     </style>
     <div class="row">
         <div class="col-lg-12">
@@ -86,8 +90,8 @@
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <button type="button" class="btn btn-primary" id="create" data-toggle="modal" data-target="#barcode">
-                            Create
+                        <button type="button" class="btn btn-primary" id="">
+                            Calculate
                         </button>
                     </div>
                 </div>
@@ -100,7 +104,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label text-muted">Category</label>
                             <select class="form-control" name="category" id="category">
-                                <option selected value="" disabled>Select Category</option>
+                                <option selected value="">Select Category</option>
                                 @foreach ($category as $value)
                                     <option value="{{ $value->id }}">{{ $value->category_name }}</option>
                                 @endforeach
@@ -115,80 +119,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <ul class="list-unstyled p-0 m-0 row" style="overflow:hidden; overflow-y:scroll;">
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                            <li class="col-lg-4 col-md-6 col-sm-6 mt-2">
-                                <img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="Responsive image">
-                                <div class="text-center">
-                                    <label class="form-label text-muted text-center">Image Name</label>
-                                </div>
-                            </li>
-                         </ul>
+                        <ul class="list-unstyled p-0 m-0 row" id="productList">
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -319,72 +251,88 @@
             }
         });
 
-        $(document).on('click', '#create', function(){
-            var id = [];
-            var quantity = [];
-            $.each($('#tbody').children(), function(){
-                id.push($(this).find('.sku').val());
-                quantity.push($(this).find('.quantity').val());
-            });
-            console.log(quantity);
+        $(document).on('change', '#category', function(){
+            var id = $('#category').val();
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '{{ route('barcode.get') }}',
+                url: '{{ route('pos.product.get') }}',
                 dataType: 'json',
                 method: 'post',
                 data: {
                     id: id
                 },
                 success: function(response) {
-                    console.log(response);
                     if(response){
-                        var row = '';
-                        $.each(response, function(i, e){
-                            for(var j = 0; j < quantity[i]; j++){
-                                row += '<tr>' + 
-                                    '<td>' +
-                                        '<div class="text-center">' +
-                                            '<img class="img_size"" src="' + e.barcode + '">' +
-                                        '</div>' +
-                                        '<div class="text-center text_size">' +
-                                            e.sku +
-                                        '</div>' +
-                                    '</td>' + 
-                                '</tr>';
+                        var li = '';
+                        $.each(response, function(){
+                            var image;
+                            if(this.image == ''){
+                                var image = '<img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="no-image" height="100px">';
+                            }else{
+                                var image = '<img src="{{ asset('public/uploads/product') }}/' + this.image + '" class="img-thumbnail w-100 img-fluid rounded" alt="' + this.name + '" height="100px">';
                             }
+                            li += '<li class="col-lg-4 col-md-6 col-sm-6 mt-2 cursor">' + image +
+                                '<div class="text-center">' +
+                                    '<p class="form-label text-muted text-center">' +
+                                        this.name +
+                                    '</p>' +
+                                '</div>' +
+                            '</li>';
                         });
-                        $('#barcodeTable').html(row);
+                        $('#productList').html(li);
                     }
                 }
             })
         });
 
-        $(document).on('click', '#print', function() {
-            var divtoprint = document.getElementById('printable');
-            newWin = window.open("");
-            newWin.document.write(divtoprint.outerHTML);
-            newWin.print();
-            newWin.close();
-        })
-
-        $(document).on('change', '#paper_size', function(){
-            if($('#paper_size').val() == 1){
-                    $('.img_size').css("width","1.4in");
-                $('.text_size').css("font-size","4mm");
-                // console.log('Hello from here');
+        $(document).on('click', '.cursor', function(){
+            rowBefore = $('#tbody').children();
+            if(rowBefore){
+                $.each(rowBefore, function(){
+                    if($(this).children().eq(2).children().val() == ''){
+                        $(this).children().eq(2).children().focus();
+                        alert('Select the SKU of previous product');
+                        exit;
+                    }
+                })
             }
-            else if($('#paper_size').val() == 2){
-                $('.img_size').css("width","0.9in");
-                $('.text_size').css("font-size","3mm");
-            }
-            else if($('#paper_size').val() == 3){
-                $('.img_size').css("width","0.7in");
-                $('.text_size').css("font-size","2mm");
-            }
-            
-        })
+            var product = $(this);
+            $.ajax({
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ route('product.sku.search') }}',
+                dataType: 'json',
+                method: 'post',
+                data: {
+                    id: product.data('id')
+                },
+                success: function(response) {
+                    var option = '<option value="">Select</option>';
+                    $.each(response, function(){
+                        option += '<option value="' + this.id + '" data-quantity="' + this.quantity + '">' + this.sku + '(' + this.size + '/ ' + this.color + ')</option>';
+                    });
+                    var row = '<tr id="' + product.data('id') + '">' +
+                        '<td>' + product.html() + '<br />(' + product.data('code') + ')</td>' +
+                        '<td>' +
+                            '<select class="form-control sku" name="sku" required>' +
+                                option +
+                            '</select>' +
+                        '</td>' +
+                        '<td>' +
+                            '<input class="form-control quantity" type="number" name="quantity" value="1" min="1" max="5">' +
+                        '</td>' +
+                        '<td>' + product.data('price') +'</td>' +
+                        '<td>' + product.data('price') +'</td>' +
+                        '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
+                    '</tr>';
+                    $('#tbody').append(row);
+                    $('#productSearch').val('');
+                }
+            });
+        });
     })  
 </script>
 @endsection

@@ -82,8 +82,9 @@ Route::prefix('/admin')->group(function () {
         Route::post('/product/sku/search', 'ProductController@skuSearch')->name('product.sku.search');
         Route::post('/barcode/get', 'BarcodeController@get')->name('barcode.get');
         
-        // Barcode
+        // POS
         Route::get('/pos', 'PosController@index')->name('pos.index');
+        Route::post('/pos/product/get/', 'PosController@productGet')->name('pos.product.get');
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
