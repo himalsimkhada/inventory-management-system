@@ -9,24 +9,23 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class PosController extends Controller
-{
-    public function index(){
+class PosController extends Controller {
+    public function index() {
         Session::put('admin_page', 'POS');
         $category = Category::all()->sortByDesc("name");
         $brand = Brand::all()->sortByDesc("name");
         return view('admin.pos.index', ['category' => $category, 'brand' => $brand]);
     }
 
-    public function categoryGet(Request $request){
+    public function categoryGet(Request $request) {
         $response = [];
-        if($request->input('id') != ''){
+        if ($request->input('id') != '') {
             $product = Product::where('category_id', $request->input('id'))->get();
-            foreach($product as $value){
+            foreach ($product as $value) {
                 $image = Image::where('product_id', $value->id)->first();
-                if($image){
+                if ($image) {
                     $imageName = $image->image;
-                }else{
+                } else {
                     $imageName = '';
                 }
                 $response[] = [
@@ -41,15 +40,15 @@ class PosController extends Controller
         return response()->json($response);
     }
 
-    public function brandGet(Request $request){
+    public function brandGet(Request $request) {
         $response = [];
-        if($request->input('id') != ''){
+        if ($request->input('id') != '') {
             $product = Product::where('brand_id', $request->input('id'))->get();
-            foreach($product as $value){
+            foreach ($product as $value) {
                 $image = Image::where('product_id', $value->id)->first();
-                if($image){
+                if ($image) {
                     $imageName = $image->image;
-                }else{
+                } else {
                     $imageName = '';
                 }
                 $response[] = [
