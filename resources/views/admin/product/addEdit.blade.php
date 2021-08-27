@@ -297,6 +297,8 @@
                             file.previewElement.remove();
 
                         }
+                    } else {
+                        file.previewElement.remove();
                     }
                 }
             });
