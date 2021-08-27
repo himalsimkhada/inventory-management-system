@@ -32,7 +32,8 @@ class PosController extends Controller {
                     'id' => $value->id,
                     'code' => $value->code,
                     'name' => $value->name,
-                    'image' => $imageName
+                    'image' => $imageName,
+                    'price' => $value->price,
                 ];
             }
         }
@@ -54,7 +55,8 @@ class PosController extends Controller {
                     'id' => $value->id,
                     'code' => $value->code,
                     'name' => $value->name,
-                    'image' => $imageName
+                    'image' => $imageName,
+                    'price' => $value->price,
                 ];
             }
         }
