@@ -18,10 +18,32 @@ class PosController extends Controller
         return view('admin.pos.index', ['category' => $category, 'brand' => $brand]);
     }
 
-    public function productGet(Request $request){
+    public function categoryGet(Request $request){
         $response = [];
         if($request->input('id') != ''){
             $product = Product::where('category_id', $request->input('id'))->get();
+            foreach($product as $value){
+                $image = Image::where('product_id', $value->id)->first();
+                if($image){
+                    $imageName = $image->image;
+                }else{
+                    $imageName = '';
+                }
+                $response[] = [
+                    'id' => $value->id,
+                    'code' => $value->code,
+                    'name' => $value->name,
+                    'image' => $imageName
+                ];
+            }
+        }
+        return response()->json($response);
+    }
+
+    public function brandGet(Request $request){
+        $response = [];
+        if($request->input('id') != ''){
+            $product = Product::where('brand_id', $request->input('id'))->get();
             foreach($product as $value){
                 $image = Image::where('product_id', $value->id)->first();
                 if($image){

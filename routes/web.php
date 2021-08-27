@@ -84,7 +84,8 @@ Route::prefix('/admin')->group(function () {
         
         // POS
         Route::get('/pos', 'PosController@index')->name('pos.index');
-        Route::post('/pos/product/get/', 'PosController@productGet')->name('pos.product.get');
+        Route::post('/pos/category/get/', 'PosController@categoryGet')->name('pos.category.get');
+        Route::post('/pos/brand/get/', 'PosController@brandGet')->name('pos.brand.get');
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
