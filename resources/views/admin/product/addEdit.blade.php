@@ -24,11 +24,13 @@
             </div>
         </div>
         <div class="col-lg-12 mb-3 d-flex justify-content-between">
-            <h4 class="font-weight-bold d-flex align-items-center">@if (request()->id)
-                Update Product
-            @else
-                New Product
-            @endif</h4>
+            <h4 class="font-weight-bold d-flex align-items-center">
+                @if (request()->id)
+                    Update Product
+                @else
+                    New Product
+                @endif
+            </h4>
         </div>
         @include('admin.includes._message')
         <div class="col-lg-12">
@@ -263,7 +265,7 @@
                                                     id: paramId
                                                 },
                                                 success: function(
-                                                response) {
+                                                    response) {
                                                     $.each(response,
                                                         function(
                                                             key,
@@ -280,7 +282,7 @@
                                                                 .emit(
                                                                     "addedfile",
                                                                     mockFile
-                                                                    );
+                                                                );
                                                             myDropzone
                                                                 .emit(
                                                                     "thumbnail",
@@ -288,12 +290,12 @@
                                                                     "{{ asset('') }}" +
                                                                     value
                                                                     .path
-                                                                    );
+                                                                );
                                                             myDropzone
                                                                 .emit(
                                                                     "complete",
                                                                     mockFile
-                                                                    );
+                                                                );
                                                         });
                                                 }
                                             });
