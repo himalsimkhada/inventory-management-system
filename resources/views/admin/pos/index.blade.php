@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <table class="table">
+                        <table class="table" style="height: 300px; overflow: hidden; overflow-y: scroll; display:block;">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -92,13 +92,11 @@
                     <div class="col-md-12 mb-3">
                         <table class="table">
                             <tr>
-                                <td>Items: </td>
+                                <td>Items: <span id="itemTotal"></span></td>
                                 <td>Tax: </td>
                                 <td>Discount: </td>
-                                <td>Total: </td>
+                                <td>Total: <span id="grandTotal"></span></td>
                             </tr>
-                            <tbody id="tbody">
-                            </tbody>
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
@@ -131,7 +129,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <ul class="list-unstyled p-0 m-0 row" id="productList">
+                        <ul class="list-unstyled p-0 m-0 row" id="productList" style="height: 495px; overflow: hidden; overflow-y:scroll;">
                         </ul>
                     </div>
                 </div>
