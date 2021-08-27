@@ -113,7 +113,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label text-muted">Brand</label>
                             <select class="form-control" name="brand" id="brand">
-                                <option selected value="" disabled>Select Brand</option>
+                                <option selected value="">Select Brand</option>
                                 @foreach ($brand as $value)
                                     <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
                                 @endforeach
@@ -251,13 +251,19 @@
             }
         });
 
-        $(document).on('change', '#category', function(){
-            var id = $('#category').val();
+        $(document).on('change', '#category, #brand', function(){
+            var id = $(this).val();
+            var url;
+            if($(this).attr('id') == 'category'){
+                url = '{{ route('pos.category.get') }}';
+            }else{
+                url = '{{ route('pos.brand.get') }}'
+            }
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '{{ route('pos.product.get') }}',
+                url: url,
                 dataType: 'json',
                 method: 'post',
                 data: {
