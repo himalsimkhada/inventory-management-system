@@ -237,7 +237,7 @@
             var total = parseInt(quantity) * parseInt(thisPrice);
             var thisTotal = $(this).parent().next().next().html(total);
         });
-        
+
         $(document).on('click', '.dismiss', function(){
             $('#searchBox').prop('hidden', true);
         });
@@ -249,7 +249,7 @@
             $(this).closest('td').next('td').find('input[type="number"]').prop('max', quantity);
             $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td').next('td').html());
             var sku = $(this).val();
-            
+
         });
 
         $(document).on('change', '.quantity', function(){
@@ -351,6 +351,6 @@
                 }
             });
         });
-    })  
+    })
 </script>
 @endsection
