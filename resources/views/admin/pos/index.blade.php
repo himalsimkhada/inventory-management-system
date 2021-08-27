@@ -113,7 +113,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label text-muted">Brand</label>
                             <select class="form-control" name="brand" id="brand">
-                                <option selected value="" disabled>Select Brand</option>
+                                <option selected value="">Select Brand</option>
                                 @foreach ($brand as $value)
                                     <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
                                 @endforeach
@@ -227,7 +227,7 @@
             var total = parseInt(quantity) * parseInt(thisPrice);
             var thisTotal = $(this).parent().next().next().html(total);
         });
-        
+
         $(document).on('click', '.dismiss', function(){
             $('#searchBox').prop('hidden', true);
         });
@@ -239,7 +239,7 @@
             $(this).closest('td').next('td').find('input[type="number"]').prop('max', quantity);
             $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td').next('td').html());
             var sku = $(this).val();
-            
+
         });
 
         $(document).on('change', '.quantity', function(){
@@ -333,6 +333,6 @@
                 }
             });
         });
-    })  
+    })
 </script>
 @endsection
