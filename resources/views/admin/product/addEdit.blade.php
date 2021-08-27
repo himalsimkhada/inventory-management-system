@@ -24,11 +24,13 @@
             </div>
         </div>
         <div class="col-lg-12 mb-3 d-flex justify-content-between">
-            <h4 class="font-weight-bold d-flex align-items-center">@if (request()->id)
-                Update Product
-            @else
-                New Product
-            @endif</h4>
+            <h4 class="font-weight-bold d-flex align-items-center">
+                @if (request()->id)
+                    Update Product
+                @else
+                    New Product
+                @endif
+            </h4>
         </div>
         @include('admin.includes._message')
         <div class="col-lg-12">
@@ -236,75 +238,67 @@
                     var myDropzone = this;
                     var paramId = '{{ request()->id }}';
                     if (paramId != '') {
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $.ajax({
-                                    url: '{{ route('product.image.remove') }}',
-                                    method: 'post',
-                                    data: {
-                                        data: file.id
-                                    },
-                                    success: function(response) {
-                                        if (response == true) {
-                                            $('div.dz-image-preview').remove();
-                                            $.ajax({
-                                                url: '{{ route('product.images') }}',
-                                                dataType: 'json',
-                                                method: 'post',
-                                                data: {
-                                                    id: paramId
-                                                },
-                                                success: function(
+                        if (file.id) {
+                            $.ajax({
+                                url: '{{ route('product.image.remove') }}',
+                                method: 'post',
+                                data: {
+                                    data: file.id
+                                },
+                                success: function(response) {
+                                    if (response == true) {
+                                        $('div.dz-image-preview').remove();
+                                        $.ajax({
+                                            url: '{{ route('product.images') }}',
+                                            dataType: 'json',
+                                            method: 'post',
+                                            data: {
+                                                id: paramId
+                                            },
+                                            success: function(
                                                 response) {
-                                                    $.each(response,
-                                                        function(
-                                                            key,
-                                                            value) {
-                                                            var mockFile = {
-                                                                name: value
-                                                                    .name,
-                                                                size: value
-                                                                    .size,
-                                                                id: value
-                                                                    .id
-                                                            };
-                                                            myDropzone
-                                                                .emit(
-                                                                    "addedfile",
-                                                                    mockFile
-                                                                    );
-                                                            myDropzone
-                                                                .emit(
-                                                                    "thumbnail",
-                                                                    mockFile,
-                                                                    "{{ asset('') }}" +
-                                                                    value
-                                                                    .path
-                                                                    );
-                                                            myDropzone
-                                                                .emit(
-                                                                    "complete",
-                                                                    mockFile
-                                                                    );
-                                                        });
-                                                }
-                                            });
-                                        }
+                                                $.each(response,
+                                                    function(
+                                                        key,
+                                                        value) {
+                                                        var mockFile = {
+                                                            name: value
+                                                                .name,
+                                                            size: value
+                                                                .size,
+                                                            id: value
+                                                                .id
+                                                        };
+                                                        myDropzone
+                                                            .emit(
+                                                                "addedfile",
+                                                                mockFile
+                                                            );
+                                                        myDropzone
+                                                            .emit(
+                                                                "thumbnail",
+                                                                mockFile,
+                                                                "{{ asset('') }}" +
+                                                                value
+                                                                .path
+                                                            );
+                                                        myDropzone
+                                                            .emit(
+                                                                "complete",
+                                                                mockFile
+                                                            );
+                                                    });
+                                            }
+                                        });
                                     }
-                                });
+                                }
+                            });
+                        } else {
+                            file.previewElement.remove();
 
-                            }
-                        })
+                        }
                     } else {
-                        this.removeFile(file);
+                        file.previewElement.remove();
                     }
                 }
             });
