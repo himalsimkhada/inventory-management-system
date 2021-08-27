@@ -123,7 +123,6 @@
                                             <table class="table table-borderless" id="barcodeTable">
                                             </table>
                                         </div>
-                                        >>>>>>> 01ba3f0780f60c876ab558ae0ab40a651b92dc43
                                     </div>
                                 </div>
                             </div>
