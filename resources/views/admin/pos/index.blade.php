@@ -90,6 +90,18 @@
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
+                        <table class="table">
+                            <tr>
+                                <td>Items: </td>
+                                <td>Tax: </td>
+                                <td>Discount: </td>
+                                <td>Total: </td>
+                            </tr>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-12 mb-3">
                         <button type="button" class="btn btn-primary" id="">
                             Calculate
                         </button>
@@ -131,8 +143,6 @@
 @section('js')
 <script>
     $(document).ready(function(){
-        $('.side-menu-bt-sidebar').click();
-
         $(document).on('keyup', '#productSearch', function(e){
             var name = $(this).val();
             $.ajax({
@@ -256,8 +266,10 @@
             var url;
             if($(this).attr('id') == 'category'){
                 url = '{{ route('pos.category.get') }}';
+                $('#brand').val('');
             }else{
-                url = '{{ route('pos.brand.get') }}'
+                url = '{{ route('pos.brand.get') }}';
+                $('#category').val('');
             }
             $.ajax({
                 headers: {
@@ -279,7 +291,7 @@
                             }else{
                                 var image = '<img src="{{ asset('public/uploads/product') }}/' + this.image + '" class="img-thumbnail w-100 img-fluid rounded" alt="' + this.name + '" height="100px">';
                             }
-                            li += '<li class="col-lg-4 col-md-6 col-sm-6 mt-2 cursor">' + image +
+                            li += '<li class="col-lg-4 col-md-6 col-sm-6 mt-2 cursor" data-id="' + this.id + '" data-code="' + this.code + '" data-price="' + this.price + '">' + image +
                                 '<div class="text-center">' +
                                     '<p class="form-label text-muted text-center">' +
                                         this.name +
@@ -315,13 +327,13 @@
                 data: {
                     id: product.data('id')
                 },
-                success: function(response) {
+                success: function(response){
                     var option = '<option value="">Select</option>';
                     $.each(response, function(){
                         option += '<option value="' + this.id + '" data-quantity="' + this.quantity + '">' + this.sku + '(' + this.size + '/ ' + this.color + ')</option>';
                     });
                     var row = '<tr id="' + product.data('id') + '">' +
-                        '<td>' + product.html() + '<br />(' + product.data('code') + ')</td>' +
+                        '<td>' + product.children('div').children('p').html() + '<br />(' + product.data('code') + ')</td>' +
                         '<td>' +
                             '<select class="form-control sku" name="sku" required>' +
                                 option +
