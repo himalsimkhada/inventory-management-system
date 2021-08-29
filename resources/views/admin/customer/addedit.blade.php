@@ -5,14 +5,8 @@
         <div class="col-lg-12">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="d-flex align-items-center justify-content-between">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb p-0 mb-0">
-                            <li class="breadcrumb-item"><a href="{{ route('product.index') }}">Products</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Product</li>
-                        </ol>
-                    </nav>
                 </div>
-                <a href="{{ route('product.index') }}"
+                <a href="{{ route('customer.index') }}"
                     class="btn btn-primary btn-sm d-flex align-items-center justify-content-between ml-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
@@ -23,23 +17,14 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-12 mb-3 d-flex justify-content-between">
-            <h4 class="font-weight-bold d-flex align-items-center">
-                @if (request()->id)
-                    Update Product
-                @else
-                    New Product
-                @endif
-            </h4>
-        </div>
         @include('admin.includes._message')
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body" id="dropzone">
                     <h5 class="font-weight-bold mb-3">Customer Information</h5>
-                    <form class=" row g-3" method="post" action="{{ route('product.store') }}"
+                    <form class=" row g-3" method="post" action="{{ route('customer.store') }}"
                         enctype="multipart/form-data">
-                        {{-- @csrf --}}
+                        @csrf
                         <input type="hidden" id="id" name="id" value="">
                         <div class="col-md-6 mb-3">
                             <label for="fname" class="form-label font-weight-bold text-muted text-uppercase">First Name</label>
@@ -50,6 +35,10 @@
                             <label for="lname" class="form-label font-weight-bold text-muted text-uppercase">Last Name</label>
                             <input type="text" class="form-control" id="lname" name="lname"
                                 value="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label font-weight-bold text-muted text-uppercase">E-Mail</label>
+                            <input type="email" name="email" id="email" class="form-control">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="phone_number" class="form-label font-weight-bold text-muted text-uppercase">Phone Number</label>
