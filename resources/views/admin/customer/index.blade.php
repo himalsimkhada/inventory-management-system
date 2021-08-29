@@ -8,7 +8,7 @@
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <a href="{{ route('product.add') }}" type="button" id='add'
+                    <a href="{{ route('customer.addEdit') }}" type="button" id='add'
                         class="btn btn-primary position-relative d-flex align-items-center justify-content-between">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -35,7 +35,8 @@
                                             <tr>
                                                 <th>S. No.</th>
                                                 <th>General</th>
-                                                <th>Name</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
                                                 <th>Email Address</th>
                                                 <th>Address</th>
                                                 <th>Contact Number</th>
@@ -94,8 +95,12 @@
                         name: 'group'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'firstname',
+                        name: 'firstname'
+                    },
+                    {
+                        data: 'lastname',
+                        name: 'lastname'
                     },
                     {
                         data: 'email',

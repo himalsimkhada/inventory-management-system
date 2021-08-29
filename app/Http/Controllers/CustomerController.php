@@ -7,23 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 
-class CustomerController extends Controller
-{
+class CustomerController extends Controller {
     //
-    public function index()
-    {
+    public function index() {
         Session::put('admin_page', 'Customer');
         return view('admin.customer.index');
     }
-    public function get()
-    {
+    public function get() {
+        Session::put('admin_page', 'Customer Index');
         $data = Customer::all()->sortByDesc('id');
         return DataTables::of($data)
             ->addIndexColumn()
             ->make(true);
     }
-    public function addEdit(Request $request)
-    {
+    public function addEdit(Request $request) {
+        Session::put('admin_page', 'Customer Add/Edit');
         if ($request->isMethod('post')) {
             # code...
         } elseif ($request->isMethod('get')) {
