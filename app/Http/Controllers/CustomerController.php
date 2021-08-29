@@ -19,7 +19,15 @@ class CustomerController extends Controller
     {
         $data = Customer::all()->sortByDesc('id');
         return DataTables::of($data)
-        ->addIndexColumn()
-        ->make(true);
+            ->addIndexColumn()
+            ->make(true);
+    }
+    public function addEdit(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            # code...
+        } elseif ($request->isMethod('get')) {
+            return view('admin.customer.addEdit');
+        }
     }
 }
