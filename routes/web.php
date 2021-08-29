@@ -103,6 +103,9 @@ Route::prefix('/admin')->group(function () {
         //Sale
         Route::get('/sale/index', 'SaleController@index')->name('sale.index');
         Route::get('/sale/pos', 'SaleController@pos')->name('sale.pos');
+
+        // customers
+        Route::get('/customer/index', 'CustomerController@index')->name('customer.index');
     });
 
     // Admin Logout

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Details;
 use App\Models\Image;
 use App\Models\Product;
@@ -109,6 +110,13 @@ class DatabaseSeeder extends Seeder {
             'sku' => 'SMA-LAR-BLA',
             'quantity' => 12,
             'product_id' => 1,
+        ]);
+        Customer::insert([
+            'group' => 'general',
+            'name' => 'raju',
+            'phone_number' => '9800215468',
+            'email' => 'sovit@gmail.com',
+            'address' => 'Thapathali',
         ]);
     }
 }
