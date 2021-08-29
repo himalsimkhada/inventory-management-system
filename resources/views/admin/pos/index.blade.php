@@ -65,12 +65,29 @@
         <div class="col-lg-7">
             <div class="card">
                 <div class="card-body">
-                    <p>Provide Product Information.</p>
-                    <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label text-muted">Product
-                            Name</label>
-                        <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
-                        <div class="searchBox" id="searchBox" hidden="">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="name" class="form-label text-muted">Refrence Name</label>
+                            <input type="text" id="refrenceName" class="form-control" name="refrenceName" autocomplete="off">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="name" class="form-label text-muted">Ware House</label>
+                            <select class="form-control" name="wareHouse" id="wareHouse">
+                                <option selected value="">Select Ware House</option>
+                                @foreach ($wareHouse as $value)
+                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="name" class="form-label text-muted">customer</label>
+                            <input type="text" id="customer" class="form-control" name="customer" autocomplete="off">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label text-muted">Product Name</label>
+                            <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
+                            <div class="searchBox" id="searchBox" hidden="">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
