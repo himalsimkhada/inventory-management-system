@@ -118,7 +118,7 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <button type="button" class="btn btn-primary" id="">
-                            Calculate
+                            Cash
                         </button>
                     </div>
                 </div>
