@@ -113,7 +113,8 @@ class DatabaseSeeder extends Seeder {
         ]);
         Customer::insert([
             'group' => 'general',
-            'name' => 'raju',
+            'firstname' => 'raju',
+            'lastname' => 'master',
             'phone_number' => '9800215468',
             'email' => 'sovit@gmail.com',
             'address' => 'Thapathali',

@@ -136,7 +136,51 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                     </ul>
 
                 </li>
-
+                {{-- customer --}}
+                <li class=" {{ Session::get('admin_page') == 'Customer' ? 'active' : '' }} sidebar-layout">
+                    <a href="#customer" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
+                        <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">Customer</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">;
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <ul id="customer" class="submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li class=" {{ Session::get('admin_page') == 'Customer Index' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('customer.index') }}" class="svg-icon ">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Customer</span>
+                            </a>
+                        </li>
+                        <li class=" {{ Session::get('admin_page') == 'Customer Add/Edit' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('customer.addEdit') }}" class="svg-icon ">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Add Customer</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="sidebar-layout">
                     <a href="#app2" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -181,6 +225,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">Unit</span>
                             </a>
                         </li>
+
                         <li class=" {{ Session::get('admin_page') == 'WareHouse' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('wareHouse.index') }}" class="svg-icon ">
                                 <i class="">

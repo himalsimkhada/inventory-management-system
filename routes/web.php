@@ -81,7 +81,7 @@ Route::prefix('/admin')->group(function () {
         Route::post('/product/search', 'ProductController@productSearch')->name('product.search');
         Route::post('/product/sku/search', 'ProductController@skuSearch')->name('product.sku.search');
         Route::post('/barcode/get', 'BarcodeController@get')->name('barcode.get');
-        
+
         // POS
         Route::get('/pos', 'PosController@index')->name('pos.index');
         Route::post('/pos/category/get/', 'PosController@categoryGet')->name('pos.category.get');
@@ -106,6 +106,9 @@ Route::prefix('/admin')->group(function () {
 
         // customers
         Route::get('/customer/index', 'CustomerController@index')->name('customer.index');
+        Route::get('/customer/get/', 'CustomerController@get')->name('customer.get');
+        Route::match(['get', 'post'], '/customer/addedit', 'CustomerController@addedit')->name('customer.addEdit');
+        Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
     });
 
     // Admin Logout
