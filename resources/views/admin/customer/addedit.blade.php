@@ -27,42 +27,53 @@
                         @csrf
                         <input type="hidden" id="id" name="id" value="">
                         <div class="col-md-6 mb-3">
-                            <label for="fname" class="form-label font-weight-bold text-muted text-uppercase">First Name</label>
+                            <label for="fname" class="form-label font-weight-bold text-muted text-uppercase">First
+                                Name</label>
                             <input type="text" class="form-control" id="fname" name="fname"
-                                value="">
+                                value="{{ isset($detail) ? $detail->firstname : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="lname" class="form-label font-weight-bold text-muted text-uppercase">Last Name</label>
+                            <label for="lname" class="form-label font-weight-bold text-muted text-uppercase">Last
+                                Name</label>
                             <input type="text" class="form-control" id="lname" name="lname"
-                                value="">
+                                value="{{ isset($detail) ? $detail->lastname : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label font-weight-bold text-muted text-uppercase">E-Mail</label>
-                            <input type="email" name="email" id="email" class="form-control">
+                            <input type="email" name="email" id="email" class="form-control"
+                                value="{{ isset($detail) ? $detail->email : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="phone_number" class="form-label font-weight-bold text-muted text-uppercase">Phone Number</label>
+                            <label for="phone_number" class="form-label font-weight-bold text-muted text-uppercase">Phone
+                                Number</label>
                             <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                value="">
+                                value="{{ isset($detail) ? $detail->phone_number : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="address" class="form-label font-weight-bold text-muted text-uppercase">Address</label>
+                            <label for="address"
+                                class="form-label font-weight-bold text-muted text-uppercase">Address</label>
                             <input type="text" class="form-control" id="address" name="address"
-                                value="">
+                                value="{{ isset($detail) ? $detail->address : '' }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="group"
-                                class="form-label font-weight-bold text-muted text-uppercase">Group</label>
+                            <label for="group" class="form-label font-weight-bold text-muted text-uppercase">Group</label>
                             <select id="group" class="form-select form-control choicesjs" name="group">
-                                <option selected value="" disabled>Select Group</option>
+                                @if (request()->id) {
+                                    <option value="{{ isset($detail) ? $detail->id : '' }}">
+                                        {{ isset($detail) ? $detail->group : '' }}</option>
+                                    }
+                                @else {
+                                    <option value="">Select</option>
+                                    }
+                                @endif
                             </select>
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
                                 @if (request()->id)
-                                    Update Product
+                                    Edit Customer Detail
                                 @else
-                                    Create Product
+                                    Create Customer
                                 @endif
                             </button>
                         </div>
