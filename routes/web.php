@@ -114,8 +114,9 @@ Route::prefix('/admin')->group(function () {
 
         //customer group
         Route::get('/group/index', 'CustomerGroupController@index')->name('group.index');
-        Route::get('/group/get', 'CustomerGroupController@get')->name('group.get');
-        Route::get('/group/delete/{id}', 'CustomerGroupController@destroy')->name('group.delete');
+        Route::match(['get', 'post'], '/group/get', 'CustomerGroupController@get')->name('group.get');
+        Route::post('/group/store', 'CustomerGroupController@store')->name('group.store');
+        Route::get('/group/destroy/{id}', 'CustomerGroupController@destroy')->name('group.destroy');
     });
 
     // Admin Logout
