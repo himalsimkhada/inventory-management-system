@@ -28,6 +28,12 @@ class CustomerController extends Controller {
             return view('admin.customer.addEdit');
         }
     }
+    public function customerSearch(Request $request)
+    {
+        $name = $request->input('firstname');
+        $response = Customer::where('firstname', $name)->orWhere('firstname', 'like', '%' . $name . '%')->get();
+        return response()->json($response);
+    }
 
     public function store(Request $request) {
         $data = $request->all();

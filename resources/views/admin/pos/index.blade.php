@@ -81,7 +81,8 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Customer</label>
-                            <input type="text" id="customer" class="form-control" name="customer" autocomplete="off">
+                            <input type="text" id="customerSearch" class="form-control" name="customer" autocomplete="off">
+                            <div class="searchCus" id="searchCus" hidden></div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Product Name</label>
@@ -240,6 +241,42 @@
                     $('#productSearch').val('');
                 }
             });
+        });
+        // for customer search
+        $(document).on('keyup', '#customerSearch', function(e){
+            var name = $(this).val();
+            $.ajax({
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ route('customer.search') }}',
+                dataType: 'json',
+                method: 'post',
+                data: {
+                    name: name
+                },
+                success: function(response) {
+                    if(response.length > 0){
+                        $('#searchCus').html('');
+                        var results = '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
+                        $.each(response, function(i, e){
+                            results += '<a class="searchResult dismiss" data-id="' + e.id + '" data-code="' + e.code + '" data-price="' + e.price + '" data-sku="' + e.sku + '">' + e.name + '</a>';
+                        });
+                        $('#searchCus').html(results);
+                        $('#searchCus').prop('hidden', false);
+                        if(e.key === "Escape"){
+                            $('#searchCus').prop('hidden', true);
+                        }
+                    }else{
+                        $('#searchCus').html('');
+                        $('#searchCus').prop('hidden', true);
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            })
+
         });
 
         $(document).on('click', '.minus', function(){

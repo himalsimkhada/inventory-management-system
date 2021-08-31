@@ -109,6 +109,8 @@ Route::prefix('/admin')->group(function () {
         Route::get('/customer/get/', 'CustomerController@get')->name('customer.get');
         Route::match(['get', 'post'], '/customer/addedit', 'CustomerController@addedit')->name('customer.addEdit');
         Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
+        Route::post('/customer/search', 'CustomerController@customerSearch')->name('customer.search');
+
     });
 
     // Admin Logout
