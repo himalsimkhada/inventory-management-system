@@ -501,5 +501,15 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center">
+                    aqweqweqwesdasd
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Page end  -->
 @endsection
