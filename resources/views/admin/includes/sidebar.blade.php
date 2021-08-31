@@ -137,7 +137,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
 
                 </li>
                 {{-- customer --}}
-                <li class=" {{ Session::get('admin_page') == 'Customer' ? 'active' : '' }} sidebar-layout">
+                <li class=" {{ Session::get('admin_page') == 'People' ? 'active' : '' }} sidebar-layout">
                     <a href="#customer" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -146,14 +146,14 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                     d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                             </svg>
                         </i>
-                        <span class="ml-2">Customer</span>
+                        <span class="ml-2">People</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">;
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
                     <ul id="customer" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class=" {{ Session::get('admin_page') == 'Customer Index' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'Customer' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('customer.index') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -166,8 +166,9 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">Customer</span>
                             </a>
                         </li>
-                        <li class=" {{ Session::get('admin_page') == 'Customer Add/Edit' ? 'active' : '' }} sidebar-layout">
-                            <a href="{{ route('customer.addEdit') }}" class="svg-icon ">
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Customer Add/Edit' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('customer.add') }}" class="svg-icon ">
                                 <i class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -236,6 +237,18 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                     </svg>
                                 </i>
                                 <span class="ml-2">Ware House</span>
+                            </a>
+                        </li>
+                        <li class=" {{ Session::get('admin_page') == 'Group' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('group.index') }}" class="svg-icon ">
+                                <i class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Customer Group</span>
                             </a>
                         </li>
                     </ul>

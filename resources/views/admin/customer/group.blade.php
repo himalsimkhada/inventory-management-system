@@ -3,12 +3,12 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Customer Details</h4>
+            <h4 class="font-weight-bold">Customer Group List</h4>
         </div>
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <a href="{{ route('customer.add') }}" type="button" id='add'
+                    <a href="" type="button" id='add'
                         class="btn btn-primary position-relative d-flex align-items-center justify-content-between">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -34,12 +34,8 @@
                                         <thead>
                                             <tr>
                                                 <th>S. No.</th>
-                                                <th>General</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Email Address</th>
-                                                <th>Address</th>
-                                                <th>Contact Number</th>
+                                                <th>Name</th>
+                                                <th>Percentage</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -86,34 +82,18 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('customer.get') }}",
+                ajax: "{{ route('group.get') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'group',
-                        name: 'group'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
-                        data: 'firstname',
-                        name: 'firstname'
-                    },
-                    {
-                        data: 'lastname',
-                        name: 'lastname'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'address',
-                        name: 'address'
-                    },
-                    {
-                        data: 'phone_number',
-                        name: 'phone_number'
+                        data: 'percentage',
+                        name: 'percentage'
                     },
                     {
                         data: 'action',
