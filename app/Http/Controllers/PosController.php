@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -14,7 +15,8 @@ class PosController extends Controller {
         Session::put('admin_page', 'POS');
         $category = Category::all()->sortByDesc("name");
         $brand = Brand::all()->sortByDesc("name");
-        return view('admin.pos.index', ['category' => $category, 'brand' => $brand]);
+        $wareHouse = WareHouse::all()->sortByDesc("name");
+        return view('admin.pos.index', ['category' => $category, 'brand' => $brand, 'wareHouse' => $wareHouse]);
     }
 
     public function categoryGet(Request $request) {
