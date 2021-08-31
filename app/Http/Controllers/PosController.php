@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\WareHouse;
@@ -16,7 +17,8 @@ class PosController extends Controller {
         $category = Category::all()->sortByDesc("name");
         $brand = Brand::all()->sortByDesc("name");
         $wareHouse = WareHouse::all()->sortByDesc("name");
-        return view('admin.pos.index', ['category' => $category, 'brand' => $brand, 'wareHouse' => $wareHouse]);
+        $customer = Customer::all()->sortByDesc("name");
+        return view('admin.pos.index', ['category' => $category, 'brand' => $brand, 'wareHouse' => $wareHouse, 'customer' => $customer]);
     }
 
     public function categoryGet(Request $request) {

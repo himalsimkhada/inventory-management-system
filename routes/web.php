@@ -110,7 +110,6 @@ Route::prefix('/admin')->group(function () {
         Route::get('/customer/add', 'CustomerController@addedit')->name('customer.add');
         Route::get('/customer/edit/{id}', 'CustomerController@addEdit')->name('customer.edit');
         Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
-        Route::post('/customer/search', 'CustomerController@customerSearch')->name('customer.search');
 
         Route::get('/customer/delete/{id}', 'CustomerController@destroy')->name('customer.destroy');
 

@@ -38,12 +38,6 @@ class CustomerController extends Controller {
             }
         }
     }
-    public function customerSearch(Request $request)
-    {
-        $name = $request->input('firstname');
-        $response = Customer::where('firstname', $name)->orWhere('firstname', 'like', '%' . $name . '%')->get();
-        return response()->json($response);
-    }
 
     public function getDetail(Request $request) {
         $id  = $request->get('id');
