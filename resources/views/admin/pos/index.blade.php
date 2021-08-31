@@ -80,10 +80,10 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="name" class="form-label text-muted">customer</label>
+                            <label for="name" class="form-label text-muted">Customer</label>
                             <input type="text" id="customer" class="form-control" name="customer" autocomplete="off">
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Product Name</label>
                             <input type="text" id="productSearch" class="form-control" name="name" autocomplete="off">
                             <div class="searchBox" id="searchBox" hidden="">
@@ -146,7 +146,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <ul class="list-unstyled p-0 m-0 row" id="productList" style="height: 495px; overflow: hidden; overflow-y:scroll;">
+                        <ul class="list-unstyled p-0 m-0 row" id="productList" style="overflow: hidden; overflow-y:scroll;">
                         </ul>
                     </div>
                 </div>
