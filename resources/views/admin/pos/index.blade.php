@@ -81,7 +81,12 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">customer</label>
-                            <input type="text" id="customer" class="form-control" name="customer" autocomplete="off">
+                            <select class="form-control" name="customer" id="customer">
+                                <option selected value="">Select Ware House</option>
+                                @foreach ($customer as $value)
+                                    <option value="{{ $value->id }}">{{ $value->firstname }} {{ $value->lastname }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="name" class="form-label text-muted">Product Name</label>
@@ -117,7 +122,7 @@
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <button type="button" class="btn btn-primary" id="">
+                        <button type="button" class="btn btn-primary" id="cash">
                             Cash
                         </button>
                     </div>
