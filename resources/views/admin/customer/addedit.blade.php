@@ -59,11 +59,17 @@
                             <label for="group" class="form-label font-weight-bold text-muted text-uppercase">Group</label>
                             <select id="group" class="form-select form-control choicesjs" name="group">
                                 @if (request()->id) {
-                                    <option value="{{ isset($detail) ? $detail->id : '' }}">
-                                        {{ isset($detail) ? $detail->group : '' }}</option>
+                                    <option value="{{ isset($detail) ? $detail->group_id : '' }}">
+                                        {{ isset($detail) ? $detail->group->name : '' }}</option>
+                                    @foreach ($group as $val)
+                                        <option value="{{ $val['id'] }}">{{ $val['name'] }}</option>
+                                    @endforeach
                                     }
                                 @else {
                                     <option value="">Select</option>
+                                    @foreach ($group as $val)
+                                        <option value="{{ $val['id'] }}">{{ $val['name'] }}</option>
+                                    @endforeach
                                     }
                                 @endif
                             </select>

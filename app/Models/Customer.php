@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
+
+    public function group()
+    {
+        return $this->hasOne(CustomerGroup::class, 'id');
+    }
 }

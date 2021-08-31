@@ -34,7 +34,7 @@
                                         <thead>
                                             <tr>
                                                 <th>S. No.</th>
-                                                <th>General</th>
+                                                <th>Group</th>
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
                                                 <th>Email Address</th>

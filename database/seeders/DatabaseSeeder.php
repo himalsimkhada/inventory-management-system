@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\CustomerGroup;
 use App\Models\Details;
 use App\Models\Image;
 use App\Models\Product;
@@ -111,8 +112,13 @@ class DatabaseSeeder extends Seeder {
             'quantity' => 12,
             'product_id' => 1,
         ]);
+
+        CustomerGroup::insert([
+            'name' => 'general',
+            'percentage' => '10',
+        ]);
         Customer::insert([
-            'group' => 'general',
+            'group_id' => 1,
             'firstname' => 'raju',
             'lastname' => 'master',
             'phone_number' => '9800215468',
