@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AlterEnvController;
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -110,6 +112,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('/customer/add', 'CustomerController@addedit')->name('customer.add');
         Route::get('/customer/edit/{id}', 'CustomerController@addEdit')->name('customer.edit');
         Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
+
         Route::get('/customer/delete/{id}', 'CustomerController@destroy')->name('customer.destroy');
 
         //customer group
@@ -119,9 +122,10 @@ Route::prefix('/admin')->group(function () {
         Route::get('/group/destroy/{id}', 'CustomerGroupController@destroy')->name('group.destroy');
     });
 
-    // Admin Logout
+    // logout
     Route::get('/logout', 'AdminLoginController@adminLogout')->name('adminLogout');
 
+    // qwe
     Route::get('/qwe', 'AdminProfileController@qwe')->name('qwe');
 
     // Forget Password

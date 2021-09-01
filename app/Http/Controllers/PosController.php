@@ -6,6 +6,8 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Image;
+use App\Models\Pos;
+use App\Models\PosItems;
 use App\Models\Product;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
@@ -65,5 +67,28 @@ class PosController extends Controller {
             }
         }
         return response()->json($response);
+    }
+
+    public function store(Request $request) {
+        $data = $request->all();
+
+        if ($request->isMethod('post')) {
+            $pos = new Pos();
+            $pos->customer_id = $data['customer_id'];
+            $pos->reference_number = $data['reference_number'];
+            $pos->warehouse_id = $data['warehouse_id'];
+            $pos->save();
+
+            $lastId = $pos->id; //vakhar insert vako id
+
+            //esma foreach launa parxa ajax bata
+            $items = new PosItems();
+            $items->pos_id = $lastId;
+            $items->product_id = $data['product_id']; //ani yo id xai tae ajax ko table ko through pathauna
+
+            $items->save();
+
+            //end foreach
+        }
     }
 }
