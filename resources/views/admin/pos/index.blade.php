@@ -125,23 +125,67 @@
                         <button type="button" class="btn btn-primary" id="cash" data-toggle="modal" data-target="#cashModal">
                             Cash
                         </button>
-                        <div class="modal fade" id="cashModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal fade show" id="cashModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Product Details</h5>
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Cash</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-sm-5 col-lg-5">
-                                                <div class="card-body">
+                                            <div class="col-lg-5">
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="recievedAmount" class="form-label text-muted">Recieved Amount</label>
+                                                    <input type="text" id="recievedAmount" class="form-control" name="recievedAmount" value="00.00" autocomplete="off">
+                                                </div>
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="change" class="form-label text-muted">Change</label>
+                                                    <input type="text" id="change" class="form-control" name="change" autocomplete="off" value="-5500.00" readonly>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-7 col-lg-7">
-                                                <div class="card-body">
+                                            <div class="col-lg-5">
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="paymentAmount" class="form-label text-muted">Payment Amount</label>
+                                                    <input type="text" id="paymentAmount" class="form-control" name="paymentAmount" autocomplete="off" value="5500.00" readonly>
+                                                </div>
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="paidBy" class="form-label text-muted">Paid By</label>
+                                                    <select name="paidBy" class="form-control">
+                                                        <option value="cash" selected>Cash</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <button type="button" class="btn btn-primary btn-block" id="10">
+                                                    10
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-block" id="20">
+                                                    20
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-block" id="50">
+                                                    50
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-block" id="100">
+                                                    100
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-block" id="500">
+                                                    500
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-block" id="1000">
+                                                    1000
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-block" id="cashClear">
+                                                    Clear
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="col-md-12 mb-3">
+                                                    <button type="button" class="btn btn-primary">
+                                                        Submit
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
