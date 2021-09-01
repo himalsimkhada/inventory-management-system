@@ -8,7 +8,7 @@
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <a href="" type="button" id='add'
+                    <button data-toggle="modal" data-target="#groupModal" type="button" id='add'
                         class="btn btn-primary position-relative d-flex align-items-center justify-content-between">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -16,7 +16,7 @@
                                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -45,6 +45,38 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add/Edit Group</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div id="errors"></div>
+                        <input type="hidden" class="form-control" name="id" id="id">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" id="name" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="percentage">Percentage</label>
+                            <input type="text" name="percentage" id="percentage" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="submit">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -106,6 +138,71 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $('form').on('submit', function(e) {
+                // console.log('working');
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    method: "post",
+                    url: "{{ route('group.store') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response == true) {
+                            $('#groupModal').modal('hide');
+                            $('#datatable').DataTable().ajax.reload();
+                        }
+                    },
+                    error: function(response) {
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(e, i) {
+                            error += '<li style="list-style-type: none">' + i + '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
+                    },
+                })
+            });
+
+            $(document).on('click', '#edit', function() {
+                var id = $(this).data('id');
+                $.ajax({
+                    method: "post",
+                    url: "{{ route('group.get') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        // console.log(response);
+                        if (response) {
+                            $('#id').val(response.id);
+                            $('#name').val(response.name);
+                            $('#percentage').val(response.percentage);
+                        }
+                    },
+                    error: function(response) {
+                        var error = '<div class="alert alert-danger"><ul>';
+                        $.each(response.responseJSON.errors, function(key, value) {
+                            error += '<li style="list-style-type: none">' + value +
+                                '</li>'
+                        })
+                        error += '</ul></div>'
+                        $('#errors').html(error);
+                    }
+                })
+            });
+
+            $('#add').on('click', function() {
+                $('#id').val('');
+                $('#category_name').val('');
+                $('#category_code').val('');
+                $('#status').prop('checked', true);
+                $('#errors').html('');
             });
         });
     </script>

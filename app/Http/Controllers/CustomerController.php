@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\CustomerGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
@@ -17,6 +18,11 @@ class CustomerController extends Controller {
         $data = Customer::all()->sortByDesc('id');
         return DataTables::of($data)
             ->addIndexColumn()
+            ->editColumn('group', function($row) {
+                $group = CustomerGroup::where('id', $row['group_id'])->first();
+
+                return $group->name;
+            })
             ->addColumn('action', function ($row) {
                 $actionBtn = '<a class="btn btn-primary mr-2" href="' . route('customer.edit', ['id' => $row['id']]) . '" id="edit">Edit</a><a class="btn btn-danger" href="' . route('customer.destroy', ['id' => $row['id']]) . '" id="delete">Delete</a>';
                 return $actionBtn;
@@ -29,12 +35,14 @@ class CustomerController extends Controller {
         if ($request->isMethod('post')) {
         } elseif ($request->isMethod('get')) {
             if ($request->id == null) {
-                return view('admin.customer.addEdit');
+                $group = CustomerGroup::all();
+                return view('admin.customer.addEdit', ['group' => $group]);
             } else {
                 $id = $request->id;
+                $group = CustomerGroup::all();
                 $detail = Customer::where('id', $id)->first();
 
-                return view('admin.customer.addedit', ['detail' => $detail]);
+                return view('admin.customer.addedit', ['detail' => $detail, 'group' => $group]);
             }
         }
     }
@@ -42,7 +50,7 @@ class CustomerController extends Controller {
     public function getDetail(Request $request) {
         $id  = $request->get('id');
 
-        $detail = Customer::where('id', $id)->get();
+        $detail = Customer::with('group')->where('id', $id)->get();
 
         return response()->json($detail);
     }
@@ -68,7 +76,7 @@ class CustomerController extends Controller {
                 $customer->lastname = $data['lname'];
                 $customer->phone_number = $data['phone_number'];
                 $customer->address = $data['address'];
-                $customer->group = $data['group'];
+                $customer->group_id = $data['group'];
                 $customer->email = $data['email'];
                 $response = $customer->save();
 
@@ -79,7 +87,7 @@ class CustomerController extends Controller {
                 $customer->lastname = $data['lname'];
                 $customer->phone_number = $data['phone_number'];
                 $customer->address = $data['address'];
-                $customer->group = $data['group'];
+                $customer->group_id = $data['group'];
                 $customer->email = $data['email'];
                 $response = $customer->save();
 
