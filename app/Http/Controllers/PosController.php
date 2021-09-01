@@ -66,4 +66,7 @@ class PosController extends Controller {
         }
         return response()->json($response);
     }
+
+    public function store(Request $request) {
+    }
 }
