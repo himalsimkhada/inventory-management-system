@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePosModelsTable extends Migration
+class CreatePosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePosModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pos_models', function (Blueprint $table) {
+        Schema::create('pos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreatePosModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pos_models');
+        Schema::dropIfExists('pos');
     }
 }
