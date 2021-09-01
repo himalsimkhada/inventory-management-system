@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AlterEnvController;
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -120,13 +122,12 @@ Route::prefix('/admin')->group(function () {
         Route::get('/group/destroy/{id}', 'CustomerGroupController@destroy')->name('group.destroy');
     });
 
-        // logout
-        Route::get('/logout' , 'AdminLoginController@adminLogout')->name('adminLogout');
+    // logout
+    Route::get('/logout', 'AdminLoginController@adminLogout')->name('adminLogout');
 
-        // qwe
-        Route::get('/qwe', 'AdminProfileController@qwe')->name('qwe');
+    // qwe
+    Route::get('/qwe', 'AdminProfileController@qwe')->name('qwe');
 
     // Forget Password
     Route::match(['get', 'post'], '/forget-password', 'AdminLoginController@forgetPassword')->name('forgetPassword');
 });
-
