@@ -80,9 +80,9 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="customer" class="form-label text-muted">customer</label>
+                            <label for="name" class="form-label text-muted">Customer</label>
                             <select class="form-control" name="customer" id="customer">
-                                <option selected value="">Select Ware House</option>
+                                <option selected value="">Select Customer</option>
                                 @foreach ($customer as $value)
                                     <option value="{{ $value->id }}">{{ $value->firstname }} {{ $value->lastname }}</option>
                                 @endforeach
