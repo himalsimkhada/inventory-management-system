@@ -84,7 +84,7 @@
                             <select class="form-control" name="customer" id="customer">
                                 <option selected value="">Select Customer</option>
                                 @foreach ($customer as $value)
-                                    <option value="{{ $value->id }}">{{ $value->firstname }} {{ $value->lastname }}</option>
+                                    <option value="{{ $value->id }}" data-name="{{ $value->firstname }} {{ $value->lastname }}">{{ $value->firstname }} {{ $value->lastname }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -114,10 +114,22 @@
                     <div class="col-md-12 mb-3">
                         <table class="table">
                             <tr>
-                                <td>Items: <span id="itemTotal"></span></td>
-                                <td>Tax: </td>
-                                <td>Discount: </td>
-                                <td>Total: <span id="grandTotal"></span></td>
+                                <td>
+                                    <label for="itemTotal" class="form-label font-weight-bold">Items: </label>
+                                    <input type="text" id="itemTotal" class="form-control font-weight-bold" name="itemTotal" autocomplete="off" readonly>
+                                </td>
+                                <td>
+                                    <label for="tax" class="form-label font-weight-bold">Tax: </label>
+                                    <input type="text" id="tax" class="form-control font-weight-bold onlyNumber" name="tax" autocomplete="off" value="0">
+                                </td>
+                                <td>
+                                    <label for="discount" class="form-label font-weight-bold">Discount: </label>
+                                    <input type="text" id="discount" class="form-control font-weight-bold onlyNumber" name="discount" autocomplete="off" value="0">
+                                </td>
+                                <td>
+                                    <label for="grandTotal" class="form-label font-weight-bold">Total: </label>
+                                    <input type="text" id="grandTotal" class="form-control font-weight-bold onlyNumber" name="grandTotal" autocomplete="off" readonly>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -139,17 +151,17 @@
                                             <div class="col-lg-5">
                                                 <div class="col-md-12 mb-3">
                                                     <label for="recievedAmount" class="form-label text-muted">Recieved Amount</label>
-                                                    <input type="text" id="recievedAmount" class="form-control" name="recievedAmount" value="00.00" autocomplete="off">
+                                                    <input type="text" id="recievedAmount" class="form-control" name="recievedAmount" autocomplete="off">
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="change" class="form-label text-muted">Change</label>
-                                                    <input type="text" id="change" class="form-control" name="change" autocomplete="off" value="-5500.00" readonly>
+                                                    <input type="text" id="change" class="form-control" name="change" autocomplete="off" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-lg-5">
                                                 <div class="col-md-12 mb-3">
                                                     <label for="paymentAmount" class="form-label text-muted">Payment Amount</label>
-                                                    <input type="text" id="paymentAmount" class="form-control" name="paymentAmount" autocomplete="off" value="5500.00" readonly>
+                                                    <input type="text" id="paymentAmount" class="form-control" name="paymentAmount" autocomplete="off" readonly>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="paidBy" class="form-label text-muted">Paid By</label>
@@ -159,22 +171,22 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
-                                                <button type="button" class="btn btn-primary btn-block" id="10">
+                                                <button type="button" class="btn btn-primary btn-block cash" value="10">
                                                     10
                                                 </button>
-                                                <button type="button" class="btn btn-primary btn-block" id="20">
+                                                <button type="button" class="btn btn-primary btn-block cash" value="20">
                                                     20
                                                 </button>
-                                                <button type="button" class="btn btn-primary btn-block" id="50">
+                                                <button type="button" class="btn btn-primary btn-block cash" value="50">
                                                     50
                                                 </button>
-                                                <button type="button" class="btn btn-primary btn-block" id="100">
+                                                <button type="button" class="btn btn-primary btn-block cash" value="100">
                                                     100
                                                 </button>
-                                                <button type="button" class="btn btn-primary btn-block" id="500">
+                                                <button type="button" class="btn btn-primary btn-block cash" value="500">
                                                     500
                                                 </button>
-                                                <button type="button" class="btn btn-primary btn-block" id="1000">
+                                                <button type="button" class="btn btn-primary btn-block cash" value="1000">
                                                     1000
                                                 </button>
                                                 <button type="button" class="btn btn-danger btn-block" id="cashClear">
@@ -183,9 +195,92 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="col-md-12 mb-3">
-                                                    <button type="button" class="btn btn-primary">
+                                                    <button type="button" class="btn btn-primary" id="submit">
                                                         Submit
                                                     </button>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div id="print">
+                                                        <link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css' ) }} ">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="text-center">
+                                                                            <p>
+                                                                                <img src="https://www.techcoderznepal.com/public/storage/static/logo.png" height="50px" />
+                                                                            </p>
+                                                                            <p>Address: Tinkunem Kathmandu</p>
+                                                                            <p>Phone: 987456321</p>
+                                                                        </div>
+                                                                        <div>
+                                                                            <p>Date: {{ date("Y-m-d"); }}</p>
+                                                                            <p>Reference: <span id="pRefrence"></span></p>
+                                                                            <p>Customer: <span id="pCustomer"></span></p>
+                                                                            <br />
+                                                                            <table class="table table-borderless">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th colspan="2" class="text-left">Product</th>
+                                                                                        <th class="text-right">Price</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td colspan="2" class="text-left">
+                                                                                            product name <br />
+                                                                                            1 X 144.00
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            144.00
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2" class="text-left">
+                                                                                            product name <br />
+                                                                                            1 X 440.00 [Tax (10%): 40]
+                                                                                        </td>
+                                                                                        <td class="text-right">
+                                                                                            440.00
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th colspan="2" class="text-left">Total</th>
+                                                                                        <th class="text-right">584.00</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th colspan="3" class="text-center">
+                                                                                            In Words: Five Hundred Eighty Four
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="text-left">Paid By: Cash</td>
+                                                                                        <td class="text-center">Amount: 584.00</td>
+                                                                                        <td class="text-right">Change: 416.00</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="3" class="text-center">Thank You For Shopping With Us. Please Come Again</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="3" class="text-center">
+                                                                                            <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'C39+',1,33) }}" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="3" class="text-center">
+                                                                                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -267,18 +362,18 @@
 
         });
 
-        var rowBefore;
+        // var rowBefore;
         $(document).on('click', '.searchResult', function(){
-            rowBefore = $('#tbody').children();
-            if(rowBefore){
-                $.each(rowBefore, function(){
-                    if($(this).children().eq(2).children().val() == ''){
-                        $(this).children().eq(2).children().focus();
-                        alert('Select the SKU of previous product');
-                        exit;
-                    }
-                })
-            }
+            // rowBefore = $('#tbody').children();
+            // if(rowBefore){
+            //     $.each(rowBefore, function(){
+            //         if($(this).children().eq(2).children().val() == ''){
+            //             $(this).children().eq(2).children().focus();
+            //             alert('Select the SKU of previous product');
+            //             exit;
+            //         }
+            //     })
+            // }
             var product = $(this);
             $.ajax({
                 headers:{
@@ -311,12 +406,14 @@
                     '</tr>';
                     $('#tbody').append(row);
                     $('#productSearch').val('');
+                    grandTotal();
                 }
             });
         });
 
         $(document).on('click', '.minus', function(){
             $(this).parent().parent().remove();
+            grandTotal();
         });
 
         $(document).on('change', '.quantity', function(){
@@ -324,6 +421,7 @@
             var thisPrice = $(this).parent().next().html();
             var total = parseInt(quantity) * parseInt(thisPrice);
             var thisTotal = $(this).parent().next().next().html(total);
+            grandTotal();
         });
 
         $(document).on('click', '.dismiss', function(){
@@ -337,7 +435,7 @@
             $(this).closest('td').next('td').find('input[type="number"]').prop('max', quantity);
             $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td').next('td').html());
             var sku = $(this).val();
-
+            grandTotal();
         });
 
         $(document).on('change', '.quantity', function(){
@@ -347,6 +445,7 @@
                 alert('Please select SKU');
                 $(this).val(1);
             }
+            grandTotal();
         });
 
         $(document).on('change', '#category, #brand', function(){
@@ -379,7 +478,7 @@
                             }else{
                                 var image = '<img src="{{ asset('public/uploads/product') }}/' + this.image + '" class="img-thumbnail w-100 img-fluid rounded" alt="' + this.name + '" height="100px">';
                             }
-                            li += '<li class="col-lg-4 col-md-6 col-sm-6 mt-2 cursor" data-id="' + this.id + '" data-code="' + this.code + '" data-price="' + this.price + '">' + image +
+                            li += '<li class="col-lg-4 col-md-6 col-sm-6 mt-2 cursor dropSearchProduct" data-id="' + this.id + '" data-code="' + this.code + '" data-price="' + this.price + '">' + image +
                                 '<div class="text-center">' +
                                     '<p class="form-label text-muted text-center">' +
                                         this.name +
@@ -393,17 +492,17 @@
             })
         });
 
-        $(document).on('click', '.cursor', function(){
-            rowBefore = $('#tbody').children();
-            if(rowBefore){
-                $.each(rowBefore, function(){
-                    if($(this).children().eq(2).children().val() == ''){
-                        $(this).children().eq(2).children().focus();
-                        alert('Select the SKU of previous product');
-                        exit;
-                    }
-                })
-            }
+        $(document).on('click', '.dropSearchProduct', function(){
+            // rowBefore = $('#tbody').children();
+            // if(rowBefore){
+            //     $.each(rowBefore, function(){
+            //         if($(this).children().eq(2).children().val() == ''){
+            //             $(this).children().eq(2).children().focus();
+            //             alert('Select the SKU of previous product');
+            //             exit;
+            //         }
+            //     })
+            // }
             var product = $(this);
             $.ajax({
                 headers:{
@@ -436,11 +535,64 @@
                     '</tr>';
                     $('#tbody').append(row);
                     $('#productSearch').val('');
+                    grandTotal();
                 }
             });
         });
 
         $('#refrenceNumber').val('posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9));
+
+        $(document).on('click', '.svgEdit', function(){
+            $(this).next('span').attr('contentEditable', true).focus();
+        }).blur(function() {
+            $(this).next('span').attr('contentEditable', false);
+        });
+
+        $(document).on('keyup', '#tax, #discount', function(){
+            grandTotal();
+        });
+
+        function grandTotal(){
+            console.log('here');
+            var total = 0;
+            $.each($('#tbody').children(), function(){
+                total += parseInt($(this).children().eq(4).html());
+            });
+            var tax = $('#tax').val() ? total * parseInt($('#tax').val()) / 100 : 0;
+            var discount = $('#discount').val() ? parseInt($('#discount').val()) : 0;
+            total = total + tax - discount;
+            $('#grandTotal').val(total);
+        }
+
+        $(document).on('click', '#cash, #cashClear', function(){
+            $('#recievedAmount').val(0);
+            $('#paymentAmount').val($('#grandTotal').val());
+            $('#change').val(-$('#grandTotal').val());
+        });
+
+        $(document).on('click', '.cash', function(){
+            var recieve = $('#recievedAmount').val() ? parseInt($('#recievedAmount').val()) : parseInt(0);
+            $('#recievedAmount').val(recieve + parseInt($(this).val()));
+            $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+        });
+
+        $(document).on('change', '#recievedAmount', function(){
+            $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+        });
+
+        $(document).on('click', '#submit', function(){
+            var printContent = document.getElementById('print').innerHTML;
+            var windowObject = window.open('', '');
+            windowObject.document.write(printContent);
+            windowObject.document.close();
+            windowObject.focus();
+            windowObject.print();
+            $('').val($('option:selected', this).data('name'));
+        });
+
+        $(document).on('change', '#customer', function(){
+            console.log($('option:selected', this).data('name'));
+        })
     })
 </script>
 @endsection

@@ -74,11 +74,15 @@
 
 <!-- only Number -->
 <script>
-    $('.onlyNumber').on('keypress', function(e) {
+    $(document).on('keypress', '.onlyNumber', function(e) {
         if ($.isNumeric(e.key) == false) {
             e.preventDefault();
         }
-    })
+    });
+
+    $(document).on('change', 'decimals2', function(){
+        $(this).val(Number($(this).val()).toFixed(2));
+    });
 </script>
 
 
