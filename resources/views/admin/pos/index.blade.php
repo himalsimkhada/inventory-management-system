@@ -122,11 +122,11 @@
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <button type="button" class="btn btn-primary" id="cash">
+                        <button type="button" class="btn btn-primary" id="cash" data-toggle="modal" data-target="#cashModal">
                             Cash
                         </button>
-                        <div class="modal fade hide" id="productDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-modal="true" style="padding-right: 3px; display: block;">
-                            <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal fade" id="cashModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Product Details</h5>
