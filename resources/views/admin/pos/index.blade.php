@@ -80,13 +80,9 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-<<<<<<< HEAD
                             <label for="name" class="form-label text-muted">Customer</label>
-=======
-                            <label for="customer" class="form-label text-muted">customer</label>
->>>>>>> 95bb47ad8ac0e8a0682fff72a4f972f4e9261feb
                             <select class="form-control" name="customer" id="customer">
-                                <option selected value="">For Customer</option>
+                                <option selected value="">Select Customer</option>
                                 @foreach ($customer as $value)
                                     <option value="{{ $value->id }}">{{ $value->firstname }} {{ $value->lastname }}</option>
                                 @endforeach
@@ -126,11 +122,11 @@
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <button type="button" class="btn btn-primary" id="cash">
+                        <button type="button" class="btn btn-primary" id="cash" data-toggle="modal" data-target="#cashModal">
                             Cash
                         </button>
-                        <div class="modal fade hide" id="productDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-modal="true" style="padding-right: 3px; display: block;">
-                            <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal fade" id="cashModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Product Details</h5>

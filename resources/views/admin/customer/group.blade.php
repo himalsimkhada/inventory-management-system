@@ -199,10 +199,8 @@
 
             $('#add').on('click', function() {
                 $('#id').val('');
-                $('#category_name').val('');
-                $('#category_code').val('');
-                $('#status').prop('checked', true);
-                $('#errors').html('');
+                $('#name').val('');
+                $('#percentage').val('');
             });
         });
     </script>

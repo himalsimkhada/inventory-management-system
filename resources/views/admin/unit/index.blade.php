@@ -57,7 +57,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                         <div id="hidden-val" hidden>
                             <div class="form-group">
                                 <label for="operator" class="form-label">Operator</label>
