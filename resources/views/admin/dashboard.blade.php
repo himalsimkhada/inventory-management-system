@@ -99,7 +99,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3" class="text-center">
-                                                        {{-- <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" /> --}}
+                                                        <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" />
                                                     </td>
                                                 </tr>
                                             </tbody>

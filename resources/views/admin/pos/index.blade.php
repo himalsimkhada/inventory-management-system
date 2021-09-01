@@ -67,11 +67,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="name" class="form-label text-muted">Refrence Name</label>
-                            <input type="text" id="refrenceName" class="form-control" name="refrenceName" autocomplete="off">
+                            <label for="refrenceNumber" class="form-label text-muted">Refrence Number</label>
+                            <input type="text" id="refrenceNumber" class="form-control" name="refrenceNumber" autocomplete="off">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="name" class="form-label text-muted">Ware House</label>
+                            <label for="wareHouse" class="form-label text-muted">Ware House</label>
                             <select class="form-control" name="wareHouse" id="wareHouse">
                                 <option selected value="">Select Ware House</option>
                                 @foreach ($wareHouse as $value)
@@ -80,7 +80,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="name" class="form-label text-muted">customer</label>
+                            <label for="customer" class="form-label text-muted">customer</label>
                             <select class="form-control" name="customer" id="customer">
                                 <option selected value="">Select Ware House</option>
                                 @foreach ($customer as $value)
@@ -125,6 +125,30 @@
                         <button type="button" class="btn btn-primary" id="cash">
                             Cash
                         </button>
+                        <div class="modal fade hide" id="productDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-modal="true" style="padding-right: 3px; display: block;">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Product Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-5 col-lg-5">
+                                                <div class="card-body">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-7 col-lg-7">
+                                                <div class="card-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -371,6 +395,8 @@
                 }
             });
         });
+
+        $('#refrenceNumber').val('posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9));
     })
 </script>
 @endsection
