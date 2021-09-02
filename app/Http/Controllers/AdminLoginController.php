@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use PDF;
 
 class AdminLoginController extends Controller
 {
@@ -48,14 +49,6 @@ class AdminLoginController extends Controller
         Session::put('admin_page', 'Dashboard');
         return view('admin.dashboard');
     }
-<<<<<<< HEAD
-
-    // public function exportPDF()
-    // {
-    //     $pdf = PDF::lo
-    // }
-=======
->>>>>>> 4ac4d8ffa9bf02a4f9df8eb156ae8350d0d956dd
 
     // Admin Logout
     public function adminLogout()
