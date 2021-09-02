@@ -356,7 +356,7 @@
             } else if (wareHouse == "") {
                 alert('Please, Select Ware House!');
             } else if ($('#tbody tr').length == 0) {
-                alert('Please insert atleast one product');
+                alert('Please select atleast one product');
             } else {
                 $('#cashModal').modal('show');
             }
