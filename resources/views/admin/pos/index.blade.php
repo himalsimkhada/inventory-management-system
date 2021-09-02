@@ -274,7 +274,7 @@
                                                                                         <td class="text-center">Amount:
                                                                                             584.00</td>
                                                                                         <td class="text-right">Change:
-                                                                                            416.00</td>
+                                                                                            <span id="print_change"></span></td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td colspan="3"
@@ -592,7 +592,7 @@
                     $('#refrenceBarcode').html('<img src="data:image/png;base64,' + response.barcode + '" />');
                     $('#refrenceQR').html('<img src="data:image/png;base64,' + response.QR + '" />');
                 }
-            });           
+            });
 
 
             $('#refrenceNumber').val(reference_num);
@@ -620,10 +620,11 @@
                 $('#tbody > tr').each(function(i, o) {
                     var self = $(this);
                     var name =  self.find("td:eq(0)").text();
-                    var price = self.find("td:eq(3)").text();
+                    var price = self.find("td:eq(4)").text();
+                    var quantity = self.find("td:eq(2)").children().val();
 
                     var row = '<tr>';
-                        row += '<td colspan="2" class="text-left">' + name + '</td>';
+                        row += '<td colspan="2" class="text-left">' + name + '(X' + quantity + ')</td>';
                         row += '<td class="text-right">' + price + '</td>';
                         row += '</tr>';
 
@@ -643,7 +644,6 @@
             });
 
             function grandTotal() {
-                console.log('here');
                 var total = 0;
                 $.each($('#tbody').children(), function() {
                     total += parseInt($(this).children().eq(4).html());
@@ -667,6 +667,8 @@
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+
+                $('#print_change').html(parseInt($('#change').val()) + parseInt($(this).val()));
             });
 
             $(document).on('change', '#recievedAmount', function() {
