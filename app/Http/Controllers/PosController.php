@@ -12,6 +12,8 @@ use App\Models\Product;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use DNS1D;
+use DNS2D;
 
 class PosController extends Controller {
     public function index() {
@@ -89,6 +91,14 @@ class PosController extends Controller {
             $items->save();
 
             //end foreach
+        }
+    }
+
+    public function barcode(Request $request){
+        if ($request->isMethod('post')) {
+            $response['barcode'] = DNS1D::getBarcodePNG($request->input('refrenceNumber'), "C39+", 1, 33);
+            $response['QR'] = DNS2D::getBarcodePNG($request->input('refrenceNumber'), 'PDF417');
+            return response()->json($response);
         }
     }
 }

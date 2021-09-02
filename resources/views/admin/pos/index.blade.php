@@ -222,8 +222,6 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div id="print">
-                                                        <link rel="stylesheet"
-                                                            href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -285,18 +283,10 @@
                                                                                             Come Again</td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3"
-                                                                                            class="text-center">
-                                                                                            <img
-                                                                                                src="data:image/png;base64,{{ DNS1D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'C39+', 1, 33) }}" />
-                                                                                        </td>
+                                                                                        <td colspan="3" class="text-center" id="refrenceBarcode"></td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3"
-                                                                                            class="text-center">
-                                                                                            <img
-                                                                                                src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" />
-                                                                                        </td>
+                                                                                        <td colspan="3" class="text-center" id="refrenceQR"></td>
                                                                                     </tr>
                                                                                 </tfoot>
                                                                             </table>
@@ -586,8 +576,24 @@
                 });
             });
 
-            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1)
-                .toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9);
+            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9);
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ route('pos.barcode') }}',
+                dataType: 'json',
+                method: 'post',
+                data: {
+                    refrenceNumber: reference_num
+                },
+                success: function(response) {
+                    $('#refrenceBarcode').html('<img src="data:image/png;base64,' + response.barcode + '" />');
+                    $('#refrenceQR').html('<img src="data:image/png;base64,' + response.QR + '" />');
+                }
+            });           
+
 
             $('#refrenceNumber').val(reference_num);
 
@@ -670,6 +676,7 @@
             $(document).on('click', '#submit', function() {
                 var printContent = document.getElementById('print').innerHTML;
                 var windowObject = window.open('', '');
+                windowObject.document.write('<link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">');
                 windowObject.document.write(printContent);
                 windowObject.document.close();
                 windowObject.focus();
