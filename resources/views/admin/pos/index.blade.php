@@ -221,7 +221,9 @@
                                                     </button>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <div id="print">
+                                                    <div id="print" hidden>
+                                                        <link rel="stylesheet"
+                                                            href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -274,7 +276,8 @@
                                                                                         <td class="text-center">Amount:
                                                                                             584.00</td>
                                                                                         <td class="text-right">Change:
-                                                                                            <span id="print_change"></span></td>
+                                                                                            <span id="print_change"></span>
+                                                                                        </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td colspan="3"
@@ -283,10 +286,14 @@
                                                                                             Come Again</td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3" class="text-center" id="refrenceBarcode"></td>
+                                                                                        <td colspan="3"
+                                                                                            class="text-center"
+                                                                                            id="refrenceBarcode"></td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3" class="text-center" id="refrenceQR"></td>
+                                                                                        <td colspan="3"
+                                                                                            class="text-center"
+                                                                                            id="refrenceQR"></td>
                                                                                     </tr>
                                                                                 </tfoot>
                                                                             </table>
@@ -576,7 +583,8 @@
                 });
             });
 
-            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9);
+            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1)
+                .toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9);
 
             $.ajax({
                 headers: {
@@ -589,7 +597,8 @@
                     refrenceNumber: reference_num
                 },
                 success: function(response) {
-                    $('#refrenceBarcode').html('<img src="data:image/png;base64,' + response.barcode + '" />');
+                    $('#refrenceBarcode').html('<img src="data:image/png;base64,' + response.barcode +
+                        '" />');
                     $('#refrenceQR').html('<img src="data:image/png;base64,' + response.QR + '" />');
                 }
             });
@@ -619,16 +628,16 @@
                 $('#print_tbody').html('');
                 $('#tbody > tr').each(function(i, o) {
                     var self = $(this);
-                    var name =  self.find("td:eq(0)").text();
+                    var name = self.find("td:eq(0)").text();
                     var price = self.find("td:eq(4)").text();
                     var quantity = self.find("td:eq(2)").children().val();
 
                     var row = '<tr>';
-                        row += '<td colspan="2" class="text-left">' + name + '(X' + quantity + ')</td>';
-                        row += '<td class="text-right">' + price + '</td>';
-                        row += '</tr>';
+                    row += '<td colspan="2" class="text-left">' + name + '(X' + quantity + ')</td>';
+                    row += '<td class="text-right">' + price + '</td>';
+                    row += '</tr>';
 
-                        console.log(row);
+                    console.log(row);
                     $('#print_tbody').append(row);
                 });
             });
@@ -678,7 +687,6 @@
             $(document).on('click', '#submit', function() {
                 var printContent = document.getElementById('print').innerHTML;
                 var windowObject = window.open('', '');
-                windowObject.document.write('<link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">');
                 windowObject.document.write(printContent);
                 windowObject.document.close();
                 windowObject.focus();
