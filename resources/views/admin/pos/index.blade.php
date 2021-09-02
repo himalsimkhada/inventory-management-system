@@ -250,27 +250,7 @@
                                                                                         </th>
                                                                                     </tr>
                                                                                 </thead>
-                                                                                <tbody>
-                                                                                    <tr>
-                                                                                        <td colspan="2"
-                                                                                            class="text-left">
-                                                                                            product name <br />
-                                                                                            1 X 144.00
-                                                                                        </td>
-                                                                                        <td class="text-right">
-                                                                                            144.00
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="2"
-                                                                                            class="text-left">
-                                                                                            product name <br />
-                                                                                            1 X 440.00 [Tax (10%): 40]
-                                                                                        </td>
-                                                                                        <td class="text-right">
-                                                                                            440.00
-                                                                                        </td>
-                                                                                    </tr>
+                                                                                <tbody id="print_tbody">
                                                                                 </tbody>
                                                                                 <tfoot>
                                                                                     <tr>
@@ -278,7 +258,7 @@
                                                                                             class="text-left">Total
                                                                                         </th>
                                                                                         <th class="text-right"
-                                                                                            id="total">
+                                                                                            id="total_print">
                                                                                         </th>
                                                                                     </tr>
                                                                                     <tr>
@@ -294,7 +274,7 @@
                                                                                         <td class="text-center">Amount:
                                                                                             584.00</td>
                                                                                         <td class="text-right">Change:
-                                                                                            416.00</td>
+                                                                                            <span id="print_change"></span></td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td colspan="3"
@@ -303,18 +283,10 @@
                                                                                             Come Again</td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3"
-                                                                                            class="text-center">
-                                                                                            <img
-                                                                                                src="data:image/png;base64,{{ DNS1D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'C39+', 1, 33) }}" />
-                                                                                        </td>
+                                                                                        <td colspan="3" class="text-center" id="refrenceBarcode"></td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3"
-                                                                                            class="text-center">
-                                                                                            <img
-                                                                                                src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" />
-                                                                                        </td>
+                                                                                        <td colspan="3" class="text-center" id="refrenceQR"></td>
                                                                                     </tr>
                                                                                 </tfoot>
                                                                             </table>
@@ -593,17 +565,17 @@
                         var row = '<tr id="' + product.data('id') + '">' +
                             '<td>' + product.children('div').children('p').html() + '<br />(' +
                             product.data('code') + ')</td>' +
-                            '<td>' +
+                            '<td class="not_req">' +
                             '<select class="form-control sku" name="sku" required>' +
                             option +
                             '</select>' +
                             '</td>' +
-                            '<td>' +
+                            '<td class="not_req">' +
                             '<input class="form-control quantity" type="number" name="quantity" value="1" min="1" max="5">' +
                             '</td>' +
+                            '<td class="not_req">' + product.data('price') + '</td>' +
                             '<td>' + product.data('price') + '</td>' +
-                            '<td>' + product.data('price') + '</td>' +
-                            '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
+                            '<td class="not_req"><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
                             '</tr>';
                         $('#tbody').append(row);
                         $('#productSearch').val('');
@@ -612,8 +584,24 @@
                 });
             });
 
-            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1)
-                .toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9);
+            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9);
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ route('pos.barcode') }}',
+                dataType: 'json',
+                method: 'post',
+                data: {
+                    refrenceNumber: reference_num
+                },
+                success: function(response) {
+                    $('#refrenceBarcode').html('<img src="data:image/png;base64,' + response.barcode + '" />');
+                    $('#refrenceQR').html('<img src="data:image/png;base64,' + response.QR + '" />');
+                }
+            });
+
 
             $('#refrenceNumber').val(reference_num);
 
@@ -636,9 +624,21 @@
             // }
 
             $(document).on('click', '#cash', function() {
-                $('#tbody').children().each(function(i, o) {
-                    console.log(o);
-                })
+                $('#print_tbody').html('');
+                $('#tbody > tr').each(function(i, o) {
+                    var self = $(this);
+                    var name =  self.find("td:eq(0)").text();
+                    var price = self.find("td:eq(4)").text();
+                    var quantity = self.find("td:eq(2)").children().val();
+
+                    var row = '<tr>';
+                        row += '<td colspan="2" class="text-left">' + name + '(X' + quantity + ')</td>';
+                        row += '<td class="text-right">' + price + '</td>';
+                        row += '</tr>';
+
+                        console.log(row);
+                    $('#print_tbody').append(row);
+                });
             });
 
             $(document).on('click', '.svgEdit', function() {
@@ -652,7 +652,10 @@
             });
 
             function grandTotal() {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 39e29034e0a37c1ac461dbed12445b7407652f41
                 var total = 0;
                 $.each($('#tbody').children(), function() {
                     total += parseInt($(this).children().eq(4).html());
@@ -661,6 +664,8 @@
                 var discount = $('#discount').val() ? parseInt($('#discount').val()) : 0;
                 total = total + tax - discount;
                 $('#grandTotal').val(total);
+
+                $('#total_print').html(total);
             }
 
             $(document).on('click', '#cash, #cashClear', function() {
@@ -674,6 +679,8 @@
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+
+                $('#print_change').html(parseInt($('#change').val()) + parseInt($(this).val()));
             });
 
             $(document).on('change', '#recievedAmount', function() {
