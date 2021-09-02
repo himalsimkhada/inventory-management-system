@@ -652,10 +652,6 @@
             });
 
             function grandTotal() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 39e29034e0a37c1ac461dbed12445b7407652f41
                 var total = 0;
                 $.each($('#tbody').children(), function() {
                     total += parseInt($(this).children().eq(4).html());
