@@ -220,7 +220,7 @@
                                                         Submit
                                                     </button>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-md-12" hidden>
                                                     <div id="print">
                                                         <div class="card">
                                                             <div class="card-body">
