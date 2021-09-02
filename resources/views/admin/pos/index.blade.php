@@ -220,10 +220,8 @@
                                                         Submit
                                                     </button>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <div id="print" hidden>
-                                                        <link rel="stylesheet"
-                                                            href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">
+                                                <div class="col-md-12" hidden>
+                                                    <div id="print">
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -687,6 +685,7 @@
             $(document).on('click', '#submit', function() {
                 var printContent = document.getElementById('print').innerHTML;
                 var windowObject = window.open('', '');
+                windowObject.document.write('<link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">');
                 windowObject.document.write(printContent);
                 windowObject.document.close();
                 windowObject.focus();
