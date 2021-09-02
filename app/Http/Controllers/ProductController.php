@@ -119,7 +119,7 @@ class ProductController extends Controller {
             $rule = [
                 'name' => 'required|max:255',
                 'code' => 'required|max:255',
-                'image' => 'mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ];
             $customMessage = [
                 'name.required' => 'Please Enter Product Name.',
