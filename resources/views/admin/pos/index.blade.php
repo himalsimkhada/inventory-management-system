@@ -2,7 +2,7 @@
 
 @section('content')
     <style>
-        .searchBox{
+        .searchBox {
             min-width: 10rem;
             padding: .5rem;
             margin: .125rem 0 0;
@@ -12,11 +12,12 @@
             z-index: 1000;
             background-color: #fff;
             color: #324253;
-            border: 1px solid rgba(0,0,0,.15);
+            border: 1px solid rgba(0, 0, 0, .15);
             border-radius: 5px;
             word-wrap: normal;
         }
-        .searchResult{
+
+        .searchResult {
             display: block;
             width: 100%;
             padding: .5rem 1rem;
@@ -27,24 +28,28 @@
             background-color: transparent;
             border: 0;
         }
-        .searchResult:hover{
+
+        .searchResult:hover {
             background-color: #f8f9fa;
             border-radius: 5px;
             color: #212529;
         }
-        .barcodePreview{
+
+        .barcodePreview {
             padding: 1.3rem;
             /* border: 1px solid rgba(0,0,0,.15); */
             /* border-radius: 5px; */
             /* width: auto; */
         }
-        #barcodeTable td{
+
+        #barcodeTable td {
             text-align: center;
         }
 
         .cursor {
             cursor: pointer;
         }
+
     </style>
     <div class="row">
         <div class="col-lg-12">
@@ -68,7 +73,8 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="refrenceNumber" class="form-label text-muted">Refrence Number</label>
-                            <input type="text" id="refrenceNumber" class="form-control" name="refrenceNumber" autocomplete="off">
+                            <input type="text" id="refrenceNumber" class="form-control" name="refrenceNumber"
+                                autocomplete="off">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="wareHouse" class="form-label text-muted">Ware House</label>
@@ -84,7 +90,9 @@
                             <select class="form-control" name="customer" id="customer">
                                 <option selected value="">Select Customer</option>
                                 @foreach ($customer as $value)
-                                    <option value="{{ $value->id }}" data-name="{{ $value->firstname }} {{ $value->lastname }}">{{ $value->firstname }} {{ $value->lastname }}</option>
+                                    <option value="{{ $value->id }}"
+                                        data-name="{{ $value->firstname }} {{ $value->lastname }}">
+                                        {{ $value->firstname }} {{ $value->lastname }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -96,7 +104,8 @@
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <table class="table" style="height: 300px; overflow: hidden; overflow-y: scroll; display:block;">
+                        <table class="table"
+                            style="height: 300px; overflow: hidden; overflow-y: scroll; display:block;">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -116,33 +125,40 @@
                             <tr>
                                 <td>
                                     <label for="itemTotal" class="form-label font-weight-bold">Items: </label>
-                                    <input type="text" id="itemTotal" class="form-control font-weight-bold" name="itemTotal" autocomplete="off" readonly>
+                                    <input type="text" id="itemTotal" class="form-control font-weight-bold" name="itemTotal"
+                                        autocomplete="off" readonly>
                                 </td>
                                 <td>
                                     <label for="tax" class="form-label font-weight-bold">Tax: </label>
-                                    <input type="text" id="tax" class="form-control font-weight-bold onlyNumber" name="tax" autocomplete="off" value="0">
+                                    <input type="text" id="tax" class="form-control font-weight-bold onlyNumber" name="tax"
+                                        autocomplete="off" value="0">
                                 </td>
                                 <td>
                                     <label for="discount" class="form-label font-weight-bold">Discount: </label>
-                                    <input type="text" id="discount" class="form-control font-weight-bold onlyNumber" name="discount" autocomplete="off" value="0">
+                                    <input type="text" id="discount" class="form-control font-weight-bold onlyNumber"
+                                        name="discount" autocomplete="off" value="0">
                                 </td>
                                 <td>
                                     <label for="grandTotal" class="form-label font-weight-bold">Total: </label>
-                                    <input type="text" id="grandTotal" class="form-control font-weight-bold onlyNumber" name="grandTotal" autocomplete="off" readonly>
+                                    <input type="text" id="grandTotal" class="form-control font-weight-bold onlyNumber"
+                                        name="grandTotal" autocomplete="off" readonly>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <button type="button" class="btn btn-primary" id="cash" data-toggle="modal" data-target="#cashModal">
+                        <button type="button" class="btn btn-primary" id="cash" data-toggle="modal"
+                            data-target="#cashModal">
                             Cash
                         </button>
-                        <div class="modal fade show" id="cashModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal fade show" id="cashModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                             <div class="modal-dialog modal-xl" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Cash</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
@@ -150,18 +166,23 @@
                                         <div class="row">
                                             <div class="col-lg-5">
                                                 <div class="col-md-12 mb-3">
-                                                    <label for="recievedAmount" class="form-label text-muted">Recieved Amount</label>
-                                                    <input type="text" id="recievedAmount" class="form-control" name="recievedAmount" autocomplete="off">
+                                                    <label for="recievedAmount" class="form-label text-muted">Recieved
+                                                        Amount</label>
+                                                    <input type="text" id="recievedAmount" class="form-control"
+                                                        name="recievedAmount" autocomplete="off">
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="change" class="form-label text-muted">Change</label>
-                                                    <input type="text" id="change" class="form-control" name="change" autocomplete="off" readonly>
+                                                    <input type="text" id="change" class="form-control" name="change"
+                                                        autocomplete="off" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-lg-5">
                                                 <div class="col-md-12 mb-3">
-                                                    <label for="paymentAmount" class="form-label text-muted">Payment Amount</label>
-                                                    <input type="text" id="paymentAmount" class="form-control" name="paymentAmount" autocomplete="off" readonly>
+                                                    <label for="paymentAmount" class="form-label text-muted">Payment
+                                                        Amount</label>
+                                                    <input type="text" id="paymentAmount" class="form-control"
+                                                        name="paymentAmount" autocomplete="off" readonly>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="paidBy" class="form-label text-muted">Paid By</label>
@@ -201,7 +222,8 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div id="print">
-                                                        <link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css' ) }} ">
+                                                        <link rel="stylesheet"
+                                                            href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -209,26 +231,31 @@
                                                                     <div class="col-md-8">
                                                                         <div class="text-center">
                                                                             <p>
-                                                                                <img src="https://www.techcoderznepal.com/public/storage/static/logo.png" height="50px" />
+                                                                                <img src="https://www.techcoderznepal.com/public/storage/static/logo.png"
+                                                                                    height="50px" />
                                                                             </p>
                                                                             <p>Address: Tinkunem Kathmandu</p>
                                                                             <p>Phone: 987456321</p>
                                                                         </div>
                                                                         <div>
-                                                                            <p>Date: {{ date("Y-m-d"); }}</p>
+                                                                            <p>Date: {{ date('Y-m-d') }}</p>
                                                                             <p>Reference: <span id="pRefrence"></span></p>
                                                                             <p>Customer: <span id="pCustomer"></span></p>
                                                                             <br />
                                                                             <table class="table table-borderless">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th colspan="2" class="text-left">Product</th>
-                                                                                        <th class="text-right">Price</th>
+                                                                                        <th colspan="2"
+                                                                                            class="text-left">Product
+                                                                                        </th>
+                                                                                        <th class="text-right">Price
+                                                                                        </th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <td colspan="2" class="text-left">
+                                                                                        <td colspan="2"
+                                                                                            class="text-left">
                                                                                             product name <br />
                                                                                             1 X 144.00
                                                                                         </td>
@@ -237,7 +264,8 @@
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="2" class="text-left">
+                                                                                        <td colspan="2"
+                                                                                            class="text-left">
                                                                                             product name <br />
                                                                                             1 X 440.00 [Tax (10%): 40]
                                                                                         </td>
@@ -246,30 +274,45 @@
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <th colspan="2" class="text-left">Total</th>
-                                                                                        <th class="text-right">584.00</th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th colspan="3" class="text-center">
-                                                                                            In Words: Five Hundred Eighty Four
+                                                                                        <th colspan="2"
+                                                                                            class="text-left">Total
+                                                                                        </th>
+                                                                                        <th class="text-right">584.00
                                                                                         </th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td class="text-left">Paid By: Cash</td>
-                                                                                        <td class="text-center">Amount: 584.00</td>
-                                                                                        <td class="text-right">Change: 416.00</td>
+                                                                                        <th colspan="3"
+                                                                                            class="text-center">
+                                                                                            In Words: Five Hundred Eighty
+                                                                                            Four
+                                                                                        </th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3" class="text-center">Thank You For Shopping With Us. Please Come Again</td>
+                                                                                        <td class="text-left">Paid By:
+                                                                                            Cash</td>
+                                                                                        <td class="text-center">Amount:
+                                                                                            584.00</td>
+                                                                                        <td class="text-right">Change:
+                                                                                            416.00</td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3" class="text-center">
-                                                                                            <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'C39+',1,33) }}" />
+                                                                                        <td colspan="3"
+                                                                                            class="text-center">Thank You
+                                                                                            For Shopping With Us. Please
+                                                                                            Come Again</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="3"
+                                                                                            class="text-center">
+                                                                                            <img
+                                                                                                src="data:image/png;base64,{{ DNS1D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'C39+', 1, 33) }}" />
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td colspan="3" class="text-center">
-                                                                                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" />
+                                                                                        <td colspan="3"
+                                                                                            class="text-center">
+                                                                                            <img
+                                                                                                src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" />
                                                                                         </td>
                                                                                     </tr>
                                                                                 </tbody>
@@ -314,7 +357,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <ul class="list-unstyled p-0 m-0 row" id="productList" style="overflow: hidden; overflow-y:scroll;">
+                        <ul class="list-unstyled p-0 m-0 row" id="productList"
+                            style="overflow: hidden; overflow-y:scroll;">
                         </ul>
                     </div>
                 </div>
@@ -324,275 +368,296 @@
 @endsection
 
 @section('js')
-<script>
-    $(document).ready(function(){
-        $(document).on('keyup', '#productSearch', function(e){
-            var name = $(this).val();
-            $.ajax({
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '{{ route('product.search') }}',
-                dataType: 'json',
-                method: 'post',
-                data: {
-                    name: name
-                },
-                success: function(response) {
-                    if(response.length > 0){
-                        $('#searchBox').html('');
-                        var results = '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
-                        $.each(response, function(i, e){
-                            results += '<a class="searchResult dismiss" data-id="' + e.id + '" data-code="' + e.code + '" data-price="' + e.price + '" data-sku="' + e.sku + '">' + e.name + '</a>';
-                        });
-                        $('#searchBox').html(results);
-                        $('#searchBox').prop('hidden', false);
-                        if(e.key === "Escape"){
+    <script>
+        $(document).ready(function() {
+            $(document).on('keyup', '#productSearch', function(e) {
+                var name = $(this).val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '{{ route('product.search') }}',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        name: name
+                    },
+                    success: function(response) {
+                        if (response.length > 0) {
+                            $('#searchBox').html('');
+                            var results =
+                                '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
+                            $.each(response, function(i, e) {
+                                results += '<a class="searchResult dismiss" data-id="' +
+                                    e.id + '" data-code="' + e.code + '" data-price="' +
+                                    e.price + '" data-sku="' + e.sku + '">' + e.name +
+                                    '</a>';
+                            });
+                            $('#searchBox').html(results);
+                            $('#searchBox').prop('hidden', false);
+                            if (e.key === "Escape") {
+                                $('#searchBox').prop('hidden', true);
+                            }
+                        } else {
+                            $('#searchBox').html('');
                             $('#searchBox').prop('hidden', true);
                         }
-                    }else{
-                        $('#searchBox').html('');
-                        $('#searchBox').prop('hidden', true);
+                    },
+                    error: function(error) {
+                        console.log(error);
                     }
-                },
-                error: function(error){
-                    console.log(error);
-                }
-            })
+                })
 
-        });
-
-        // var rowBefore;
-        $(document).on('click', '.searchResult', function(){
-            // rowBefore = $('#tbody').children();
-            // if(rowBefore){
-            //     $.each(rowBefore, function(){
-            //         if($(this).children().eq(2).children().val() == ''){
-            //             $(this).children().eq(2).children().focus();
-            //             alert('Select the SKU of previous product');
-            //             exit;
-            //         }
-            //     })
-            // }
-            var product = $(this);
-            $.ajax({
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '{{ route('product.sku.search') }}',
-                dataType: 'json',
-                method: 'post',
-                data: {
-                    id: product.data('id')
-                },
-                success: function(response) {
-                    var option = '<option value="">Select</option>';
-                    $.each(response, function(){
-                        option += '<option value="' + this.id + '" data-quantity="' + this.quantity + '">' + this.sku + '(' + this.size + '/ ' + this.color + ')</option>';
-                    });
-                    var row = '<tr id="' + product.data('id') + '">' +
-                        '<td>' + product.html() + '<br />(' + product.data('code') + ')</td>' +
-                        '<td>' +
-                            '<select class="form-control sku" name="sku" required>' +
-                                option +
-                            '</select>' +
-                        '</td>' +
-                        '<td>' +
-                            '<input class="form-control quantity" type="number" name="quantity" value="1" min="1" max="5">' +
-                        '</td>' +
-                        '<td>' + product.data('price') +'</td>' +
-                        '<td>' + product.data('price') +'</td>' +
-                        '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
-                    '</tr>';
-                    $('#tbody').append(row);
-                    $('#productSearch').val('');
-                    grandTotal();
-                }
             });
-        });
 
-        $(document).on('click', '.minus', function(){
-            $(this).parent().parent().remove();
-            grandTotal();
-        });
-
-        $(document).on('change', '.quantity', function(){
-            var quantity = $(this).val();
-            var thisPrice = $(this).parent().next().html();
-            var total = parseInt(quantity) * parseInt(thisPrice);
-            var thisTotal = $(this).parent().next().next().html(total);
-            grandTotal();
-        });
-
-        $(document).on('click', '.dismiss', function(){
-            $('#searchBox').prop('hidden', true);
-        });
-
-        $(document).on('change', '.sku', function(){
-            var currentSku = $(this);
-            var quantity = $(this).find('option:selected').data('quantity');
-            $(this).closest('td').next('td').find('input[type="number"]').val(1);
-            $(this).closest('td').next('td').find('input[type="number"]').prop('max', quantity);
-            $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td').next('td').html());
-            var sku = $(this).val();
-            grandTotal();
-        });
-
-        $(document).on('change', '.quantity', function(){
-            var sku = $(this).closest('td').prev('td').find('select').val();
-            if(sku == ''){
-                $(this).closest('td').prev('td').find('select').focus();
-                alert('Please select SKU');
-                $(this).val(1);
-            }
-            grandTotal();
-        });
-
-        $(document).on('change', '#category, #brand', function(){
-            var id = $(this).val();
-            var url;
-            if($(this).attr('id') == 'category'){
-                url = '{{ route('pos.category.get') }}';
-                $('#brand').val('');
-            }else{
-                url = '{{ route('pos.brand.get') }}';
-                $('#category').val('');
-            }
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: url,
-                dataType: 'json',
-                method: 'post',
-                data: {
-                    id: id
-                },
-                success: function(response) {
-                    if(response){
-                        var li = '';
-                        $.each(response, function(){
-                            var image;
-                            if(this.image == ''){
-                                var image = '<img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="no-image" height="100px">';
-                            }else{
-                                var image = '<img src="{{ asset('public/uploads/product') }}/' + this.image + '" class="img-thumbnail w-100 img-fluid rounded" alt="' + this.name + '" height="100px">';
-                            }
-                            li += '<li class="col-lg-4 col-md-6 col-sm-6 mt-2 cursor dropSearchProduct" data-id="' + this.id + '" data-code="' + this.code + '" data-price="' + this.price + '">' + image +
-                                '<div class="text-center">' +
-                                    '<p class="form-label text-muted text-center">' +
-                                        this.name +
-                                    '</p>' +
-                                '</div>' +
-                            '</li>';
+            // var rowBefore;
+            $(document).on('click', '.searchResult', function() {
+                // rowBefore = $('#tbody').children();
+                // if(rowBefore){
+                //     $.each(rowBefore, function(){
+                //         if($(this).children().eq(2).children().val() == ''){
+                //             $(this).children().eq(2).children().focus();
+                //             alert('Select the SKU of previous product');
+                //             exit;
+                //         }
+                //     })
+                // }
+                var product = $(this);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '{{ route('product.sku.search') }}',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        id: product.data('id')
+                    },
+                    success: function(response) {
+                        var option = '<option value="">Select</option>';
+                        $.each(response, function() {
+                            option += '<option value="' + this.id +
+                                '" data-quantity="' + this.quantity + '">' + this.sku +
+                                '(' + this.size + '/ ' + this.color + ')</option>';
                         });
-                        $('#productList').html(li);
-                    }
-                }
-            })
-        });
-
-        $(document).on('click', '.dropSearchProduct', function(){
-            // rowBefore = $('#tbody').children();
-            // if(rowBefore){
-            //     $.each(rowBefore, function(){
-            //         if($(this).children().eq(2).children().val() == ''){
-            //             $(this).children().eq(2).children().focus();
-            //             alert('Select the SKU of previous product');
-            //             exit;
-            //         }
-            //     })
-            // }
-            var product = $(this);
-            $.ajax({
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '{{ route('product.sku.search') }}',
-                dataType: 'json',
-                method: 'post',
-                data: {
-                    id: product.data('id')
-                },
-                success: function(response){
-                    var option = '<option value="">Select</option>';
-                    $.each(response, function(){
-                        option += '<option value="' + this.id + '" data-quantity="' + this.quantity + '">' + this.sku + '(' + this.size + '/ ' + this.color + ')</option>';
-                    });
-                    var row = '<tr id="' + product.data('id') + '">' +
-                        '<td>' + product.children('div').children('p').html() + '<br />(' + product.data('code') + ')</td>' +
-                        '<td>' +
+                        var row = '<tr id="' + product.data('id') + '">' +
+                            '<td>' + product.html() + '<br />(' + product.data('code') +
+                            ')</td>' +
+                            '<td>' +
                             '<select class="form-control sku" name="sku" required>' +
-                                option +
+                            option +
                             '</select>' +
-                        '</td>' +
-                        '<td>' +
+                            '</td>' +
+                            '<td>' +
                             '<input class="form-control quantity" type="number" name="quantity" value="1" min="1" max="5">' +
-                        '</td>' +
-                        '<td>' + product.data('price') +'</td>' +
-                        '<td>' + product.data('price') +'</td>' +
-                        '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
-                    '</tr>';
-                    $('#tbody').append(row);
-                    $('#productSearch').val('');
-                    grandTotal();
+                            '</td>' +
+                            '<td>' + product.data('price') + '</td>' +
+                            '<td>' + product.data('price') + '</td>' +
+                            '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
+                            '</tr>';
+                        $('#tbody').append(row);
+                        $('#productSearch').val('');
+                        grandTotal();
+                    }
+                });
+            });
+
+            $(document).on('click', '.minus', function() {
+                $(this).parent().parent().remove();
+                grandTotal();
+            });
+
+            $(document).on('change', '.quantity', function() {
+                var quantity = $(this).val();
+                var thisPrice = $(this).parent().next().html();
+                var total = parseInt(quantity) * parseInt(thisPrice);
+                var thisTotal = $(this).parent().next().next().html(total);
+                grandTotal();
+            });
+
+            $(document).on('click', '.dismiss', function() {
+                $('#searchBox').prop('hidden', true);
+            });
+
+            $(document).on('change', '.sku', function() {
+                var currentSku = $(this);
+                var quantity = $(this).find('option:selected').data('quantity');
+                $(this).closest('td').next('td').find('input[type="number"]').val(1);
+                $(this).closest('td').next('td').find('input[type="number"]').prop('max', quantity);
+                $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td')
+                    .next('td').html());
+                var sku = $(this).val();
+                grandTotal();
+            });
+
+            $(document).on('change', '.quantity', function() {
+                var sku = $(this).closest('td').prev('td').find('select').val();
+                if (sku == '') {
+                    $(this).closest('td').prev('td').find('select').focus();
+                    alert('Please select SKU');
+                    $(this).val(1);
                 }
+                grandTotal();
             });
-        });
 
-        $('#refrenceNumber').val('posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9));
-
-        $(document).on('click', '.svgEdit', function(){
-            $(this).next('span').attr('contentEditable', true).focus();
-        }).blur(function() {
-            $(this).next('span').attr('contentEditable', false);
-        });
-
-        $(document).on('keyup', '#tax, #discount', function(){
-            grandTotal();
-        });
-
-        function grandTotal(){
-            console.log('here');
-            var total = 0;
-            $.each($('#tbody').children(), function(){
-                total += parseInt($(this).children().eq(4).html());
+            $(document).on('change', '#category, #brand', function() {
+                var id = $(this).val();
+                var url;
+                if ($(this).attr('id') == 'category') {
+                    url = '{{ route('pos.category.get') }}';
+                    $('#brand').val('');
+                } else {
+                    url = '{{ route('pos.brand.get') }}';
+                    $('#category').val('');
+                }
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        if (response) {
+                            var li = '';
+                            $.each(response, function() {
+                                var image;
+                                if (this.image == '') {
+                                    var image =
+                                        '<img src="{{ asset('public/uploads/no-image.jpg') }}" class="img-thumbnail w-100 img-fluid rounded" alt="no-image" height="100px">';
+                                } else {
+                                    var image =
+                                        '<img src="{{ asset('public/uploads/product') }}/' +
+                                        this.image +
+                                        '" class="img-thumbnail w-100 img-fluid rounded" alt="' +
+                                        this.name + '" height="100px">';
+                                }
+                                li +=
+                                    '<li class="col-lg-4 col-md-6 col-sm-6 mt-2 cursor dropSearchProduct" data-id="' +
+                                    this.id + '" data-code="' + this.code +
+                                    '" data-price="' + this.price + '">' + image +
+                                    '<div class="text-center">' +
+                                    '<p class="form-label text-muted text-center">' +
+                                    this.name +
+                                    '</p>' +
+                                    '</div>' +
+                                    '</li>';
+                            });
+                            $('#productList').html(li);
+                        }
+                    }
+                })
             });
-            var tax = $('#tax').val() ? total * parseInt($('#tax').val()) / 100 : 0;
-            var discount = $('#discount').val() ? parseInt($('#discount').val()) : 0;
-            total = total + tax - discount;
-            $('#grandTotal').val(total);
-        }
 
-        $(document).on('click', '#cash, #cashClear', function(){
-            $('#recievedAmount').val(0);
-            $('#paymentAmount').val($('#grandTotal').val());
-            $('#change').val(-$('#grandTotal').val());
-        });
+            $(document).on('click', '.dropSearchProduct', function() {
+                // rowBefore = $('#tbody').children();
+                // if(rowBefore){
+                //     $.each(rowBefore, function(){
+                //         if($(this).children().eq(2).children().val() == ''){
+                //             $(this).children().eq(2).children().focus();
+                //             alert('Select the SKU of previous product');
+                //             exit;
+                //         }
+                //     })
+                // }
+                var product = $(this);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '{{ route('product.sku.search') }}',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        id: product.data('id')
+                    },
+                    success: function(response) {
+                        var option = '<option value="">Select</option>';
+                        $.each(response, function() {
+                            option += '<option value="' + this.id +
+                                '" data-quantity="' + this.quantity + '">' + this.sku +
+                                '(' + this.size + '/ ' + this.color + ')</option>';
+                        });
+                        var row = '<tr id="' + product.data('id') + '">' +
+                            '<td>' + product.children('div').children('p').html() + '<br />(' +
+                            product.data('code') + ')</td>' +
+                            '<td>' +
+                            '<select class="form-control sku" name="sku" required>' +
+                            option +
+                            '</select>' +
+                            '</td>' +
+                            '<td>' +
+                            '<input class="form-control quantity" type="number" name="quantity" value="1" min="1" max="5">' +
+                            '</td>' +
+                            '<td>' + product.data('price') + '</td>' +
+                            '<td>' + product.data('price') + '</td>' +
+                            '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
+                            '</tr>';
+                        $('#tbody').append(row);
+                        $('#productSearch').val('');
+                        grandTotal();
+                    }
+                });
+            });
 
-        $(document).on('click', '.cash', function(){
-            var recieve = $('#recievedAmount').val() ? parseInt($('#recievedAmount').val()) : parseInt(0);
-            $('#recievedAmount').val(recieve + parseInt($(this).val()));
-            $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
-        });
+            $('#refrenceNumber').val('posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1)
+                .toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9));
 
-        $(document).on('change', '#recievedAmount', function(){
-            $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
-        });
+            $(document).on('click', '.svgEdit', function() {
+                $(this).next('span').attr('contentEditable', true).focus();
+            }).blur(function() {
+                $(this).next('span').attr('contentEditable', false);
+            });
 
-        $(document).on('click', '#submit', function(){
-            var printContent = document.getElementById('print').innerHTML;
-            var windowObject = window.open('', '');
-            windowObject.document.write(printContent);
-            windowObject.document.close();
-            windowObject.focus();
-            windowObject.print();
-            $('').val($('option:selected', this).data('name'));
-        });
+            $(document).on('keyup', '#tax, #discount', function() {
+                grandTotal();
+            });
 
-        $(document).on('change', '#customer', function(){
-            console.log($('option:selected', this).data('name'));
+            function grandTotal() {
+                console.log('here');
+                var total = 0;
+                $.each($('#tbody').children(), function() {
+                    total += parseInt($(this).children().eq(4).html());
+                });
+                var tax = $('#tax').val() ? total * parseInt($('#tax').val()) / 100 : 0;
+                var discount = $('#discount').val() ? parseInt($('#discount').val()) : 0;
+                total = total + tax - discount;
+                $('#grandTotal').val(total);
+            }
+
+            $(document).on('click', '#cash, #cashClear', function() {
+                $('#recievedAmount').val(0);
+                $('#paymentAmount').val($('#grandTotal').val());
+                $('#change').val(-$('#grandTotal').val());
+            });
+
+            $(document).on('click', '.cash', function() {
+                var recieve = $('#recievedAmount').val() ? parseInt($('#recievedAmount').val()) : parseInt(
+                    0);
+                $('#recievedAmount').val(recieve + parseInt($(this).val()));
+                $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+            });
+
+            $(document).on('change', '#recievedAmount', function() {
+                $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+            });
+
+            $(document).on('click', '#submit', function() {
+                var printContent = document.getElementById('print').innerHTML;
+                var windowObject = window.open('', '');
+                windowObject.document.write(printContent);
+                windowObject.document.close();
+                windowObject.focus();
+                windowObject.print();
+                $('').val($('option:selected', this).data('name'));
+            });
+
+            $(document).on('change', '#customer', function() {
+                console.log($('option:selected', this).data('name'));
+            })
         })
-    })
-</script>
+    </script>
 @endsection
