@@ -590,7 +590,7 @@
             $('').val($('option:selected', this).data('name'));
         });
 
-        $(document).on('change', '#customer', function(){
+        $(document).on('change', '#customer, #', function(){
             console.log($('option:selected', this).data('name'));
         })
     })
