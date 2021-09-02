@@ -147,8 +147,7 @@
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <button type="button" class="btn btn-primary" id="cash" data-toggle="modal"
-                            data-target="#cashModal">
+                        <button type="button" class="btn btn-primary" id="cash">
                             Cash
                         </button>
                         <div class="modal fade show" id="cashModal" tabindex="-1" role="dialog"
@@ -566,7 +565,8 @@
                         var option = '<option value="">Select</option>';
                         $.each(response, function() {
                             option += '<option value="' + this.id +
-                                '" data-quantity="' + this.quantity + '" data-skuName = "' + this.sku + '">' + this.sku +
+                                '" data-quantity="' + this.quantity +
+                                '" data-skuName = "' + this.sku + '">' + this.sku +
                                 '(' + this.size + '/ ' + this.color + ')</option>';
                         });
                         var row = '<tr id="' + product.data('id') + '">' +
@@ -623,7 +623,16 @@
                 customer = $('option:selected', this).data('name');
                 $('#pCustomer').html(customer);
             });
-            // console.log(customer);
+
+            // for cash modal
+            $(document).on('click', '#cash', function() {
+                if ($('option:selected', this).data('name') == null) {
+                    alert('Select Customer');
+                } else {
+                    $('#cashModal').modal('show');
+                }
+
+            })
 
             //product
             // var rows = document.getElementsByTagName("tbody")[0].rows;
