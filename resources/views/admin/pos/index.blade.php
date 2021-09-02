@@ -355,6 +355,8 @@
                 alert('Please Select Customer!');
             } else if (wareHouse == "") {
                 alert('Please, Select Ware House!');
+            } else if ($('#tbody tr').length == 0) {
+                alert('Please insert atleast one product');
             } else {
                 $('#cashModal').modal('show');
             }
