@@ -353,11 +353,9 @@
             var wareHouse = $('#wareHouse').val();
             if (customer == "") {
                 alert('Please Select Customer!');
-            }
-            else if (wareHouse == ""){
+            } else if (wareHouse == "") {
                 alert('Please, Select Ware House!');
-            }
-             else {
+            } else {
                 $('#cashModal').modal('show');
             }
         });
@@ -466,6 +464,9 @@
 
             $(document).on('click', '.minus', function() {
                 $(this).parent().parent().remove();
+                var totalrow = $('#tbody tr').length;
+
+                $('#itemTotal').val(totalrow);
                 grandTotal();
             });
 
