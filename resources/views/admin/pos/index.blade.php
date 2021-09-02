@@ -252,27 +252,7 @@
                                                                                         </th>
                                                                                     </tr>
                                                                                 </thead>
-                                                                                <tbody>
-                                                                                    <tr>
-                                                                                        <td colspan="2"
-                                                                                            class="text-left">
-                                                                                            product name <br />
-                                                                                            1 X 144.00
-                                                                                        </td>
-                                                                                        <td class="text-right">
-                                                                                            144.00
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="2"
-                                                                                            class="text-left">
-                                                                                            product name <br />
-                                                                                            1 X 440.00 [Tax (10%): 40]
-                                                                                        </td>
-                                                                                        <td class="text-right">
-                                                                                            440.00
-                                                                                        </td>
-                                                                                    </tr>
+                                                                                <tbody id="print_tbody">
                                                                                 </tbody>
                                                                                 <tfoot>
                                                                                     <tr>
@@ -280,7 +260,7 @@
                                                                                             class="text-left">Total
                                                                                         </th>
                                                                                         <th class="text-right"
-                                                                                            id="total">
+                                                                                            id="total_print">
                                                                                         </th>
                                                                                     </tr>
                                                                                     <tr>
@@ -587,17 +567,17 @@
                         var row = '<tr id="' + product.data('id') + '">' +
                             '<td>' + product.children('div').children('p').html() + '<br />(' +
                             product.data('code') + ')</td>' +
-                            '<td>' +
+                            '<td class="not_req">' +
                             '<select class="form-control sku" name="sku" required>' +
                             option +
                             '</select>' +
                             '</td>' +
-                            '<td>' +
+                            '<td class="not_req">' +
                             '<input class="form-control quantity" type="number" name="quantity" value="1" min="1" max="5">' +
                             '</td>' +
+                            '<td class="not_req">' + product.data('price') + '</td>' +
                             '<td>' + product.data('price') + '</td>' +
-                            '<td>' + product.data('price') + '</td>' +
-                            '<td><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
+                            '<td class="not_req"><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
                             '</tr>';
                         $('#tbody').append(row);
                         $('#productSearch').val('');
@@ -630,9 +610,20 @@
             // }
 
             $(document).on('click', '#cash', function() {
-                $('#tbody').children().each(function(i, o) {
-                    console.log(o);
-                })
+                $('#print_tbody').html('');
+                $('#tbody > tr').each(function(i, o) {
+                    var self = $(this);
+                    var name =  self.find("td:eq(0)").text();
+                    var price = self.find("td:eq(3)").text();
+
+                    var row = '<tr>';
+                        row += '<td colspan="2" class="text-left">' + name + '</td>';
+                        row += '<td class="text-right">' + price + '</td>';
+                        row += '</tr>';
+
+                        console.log(row);
+                    $('#print_tbody').append(row);
+                });
             });
 
             $(document).on('click', '.svgEdit', function() {
@@ -655,6 +646,8 @@
                 var discount = $('#discount').val() ? parseInt($('#discount').val()) : 0;
                 total = total + tax - discount;
                 $('#grandTotal').val(total);
+
+                $('#total_print').html(total);
             }
 
             $(document).on('click', '#cash, #cashClear', function() {
