@@ -88,7 +88,7 @@
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Customer</label>
                             <select class="form-control" name="customer" id="sel_customer">
-                                <option selected value="">Select Customer</option>
+                                <option default value="">Select Customer</option>
                                 @foreach ($customer as $value)
                                     <option value="{{ $value->id }}"
                                         data-name="{{ $value->firstname }} {{ $value->lastname }}">
@@ -147,8 +147,7 @@
                         </table>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <button type="button" class="btn btn-primary" id="cash" data-toggle="modal"
-                            data-target="#cashModal">
+                        <button type="button" class="btn btn-primary" id="cash">
                             Cash
                         </button>
                         <div class="modal fade show" id="cashModal" tabindex="-1" role="dialog"
@@ -347,6 +346,16 @@
 
 @section('js')
     <script>
+        $(document).on('click', '#cash', function(e) {
+            var customer = '';
+            customer = $('#sel_customer').val();
+            if (customer == "") {
+                alert('Please Select Customer');
+            } else {
+                $('#cashModal').modal('show');
+            }
+        });
+
         $(document).ready(function() {
             $(document).on('keyup', '#productSearch', function(e) {
                 var name = $(this).val();
@@ -366,9 +375,12 @@
                             var results =
                                 '<div class="col-lg-12"><a type="button" class="close dismiss"><span aria-hidden="true">&times;</span></a></div>';
                             $.each(response, function(i, e) {
-                                results += '<a class="searchResult dismiss" data-id="' +
-                                    e.id + '" data-code="' + e.code + '" data-price="' +
-                                    e.price + '" data-sku="' + e.sku + '">' + e.name +
+                                results +=
+                                    '<a class="searchResult dismiss" data-id="' +
+                                    e.id + '" data-code="' + e.code +
+                                    '" data-price="' +
+                                    e.price + '" data-sku="' + e.sku +
+                                    '">' + e.name +
                                     '</a>';
                             });
                             $('#searchBox').html(results);
@@ -415,11 +427,14 @@
                         var option = '<option value="">Select</option>';
                         $.each(response, function() {
                             option += '<option value="' + this.id +
-                                '" data-quantity="' + this.quantity + '">' + this.sku +
-                                '(' + this.size + '/ ' + this.color + ')</option>';
+                                '" data-quantity="' + this.quantity + '">' +
+                                this.sku +
+                                '(' + this.size + '/ ' + this.color +
+                                ')</option>';
                         });
                         var row = '<tr id="' + product.data('id') + '">' +
-                            '<td>' + product.html() + '<br />(' + product.data('code') +
+                            '<td>' + product.html() + '<br />(' + product.data(
+                                'code') +
                             ')</td>' +
                             '<td>' +
                             '<select class="form-control sku" name="sku" required>' +
@@ -461,8 +476,10 @@
                 var currentSku = $(this);
                 var quantity = $(this).find('option:selected').data('quantity');
                 $(this).closest('td').next('td').find('input[type="number"]').val(1);
-                $(this).closest('td').next('td').find('input[type="number"]').prop('max', quantity);
-                $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td')
+                $(this).closest('td').next('td').find('input[type="number"]').prop('max',
+                    quantity);
+                $(this).closest('td').next('td').next('td').next('td').html($(this).closest(
+                        'td').next('td')
                     .next('td').html());
                 var sku = $(this).val();
                 grandTotal();
@@ -516,7 +533,8 @@
                                 li +=
                                     '<li class="col-lg-4 col-md-6 col-sm-6 mt-2 cursor dropSearchProduct" data-id="' +
                                     this.id + '" data-code="' + this.code +
-                                    '" data-price="' + this.price + '">' + image +
+                                    '" data-price="' + this.price + '">' +
+                                    image +
                                     '<div class="text-center">' +
                                     '<p class="form-label text-muted text-center">' +
                                     this.name +
@@ -556,11 +574,14 @@
                         var option = '<option value="">Select</option>';
                         $.each(response, function() {
                             option += '<option value="' + this.id +
-                                '" data-quantity="' + this.quantity + '">' + this.sku +
-                                '(' + this.size + '/ ' + this.color + ')</option>';
+                                '" data-quantity="' + this.quantity + '">' +
+                                this.sku +
+                                '(' + this.size + '/ ' + this.color +
+                                ')</option>';
                         });
                         var row = '<tr id="' + product.data('id') + '">' +
-                            '<td>' + product.children('div').children('p').html() + '<br />(' +
+                            '<td>' + product.children('div').children('p').html() +
+                            '<br />(' +
                             product.data('code') + ')</td>' +
                             '<td class="not_req">' +
                             '<select class="form-control sku" name="sku" required>' +
@@ -570,7 +591,8 @@
                             '<td class="not_req">' +
                             '<input class="form-control quantity" type="number" name="quantity" value="1" min="1" max="5">' +
                             '</td>' +
-                            '<td class="not_req">' + product.data('price') + '</td>' +
+                            '<td class="not_req">' + product.data('price') +
+                            '</td>' +
                             '<td>' + product.data('price') + '</td>' +
                             '<td class="not_req"><button type="button" class="btn btn-danger btn-sm minus">-</button></td>' +
                             '</tr>';
@@ -581,7 +603,8 @@
                 });
             });
 
-            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1)
+            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math
+                    .random() + 1)
                 .toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9);
 
             $.ajax({
@@ -595,9 +618,11 @@
                     refrenceNumber: reference_num
                 },
                 success: function(response) {
-                    $('#refrenceBarcode').html('<img src="data:image/png;base64,' + response.barcode +
+                    $('#refrenceBarcode').html('<img src="data:image/png;base64,' + response
+                        .barcode +
                         '" />');
-                    $('#refrenceQR').html('<img src="data:image/png;base64,' + response.QR + '" />');
+                    $('#refrenceQR').html('<img src="data:image/png;base64,' + response.QR +
+                        '" />');
                 }
             });
 
@@ -631,7 +656,8 @@
                     var quantity = self.find("td:eq(2)").children().val();
 
                     var row = '<tr>';
-                    row += '<td colspan="2" class="text-left">' + name + '(X' + quantity + ')</td>';
+                    row += '<td colspan="2" class="text-left">' + name + '(X' +
+                        quantity + ')</td>';
                     row += '<td class="text-right">' + price + '</td>';
                     row += '</tr>';
 
@@ -670,7 +696,8 @@
             });
 
             $(document).on('click', '.cash', function() {
-                var recieve = $('#recievedAmount').val() ? parseInt($('#recievedAmount').val()) : parseInt(
+                var recieve = $('#recievedAmount').val() ? parseInt($('#recievedAmount')
+                    .val()) : parseInt(
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
@@ -685,7 +712,9 @@
             $(document).on('click', '#submit', function() {
                 var printContent = document.getElementById('print').innerHTML;
                 var windowObject = window.open('', '');
-                windowObject.document.write('<link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">');
+                windowObject.document.write(
+                    '<link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">'
+                );
                 windowObject.document.write(printContent);
                 windowObject.document.close();
                 windowObject.focus();
