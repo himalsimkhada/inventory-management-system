@@ -346,12 +346,18 @@
 
 @section('js')
     <script>
+        // for modal validation
         $(document).on('click', '#cash', function(e) {
-            var customer = '';
-            customer = $('#sel_customer').val();
+
+            var customer = $('#sel_customer').val();
+            var wareHouse = $('#wareHouse').val();
             if (customer == "") {
-                alert('Please Select Customer');
-            } else {
+                alert('Please Select Customer!');
+            }
+            else if (wareHouse == ""){
+                alert('Please, Select Ware House!');
+            }
+             else {
                 $('#cashModal').modal('show');
             }
         });
@@ -485,8 +491,15 @@
                         'td').next('td')
                     .next('td').html());
                 var sku = $(this).val();
+                var skuName = $('option:selected', this).data('skuname');
+                console.log(skuName);
+
                 grandTotal();
             });
+            // getting the selected sku value data
+            // $(document).ready(function(){
+            //     $()
+            // })
 
             $(document).on('change', '.quantity', function() {
                 var sku = $(this).closest('td').prev('td').find('select').val();
@@ -574,6 +587,7 @@
                         id: product.data('id')
                     },
                     success: function(response) {
+                        console.log(response);
                         var option = '<option value="">Select</option>';
                         $.each(response, function() {
                             option += '<option value="' + this.id +
@@ -644,7 +658,6 @@
                 customer = $('option:selected', this).data('name');
                 $('#pCustomer').html(customer);
             });
-            // console.log(customer);
 
             //product
             // var rows = document.getElementsByTagName("tbody")[0].rows;

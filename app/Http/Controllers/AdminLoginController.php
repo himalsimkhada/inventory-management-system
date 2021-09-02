@@ -49,7 +49,6 @@ class AdminLoginController extends Controller
         Session::put('admin_page', 'Dashboard');
         return view('admin.dashboard');
     }
-
     // Admin Logout
     public function adminLogout()
     {
