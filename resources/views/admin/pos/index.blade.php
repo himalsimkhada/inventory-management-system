@@ -87,6 +87,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Customer</label>
+                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;">New Customer</a>
                             <select class="form-control" name="customer" id="sel_customer">
                                 <option selected value="">Select Customer</option>
                                 @foreach ($customer as $value)
@@ -629,13 +630,10 @@
                     var name = self.find("td:eq(0)").text();
                     var price = self.find("td:eq(4)").text();
                     var quantity = self.find("td:eq(2)").children().val();
-
                     var row = '<tr>';
                     row += '<td colspan="2" class="text-left">' + name + '(X' + quantity + ')</td>';
                     row += '<td class="text-right">' + price + '</td>';
                     row += '</tr>';
-
-                    console.log(row);
                     $('#print_tbody').append(row);
                 });
             });
@@ -690,7 +688,23 @@
                 windowObject.document.close();
                 windowObject.focus();
                 windowObject.print();
-                $('').val($('option:selected', this).data('name'));
+                var data = {
+                    'refrenceNumber' : $('refrenceNumber').val(),
+                    'wareHouse' : $('wareHouse').val(),
+                    'customer' : $('sel_customer').val(),
+                    'item' : $('itemTotal').val(),
+                    'tax' : $('tax').val(),
+                    'discount' : $('discount').val(),
+                    'total' : $('grandTotal').val(),
+                    'recievedAmount' : $('recievedAmount').val(),
+                    'change' : $('change').val(),
+                    'paidBy' : $('paidBy').val(),
+                };
+                // console.log($('refrenceNumber').val());
+                $.each($('#tbody').children(), function() {
+                    var id = $(this).attr('id');
+                    console.log(id);
+                });
             });
         })
     </script>

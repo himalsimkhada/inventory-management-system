@@ -266,11 +266,9 @@
                             error: function(response) {
                                 console.log('error');
                             }
-
                         })
                     }
                 })
-
             })
 
             $("#image").on('change', function() {
