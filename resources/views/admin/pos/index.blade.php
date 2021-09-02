@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Customer</label>
-                            <select class="form-control" name="customer" id="customer">
+                            <select class="form-control" name="customer" id="sel_customer">
                                 <option selected value="">Select Customer</option>
                                 @foreach ($customer as $value)
                                     <option value="{{ $value->id }}"
@@ -222,8 +222,6 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div id="print">
-                                                        <link rel="stylesheet"
-                                                            href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -234,12 +232,12 @@
                                                                                 <img src="https://www.techcoderznepal.com/public/storage/static/logo.png"
                                                                                     height="50px" />
                                                                             </p>
-                                                                            <p>Address: Tinkunem Kathmandu</p>
+                                                                            <p>Address: Shantinagar, Kathmandu</p>
                                                                             <p>Phone: 987456321</p>
                                                                         </div>
                                                                         <div>
                                                                             <p>Date: {{ date('Y-m-d') }}</p>
-                                                                            <p>Reference: <span id="pRefrence"></span></p>
+                                                                            <p>Reference: <span id="pRefNum"></span></p>
                                                                             <p>Customer: <span id="pCustomer"></span></p>
                                                                             <br />
                                                                             <table class="table table-borderless">
@@ -273,11 +271,14 @@
                                                                                             440.00
                                                                                         </td>
                                                                                     </tr>
+                                                                                </tbody>
+                                                                                <tfoot>
                                                                                     <tr>
                                                                                         <th colspan="2"
                                                                                             class="text-left">Total
                                                                                         </th>
-                                                                                        <th class="text-right">584.00
+                                                                                        <th class="text-right"
+                                                                                            id="total">
                                                                                         </th>
                                                                                     </tr>
                                                                                     <tr>
@@ -315,7 +316,7 @@
                                                                                                 src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" />
                                                                                         </td>
                                                                                     </tr>
-                                                                                </tbody>
+                                                                                </tfoot>
                                                                             </table>
                                                                         </div>
                                                                     </div>
@@ -487,8 +488,15 @@
                 $(this).closest('td').next('td').next('td').next('td').html($(this).closest('td').next('td')
                     .next('td').html());
                 var sku = $(this).val();
+                var skuName = $('option:selected', this).data('skuname');
+                console.log(skuName);
+
                 grandTotal();
             });
+            // getting the selected sku value data
+            // $(document).ready(function(){
+            //     $()
+            // })
 
             $(document).on('change', '.quantity', function() {
                 var sku = $(this).closest('td').prev('td').find('select').val();
@@ -575,10 +583,11 @@
                         id: product.data('id')
                     },
                     success: function(response) {
+                        console.log(response);
                         var option = '<option value="">Select</option>';
                         $.each(response, function() {
                             option += '<option value="' + this.id +
-                                '" data-quantity="' + this.quantity + '">' + this.sku +
+                                '" data-quantity="' + this.quantity + '" data-skuName = "' + this.sku + '">' + this.sku +
                                 '(' + this.size + '/ ' + this.color + ')</option>';
                         });
                         var row = '<tr id="' + product.data('id') + '">' +
@@ -603,8 +612,34 @@
                 });
             });
 
-            $('#refrenceNumber').val('posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1)
-                .toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9));
+            var reference_num = 'posr-' + (Math.random() + 1).toString(25).substring(9) + (Math.random() + 1)
+                .toString(25).substring(9) + (Math.random() + 1).toString(25).substring(9);
+
+            $('#refrenceNumber').val(reference_num);
+
+            //all data for printing
+            $('#pRefNum').html(reference_num);
+
+            //getcustomer
+            var customer = '';
+            $('#sel_customer').on('change', function() {
+                customer = $('option:selected', this).data('name');
+                $('#pCustomer').html(customer);
+            });
+            // console.log(customer);
+
+            //product
+            // var rows = document.getElementsByTagName("tbody")[0].rows;
+            // for (var i = 0; i < rows.length; i++) {
+            //     var td = rows[i].getElementsByTagName("td")[i];
+            //     console.log(td)
+            // }
+
+            $(document).on('click', '#cash', function() {
+                $('#tbody').children().each(function(i, o) {
+                    console.log(o);
+                })
+            });
 
             $(document).on('click', '.svgEdit', function() {
                 $(this).next('span').attr('contentEditable', true).focus();
@@ -617,7 +652,7 @@
             });
 
             function grandTotal() {
-                console.log('here');
+
                 var total = 0;
                 $.each($('#tbody').children(), function() {
                     total += parseInt($(this).children().eq(4).html());
@@ -648,16 +683,13 @@
             $(document).on('click', '#submit', function() {
                 var printContent = document.getElementById('print').innerHTML;
                 var windowObject = window.open('', '');
+                windowObject.document.write('<link rel="stylesheet" href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">');
                 windowObject.document.write(printContent);
                 windowObject.document.close();
                 windowObject.focus();
                 windowObject.print();
                 $('').val($('option:selected', this).data('name'));
             });
-
-            $(document).on('change', '#customer', function() {
-                console.log($('option:selected', this).data('name'));
-            })
         })
     </script>
 @endsection

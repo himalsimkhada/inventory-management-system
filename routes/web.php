@@ -121,7 +121,6 @@ Route::prefix('/admin')->group(function () {
         Route::post('/group/store', 'CustomerGroupController@store')->name('group.store');
         Route::get('/group/destroy/{id}', 'CustomerGroupController@destroy')->name('group.destroy');
 
-
     });
 
     // logout
