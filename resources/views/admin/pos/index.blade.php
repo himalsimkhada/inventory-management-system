@@ -450,6 +450,9 @@
                             '</tr>';
                         $('#tbody').append(row);
                         $('#productSearch').val('');
+                        var totalrow = $('#tbody tr').length;
+
+                        $('#itemTotal').val(totalrow);
                         grandTotal();
                     }
                 });
@@ -598,6 +601,9 @@
                             '</tr>';
                         $('#tbody').append(row);
                         $('#productSearch').val('');
+                        var totalrow = $('#tbody tr').length;
+
+                        $('#itemTotal').val(totalrow);
                         grandTotal();
                     }
                 });
