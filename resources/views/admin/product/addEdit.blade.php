@@ -170,6 +170,8 @@
                             </button>
                         </div>
                     </form>
+                    <div id="errors"></div>
+                    {{-- @include('admin.includes._message') --}}
                 </div>
             </div>
         </div>
