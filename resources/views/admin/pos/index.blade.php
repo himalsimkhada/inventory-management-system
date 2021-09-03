@@ -225,8 +225,8 @@
                                                         Submit
                                                     </button>
                                                 </div>
-                                                <div class="col-md-12" hidden>
-                                                    <div id="print">
+                                                <div class="col-md-12">
+                                                    <div id="print" hidden>
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -277,7 +277,8 @@
                                                                                         <td class="text-left">Paid By:
                                                                                             Cash</td>
                                                                                         <td class="text-center">Amount:
-                                                                                            584.00</td>
+                                                                                            <span id="print_amt"></span>
+                                                                                        </td>
                                                                                         <td class="text-right">Change:
                                                                                             <span id="print_change"></span>
                                                                                         </td>
@@ -504,7 +505,7 @@
                     .next('td').html());
                 var sku = $(this).val();
                 var skuName = $('option:selected', this).data('skuname');
-                console.log(skuName);
+                // console.log(skuName);
 
                 grandTotal();
             });
@@ -599,7 +600,7 @@
                         id: product.data('id')
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         var option = '<option value="">Select</option>';
                         $.each(response, function() {
                             option += '<option value="' + this.id +
@@ -729,12 +730,14 @@
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
-
-                $('#print_change').html(parseInt($('#change').val()) + parseInt($(this).val()));
+                $('#print_amt').text($('#recievedAmount').val());
+                $('#print_change').text($('#change').val());
             });
 
             $(document).on('change', '#recievedAmount', function() {
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+
+                // $('#print_change').text(parseInt($('#change').val()) + parseInt($(this).val()));
             });
 
             $(document).on('click', '#submit', function() {
