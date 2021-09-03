@@ -87,7 +87,6 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Customer</label>
-                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> + </a>
                             <select class="form-control" name="customer" id="sel_customer">
                                 <option default value="">Select Customer</option>
                                 @foreach ($customer as $value)
@@ -96,6 +95,8 @@
                                         {{ $value->firstname }} {{ $value->lastname }}</option>
                                 @endforeach
                             </select>
+                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> +
+                            </a>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Product Name</label>
@@ -359,10 +360,9 @@
                 alert('Please, Select Ware House!');
             } else if ($('#tbody tr').length == 0) {
                 alert('Please select atleast one product');
-            }
-            else if(skuType == ""){
+            } else if (skuType == "") {
                 alert('You must select sku for the product');
-            }else {
+            } else {
                 $('#cashModal').modal('show');
             }
         });
@@ -744,16 +744,16 @@
                 windowObject.focus();
                 windowObject.print();
                 var data = {
-                    'refrenceNumber' : $('#refrenceNumber').val(),
-                    'wareHouseId' : $('#wareHouse').val(),
-                    'customerId' : $('#sel_customer').val(),
-                    'item' : $('#itemTotal').val(),
-                    'tax' : $('#tax').val(),
-                    'discount' : $('#discount').val(),
-                    'total' : $('#grandTotal').val(),
-                    'recievedAmount' : $('#recievedAmount').val(),
-                    'change' : $('#change').val(),
-                    'paidBy' : $('#paidBy').val(),
+                    'refrenceNumber': $('#refrenceNumber').val(),
+                    'wareHouseId': $('#wareHouse').val(),
+                    'customerId': $('#sel_customer').val(),
+                    'item': $('#itemTotal').val(),
+                    'tax': $('#tax').val(),
+                    'discount': $('#discount').val(),
+                    'total': $('#grandTotal').val(),
+                    'recievedAmount': $('#recievedAmount').val(),
+                    'change': $('#change').val(),
+                    'paidBy': $('#paidBy').val(),
                 };
                 var items = {};
                 $.each($('#tbody').children(), function(i, e) {
@@ -775,7 +775,7 @@
                         items: items,
                     },
                     success: function(response) {
-                        if(response == 'successful'){
+                        if (response == 'successful') {
                             location.reload();
                             alert('process saved');
                         }
