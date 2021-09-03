@@ -87,8 +87,6 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Customer</label>
-                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> +
-                            </a>
                             <select class="form-control" name="customer" id="sel_customer">
                                 <option default value="">Select Customer</option>
                                 @foreach ($customer as $value)
@@ -97,6 +95,8 @@
                                         {{ $value->firstname }} {{ $value->lastname }}</option>
                                 @endforeach
                             </select>
+                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> +
+                            </a>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Product Name</label>
@@ -222,7 +222,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <div id="print">
+                                                    <div id="print" hidden>
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -272,8 +272,9 @@
                                                                                     <tr>
                                                                                         <td class="text-left">Paid By:
                                                                                             Cash</td>
-                                                                                        <td class="text-center" id="print_amt">Amount:
-                                                                                            584.00</td>
+                                                                                        <td class="text-center">Amount:
+                                                                                            <span id="print_amt"></span>
+                                                                                        </td>
                                                                                         <td class="text-right">Change:
                                                                                             <span id="print_change"></span>
                                                                                         </td>
@@ -353,12 +354,15 @@
 
             var customer = $('#sel_customer').val();
             var wareHouse = $('#wareHouse').val();
+            var skuType = $('.sku').val();
             if (customer == "") {
                 alert('Please Select Customer!');
             } else if (wareHouse == "") {
                 alert('Please, Select Ware House!');
             } else if ($('#tbody tr').length == 0) {
                 alert('Please select atleast one product');
+            } else if (skuType == "") {
+                alert('You must select sku for the product');
             } else {
                 $('#cashModal').modal('show');
             }
@@ -714,7 +718,6 @@
                 $('#recievedAmount').val(0);
                 $('#paymentAmount').val($('#grandTotal').val());
                 $('#change').val(-$('#grandTotal').val());
-                $('#print_amt').text($('#recievedAmout').val());
             });
 
             $(document).on('click', '.cash', function() {
@@ -723,7 +726,7 @@
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
-
+                $('#print_amt').text($('#recievedAmount').val());
                 $('#print_change').text($('#change').val());
             });
 
