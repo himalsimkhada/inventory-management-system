@@ -272,7 +272,7 @@
                                                                                     <tr>
                                                                                         <td class="text-left">Paid By:
                                                                                             Cash</td>
-                                                                                        <td class="text-center">Amount:
+                                                                                        <td class="text-center" id="print_amt">Amount:
                                                                                             584.00</td>
                                                                                         <td class="text-right">Change:
                                                                                             <span id="print_change"></span>
@@ -353,17 +353,13 @@
 
             var customer = $('#sel_customer').val();
             var wareHouse = $('#wareHouse').val();
-            var skuType = $('.sku').val();
             if (customer == "") {
                 alert('Please Select Customer!');
             } else if (wareHouse == "") {
                 alert('Please, Select Ware House!');
             } else if ($('#tbody tr').length == 0) {
                 alert('Please select atleast one product');
-            }
-            else if(skuType == ""){
-                alert('You must select sku for the product');
-            }else {
+            } else {
                 $('#cashModal').modal('show');
             }
         });
@@ -718,6 +714,7 @@
                 $('#recievedAmount').val(0);
                 $('#paymentAmount').val($('#grandTotal').val());
                 $('#change').val(-$('#grandTotal').val());
+                $('#print_amt').text($('#recievedAmout').val());
             });
 
             $(document).on('click', '.cash', function() {
@@ -727,7 +724,7 @@
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
 
-                $('#print_change').text(parseInt($('#change').val()) + parseInt($(this).val()));
+                $('#print_change').text($('#change').val());
             });
 
             $(document).on('change', '#recievedAmount', function() {
