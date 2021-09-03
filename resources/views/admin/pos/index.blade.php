@@ -720,9 +720,10 @@
                     .val()) : parseInt(
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
-                $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+                var change = parseInt($('#change').val()) + parseInt($(this).val());
+                $('#change').val(change);
 
-                $('#print_change').html(parseInt($('#change').val()) + parseInt($(this).val()));
+                $('#print_change').html(change);
             });
 
             $(document).on('change', '#recievedAmount', function() {
