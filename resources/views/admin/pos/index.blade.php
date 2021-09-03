@@ -87,7 +87,8 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Customer</label>
-                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> + </a>
+                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> +
+                            </a>
                             <select class="form-control" name="customer" id="sel_customer">
                                 <option default value="">Select Customer</option>
                                 @foreach ($customer as $value)
@@ -220,7 +221,7 @@
                                                         Submit
                                                     </button>
                                                 </div>
-                                                <div class="col-md-12" hidden>
+                                                <div class="col-md-12">
                                                     <div id="print">
                                                         <div class="card">
                                                             <div class="card-body">
@@ -496,7 +497,7 @@
                     .next('td').html());
                 var sku = $(this).val();
                 var skuName = $('option:selected', this).data('skuname');
-                console.log(skuName);
+                // console.log(skuName);
 
                 grandTotal();
             });
@@ -591,7 +592,7 @@
                         id: product.data('id')
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         var option = '<option value="">Select</option>';
                         $.each(response, function() {
                             option += '<option value="' + this.id +
@@ -722,11 +723,13 @@
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
 
-                $('#print_change').html(parseInt($('#change').val()) + parseInt($(this).val()));
+                $('#print_change').text(parseInt($('#change').val()) + parseInt($(this).val()));
             });
 
             $(document).on('change', '#recievedAmount', function() {
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+
+                // $('#print_change').text(parseInt($('#change').val()) + parseInt($(this).val()));
             });
 
             $(document).on('click', '#submit', function() {
@@ -740,16 +743,16 @@
                 windowObject.focus();
                 windowObject.print();
                 var data = {
-                    'refrenceNumber' : $('#refrenceNumber').val(),
-                    'wareHouseId' : $('#wareHouse').val(),
-                    'customerId' : $('#sel_customer').val(),
-                    'item' : $('#itemTotal').val(),
-                    'tax' : $('#tax').val(),
-                    'discount' : $('#discount').val(),
-                    'total' : $('#grandTotal').val(),
-                    'recievedAmount' : $('#recievedAmount').val(),
-                    'change' : $('#change').val(),
-                    'paidBy' : $('#paidBy').val(),
+                    'refrenceNumber': $('#refrenceNumber').val(),
+                    'wareHouseId': $('#wareHouse').val(),
+                    'customerId': $('#sel_customer').val(),
+                    'item': $('#itemTotal').val(),
+                    'tax': $('#tax').val(),
+                    'discount': $('#discount').val(),
+                    'total': $('#grandTotal').val(),
+                    'recievedAmount': $('#recievedAmount').val(),
+                    'change': $('#change').val(),
+                    'paidBy': $('#paidBy').val(),
                 };
                 var items = {};
                 $.each($('#tbody').children(), function(i, e) {
@@ -771,7 +774,7 @@
                         items: items,
                     },
                     success: function(response) {
-                        if(response == 'successful'){
+                        if (response == 'successful') {
                             location.reload();
                             alert('process saved');
                         }
