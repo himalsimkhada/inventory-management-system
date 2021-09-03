@@ -85,18 +85,22 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-4">
                             <label for="name" class="form-label text-muted">Customer</label>
-                            <select class="form-control" name="customer" id="sel_customer">
-                                <option default value="">Select Customer</option>
-                                @foreach ($customer as $value)
-                                    <option value="{{ $value->id }}"
-                                        data-name="{{ $value->firstname }} {{ $value->lastname }}">
-                                        {{ $value->firstname }} {{ $value->lastname }}</option>
-                                @endforeach
-                            </select>
-                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> +
-                            </a>
+                            <div class="input-group">
+                                <select class="form-control d-inline-block" name="customer" id="sel_customer" aria-describedby="basic-add">
+                                    <option default value="">Select Customer</option>
+                                    @foreach ($customer as $value)
+                                        <option value="{{ $value->id }}"
+                                            data-name="{{ $value->firstname }} {{ $value->lastname }}">
+                                            {{ $value->firstname }} {{ $value->lastname }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="input-group-append">
+                                    <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" id="basic-add" style="vertical-align: center"> +
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Product Name</label>
