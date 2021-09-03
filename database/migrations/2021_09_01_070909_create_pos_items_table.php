@@ -20,6 +20,9 @@ class CreatePosItemsTable extends Migration {
             $table->unsignedBigInteger('pos_id');
             $table->foreign('pos_id')->references('id')->on('pos');
 
+            $table->integer('sku_id');
+            $table->integer('quantity');
+
             $table->timestamps();
         });
     }

@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Customer</label>
-                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;">New Customer</a>
+                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> + </a>
                             <select class="form-control" name="customer" id="sel_customer">
                                 <option default value="">Select Customer</option>
                                 @foreach ($customer as $value)
@@ -186,7 +186,7 @@
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="paidBy" class="form-label text-muted">Paid By</label>
-                                                    <select name="paidBy" class="form-control">
+                                                    <select name="paidBy" class="form-control" id="paidBy">
                                                         <option value="cash" selected>Cash</option>
                                                     </select>
                                                 </div>
@@ -740,22 +740,43 @@
                 windowObject.focus();
                 windowObject.print();
                 var data = {
-                    'refrenceNumber' : $('refrenceNumber').val(),
-                    'wareHouse' : $('wareHouse').val(),
-                    'customer' : $('sel_customer').val(),
-                    'item' : $('itemTotal').val(),
-                    'tax' : $('tax').val(),
-                    'discount' : $('discount').val(),
-                    'total' : $('grandTotal').val(),
-                    'recievedAmount' : $('recievedAmount').val(),
-                    'change' : $('change').val(),
-                    'paidBy' : $('paidBy').val(),
+                    'refrenceNumber' : $('#refrenceNumber').val(),
+                    'wareHouseId' : $('#wareHouse').val(),
+                    'customerId' : $('#sel_customer').val(),
+                    'item' : $('#itemTotal').val(),
+                    'tax' : $('#tax').val(),
+                    'discount' : $('#discount').val(),
+                    'total' : $('#grandTotal').val(),
+                    'recievedAmount' : $('#recievedAmount').val(),
+                    'change' : $('#change').val(),
+                    'paidBy' : $('#paidBy').val(),
                 };
-                // console.log($('refrenceNumber').val());
-                $.each($('#tbody').children(), function() {
-                    var id = $(this).attr('id');
-                    console.log(id);
+                var items = {};
+                $.each($('#tbody').children(), function(i, e) {
+                    items[i] = {
+                        productId: $(this).attr('id'),
+                        skuId: $(this).children().eq(1).children().val(),
+                        quantity: $(this).children().eq(2).children().val(),
+                    };
                 });
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '{{ route('pos.store') }}',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        data: data,
+                        items: items,
+                    },
+                    success: function(response) {
+                        if(response == 'successful'){
+                            location.reload();
+                            alert('process saved');
+                        }
+                    }
+                })
             });
         })
     </script>

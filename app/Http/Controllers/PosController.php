@@ -9,6 +9,7 @@ use App\Models\Image;
 use App\Models\Pos;
 use App\Models\PosItems;
 use App\Models\Product;
+use App\Models\ProductAttributes;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -72,25 +73,42 @@ class PosController extends Controller {
     }
 
     public function store(Request $request) {
-        $data = $request->all();
-
         if ($request->isMethod('post')) {
+            $data = $request->all();
             $pos = new Pos();
-            $pos->customer_id = $data['customer_id'];
-            $pos->reference_number = $data['reference_number'];
-            $pos->warehouse_id = $data['warehouse_id'];
+            $pos->refrence_number = $data['data']['refrenceNumber'];
+            $pos->customer_id = $data['data']['customerId'];
+            $pos->warehouse_id = $data['data']['wareHouseId'];
+            $pos->item = $data['data']['item'];
+            $pos->tax = $data['data']['tax'];
+            $pos->discount = $data['data']['discount'];
+            $pos->total = $data['data']['total'];
+            $pos->recieved_amount = $data['data']['recievedAmount'];
+            $pos->change = $data['data']['change'];
+            $pos->paidBy = $data['data']['paidBy'];
             $pos->save();
 
-            $lastId = $pos->id; //vakhar insert vako id
+            $lastId = $pos->id;
 
-            //esma foreach launa parxa ajax bata
-            $items = new PosItems();
-            $items->pos_id = $lastId;
-            $items->product_id = $data['product_id']; //ani yo id xai tae ajax ko table ko through pathauna
+            if($lastId){
+                foreach($data['items'] as $value){
+                    $items = new PosItems();
+                    $items->pos_id = $lastId;
+                    $items->product_id = $value['productId'];
+                    $items->sku_id = $value['skuId'];
+                    $items->quantity = $value['quantity'];
+                    $items->save();
+                    if($items->id){
+                        $newQuantity = ProductAttributes::where('id', $value['skuId'])->pluck('quantity')[0] - $value['quantity'];
+                        ProductAttributes::where('id', $value['skuId'])->update(['quantity' => $newQuantity]);
+                    }
 
-            $items->save();
+                }
+                return response()->json('successful');
+            } else {
+                return response()->json('unsuccessful');
+            }
 
-            //end foreach
         }
     }
 

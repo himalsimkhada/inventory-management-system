@@ -26,7 +26,7 @@ class CreatePosTable extends Migration {
             $table->string('tax')->nullable();
             $table->string('discount')->nullable();
             $table->string('total');
-            $table->string('recievedAmount');
+            $table->string('recieved_amount');
             $table->string('change');
             $table->string('paidBy');
 
