@@ -352,13 +352,17 @@
 
             var customer = $('#sel_customer').val();
             var wareHouse = $('#wareHouse').val();
+            var skuType = $('.sku').val();
             if (customer == "") {
                 alert('Please Select Customer!');
             } else if (wareHouse == "") {
                 alert('Please, Select Ware House!');
             } else if ($('#tbody tr').length == 0) {
                 alert('Please select atleast one product');
-            } else {
+            }
+            else if(skuType == ""){
+                alert('You must select sku for the product');
+            }else {
                 $('#cashModal').modal('show');
             }
         });
