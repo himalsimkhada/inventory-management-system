@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AlterEnvController;
+use App\Http\Controllers\SovitController;
 use Illuminate\Support\Facades\Route;
 
 
