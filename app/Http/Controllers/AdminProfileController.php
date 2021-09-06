@@ -140,10 +140,10 @@ class AdminProfileController extends Controller {
 
             $customMessage = [
                 'company_name.required' => 'Please enter company name',
-                'fav_icon.required' => 'Please insert a image file',
+                'fav_icon.required' => 'Please insert a fav-icon for system',
                 'fav_icon.image' => 'Please insert a image file',
+                'logo.required' => 'Please insert a logo for the system',
                 'logo.image' => 'Please insert a image file',
-                'logo.required' => 'Please insert a image file',
 
             ];
 
@@ -204,9 +204,9 @@ class AdminProfileController extends Controller {
             Session::flash('info_message', 'Details has been updated successfully');
             return redirect()->back();
         } else {
-            $details = Details::where('id', '=', 1)->first();
+            $details = Details::where('id', 1)->first();
 
-            return view('admin.themeSetting', ['detail' => $details]);
+            return view('admin.themeSetting', ['details' => $details]);
         }
     }
 }
