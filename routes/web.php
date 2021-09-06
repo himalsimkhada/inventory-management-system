@@ -1,8 +1,4 @@
 <?php
-
-use App\Http\Controllers\AdminLoginController;
-use App\Http\Controllers\AlterEnvController;
-use App\Http\Controllers\SovitController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -69,7 +65,7 @@ Route::prefix('/admin')->group(function () {
 
         //Product
         Route::get('/product/view', 'ProductController@index')->name('product.index');
-        Route::get('/product/get/', 'ProductController@get')->name('product.get');
+        Route::get('/product/get', 'ProductController@get')->name('product.get');
         Route::get('/product/get/{id}', 'ProductController@get')->name('product.edit');
         Route::post('/product/destroy', 'ProductController@destroy')->name('product.destroy');
         Route::get('/product/add', 'ProductController@add')->name('product.add');

@@ -6,7 +6,6 @@ use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use DataTables;
-use Illuminate\Support\Str;
 
 class WareHouseController extends Controller
 {

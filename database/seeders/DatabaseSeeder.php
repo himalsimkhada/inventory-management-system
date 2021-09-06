@@ -58,6 +58,13 @@ class DatabaseSeeder extends Seeder {
             'status' => 1,
         ]);
 
+        Category::insert([
+            'category_name' => 'Mobile Devices',
+            'category_code' => '0002',
+            'slug' => 'mobile-devices',
+            'status' => 1,
+        ]);
+
         Unit::insert([
             [
                 'name' => 'Dozen',
@@ -101,6 +108,8 @@ class DatabaseSeeder extends Seeder {
             'description' => 'This is a description',
             'price' => 150,
             'unit_id' => 2,
+            'category_id' => 2,
+            'brand_id' => 1,
             'tax_type_id' => 1,
         ]);
 

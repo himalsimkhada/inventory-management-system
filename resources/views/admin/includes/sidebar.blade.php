@@ -99,7 +99,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class=" {{ Session::get('admin_page') == 'Sale' ? 'active' : '' }} sidebar-layout">
                     <a href="#sale" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -129,10 +128,7 @@
                                 <span class="ml-2">POS</span>
                             </a>
                         </li>
-                    </ul>
-                    {{-- sales list --}}
-                    <ul id="sale" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class=" {{ Session::get('admin_page') == 'POS' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'Sales' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('sales.index') }}" class="svg-icon ">
                                 <i class="___class_+?53___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -146,7 +142,6 @@
                             </a>
                         </li>
                     </ul>
-
                 </li>
                 {{-- customer --}}
                 <li class=" {{ Session::get('admin_page') == 'People' ? 'active' : '' }} sidebar-layout">
@@ -238,7 +233,6 @@
                                 <span class="ml-2">Unit</span>
                             </a>
                         </li>
-
                         <li class=" {{ Session::get('admin_page') == 'WareHouse' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('wareHouse.index') }}" class="svg-icon ">
                                 <i class="___class_+?90___">
