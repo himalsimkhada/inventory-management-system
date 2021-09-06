@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
-use Intervention\Image\ImageManagerStatic as Img;
-use Illuminate\Support\Str;
 use DNS1D;
 
 class ProductController extends Controller {
