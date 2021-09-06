@@ -1,7 +1,3 @@
-@php
-$details = \App\Models\Details::where('id', '=', 1)->first();
-@endphp
-
 <div class="iq-sidebar  sidebar-default  ">
     <div class="iq-sidebar-logo d-flex align-items-end justify-content-between">
         <a href="{{ route('adminDashboard') }}" class="header-logo">

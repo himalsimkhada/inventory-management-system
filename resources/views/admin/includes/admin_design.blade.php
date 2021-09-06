@@ -1,4 +1,8 @@
 
+@php
+$details = \App\Models\Details::where('id', '=', 1)->first();
+@endphp
+
 <!doctype html>
 <html lang="en">
 @include('admin.includes.head')

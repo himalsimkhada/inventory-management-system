@@ -1,1 +1,1 @@
-This is Sales Page
+@extends('admin.includes.admin_design');
