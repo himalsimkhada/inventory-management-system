@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\Models\Pos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Yajra\DataTables\DataTables;
 
 class SalesController extends Controller
 {
@@ -13,7 +17,8 @@ class SalesController extends Controller
      */
     public function index()
     {
-        //
+        Session::put('admin_page', 'Sales');
+        return view('admin.sales.index');
     }
 
     /**
@@ -21,9 +26,17 @@ class SalesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function get()
     {
-        //
+        $data = Pos::all()->sortByDesc('id');
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->editColumn('purchased_by', function($row) {
+                $customer = Customer::where('id', $row['customer_id'])->first();
+                return $customer->firstname .' ' . $customer->lastname;
+            })
+            ->make(true);
     }
 
     /**
