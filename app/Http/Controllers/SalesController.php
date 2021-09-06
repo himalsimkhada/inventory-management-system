@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Pos;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
@@ -28,13 +29,16 @@ class SalesController extends Controller
      */
     public function get()
     {
-        $data = Pos::all()->sortByDesc('id');
+        $data = Pos::latest()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->editColumn('purchased_by', function($row) {
                 $customer = Customer::where('id', $row['customer_id'])->first();
                 return $customer->firstname .' ' . $customer->lastname;
+            })
+            ->editColumn('created_at', function($row){
+               return $row->created_at->toFormattedDatestring();
             })
             ->make(true);
     }
