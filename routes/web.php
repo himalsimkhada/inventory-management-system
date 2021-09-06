@@ -92,6 +92,10 @@ Route::prefix('/admin')->group(function () {
         Route::post('/pos/barcode', 'PosController@barcode')->name('pos.barcode');
         Route::post('/pos/store', 'PosController@store')->name('pos.store');
 
+        // sales routes
+        Route::get('/sales','SalesController@index')->name('sales.index');
+        Route::get('/sales/saleslist', 'SalesController@get')->name('sales.get');
+
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
         Route::match(['get', 'post'], '/product/{id}/get', 'ProductAttributeController@get')->name('product.attr.get');
@@ -104,10 +108,6 @@ Route::prefix('/admin')->group(function () {
         //Dropzone
         Route::post('/image', 'ImageController@store')->name('product.image');
         Route::post('/product/image/destroy', 'ImageController@destroy')->name('image.destroy');
-
-        //Sale
-        Route::get('/sale/index', 'SaleController@index')->name('sale.index');
-        Route::get('/sale/pos', 'SaleController@pos')->name('sale.pos');
 
         // customers
         Route::get('/customer/index', 'CustomerController@index')->name('customer.index');
