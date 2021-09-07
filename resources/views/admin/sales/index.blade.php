@@ -31,7 +31,7 @@
                                                 <th>Grand Total</th>
                                                 <th>Amount Recieved</th>
                                                 <th>Change</th>
-                                                <th>Payment Status</th>
+                                                <th>Payment Method</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -77,7 +77,7 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sales.get') }}",
+                ajax: "{{ route('sales.show') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'

@@ -89,8 +89,9 @@ Route::prefix('/admin')->group(function () {
         Route::post('/pos/store', 'PosController@store')->name('pos.store');
 
         // sales routes
+
         Route::get('/sales','SalesController@index')->name('sales.index');
-        Route::get('/sales/saleslist', 'SalesController@get')->name('sales.get');
+        Route::get('/sales/get', 'SalesController@show')->name('sales.show');
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
