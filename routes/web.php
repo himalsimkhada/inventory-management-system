@@ -88,8 +88,7 @@ Route::prefix('/admin')->group(function () {
         Route::post('/pos/barcode', 'PosController@barcode')->name('pos.barcode');
         Route::post('/pos/store', 'PosController@store')->name('pos.store');
 
-        // sales routes
-
+        //Sales
         Route::get('/sales','SalesController@index')->name('sales.index');
         Route::get('/sales/get', 'SalesController@show')->name('sales.show');
 
@@ -123,6 +122,8 @@ Route::prefix('/admin')->group(function () {
         Route::post('/group/store', 'CustomerGroupController@store')->name('group.store');
         Route::get('/group/destroy/{id}', 'CustomerGroupController@destroy')->name('group.destroy');
 
+        //Expense
+        Route::resource('expense', 'ExpenseController');
     });
 
     // logout

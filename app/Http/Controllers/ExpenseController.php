@@ -13,7 +13,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.expense.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.expense.addEdit');
     }
 
     /**
@@ -56,7 +56,7 @@ class ExpenseController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.expense.addEdit');
     }
 
     /**
