@@ -193,7 +193,7 @@
                     </a>
                     <ul id="expense" class="submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li class=" {{ Session::get('admin_page') == 'Expense Category' ? 'active' : '' }} sidebar-layout">
-                            <a href="" class="svg-icon ">
+                            <a href="{{ route('expense_category.index') }}" class="svg-icon ">
                                 <i class="___class_+?47___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
