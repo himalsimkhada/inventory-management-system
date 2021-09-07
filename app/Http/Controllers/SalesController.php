@@ -8,15 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 
-class SalesController extends Controller
-{
+class SalesController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         Session::put('admin_page', 'Sales');
         return view('admin.sales.index');
     }
@@ -26,17 +24,7 @@ class SalesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function get()
-    {
-        $data = Pos::all()->sortByDesc('id');
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->rawColumns(['action'])
-            ->editColumn('purchased_by', function($row) {
-                $customer = Customer::where('id', $row['customer_id'])->first();
-                return $customer->firstname .' ' . $customer->lastname;
-            })
-            ->make(true);
+    public function create() {
     }
 
     /**
@@ -45,8 +33,7 @@ class SalesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -56,9 +43,16 @@ class SalesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(Pos $sale) {
+        $data = Pos::all()->sortByDesc('id');
+        return DataTables::of($sale)
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->editColumn('purchased_by', function ($row) {
+                $customer = Customer::where('id', $row['customer_id'])->first();
+                return $customer->firstname . ' ' . $customer->lastname;
+            })
+            ->make(true);
     }
 
     /**
@@ -67,8 +61,7 @@ class SalesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -79,8 +72,7 @@ class SalesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -90,8 +82,7 @@ class SalesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }

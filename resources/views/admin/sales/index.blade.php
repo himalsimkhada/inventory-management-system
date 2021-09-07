@@ -77,7 +77,7 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('sales.get') }}",
+                ajax: "{{ route('sales.show', ['sale' => $sale->id]) }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
