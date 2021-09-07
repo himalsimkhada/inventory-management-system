@@ -40,7 +40,19 @@ class ExpenseController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $data = $request->all();
+
+        $expense = new Expense();
+        $expense->amount = $data['amount'];
+        $expense->account = $data['account'];
+        $expense->note = $data['note'];
+        // $expense->expense_category_id = $data['expense_category_id'];
+        $expense->warehouse_id = $data['warehouse_id'];
+        $random = rand(1, 10);
+        $expense->reference_number = $random;
+        $expense->save();
+
+        return redirect()->route('expense.index');
     }
 
     /**
@@ -74,7 +86,19 @@ class ExpenseController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        //
+        $data = $request->all();
+
+        $expense = Expense::findorfail($id);
+        $expense->amount = $data['amount'];
+        $expense->account = $data['account'];
+        $expense->note = $data['note'];
+        // $expense->expense_category_id = $data['expense_category_id'];
+        $expense->warehouse_id = $data['warehouse_id'];
+        $random = rand(1, 10);
+        $expense->reference_number = $random;
+        $expense->save();
+
+        return redirect()->route('expense.index');
     }
 
     /**

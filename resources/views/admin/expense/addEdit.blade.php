@@ -23,9 +23,11 @@
                 <div class="card-body" id="dropzone">
                     <h5 class="font-weight-bold mb-3">Expenses Information</h5>
                     <form class=" row g-3" method="post"
-                        action="{{ request()->expense ? route('expense.update', [request()->expense]) : route('expense.create') }}"
-                        enctype="multipart/form-data">
+                        action="{{ request()->expense ? route('expense.update', [request()->expense]) : route('expense.store') }}">
                         @csrf
+                        @if (request()->expense)
+                            @method('PUT')
+                        @endif
                         <div class="col-md-6 mb-3">
                             <label for="expense_category_id">Category ID</label>
                             <select id="expense_category_id" class="form-select form-control choicesjs"
@@ -57,11 +59,12 @@
                         <div class="col-md-6 mb-3">
                             <label for="account">Account</label>
                             <select id="account" class="form-select form-control choicesjs" name="account">
+                                <option value="Test">test</option>
                             </select>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="note" class="form-label font-weight-bold text-muted text-uppercase">Note</label>
-                            <textarea class="form-control" name="" id="" rows="3"></textarea>
+                            <textarea class="form-control" name="note" id="note" rows="3">{{ isset($detail) ? $detail->note : old('note') }}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">

@@ -50,7 +50,7 @@
                                                     <td>{{ $val->warehouse_id }}</td>
                                                     <td>{{ $val->category_id }}</td>
                                                     <td>{{ $val->amount }}</td>
-                                                    <td>Note</td>
+                                                    <td>{{ $val->note }}</td>
                                                     <td>
                                                         <a class="btn btn-secondary mr-2"
                                                             href="{{ route('expense.show', [$val->id]) }}">Show</a>
