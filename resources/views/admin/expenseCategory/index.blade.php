@@ -84,8 +84,8 @@
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->code }}</td>
                                                 <td>{{ $category->name }}</td>
-                                                <td><a class="btn btn-primary mr-2" href="' . route('expense_category.edit', ['id' => $row['id']]) . '" id="edit">Edit</a>
-                                                    <a class="btn btn-danger" href="' . route('expense_category.destroy', ['id' => $row['id']]) . '" id="delete">Delete</a></td>
+                                                <td><a class="btn btn-primary mr-2" href="{{ route('expense_category.edit', $category->id) }}" id="edit">Edit</a>
+                                                    <a class="btn btn-danger" href="{{ route('expense_category.destroy', $category->id) }}" id="delete">Delete</a></td>
                                             </tr>
                                             @endforeach
                                         </tbody>

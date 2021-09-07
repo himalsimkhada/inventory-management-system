@@ -88,6 +88,7 @@ class ExpenseCategoryController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
