@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ExpenseCategoryController extends Controller
 {
@@ -14,6 +16,11 @@ class ExpenseCategoryController extends Controller
     public function index()
     {
         //
+        Session::put('admin_page', 'Expense Category');
+        $ecategory = ExpenseCategory::all();
+        return view('admin.expenseCategory.index', compact('ecategory'));
+
+
     }
 
     /**
@@ -21,9 +28,10 @@ class ExpenseCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+
     }
 
     /**
@@ -35,6 +43,27 @@ class ExpenseCategoryController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // dd($data);
+            $rule = [
+                'code' => 'required',
+                'name' => 'required|max:255',
+            ];
+            $customMessage = [
+                'code.required' => 'Please Select Expense Category Code.',
+                'name.required' => 'Please Enter Expense Category Name.',
+            ];
+            $this->validate($request, $rule, $customMessage);
+
+
+                $category = new ExpenseCategory();
+                $category->name = $data['name'];
+                $category->code = $data['code'];
+                $response = $category->save();
+                return redirect()->route('expense_category.index');
+
+        }
     }
 
     /**
@@ -46,6 +75,8 @@ class ExpenseCategoryController extends Controller
     public function show($id)
     {
         //
+        $data = ExpenseCategory::all()->sortByDesc('id');
+
     }
 
     /**
@@ -80,5 +111,12 @@ class ExpenseCategoryController extends Controller
     public function destroy($id)
     {
         //
+        $delete = ExpenseCategory::where('id', $id)->delete();
+
+        if ($delete) {
+            return redirect()->back();
+        } else {
+            return redirect();
+        }
     }
 }

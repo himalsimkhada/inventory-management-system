@@ -94,6 +94,9 @@ Route::prefix('/admin')->group(function () {
 
         // Route::resource('sales', 'SalesController');
 
+        // Expenses Category
+        Route::resource('expense_category', 'ExpenseCategoryController');
+
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
         Route::match(['get', 'post'], '/product/{id}/get', 'ProductAttributeController@get')->name('product.attr.get');
