@@ -52,9 +52,19 @@
                                                     <td>{{ $val->amount }}</td>
                                                     <td>Note</td>
                                                     <td>
-                                                        <a class="btn btn-secondary mr-2" href="{{ route('expense.show', [$val->id]) }}">Show</a>
-                                                        <a class="btn btn-primary mr-2" href="{{ route('expense.edit', [$val->id]) }}" id="edit">Edit</a>
-                                                        <a class="btn btn-danger mr-2" href="{{ route('expense.destroy', [$val->id]) }}">Delete</a>
+                                                        <a class="btn btn-secondary mr-2"
+                                                            href="{{ route('expense.show', [$val->id]) }}">Show</a>
+                                                        <a class="btn btn-primary mr-2"
+                                                            href="{{ route('expense.edit', [$val->id]) }}"
+                                                            id="edit">Edit</a>
+                                                        <form action="{{ route('expense.destroy', [$val->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-danger mr-2">Delete</button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @empty

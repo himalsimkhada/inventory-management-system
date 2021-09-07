@@ -6,7 +6,7 @@ use App\Models\Expense;
 use App\Models\Expenses;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Session;
 
 class ExpenseController extends Controller {
     /**
@@ -15,6 +15,8 @@ class ExpenseController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        Session::put('admin_page', 'Expense');
+
         $expense = Expense::all();
 
         return view('admin.expense.index', compact('expense'));
