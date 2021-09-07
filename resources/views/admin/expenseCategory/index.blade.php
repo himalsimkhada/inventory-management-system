@@ -84,7 +84,7 @@
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->code }}</td>
                                                 <td>{{ $category->name }}</td>
-                                                <td><a class="btn btn-primary mr-2" href="{{ route('expense_category.edit', $category->id) }}" id="edit">Edit</a>
+                                                <td><button class="btn btn-primary mr-2" data-toggle="modal" data-target="#categoryModal" data-id="' . $row['id'] . '" id="edit">Edit</button>
                                                     <a class="btn btn-danger" href="{{ route('expense_category.destroy', $category->id) }}" id="delete">Delete</a></td>
                                             </tr>
                                             @endforeach
@@ -99,3 +99,47 @@
         </div>
     </div>
 @endsection
+@section('js')
+    <script>
+        $(document).ready(function() {
+            var table = $('#datatable').DataTable({
+                dom: 'Bfrtipl',
+                buttons: [{
+                        extend: 'pdf',
+                        className: 'btn btn-outline-danger',
+                        text: 'pdf',
+                        exportOptions: {
+                            columns: 'th:not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn btn-outline-success',
+                        text: 'excel',
+                        exportOptions: {
+                            columns: 'th:not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-outline-secondary',
+                        text: 'print',
+                        exportOptions: {
+                            columns: 'th:not(:last-child)',
+                        }
+                    },
+                ],
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
+
+        // edit modal
+
+    </script>
+@endsection
+
