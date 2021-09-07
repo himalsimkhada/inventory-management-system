@@ -93,7 +93,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('/sales','SalesController@index')->name('sales.index');
         Route::get('/sales/get', 'SalesController@show')->name('sales.show');
 
-        Route::resource('sales', 'SalesController');
+        // Route::resource('sales', 'SalesController');
 
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
