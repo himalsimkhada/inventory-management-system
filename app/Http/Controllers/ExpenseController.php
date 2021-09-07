@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
+use App\Models\Expenses;
+use App\Models\WareHouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
-class ExpenseController extends Controller
-{
+class ExpenseController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('admin.expense.index');
+    public function index() {
+        Session::put('admin_page', 'Expense');
+
+        $expense = Expense::all();
+
+        return view('admin.expense.index', compact('expense'));
     }
 
     /**
@@ -21,9 +27,10 @@ class ExpenseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('admin.expense.addEdit');
+    public function create() {
+        $warehouse = WareHouse::all();
+
+        return view('admin.expense.addEdit', compact('warehouse'));
     }
 
     /**
@@ -32,8 +39,7 @@ class ExpenseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -43,9 +49,8 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id) {
+        dd('working');
     }
 
     /**
@@ -54,9 +59,11 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        return view('admin.expense.addEdit');
+    public function edit($id) {
+        $detail = Expense::with('warehouse')->where('id', $id)->first();
+        $warehouse = WareHouse::all();
+
+        return view('admin.expense.addEdit', compact(['detail', 'warehouse']));
     }
 
     /**
@@ -66,8 +73,7 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -77,8 +83,13 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        // dd('working');
+        $delete = Expense::where('id', $id)->delete();
+        if ($delete) {
+            return redirect()->back();
+        } else {
+            dd('Error');
+        }
     }
 }
