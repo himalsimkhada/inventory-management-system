@@ -21,28 +21,24 @@
                             value="{{ isset($account) ? $account->name : '' }}">
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="initial_balance"
-                            class="form-label font-weight-bold text-muted text-uppercase">Initial Balance</label>
+                        <label for="initial_balance" class="form-label font-weight-bold text-muted text-uppercase">Initial
+                            Balance</label>
                         <input type="text" class="form-control" id="initial_balance" name="initial_balance"
                             value="{{ isset($account) ? $account->initial_balance : '' }}">
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="note"
-                            class="form-label font-weight-bold text-muted text-uppercase">Note</label>
-                          <textarea class="form-control" name="note" id="note" rows="3">{{ isset($account) ? $account->note : '' }}</textarea>
-                        </div>
+                        <label for="note" class="form-label font-weight-bold text-muted text-uppercase">Note</label>
+                        <textarea class="form-control" name="note" id="note"
+                            rows="3">{{ isset($account) ? $account->note : '' }}</textarea>
                     </div>
-                    <div class="col-md-12 mb-3">
-                        <button type="submit" class="btn btn-primary" id="submitForm">
-                            @if (request()->account)
-                                Edit
-                            @else
-                                Add
-                            @endif
-                        </button>
-                    </div>
-                </form>
             </div>
+            <div class="col-md-12 mb-3">
+                <button type="submit" class="btn btn-primary" id="submitForm">
+                    {{ request()->account ? 'Edit' : 'Add' }}
+                </button>
+            </div>
+            </form>
         </div>
+    </div>
     </div>
 @endsection

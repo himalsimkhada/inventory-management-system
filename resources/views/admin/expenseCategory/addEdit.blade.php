@@ -6,7 +6,7 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="d-flex align-items-center justify-content-between">
                 </div>
-                <a href="{{ route('expense.index') }}"
+                <a href="{{ route('expense_category.index') }}"
                     class="btn btn-primary btn-sm d-flex align-items-center justify-content-between ml-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
@@ -49,11 +49,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
-                                @if (request()->expense_category)
-                                    Edit
-                                @else
-                                    Add
-                                @endif
+                                {{ request()->expense_category ? 'Edit' : 'Add' }}
                             </button>
                         </div>
                     </form>
