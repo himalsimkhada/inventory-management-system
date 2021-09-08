@@ -13,4 +13,14 @@ class Expense extends Model
     {
         return $this->belongsTo(WareHouse::class);
     }
+
+    public function expense_category()
+    {
+        return $this->belongsTo(ExpenseCategory::class);
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

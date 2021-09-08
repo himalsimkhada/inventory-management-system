@@ -21,10 +21,10 @@
                 </div>
                 <div class="col-md-12 mb-3">
                     <button type="submit" class="btn btn-primary" id="submitForm">
-                        @if (request()->id)
-                            Edit Customer Detail
+                        @if (request()->expense_category)
+                            Edit
                         @else
-                            Update Customer
+                            Add
                         @endif
                     </button>
                 </div>

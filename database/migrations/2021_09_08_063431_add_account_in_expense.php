@@ -4,19 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExpensesTable extends Migration {
+class AddAccountInExpense extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('expenses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('amount');
-            $table->string('note');
-            $table->string('reference_number');
+        Schema::table('expenses', function (Blueprint $table) {
+            $table->unsignedBigInteger('account_id');
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 
@@ -26,6 +23,8 @@ class CreateExpensesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('expenses');
+        Schema::table('expenses', function (Blueprint $table) {
+            //
+        });
     }
 }

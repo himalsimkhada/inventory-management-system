@@ -13,13 +13,11 @@ class AddForeignExpenses extends Migration {
     public function up() {
         Schema::table('expenses', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger('expense_category_id')->nullable();
+            $table->unsignedBigInteger('expense_category_id');
             $table->foreign('expense_category_id')->references('id')->on('expense_categories');
 
             $table->unsignedBigInteger('warehouse_id');
             $table->foreign('warehouse_id')->references('id')->on('ware_houses');
-
-            $table->string('reference_number');
         });
     }
 

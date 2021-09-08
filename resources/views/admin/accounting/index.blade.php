@@ -3,12 +3,12 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Customer Details</h4>
+            <h4 class="font-weight-bold">Expense Category</h4>
         </div>
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <a href="{{ route('expense.create') }}" type="button" id='add'
+                    <a href="{{ route('account.create') }}" id='add'
                         class="btn btn-primary position-relative d-flex align-items-center justify-content-between">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -33,43 +33,33 @@
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Reference Number</th>
-                                                <th>Warehouse</th>
-                                                <th>Category</th>
-                                                <th>Amount</th>
+                                                <th>Account Number</th>
+                                                <th>Name</th>
+                                                <th>Initial Balance</th>
                                                 <th>Note</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($expense as $val)
+                                            @foreach ($account as $val)
                                                 <tr>
-                                                    <td>{{ $val->created_at }}</td>
-                                                    <td>{{ $val->reference_number }}</td>
-                                                    <td>{{ $val->warehouse->name }}</td>
-                                                    <td>{{ $val->expense_category->name }}</td>
-                                                    <td>{{ $val->amount }}</td>
+                                                    <td>{{ $val->account_no }}</td>
+                                                    <td>{{ $val->name }}</td>
+                                                    <td>{{ $val->initial_balance }}</td>
                                                     <td>{{ $val->note }}</td>
                                                     <td>
-                                                        <form action="{{ route('expense.destroy', [$val->id]) }}"
-                                                            method="POST" class="inline">
+                                                        <form action="{{ route('account.destroy', $val->id) }}"
+                                                            method="post">
                                                             @csrf
-                                                            <a class="btn btn-secondary mr-2"
-                                                                href="{{ route('expense.show', [$val->id]) }}">Show</a>
-                                                            <a class="btn btn-primary mr-2"
-                                                                href="{{ route('expense.edit', [$val->id]) }}"
-                                                                id="edit">Edit</a>
                                                             @method('DELETE')
-
-                                                            <button type="submit"
-                                                                class="btn btn-danger mr-2">Delete</button>
+                                                            <a class="btn btn-primary mr-2"
+                                                                href="{{ route('account.edit', $val->id) }}"
+                                                                id="edit">Edit</a>
+                                                            <button type="Submit" class="btn btn-danger">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>
-                                            @empty
-                                                No data in table
-                                            @endforelse
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -120,5 +110,7 @@
                 }
             });
         });
+
+        // edit modal
     </script>
 @endsection

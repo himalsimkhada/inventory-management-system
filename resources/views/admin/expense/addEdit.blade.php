@@ -32,15 +32,25 @@
                             <label for="expense_category_id">Category ID</label>
                             <select id="expense_category_id" class="form-select form-control choicesjs"
                                 name="expense_category_id">
-                                <option value="Test">test</option>
+                                @if (request()->expense)
+                                    <option value="{{ isset($expense) ? $expense->expense_category_id : '' }}" selected>
+                                        {{ isset($expense) ? $expense->expense_category->name : '' }}</option>
+                                    @foreach ($categories as $val)
+                                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                    @endforeach
+                                @else
+                                    @foreach ($categories as $val)
+                                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="warehouse_id">Warehouse</label>
                             <select id="warehouse_id" class="form-select form-control choicesjs" name="warehouse_id">
                                 @if (request()->expense)
-                                    <option value="{{ isset($detail) ? $detail->warehouse_id : '' }}" selected>
-                                        {{ isset($detail) ? $detail->warehouse->name : '' }}</option>
+                                    <option value="{{ isset($expense) ? $expense->warehouse_id : '' }}" selected>
+                                        {{ isset($expense) ? $expense->warehouse->name : '' }}</option>
                                     @foreach ($warehouse as $val)
                                         <option value="{{ $val->id }}">{{ $val->name }}</option>
                                     @endforeach
@@ -54,17 +64,28 @@
                         <div class="col-md-6 mb-3">
                             <label for="amount" class="form-label font-weight-bold text-muted text-uppercase">Amount</label>
                             <input type="text" class="form-control" id="amount" name="amount"
-                                value="{{ isset($detail) ? $detail->amount : old('amount') }}">
+                                value="{{ isset($expense) ? $expense->amount : old('amount') }}">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="account">Account</label>
-                            <select id="account" class="form-select form-control choicesjs" name="account">
-                                <option value="Test">test</option>
+                            <label for="account_id">Account</label>
+                            <select id="account_id" class="form-select form-control choicesjs" name="account_id">
+                                @if (request()->expense)
+                                    <option value="{{ isset($expense) ? $expense->account_id : '' }}" selected>
+                                        {{ isset($expense) ? $expense->account->name : '' }}</option>
+                                    @foreach ($accounts as $val)
+                                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                    @endforeach
+                                @else
+                                    @foreach ($accounts as $val)
+                                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="note" class="form-label font-weight-bold text-muted text-uppercase">Note</label>
-                            <textarea class="form-control" name="note" id="note" rows="3">{{ isset($detail) ? $detail->note : old('note') }}</textarea>
+                            <textarea class="form-control" name="note" id="note"
+                                rows="3">{{ isset($expense) ? $expense->note : old('note') }}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">

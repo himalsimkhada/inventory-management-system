@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Expense;
+use App\Models\ExpenseCategory;
 use App\Models\Expenses;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
@@ -30,8 +32,10 @@ class ExpenseController extends Controller {
     public function create() {
         Session::put('admin_page', 'Add Expense');
         $warehouse = WareHouse::all();
+        $categories = ExpenseCategory::all();
+        $accounts = Account::all();
 
-        return view('admin.expense.addEdit', compact('warehouse'));
+        return view('admin.expense.addEdit', compact(['warehouse', 'categories', 'accounts']));
     }
 
     /**
@@ -45,9 +49,9 @@ class ExpenseController extends Controller {
 
         $expense = new Expense();
         $expense->amount = $data['amount'];
-        $expense->account = $data['account'];
+        $expense->account_id = $data['account_id'];
         $expense->note = $data['note'];
-        // $expense->expense_category_id = $data['expense_category_id'];
+        $expense->expense_category_id = $data['expense_category_id'];
         $expense->warehouse_id = $data['warehouse_id'];
         $random = rand(1, 10);
         $expense->reference_number = $random;
@@ -73,10 +77,12 @@ class ExpenseController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $detail = Expense::with('warehouse')->where('id', $id)->first();
+        $expense = Expense::with(['warehouse', 'expense_category', 'account'])->where('id', $id)->first();
         $warehouse = WareHouse::all();
+        $categories = ExpenseCategory::all();
+        $accounts = Account::all();
 
-        return view('admin.expense.addEdit', compact(['detail', 'warehouse']));
+        return view('admin.expense.addEdit', compact(['expense', 'warehouse', 'categories', 'accounts']));
     }
 
     /**
@@ -91,9 +97,9 @@ class ExpenseController extends Controller {
 
         $expense = Expense::findorfail($id);
         $expense->amount = $data['amount'];
-        $expense->account = $data['account'];
+        $expense->account_id = $data['account_id'];
         $expense->note = $data['note'];
-        // $expense->expense_category_id = $data['expense_category_id'];
+        $expense->expense_category_id = $data['expense_category_id'];
         $expense->warehouse_id = $data['warehouse_id'];
         $random = rand(1, 10);
         $expense->reference_number = $random;

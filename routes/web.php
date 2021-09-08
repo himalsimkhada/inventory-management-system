@@ -127,6 +127,9 @@ Route::prefix('/admin')->group(function () {
 
         //Expense
         Route::resource('expense', 'ExpenseController');
+
+        //Account
+        Route::resource('account', 'AccountController');
     });
 
     // logout

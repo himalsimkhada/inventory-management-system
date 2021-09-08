@@ -192,7 +192,8 @@
                         </svg>
                     </a>
                     <ul id="expense" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class=" {{ Session::get('admin_page') == 'Expense Category' ? 'active' : '' }} sidebar-layout">
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Expense Category' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('expense_category.index') }}" class="svg-icon ">
                                 <i class="___class_+?47___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -218,7 +219,8 @@
                                 <span class="ml-2">Expense List</span>
                             </a>
                         </li>
-                        <li class=" {{ Session::get('admin_page') == 'Add Expense' ? 'active' : '' }} sidebar-layout">
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Add Expense' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('expense.create') }}" class="svg-icon ">
                                 <i class="___class_+?53___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -233,7 +235,54 @@
                         </li>
                     </ul>
                 </li>
-                {{-- customer --}}
+                {{-- Account --}}
+                <li class=" {{ Session::get('admin_page') == 'Account' ? 'active' : '' }} sidebar-layout">
+                    <a href="#account" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
+                        <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">Accounting</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">;
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <ul id="account" class="submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Account' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('account.index') }}" class="svg-icon ">
+                                <i class="___class_+?47___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Account List</span>
+                            </a>
+                        </li>
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Add Account' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('account.create') }}" class="svg-icon ">
+                                <i class="___class_+?53___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Add Account</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- Customer --}}
                 <li class=" {{ Session::get('admin_page') == 'People' ? 'active' : '' }} sidebar-layout">
                     <a href="#customer" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>

@@ -72,21 +72,29 @@
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>S. No.</th>
                                                 <th>Code</th>
                                                 <th>Name</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($ecategory as $category )
-                                            <tr>
-                                                <td>{{ $category->id }}</td>
-                                                <td>{{ $category->code }}</td>
-                                                <td>{{ $category->name }}</td>
-                                                <td><a class="btn btn-primary mr-2" href="{{ route('expense_category.edit', $category->id) }}" id="edit">Edit</a>
-                                                    <a class="btn btn-danger" href="{{ route('expense_category.destroy', $category->id) }}" id="delete">Delete</a></td>
-                                            </tr>
+                                            @foreach ($ecategory as $category)
+                                                <tr>
+                                                    <td>{{ $category->code }}</td>
+                                                    <td>{{ $category->name }}</td>
+                                                    <td>
+                                                        <form
+                                                            action="{{ route('expense_category.destroy', $category->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a class="btn btn-primary mr-2"
+                                                                href="{{ route('expense_category.edit', $category->id) }}"
+                                                                id="edit">Edit</a>
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -139,7 +147,5 @@
         });
 
         // edit modal
-
     </script>
 @endsection
-
