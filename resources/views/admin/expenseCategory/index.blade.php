@@ -8,64 +8,19 @@
         <div class="create-workform">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div class="modal-product-search d-flex">
-                    <button type="button" id='add'
-                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between"
-                        data-toggle="modal" data-target="#categoryModal">
+                    <a href="{{ route('expense_category.create') }}" id='add'
+                        class="btn btn-primary position-relative d-flex align-items-center justify-content-between">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         Add New
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add/Edit Category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="alert alert-danger print-error-msg" style="display:none">
-                    <ul></ul>
-                </div>
-                <form action="{{ route('expense_category.store') }}" method="post">
-                    @csrf
-                    <div class="modal-body">
-                        <div id="errors"></div>
-                        <div class="form-group">
-                            <label for="code" class="form-label">Code</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" name="code" id="code" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-secondary">Generate</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name" id="name">
-                        </div>
-                        <div
-                            class="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-lg-12">
             <div class="iq-edit-list-data">
