@@ -53,8 +53,9 @@ class ExpenseController extends Controller {
         $expense->note = $data['note'];
         $expense->expense_category_id = $data['expense_category_id'];
         $expense->warehouse_id = $data['warehouse_id'];
-        $random = rand(1, 10);
-        $expense->reference_number = $random;
+        $random_1 = rand(100000, 900000);
+        $random_2 = rand(100000, 900000);
+        $expense->reference_number = 'er' . '-' . $random_1 . '-' . $random_2;
         $expense->save();
 
         return redirect()->route('expense.index');
@@ -101,8 +102,6 @@ class ExpenseController extends Controller {
         $expense->note = $data['note'];
         $expense->expense_category_id = $data['expense_category_id'];
         $expense->warehouse_id = $data['warehouse_id'];
-        $random = rand(1, 10);
-        $expense->reference_number = $random;
         $expense->save();
 
         return redirect()->route('expense.index');

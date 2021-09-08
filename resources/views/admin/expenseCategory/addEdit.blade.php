@@ -49,11 +49,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary" id="submitForm">
-                                @if (request()->expense_category)
-                                    Edit
-                                @else
-                                    Add
-                                @endif
+                                {{ request()->expense_category ? 'Edit' : 'Add' }}
                             </button>
                         </div>
                     </form>
