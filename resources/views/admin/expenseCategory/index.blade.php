@@ -84,7 +84,7 @@
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->code }}</td>
                                                 <td>{{ $category->name }}</td>
-                                                <td><button class="btn btn-primary mr-2" data-toggle="modal" data-target="#categoryModal" data-id="' . $row['id'] . '" id="edit">Edit</button>
+                                                <td><a class="btn btn-primary mr-2" href="{{ route('expense_category.edit', $category->id) }}" id="edit">Edit</a>
                                                     <a class="btn btn-danger" href="{{ route('expense_category.destroy', $category->id) }}" id="delete">Delete</a></td>
                                             </tr>
                                             @endforeach

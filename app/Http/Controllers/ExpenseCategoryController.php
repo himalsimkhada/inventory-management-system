@@ -88,7 +88,9 @@ class ExpenseCategoryController extends Controller
     public function edit($id)
     {
         //
+        $category = ExpenseCategory::where('id', $id)->first();
 
+        return view('admin.expenseCategory.addEdit', compact('category'));
     }
 
     /**
