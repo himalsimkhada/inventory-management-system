@@ -30,8 +30,7 @@ class ExpenseCategoryController extends Controller
      */
     public function create(Request $request)
     {
-        //
-
+        return view('admin.expenseCategory.addEdit');
     }
 
     /**
