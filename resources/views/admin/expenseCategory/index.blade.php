@@ -42,7 +42,12 @@
                         <div id="errors"></div>
                         <div class="form-group">
                             <label for="code" class="form-label">Code</label>
-                            <input type="text" class="form-control" name="code" id="code">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="code" id="code" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">Generate</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="name" class="form-label">Name</label>
@@ -79,14 +84,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($ecategory as $category )
-                                            <tr>
-                                                <td>{{ $category->id }}</td>
-                                                <td>{{ $category->code }}</td>
-                                                <td>{{ $category->name }}</td>
-                                                <td><a class="btn btn-primary mr-2" href="{{ route('expense_category.edit', $category->id) }}" id="edit">Edit</a>
-                                                    <a class="btn btn-danger" href="{{ route('expense_category.destroy', $category->id) }}" id="delete">Delete</a></td>
-                                            </tr>
+                                            @foreach ($ecategory as $category)
+                                                <tr>
+                                                    <td>{{ $category->id }}</td>
+                                                    <td>{{ $category->code }}</td>
+                                                    <td>{{ $category->name }}</td>
+                                                    <td><a class="btn btn-primary mr-2"
+                                                            href="{{ route('expense_category.edit', $category->id) }}"
+                                                            id="edit">Edit</a>
+                                                        <a class="btn btn-danger"
+                                                            href="{{ route('expense_category.destroy', $category->id) }}"
+                                                            id="delete">Delete</a>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -139,7 +149,5 @@
         });
 
         // edit modal
-
     </script>
 @endsection
-
