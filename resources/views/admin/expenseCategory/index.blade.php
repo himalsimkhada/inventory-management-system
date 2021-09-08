@@ -42,7 +42,12 @@
                         <div id="errors"></div>
                         <div class="form-group">
                             <label for="code" class="form-label">Code</label>
-                            <input type="text" class="form-control" name="code" id="code">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="code" id="code" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">Generate</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="name" class="form-label">Name</label>

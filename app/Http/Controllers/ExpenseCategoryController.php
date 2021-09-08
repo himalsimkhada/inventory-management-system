@@ -103,6 +103,14 @@ class ExpenseCategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data = $request->all();
+
+        $expenseCategory = ExpenseCategory::findorfail($id);
+        $expenseCategory->name = $data['name'];
+        $expenseCategory->code = $data['code'];
+        $expenseCategory->save();
+
+        return redirect()->route('expense_category.index');
     }
 
     /**
