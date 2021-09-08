@@ -28,6 +28,7 @@ class ExpenseController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
+        Session::put('admin_page', 'Add Expense');
         $warehouse = WareHouse::all();
 
         return view('admin.expense.addEdit', compact('warehouse'));
