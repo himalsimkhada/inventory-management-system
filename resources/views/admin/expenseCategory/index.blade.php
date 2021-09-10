@@ -45,13 +45,14 @@
                                                     <td>
                                                         <form
                                                             action="{{ route('expense_category.destroy', $category->id) }}"
-                                                            method="post">
+                                                            method="post" id="delete">
                                                             @csrf
                                                             @method('DELETE')
                                                             <a class="btn btn-primary mr-2"
                                                                 href="{{ route('expense_category.edit', $category->id) }}"
                                                                 id="edit">Edit</a>
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                            <button type="button" onclick="return false"
+                                                                class="btn btn-danger mr-2 delete-btn">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -105,6 +106,23 @@
                 }
             });
         });
+        $('.delete-btn').on('click', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#delete').submit();
+
+                }
+            })
+        })
 
         // edit modal
     </script>
