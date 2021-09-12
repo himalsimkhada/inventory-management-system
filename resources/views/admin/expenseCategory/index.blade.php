@@ -124,6 +124,5 @@
             })
         })
 
-        // edit modal
     </script>
 @endsection
