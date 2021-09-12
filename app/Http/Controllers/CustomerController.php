@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 
 class CustomerController extends Controller {
-    //
     public function index() {
         Session::put('admin_page', 'Customer');
         return view('admin.customer.index');

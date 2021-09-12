@@ -1,10 +1,6 @@
 @extends('admin.includes.admin_design')
 
 @section('content')
-
-
-    <button id="print">Print</button>
-
     <div class="row">
         <div class="col-md-12 mb-4 mt-1">
             <div class="d-flex flex-wrap justify-content-between align-items-center">
@@ -32,96 +28,6 @@
                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12 col-md-12">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-8" id="printable">
-                                    <link rel="stylesheet"
-                                        href="{{ asset('public/backend//assets/css/backend-v=1.0.0.css') }} ">
-                                    <div class="text-center">
-                                        <p>
-                                            <img src="https://www.techcoderznepal.com/public/storage/static/logo.png"
-                                                height="50px" />
-                                        </p>
-                                        <p>Address: Tinkune, Kathmandu</p>
-                                        <p>Phone: 987456321</p>
-                                    </div>
-                                    <div>
-                                        <p>Date: 2021-08-31</p>
-                                        <p>Reference: Posr-20210831-113237</p>
-                                        <p>Customer: Walk-In-Customer</p>
-                                        <br />
-                                        <table class="table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="2" class="text-left">Product</th>
-                                                    <th class="text-right">Price</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="2" class="text-left">
-                                                        product name <br />
-                                                        1 X 144.00
-                                                    </td>
-                                                    <td class="text-right">
-                                                        144.00
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" class="text-left">
-                                                        product name <br />
-                                                        1 X 440.00 [Tax (10%): 40]
-                                                    </td>
-                                                    <td class="text-right">
-                                                        440.00
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="2" class="text-left">Total</th>
-                                                    <th class="text-right">584.00</th>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="3" class="text-center">
-                                                        In Words: Five Hundred Eighty Four
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-left">Paid By: Cash</td>
-                                                    <td class="text-center">Amount: 584.00</td>
-                                                    <td class="text-right">Change: 416.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3" class="text-center">Thank You For Shopping With Us.
-                                                        Please Come Again</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3" class="text-center">
-                                                        <img
-                                                            src="data:image/png;base64,{{ DNS1D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'C39+', 1, 33) }}" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3" class="text-center">
-                                                        <img
-                                                            src="data:image/png;base64,{{ DNS2D::getBarcodePNG('Posr-202108asdasdasdasdasdasd31-113237', 'PDF417') }}" />
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-2"></div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -663,16 +569,4 @@
         </div>
     </div>
     <!-- Page end  -->
-@endsection
-
-@section('js')
-    <script>
-        $(document).on('click', '#print', function() {
-            var divtoprint = document.getElementById('printable');
-            newWin = window.open("");
-            newWin.document.write(divtoprint.outerHTML);
-            newWin.print();
-            newWin.close();
-        })
-    </script>
 @endsection

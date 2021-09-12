@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
-use Intervention\Image\ImageManagerStatic as Img;
-use Illuminate\Support\Str;
 use DNS1D;
 
 class ProductController extends Controller {
@@ -106,6 +104,8 @@ class ProductController extends Controller {
     }
 
     public function add() {
+        Session::put('admin_page', 'Add Product');
+
         $category = Category::all()->sortByDesc("name");
         $product = Brand::all()->sortByDesc("name");
         $unit = Unit::all()->sortByDesc("name");

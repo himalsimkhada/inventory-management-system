@@ -1,7 +1,3 @@
-@php
-$details = \App\Models\Details::where('id', '=', 1)->first();
-@endphp
-
 <div class="iq-sidebar  sidebar-default  ">
     <div class="iq-sidebar-logo d-flex align-items-end justify-content-between">
         <a href="{{ route('adminDashboard') }}" class="header-logo">
@@ -23,7 +19,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
             <ul id="iq-sidebar-toggle" class="side-menu">
                 <li class="{{ Session::get('admin_page') == 'Dashboard' ? 'active' : '' }} sidebar-layout">
                     <a href="{{ route('adminDashboard') }}" class="svg-icon">
-                        <i class="">
+                        <i class="___class_+?12___">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -36,8 +32,8 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                 <li class=" {{ Session::get('admin_page') == 'Product' ? 'active' : '' }} sidebar-layout">
                     <a href="#product" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                             </svg>
@@ -51,7 +47,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                     <ul id="product" class="submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li class=" {{ Session::get('admin_page') == 'Category' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('category.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?22___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -64,7 +60,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         </li>
                         <li class="sidebar-layout {{ Session::get('admin_page') == 'Product' ? 'active' : '' }}">
                             <a href="{{ route('product.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?27___">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -76,7 +72,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         </li>
                         <li class="sidebar-layout {{ Session::get('admin_page') == 'Add Product' ? 'active' : '' }}">
                             <a href="{{ route('product.add') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?31___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -88,7 +84,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         </li>
                         <li class="sidebar-layout {{ Session::get('admin_page') == 'Barcode' ? 'active' : '' }}">
                             <a href="{{ route('barcode.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?36___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                         fill="currentColor">
                                         <path fill-rule="evenodd"
@@ -103,12 +99,43 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         </li>
                     </ul>
                 </li>
-
+                <li class=" {{ Session::get('admin_page') == 'Purchase' ? 'active' : '' }} sidebar-layout">
+                    <a href="#purchase" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
+                        <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">Purchase</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">;
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <ul id="purchase" class="submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li class=" {{ Session::get('admin_page') == 'POS' ? 'active' : '' }} sidebar-layout">
+                            <a href="#" class="svg-icon ">
+                                <i class="___class_+?47___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Purchase List</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- Sale Items --}}
                 <li class=" {{ Session::get('admin_page') == 'Sale' ? 'active' : '' }} sidebar-layout">
                     <a href="#sale" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                             </svg>
@@ -122,7 +149,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                     <ul id="sale" class="submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li class=" {{ Session::get('admin_page') == 'POS' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('pos.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?47___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -133,15 +160,134 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">POS</span>
                             </a>
                         </li>
+                        <li class=" {{ Session::get('admin_page') == 'Sales' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('sales.index') }}" class="svg-icon ">
+                                <i class="___class_+?53___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Sales List</span>
+                            </a>
+                        </li>
                     </ul>
-
                 </li>
-                {{-- customer --}}
+                {{-- Expense Items --}}
+                <li class=" {{ Session::get('admin_page') == 'Expense' ? 'active' : '' }} sidebar-layout">
+                    <a href="#expense" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
+                        <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">Expense</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">;
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <ul id="expense" class="submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Expense Category' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('expense_category.index') }}" class="svg-icon ">
+                                <i class="___class_+?47___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Expense Category</span>
+                            </a>
+                        </li>
+                        <li class=" {{ Session::get('admin_page') == 'Expense' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('expense.index') }}" class="svg-icon ">
+                                <i class="___class_+?53___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Expense List</span>
+                            </a>
+                        </li>
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Add Expense' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('expense.create') }}" class="svg-icon ">
+                                <i class="___class_+?53___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Add Expense</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- Account --}}
+                <li class=" {{ Session::get('admin_page') == 'Account' ? 'active' : '' }} sidebar-layout">
+                    <a href="#account" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
+                        <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">Accounting</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">;
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <ul id="account" class="submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Account' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('account.index') }}" class="svg-icon ">
+                                <i class="___class_+?47___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Account List</span>
+                            </a>
+                        </li>
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Add Account' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('account.create') }}" class="svg-icon ">
+                                <i class="___class_+?53___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                                        </path>
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Add Account</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- Customer --}}
                 <li class=" {{ Session::get('admin_page') == 'People' ? 'active' : '' }} sidebar-layout">
                     <a href="#customer" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                             </svg>
@@ -155,7 +301,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                     <ul id="customer" class="submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li class=" {{ Session::get('admin_page') == 'Customer' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('customer.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?64___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -169,7 +315,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         <li
                             class=" {{ Session::get('admin_page') == 'Customer Add/Edit' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('customer.add') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?69___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -204,7 +350,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                     <ul id="app2" class="submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li class=" {{ Session::get('admin_page') == 'Brand' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('brand.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?80___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -216,7 +362,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         </li>
                         <li class=" {{ Session::get('admin_page') == 'Unit' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('unit.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?85___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -226,10 +372,9 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                                 <span class="ml-2">Unit</span>
                             </a>
                         </li>
-
                         <li class=" {{ Session::get('admin_page') == 'WareHouse' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('wareHouse.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?90___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -241,7 +386,7 @@ $details = \App\Models\Details::where('id', '=', 1)->first();
                         </li>
                         <li class=" {{ Session::get('admin_page') == 'Group' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('group.index') }}" class="svg-icon ">
-                                <i class="">
+                                <i class="___class_+?95___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

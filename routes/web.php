@@ -1,7 +1,4 @@
 <?php
-
-use App\Http\Controllers\AdminLoginController;
-use App\Http\Controllers\AlterEnvController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -72,7 +69,7 @@ Route::prefix('/admin')->group(function () {
 
         //Product
         Route::get('/product/view', 'ProductController@index')->name('product.index');
-        Route::get('/product/get/', 'ProductController@get')->name('product.get');
+        Route::get('/product/get', 'ProductController@get')->name('product.get');
         Route::get('/product/get/{id}', 'ProductController@get')->name('product.edit');
         Route::post('/product/destroy', 'ProductController@destroy')->name('product.destroy');
         Route::get('/product/add', 'ProductController@add')->name('product.add');
@@ -95,6 +92,15 @@ Route::prefix('/admin')->group(function () {
         Route::post('/pos/barcode', 'PosController@barcode')->name('pos.barcode');
         Route::post('/pos/store', 'PosController@store')->name('pos.store');
 
+        //Sales
+        Route::get('/sales','SalesController@index')->name('sales.index');
+        Route::get('/sales/get', 'SalesController@show')->name('sales.show');
+
+        // Route::resource('sales', 'SalesController');
+
+        // Expenses Category
+        Route::resource('expense_category', 'ExpenseCategoryController');
+
         //Product Attribute
         Route::get('/product/{id}/view', 'ProductAttributeController@index')->name('product.attr.index');
         Route::match(['get', 'post'], '/product/{id}/get', 'ProductAttributeController@get')->name('product.attr.get');
@@ -107,10 +113,6 @@ Route::prefix('/admin')->group(function () {
         //Dropzone
         Route::post('/image', 'ImageController@store')->name('product.image');
         Route::post('/product/image/destroy', 'ImageController@destroy')->name('image.destroy');
-
-        //Sale
-        Route::get('/sale/index', 'SaleController@index')->name('sale.index');
-        Route::get('/sale/pos', 'SaleController@pos')->name('sale.pos');
 
         // customers
         Route::get('/customer/index', 'CustomerController@index')->name('customer.index');
@@ -127,8 +129,11 @@ Route::prefix('/admin')->group(function () {
         Route::post('/group/store', 'CustomerGroupController@store')->name('group.store');
         Route::get('/group/destroy/{id}', 'CustomerGroupController@destroy')->name('group.destroy');
 
+        //Expense
+        Route::resource('expense', 'ExpenseController');
 
-
+        //Account
+        Route::resource('account', 'AccountController');
     });
 
     // logout

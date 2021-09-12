@@ -30,7 +30,7 @@
                             <label for="fname" class="form-label font-weight-bold text-muted text-uppercase">First
                                 Name</label>
                             <input type="text" class="form-control" id="fname" name="fname"
-                                value="{{ isset($detail) ? $detail->firstname : '' }}">
+                                value="{{ isset($detail) ? $detail->firstname : old('fname') }}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lname" class="form-label font-weight-bold text-muted text-uppercase">Last
