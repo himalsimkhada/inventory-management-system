@@ -29,6 +29,7 @@
                         <span class="ml-2">Dashboard</span>
                     </a>
                 </li>
+                {{-- Product tab --}}
                 <li class=" {{ Session::get('admin_page') == 'Product' ? 'active' : '' }} sidebar-layout">
                     <a href="#product" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -99,6 +100,7 @@
                         </li>
                     </ul>
                 </li>
+                {{-- Purchase Tab --}}
                 <li class=" {{ Session::get('admin_page') == 'Purchase' ? 'active' : '' }} sidebar-layout">
                     <a href="#purchase" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -130,7 +132,7 @@
                         </li>
                     </ul>
                 </li>
-                {{-- Sale Items --}}
+                {{-- Sale/POS Tab --}}
                 <li class=" {{ Session::get('admin_page') == 'Sale' ? 'active' : '' }} sidebar-layout">
                     <a href="#sale" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -175,7 +177,7 @@
                         </li>
                     </ul>
                 </li>
-                {{-- Expense Items --}}
+                {{-- Expense Tab --}}
                 <li class=" {{ Session::get('admin_page') == 'Expense' ? 'active' : '' }} sidebar-layout">
                     <a href="#expense" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -235,7 +237,7 @@
                         </li>
                     </ul>
                 </li>
-                {{-- Account --}}
+                {{-- Account Tab --}}
                 <li class=" {{ Session::get('admin_page') == 'Account' ? 'active' : '' }} sidebar-layout">
                     <a href="#account" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -252,8 +254,7 @@
                         </svg>
                     </a>
                     <ul id="account" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li
-                            class=" {{ Session::get('admin_page') == 'Account' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'Account' ? 'active' : '' }} sidebar-layout">
                             <a href="{{ route('account.index') }}" class="svg-icon ">
                                 <i class="___class_+?47___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -282,7 +283,7 @@
                         </li>
                     </ul>
                 </li>
-                {{-- Customer --}}
+                {{-- Customer Tab --}}
                 <li class=" {{ Session::get('admin_page') == 'People' ? 'active' : '' }} sidebar-layout">
                     <a href="#customer" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -328,6 +329,7 @@
                         </li>
                     </ul>
                 </li>
+                {{-- Settings Tab --}}
                 <li class="sidebar-layout">
                     <a href="#app2" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
                         <i>
@@ -394,6 +396,55 @@
                                     </svg>
                                 </i>
                                 <span class="ml-2">Customer Group</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- Report Tab --}}
+                <li class="sidebar-layout">
+                    <a href="#report" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
+                        <i>
+                            <svg class="svg-icon mr-0 text-secondary" id="h-03-p" width="20"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </i>
+                        <span class="ml-2">Reports</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <ul id="report" class="submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Sales Report' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('report.sale') }}" class="svg-icon ">
+                                <i class="___class_+?80___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Sales Report</span>
+                            </a>
+                        </li>
+                        <li
+                            class=" {{ Session::get('admin_page') == 'Expenses Report' ? 'active' : '' }} sidebar-layout">
+                            <a href="{{ route('report.expense') }}" class="svg-icon ">
+                                <i class="___class_+?80___">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                    </svg>
+                                </i>
+                                <span class="ml-2">Expenses Report</span>
                             </a>
                         </li>
                     </ul>
