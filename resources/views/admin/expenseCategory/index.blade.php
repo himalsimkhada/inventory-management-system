@@ -45,14 +45,14 @@
                                                     <td>
                                                         <form
                                                             action="{{ route('expense_category.destroy', $category->id) }}"
-                                                            method="post">
+                                                            method="post" id="delete">
                                                             @csrf
                                                             @method('DELETE')
                                                             <a class="btn btn-primary mr-2"
                                                                 href="{{ route('expense_category.edit', $category->id) }}"
                                                                 id="edit">Edit</a>
-                                                            <button type="submit" class="btn btn-danger"
-                                                                id="delete">Delete</button>
+                                                            <button type="button" onclick="return false"
+                                                                class="btn btn-danger mr-2 delete-btn">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -106,10 +106,8 @@
                 }
             });
         });
-
-        // sweet alert for delete
-        $(document).on('click', '#delete', function() {
-            var id = $(this).data(id);
+        $('.delete-btn').on('click', function(e) {
+            e.preventDefault();
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -118,37 +116,13 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-            }).then((result)) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    $.ajax({
-                        method: "post",
-                        url: "{{ route('expense_category.index') }}",
-                        data: {
-                            id: id
-                        },
-                        dataType: "json",
-                        success: function(response) {
-                            if (response == 1) {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'A product has been deleted.',
-                                    'success'
-                                )
-                                $('#datatable').DataTable().ajax.reload();
-                            } else {
-                                Swal.fire(
-                                    'Error!',
-                                    'There has been error deleting the data.',
-                                    'failed'
-                                )
-                            }
-                        },
-                        error: function(response) {
-                            console.log('error');
-                        }
-                    })
+                    $('#delete').submit();
+
                 }
-            }
-        });
+            })
+        })
+
     </script>
 @endsection

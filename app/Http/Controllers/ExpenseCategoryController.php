@@ -120,7 +120,6 @@ class ExpenseCategoryController extends Controller
      */
     public function destroy($id)
     {
-        dd('ok');
         $delete = ExpenseCategory::where('id', $id)->delete();
 
         if ($delete) {

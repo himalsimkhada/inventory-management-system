@@ -53,7 +53,7 @@
                                                     <td>{{ $val->note }}</td>
                                                     <td>
                                                         <form action="{{ route('expense.destroy', [$val->id]) }}"
-                                                            method="POST" class="inline">
+                                                            method="POST" class="inline" id="delete">
                                                             @csrf
                                                             <a class="btn btn-secondary mr-2"
                                                                 href="{{ route('expense.show', [$val->id]) }}">Show</a>
@@ -62,8 +62,8 @@
                                                                 id="edit">Edit</a>
                                                             @method('DELETE')
 
-                                                            <button type="submit"
-                                                                class="btn btn-danger mr-2">Delete</button>
+                                                            <button type="button" onclick="return false"
+                                                                class="btn btn-danger mr-2 delete-btn">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -120,5 +120,23 @@
                 }
             });
         });
+
+        $('.delete-btn').on('click', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#delete').submit();
+
+                }
+            })
+        })
     </script>
 @endsection

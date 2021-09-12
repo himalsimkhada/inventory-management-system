@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Datum | CRM Admin Dashboard Template</title>
+    <title>IMS | Login</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('public/backend/assets/images/favicon.ico.png') }} " />
