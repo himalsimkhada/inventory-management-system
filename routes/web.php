@@ -27,6 +27,10 @@ Route::prefix('/admin')->group(function () {
     Route::match(['get', 'post'], '/login', 'AdminLoginController@adminLogin')->name('adminLogin');
 
     Route::group(['middleware' => 'admin'], function () {
+
+        // Test Controller
+        Route::resource('test', TestController::class);
+
         // Admin Dashboard
         Route::get('/dashboard', 'AdminLoginController@dashboard')->name('adminDashboard');
         // Admin Profile
@@ -122,6 +126,8 @@ Route::prefix('/admin')->group(function () {
         Route::match(['get', 'post'], '/group/get', 'CustomerGroupController@get')->name('group.get');
         Route::post('/group/store', 'CustomerGroupController@store')->name('group.store');
         Route::get('/group/destroy/{id}', 'CustomerGroupController@destroy')->name('group.destroy');
+
+
 
     });
 

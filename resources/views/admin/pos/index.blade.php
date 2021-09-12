@@ -85,17 +85,22 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-4">
                             <label for="name" class="form-label text-muted">Customer</label>
-                            <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" style="float: right;"> + </a>
-                            <select class="form-control" name="customer" id="sel_customer">
-                                <option default value="">Select Customer</option>
-                                @foreach ($customer as $value)
-                                    <option value="{{ $value->id }}"
-                                        data-name="{{ $value->firstname }} {{ $value->lastname }}">
-                                        {{ $value->firstname }} {{ $value->lastname }}</option>
-                                @endforeach
-                            </select>
+                            <div class="input-group">
+                                <select class="form-control d-inline-block" name="customer" id="sel_customer" aria-describedby="basic-add">
+                                    <option default value="">Select Customer</option>
+                                    @foreach ($customer as $value)
+                                        <option value="{{ $value->id }}"
+                                            data-name="{{ $value->firstname }} {{ $value->lastname }}">
+                                            {{ $value->firstname }} {{ $value->lastname }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="input-group-append">
+                                    <a href="{{ route('customer.add') }}" class="btn btn-primary btn-sm" id="basic-add" style="vertical-align: center"> +
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="name" class="form-label text-muted">Product Name</label>
@@ -220,8 +225,8 @@
                                                         Submit
                                                     </button>
                                                 </div>
-                                                <div class="col-md-12" hidden>
-                                                    <div id="print">
+                                                <div class="col-md-12">
+                                                    <div id="print" hidden>
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="row">
@@ -272,7 +277,8 @@
                                                                                         <td class="text-left">Paid By:
                                                                                             Cash</td>
                                                                                         <td class="text-center">Amount:
-                                                                                            584.00</td>
+                                                                                            <span id="print_amt"></span>
+                                                                                        </td>
                                                                                         <td class="text-right">Change:
                                                                                             <span id="print_change"></span>
                                                                                         </td>
@@ -352,12 +358,15 @@
 
             var customer = $('#sel_customer').val();
             var wareHouse = $('#wareHouse').val();
+            var skuType = $('.sku').val();
             if (customer == "") {
                 alert('Please Select Customer!');
             } else if (wareHouse == "") {
                 alert('Please, Select Ware House!');
             } else if ($('#tbody tr').length == 0) {
                 alert('Please select atleast one product');
+            } else if (skuType == "") {
+                alert('You must select sku for the product');
             } else {
                 $('#cashModal').modal('show');
             }
@@ -496,7 +505,7 @@
                     .next('td').html());
                 var sku = $(this).val();
                 var skuName = $('option:selected', this).data('skuname');
-                console.log(skuName);
+                // console.log(skuName);
 
                 grandTotal();
             });
@@ -591,7 +600,7 @@
                         id: product.data('id')
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         var option = '<option value="">Select</option>';
                         $.each(response, function() {
                             option += '<option value="' + this.id +
@@ -720,14 +729,22 @@
                     .val()) : parseInt(
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
+<<<<<<< HEAD
                 var change = parseInt($('#change').val()) + parseInt($(this).val());
                 $('#change').val(change);
 
                 $('#print_change').html(change);
+=======
+                $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+                $('#print_amt').text($('#recievedAmount').val());
+                $('#print_change').text($('#change').val());
+>>>>>>> f40622eaee33abb0c6f990b000c581cac2c1534d
             });
 
             $(document).on('change', '#recievedAmount', function() {
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
+
+                // $('#print_change').text(parseInt($('#change').val()) + parseInt($(this).val()));
             });
 
             $(document).on('click', '#submit', function() {
@@ -741,16 +758,16 @@
                 windowObject.focus();
                 windowObject.print();
                 var data = {
-                    'refrenceNumber' : $('#refrenceNumber').val(),
-                    'wareHouseId' : $('#wareHouse').val(),
-                    'customerId' : $('#sel_customer').val(),
-                    'item' : $('#itemTotal').val(),
-                    'tax' : $('#tax').val(),
-                    'discount' : $('#discount').val(),
-                    'total' : $('#grandTotal').val(),
-                    'recievedAmount' : $('#recievedAmount').val(),
-                    'change' : $('#change').val(),
-                    'paidBy' : $('#paidBy').val(),
+                    'refrenceNumber': $('#refrenceNumber').val(),
+                    'wareHouseId': $('#wareHouse').val(),
+                    'customerId': $('#sel_customer').val(),
+                    'item': $('#itemTotal').val(),
+                    'tax': $('#tax').val(),
+                    'discount': $('#discount').val(),
+                    'total': $('#grandTotal').val(),
+                    'recievedAmount': $('#recievedAmount').val(),
+                    'change': $('#change').val(),
+                    'paidBy': $('#paidBy').val(),
                 };
                 var items = {};
                 $.each($('#tbody').children(), function(i, e) {
@@ -772,7 +789,7 @@
                         items: items,
                     },
                     success: function(response) {
-                        if(response == 'successful'){
+                        if (response == 'successful') {
                             location.reload();
                             alert('process saved');
                         }
