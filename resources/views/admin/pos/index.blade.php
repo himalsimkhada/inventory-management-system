@@ -729,9 +729,16 @@
                     .val()) : parseInt(
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
+<<<<<<< HEAD
+                var change = parseInt($('#change').val()) + parseInt($(this).val());
+                $('#change').val(change);
+
+                $('#print_change').html(change);
+=======
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
                 $('#print_amt').text($('#recievedAmount').val());
                 $('#print_change').text($('#change').val());
+>>>>>>> f40622eaee33abb0c6f990b000c581cac2c1534d
             });
 
             $(document).on('change', '#recievedAmount', function() {
