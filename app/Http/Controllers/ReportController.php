@@ -13,7 +13,7 @@ class ReportController extends Controller
     {
         Session::put('admin_page', 'Sales Report');
         $salesLastWeek = 9;
-        $year = 2021;
+        $year = 2021; // send data from post method here
         $row = [];
         for($i=1; $i<=12; $i++){
             $d = cal_days_in_month(CAL_GREGORIAN, $i, $year);
