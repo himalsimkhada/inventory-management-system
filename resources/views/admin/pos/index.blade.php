@@ -751,10 +751,18 @@
                 windowObject.document.close();
                 windowObject.focus();
                 windowObject.print();
+
+                var cuss;
+                if($('#sel_customer').val() == 0){
+                    cuss = null;
+                }else{
+                    cuss = $('#sel_customer').val();
+                }
+
                 var data = {
                     'refrenceNumber': $('#refrenceNumber').val(),
                     'wareHouseId': $('#wareHouse').val(),
-                    'customerId': $('#sel_customer').val(),
+                    'customerId': cuss,
                     'item': $('#itemTotal').val(),
                     'tax': $('#tax').val(),
                     'discount': $('#discount').val(),
