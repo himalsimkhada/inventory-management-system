@@ -11,10 +11,11 @@ class ReportController extends Controller
     public function saleReport()
     {
         Session::put('admin_page', 'Sales Report');
+
         $salesLastWeek = Pos::select('created_at')
         ->where('created_at', '>', now()->subWeek()->startOfWeek())
         ->where('created_at', '<', now()->subWeek()->endOfWeek())
-        ->count();
+        ->get();
 
 
         return view('admin.reports.sales-report', compact('salesLastWeek'));
