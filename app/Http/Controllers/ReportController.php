@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -18,6 +19,8 @@ class ReportController extends Controller
     {
         Session::put('admin_page', 'Expenses Report');
 
-        return view('admin.reports.expenses-report');
+        $expenseReport = Expense::where('created_at', date('Y-m-d'))->count();
+
+        return view('admin.reports.expenses-report', compact('expenseReport'));
     }
 }

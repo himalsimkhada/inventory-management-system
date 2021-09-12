@@ -2,4 +2,6 @@
 
 @section('content')
     Expense Report page
+
+    {{ $expenseReport }}
 @endsection
