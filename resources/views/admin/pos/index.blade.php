@@ -90,6 +90,7 @@
                             <div class="input-group">
                                 <select class="form-control d-inline-block" name="customer" id="sel_customer" aria-describedby="basic-add">
                                     <option default value="">Select Customer</option>
+                                    <option value="0">Walk-In Customer</option>
                                     @foreach ($customer as $value)
                                         <option value="{{ $value->id }}"
                                             data-name="{{ $value->firstname }} {{ $value->lastname }}">
@@ -729,16 +730,9 @@
                     .val()) : parseInt(
                     0);
                 $('#recievedAmount').val(recieve + parseInt($(this).val()));
-<<<<<<< HEAD
-                var change = parseInt($('#change').val()) + parseInt($(this).val());
-                $('#change').val(change);
-
-                $('#print_change').html(change);
-=======
                 $('#change').val(parseInt($('#change').val()) + parseInt($(this).val()));
                 $('#print_amt').text($('#recievedAmount').val());
                 $('#print_change').text($('#change').val());
->>>>>>> f40622eaee33abb0c6f990b000c581cac2c1534d
             });
 
             $(document).on('change', '#recievedAmount', function() {
