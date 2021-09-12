@@ -14,9 +14,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="datatable" class="table table-striped table-bordered">
+                                    <table id="" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
+                                                <th hidden></th>
                                                 <th>Month</th>
                                                 <th>Quantity</th>
                                                 <th>Tax</th>
@@ -26,18 +27,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($row as $value)
                                             <tr>
-                                                <td>
-
-                                                    {{$salesLastWeek}}
-
-                                                </td>
-                                                <td>Quantity</td>
-                                                <td>Tax</td>
-                                                <td>Discount</td>
-                                                <td>Remaining</td>
-                                                <td>Grand Total</td>
+                                                <th hidden></th>
+                                                <td>{{ $value['month'] }}</td>
+                                                <td>{{ $value['quantity'] }}</td>
+                                                <td>{{ $value['tax'] }}</td>
+                                                <td>{{ $value['discount'] }}</td>
+                                                <td>{{ $value['remaining'] }}</td>
+                                                <td>{{ $value['total'] }}</td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
