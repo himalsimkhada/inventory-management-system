@@ -54,25 +54,16 @@
                         extend: 'pdf',
                         className: 'btn btn-outline-danger',
                         text: 'pdf',
-                        exportOptions: {
-                            columns: 'th:not(:last-child)',
-                        }
                     },
                     {
                         extend: 'excel',
                         className: 'btn btn-outline-success',
                         text: 'excel',
-                        exportOptions: {
-                            columns: 'th:not(:last-child)',
-                        }
                     },
                     {
                         extend: 'print',
                         className: 'btn btn-outline-secondary',
                         text: 'print',
-                        exportOptions: {
-                            columns: 'th:not(:last-child)',
-                        }
                     },
                 ],
             });

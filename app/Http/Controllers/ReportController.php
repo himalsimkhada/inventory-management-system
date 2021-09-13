@@ -56,20 +56,15 @@ class ReportController extends Controller
             $to = date($year . '-' . $i . '-' . $d);
             $quantity = Expense::whereBetween('created_at', [$from, $to])->count();
             $amount = Expense::whereBetween('created_at', [$from, $to])->sum('amount');
-            // echo 'quantity: ' . $quantity . '<br>';
-            // echo 'tax: ' . $tax . '<br>';
-            // echo 'total: ' . $total . '<br>';
             $month = DateTime::createFromFormat('!m', $i);
             $row[] = [
                 'month' => $month->format('F'),
                 'quantity' => $quantity,
                 'amount' => $amount,
             ];
-            // echo $month->format('F');
-            // echo "------------<br>";
         }
 
-        return view('admin.reports.expenses-report', compact(['row', 'year']));
+        return view('admin.reports.expensesReports.expenses-report', compact(['row', 'year']));
     }
     // for weekly sales report
     public function weeklySalesReport()
