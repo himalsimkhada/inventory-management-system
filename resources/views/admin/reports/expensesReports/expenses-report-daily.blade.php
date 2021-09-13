@@ -38,8 +38,8 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td><b>Total</b></td>
-                                                <td><b>{{ $total }}</b></td>
+                                                <th><b>Total</b></th>
+                                                <th><b>{{ $total }}</b></th>
                                             </tr>
                                         </tfoot>
                                     </table>
