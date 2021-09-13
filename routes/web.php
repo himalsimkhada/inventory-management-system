@@ -143,6 +143,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('/report/sales/monthly', 'ReportController@salesMonthlyReport')->name('report.sale.monthly');
         Route::get('/report/sales/daily', 'ReportController@salesDailyReport')->name('report.sale.daily');
 
+
         //Expense Reports
         Route::get('/report/expenses/yearly', 'ReportController@expenseYearlyReport')->name('report.expense.yearly');
         Route::get('/report/expenses/monthly', 'ReportController@expensesMonthlyReport')->name('report.expense.monthly');

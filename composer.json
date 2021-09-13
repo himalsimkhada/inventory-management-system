@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "milon/barcode": "^8.0",
+        "pratiksh/nepalidate": "^1.2",
         "yajra/laravel-datatables-oracle": "^9.18"
     },
     "require-dev": {
