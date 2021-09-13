@@ -23,14 +23,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $total = 0;
+                                            @endphp
                                             @foreach ($row as $value)
                                                 <tr>
                                                     <td>{{ $value['day'] }}</td>
                                                     <td>{{ $value['quantity'] }}</td>
                                                     <td>{{ $value['amount'] }}</td>
+                                                    @php
+                                                        $total = $total + (int)$value['amount']
+                                                    @endphp
                                                 </tr>
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Total</th>
+                                                <th></th>
+                                                <th>{{ $total }}</th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
