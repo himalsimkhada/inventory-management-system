@@ -53,12 +53,12 @@
                     <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
                         <div class="card">
                             <div class="card-body">
-                                <button type="submit" class="btn btn-success mb-2">Print Report</button>
+                                <button type="submit" class="btn btn-block btn-success mb-2">Print Report</button>
                                 <div class="form-group">
                                     <select name="date" id="" class="form-control mb-2">
                                         <option value="Year">2021</option>
                                     </select>
-                                    <button type="submit" class="btn btn-primary">Show Report</button>
+                                    <button type="submit" class="btn btn-block btn-info">Show Report</button>
                                 </div>
 
                             </div>
