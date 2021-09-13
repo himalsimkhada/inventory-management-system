@@ -54,6 +54,7 @@
         $(document).ready(function() {
             var table = $('#datatable').DataTable({
                 dom: 'Bfrtipl',
+                pageLength: 12,
                 buttons: [{
                         extend: 'pdf',
                         className: 'btn btn-outline-danger',

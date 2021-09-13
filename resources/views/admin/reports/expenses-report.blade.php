@@ -4,6 +4,14 @@
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
             <h4 class="font-weight-bold">Yearly Sales Report</h4>
+            <div class="btn-group">
+                <input type="text" class="form-control">
+                <select name="" id="" class="form-control">
+                    <option value="Month">Months</option>
+                </select>
+                <input type="text" class="form-control">
+                <button type="submit" class="btn btn-primary">Show</button>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -17,17 +25,19 @@
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Created At</th>
-                                                <th>Reference Number</th>
+                                                <th hidden></th>
+                                                <th>Month</th>
+                                                <th>Quantity</th>
                                                 <th>Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($expenseReport as $val)
+                                            @foreach ($row as $value)
                                                 <tr>
-                                                    <td>{{ $val['created_at'] }}</td>
-                                                    <td>{{ $val['reference_number'] }}</td>
-                                                    <td>{{ $val['amount'] }}</td>
+                                                    <th hidden></th>
+                                                    <td>{{ $value['month'] }}</td>
+                                                    <td>{{ $value['quantity'] }}</td>
+                                                    <td>{{ $value['amount'] }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -47,6 +57,7 @@
         $(document).ready(function() {
             var table = $('#datatable').DataTable({
                 dom: 'Bfrtipl',
+                pageLength: 12,
                 buttons: [{
                         extend: 'pdf',
                         className: 'btn btn-outline-danger',
