@@ -48,7 +48,7 @@ class ReportController extends Controller {
             $month = date('m');
         }
 
-        return view('admin.reports.salesReports.sales-report-monthly', compact(['year', 'month']));
+        return view('admin.reports.salesReports.sales-report-monthly', compact('year', 'month'));
     }
 
     public function salesDailyReport(Request $request) {

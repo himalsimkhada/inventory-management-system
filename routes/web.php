@@ -139,6 +139,7 @@ Route::prefix('/admin')->group(function () {
         //Sale Reports
         Route::get('/report/sales', 'ReportController@saleYearlyReport')->name('report.sale.yearly');
 
+
         //Expense Reports
         Route::get('/report/expenses', 'ReportController@expenseYearlyReport')->name('report.expense.yearly');
     });
