@@ -3,7 +3,8 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Yearly Sales Report of {{ $year }}</h4>
+            <h4 class="font-weight-bold">Daily Sales Report of {{ $day }}
+                {{ DateTime::createFromFormat('!m', $month)->format('F') }}, {{ $year }}</h4>
         </div>
     </div>
     <div class="row">
@@ -17,13 +18,11 @@
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th hidden></th>
-                                                <th>Month</th>
+                                                <th>Day</th>
                                                 <th>Quantity</th>
                                                 <th>Tax</th>
                                                 <th>Discount</th>
-                                                <th>Remaining</th>
-                                                <th>Grand Total</th>
+                                                <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -40,9 +39,18 @@
                                                     @php
                                                         $total = $total + (int) $value['total'];
                                                     @endphp
-
                                                 </tr>
+                                            @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Total</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>{{ $total }}</th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -74,6 +82,7 @@
         </div>
     </div>
 @endsection
+
 @section('js')
     <script>
         $(document).ready(function() {
@@ -100,7 +109,7 @@
 
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 }
             });
         });

@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Daily Expense Report of
+            <h4 class="font-weight-bold">Daily Expense Report of {{ $day }}
                 {{ DateTime::createFromFormat('!m', $month)->format('F') }}, {{ $year }}</h4>
         </div>
     </div>

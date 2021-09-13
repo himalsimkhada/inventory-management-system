@@ -151,7 +151,7 @@ class ReportController extends Controller {
             $month = date('m');
             $day = date('d');
         }
-        $row = []; 
+        $row = [];
 
         $quantity = Expense::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->count();
         $expense = Expense::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->get();
