@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Yearly Sales Report of {{ $year }}</h4>
+            <h4 class="font-weight-bold">Monthly Sales Report of {{ $month }}</h4>
         </div>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
                                         <thead>
                                             <tr>
                                                 <th hidden></th>
-                                                <th>Month</th>
+                                                <th>S.N</th>
                                                 <th>Quantity</th>
                                                 <th>Tax</th>
                                                 <th>Discount</th>
@@ -58,7 +58,17 @@
                                     <div class="form-group">
                                         <select name="month" id="year" class="form-control mb-2">
                                             <option value="January">January</option>
-                                            <option value="2020">2020</option>
+                                            <option value="February">February</option>
+                                            <option value="March">March</option>
+                                            <option value="April">April</option>
+                                            <option value="May">May</option>
+                                            <option value="June">June</option>
+                                            <option value="July">July</option>
+                                            <option value="August">August</option>
+                                            <option value="September">September</option>
+                                            <option value="October">October</option>
+                                            <option value="November">November</option>
+                                            <option value="December">December</option>
                                         </select>
                                         <button type="submit" class="btn btn-block btn-info">Show Report</button>
                                     </div>

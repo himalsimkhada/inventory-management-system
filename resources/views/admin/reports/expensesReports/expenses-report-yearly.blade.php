@@ -7,23 +7,20 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <div class="iq-edit-list-data">
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="" class="table table-striped table-bordered">
+                                    <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
                                                 <th hidden></th>
                                                 <th>Month</th>
                                                 <th>Quantity</th>
-                                                <th>Tax</th>
-                                                <th>Discount</th>
-                                                <th>Remaining</th>
-                                                <th>Grand Total</th>
+                                                <th>Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -32,10 +29,7 @@
                                                     <th hidden></th>
                                                     <td>{{ $value['month'] }}</td>
                                                     <td>{{ $value['quantity'] }}</td>
-                                                    <td>{{ $value['tax'] }}</td>
-                                                    <td>{{ $value['discount'] }}</td>
-                                                    <td>{{ $value['remaining'] }}</td>
-                                                    <td>{{ $value['total'] }}</td>
+                                                    <td>{{ $value['amount'] }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -47,31 +41,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="iq-edit-list-data">
-                <div class="tab-content">
-                    <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="{{ route('report.sale.yearly') }}" method="get">
-                                    <button type="button" class="btn btn-block btn-success mb-2">Print Report</button>
-                                    <div class="form-group">
-                                        <select name="date" id="year" class="form-control mb-2">
-                                            <option value="2021">2021</option>
-                                            <option value="2020">2020</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-block btn-info">Show Report</button>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
+
 @section('js')
     <script>
         $(document).ready(function() {
