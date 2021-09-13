@@ -15,6 +15,7 @@ class ReportController extends Controller
         $salesLastWeek = 9;
         $year = 2021; // send data from post method here
         $row = [];
+        $data = [];
         for($i=1; $i<=12; $i++){
             $d = cal_days_in_month(CAL_GREGORIAN, $i, $year);
             // echo $i . ': ' . $d . '<br>';
@@ -36,11 +37,12 @@ class ReportController extends Controller
                 'remaining' => '',
                 'total' => $total,
             ];
+            array_push($data, $total);
             // echo $month->format('F');
             // echo "------------<br>";
         }
         // die;
-        return view('admin.reports.sales-report', compact('row'));
+        return view('admin.reports.sales-report', compact('row', 'data'));
     }
 
     public function expenseReport()
