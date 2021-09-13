@@ -24,14 +24,14 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                                $total = '';
+                                                $total = 0;
                                             @endphp
                                             @foreach ($expense as $val)
                                                 <tr>
                                                     <td>{{ $val['reference_number'] }}</td>
                                                     <td>{{ $val['amount'] }}</td>
                                                     @php
-                                                        $total .= $val['amount'];
+                                                        $total = $total + (int)$val['amount'];
                                                     @endphp
                                                 </tr>
                                             @endforeach
