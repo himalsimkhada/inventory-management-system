@@ -27,7 +27,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($row as $value)
+                                            {{-- @foreach ($row as $value)
                                                 <tr>
                                                     <th hidden></th>
                                                     <td>{{ $value['month'] }}</td>
@@ -37,7 +37,7 @@
                                                     <td>{{ $value['remaining'] }}</td>
                                                     <td>{{ $value['total'] }}</td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>
