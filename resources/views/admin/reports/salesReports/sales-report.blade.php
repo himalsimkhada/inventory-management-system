@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Yearly Sales Report of {{ request()->year }}</h4>
+            <h4 class="font-weight-bold">Yearly Sales Report of {{ $year }}</h4>
         </div>
     </div>
     <div class="row">
@@ -53,13 +53,16 @@
                     <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
                         <div class="card">
                             <div class="card-body">
-                                <button type="submit" class="btn btn-block btn-success mb-2">Print Report</button>
-                                <div class="form-group">
-                                    <select name="date" id="" class="form-control mb-2">
-                                        <option value="Year">2021</option>
-                                    </select>
-                                    <button type="submit" class="btn btn-block btn-info">Show Report</button>
-                                </div>
+                                <form action="{{ route('report.sale.yearly') }}" method="get">
+                                    <button type="button" class="btn btn-block btn-success mb-2">Print Report</button>
+                                    <div class="form-group">
+                                        <select name="date" id="year" class="form-control mb-2">
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-block btn-info">Show Report</button>
+                                    </div>
+                                </form>
 
                             </div>
                         </div>

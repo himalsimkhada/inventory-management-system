@@ -437,7 +437,7 @@
                             <ul id="sale-report" class="submenu collapse" data-parent="#report">
                                 <li
                                     class="{{ Session::get('admin_page') == 'Sales Report Yearly' ? 'active' : '' }} sidebar-layout">
-                                    <a href="{{ route('report.sale.yearly', 2021) }}" class="svg-icon">
+                                    <a href="{{ route('report.sale.yearly') }}" class="svg-icon">
                                         <i class="___class_+?80___">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -494,7 +494,7 @@
                             </a>
                             <ul id="expense-report" class="submenu collapse" data-parent="#report">
                                 <li class="{{ Session::get('admin_page') == 'Expenses Report Yearly' ? 'active' : '' }} sidebar-layout">
-                                    <a href="{{ route('report.expense.yearly', 2021) }}" class="svg-icon">
+                                    <a href="{{ route('report.expense.yearly') }}" class="svg-icon">
                                         <i class="___class_+?80___">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
