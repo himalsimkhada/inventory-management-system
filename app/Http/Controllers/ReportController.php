@@ -8,9 +8,15 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class ReportController extends Controller {
-    public function saleYearlyReport($year) {
+class ReportController extends Controller
+{
+    public function saleYearlyReport(Request $request)
+    {
         Session::put('admin_page', 'Sales Report Yearly');
+        $year = $request->input('date');
+        if ($year == null) {
+            $year = 2021;
+        }
         $row = [];
         for ($i = 1; $i <= 12; $i++) {
             $d = cal_days_in_month(CAL_GREGORIAN, $i, $year);
@@ -30,15 +36,16 @@ class ReportController extends Controller {
                 'total' => $total,
             ];
         }
-        return view('admin.reports.salesReports.sales-report', compact('row'));
+        return view('admin.reports.salesReports.sales-report', compact(['row', 'year']));
     }
 
-    public function expenseYearlyReport($year) {
+    public function expenseYearlyReport(Request $request)
+    {
         Session::put('admin_page', 'Expenses Report Yearly');
-
-        // $expenseReport = Expense::where('created_at', '<', date('Y-m-d H:i:s'))->count();
-        // $expenseReport = Expense::where('created_at', '<', now()->toDateTimeString())->get();
-        // dd(now()->toDateTimeString());
+        $year = $request->input('date');
+        if ($year == null) {
+            $year = 2021;
+        }
 
         // send data from post method here
         $row = [];
@@ -62,9 +69,10 @@ class ReportController extends Controller {
             // echo "------------<br>";
         }
 
-        return view('admin.reports.expenses-report', compact('row'));
+        return view('admin.reports.expenses-report', compact(['row', 'year']));
     }
     // for weekly sales report
-    public function weeklySalesReport() {
+    public function weeklySalesReport()
+    {
     }
 }
