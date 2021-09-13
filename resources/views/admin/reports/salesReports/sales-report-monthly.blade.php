@@ -60,6 +60,12 @@
                                 <form action="{{ route('report.sale.monthly') }}" method="get">
                                     <button type="button" class="btn btn-block btn-success mb-2">Print Report</button>
                                     <div class="form-group">
+                                        <label for="year">Select Year</label>
+                                        <select name="year" id="year" class="form-control mb-2">
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                        <label for="month">Select Month</label>
                                         <select name="month" id="month" class="form-control mb-2">
                                             <option value="1">January</option>
                                             <option value="2">February</option>
