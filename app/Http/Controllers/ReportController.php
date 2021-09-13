@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use App\Models\Pos;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class ReportController extends Controller
-{
-    public function saleReport()
-    {
+class ReportController extends Controller {
+    public function saleReport() {
         Session::put('admin_page', 'Sales Report');
         $salesLastWeek = 9;
         $year = 2021; // send data from post method here
@@ -43,15 +42,16 @@ class ReportController extends Controller
         return view('admin.reports.salesReports.sales-report', compact('row'));
     }
 
-    public function expenseReport()
-    {
+    public function expenseReport() {
         Session::put('admin_page', 'Expenses Report');
 
-        return view('admin.reports.expenses-report');
+        // $expenseReport = Expense::where('created_at', '<', date('Y-m-d H:i:s'))->count();
+        $expenseReport = Expense::where('created_at', '<', now()->toDateTimeString())->get();
+        // dd(now()->toDateTimeString());
+
+        return view('admin.reports.expenses-report', compact('expenseReport'));
     }
     // for weekly sales report
-    public function weeklySalesReport()
-    {
-
+    public function weeklySalesReport() {
     }
 }
