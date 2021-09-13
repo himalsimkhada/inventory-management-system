@@ -30,7 +30,7 @@ class ReportController extends Controller {
                 'total' => $total,
             ];
         }
-        return view('admin.reports.sales-report', compact('row'));
+        return view('admin.reports.salesReports.sales-report', compact('row'));
     }
 
     public function expenseYearlyReport($year) {

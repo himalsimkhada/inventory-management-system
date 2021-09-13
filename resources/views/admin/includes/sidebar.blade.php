@@ -117,9 +117,9 @@
                         </svg>
                     </a>
                     <ul id="purchase" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class=" {{ Session::get('admin_page') == 'Purchase' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'POS' ? 'active' : '' }} sidebar-layout">
                             <a href="#" class="svg-icon ">
-                                <i class="___class_+?47___">
+                                <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

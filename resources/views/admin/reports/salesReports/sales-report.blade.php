@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-9">
             <div class="iq-edit-list-data">
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
@@ -28,19 +28,39 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($row as $value)
-                                            <tr>
-                                                <th hidden></th>
-                                                <td>{{ $value['month'] }}</td>
-                                                <td>{{ $value['quantity'] }}</td>
-                                                <td>{{ $value['tax'] }}</td>
-                                                <td>{{ $value['discount'] }}</td>
-                                                <td>{{ $value['remaining'] }}</td>
-                                                <td>{{ $value['total'] }}</td>
-                                            </tr>
+                                                <tr>
+                                                    <th hidden></th>
+                                                    <td>{{ $value['month'] }}</td>
+                                                    <td>{{ $value['quantity'] }}</td>
+                                                    <td>{{ $value['tax'] }}</td>
+                                                    <td>{{ $value['discount'] }}</td>
+                                                    <td>{{ $value['remaining'] }}</td>
+                                                    <td>{{ $value['total'] }}</td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="iq-edit-list-data">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-block btn-success mb-2">Print Report</button>
+                                <div class="form-group">
+                                    <select name="date" id="" class="form-control mb-2">
+                                        <option value="Year">2021</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-block btn-info">Show Report</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
