@@ -3,15 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Yearly Sales Report</h4>
-            <div class="btn-group">
-                <input type="text" class="form-control">
-                <select name="" id="" class="form-control">
-                    <option value="Month">Months</option>
-                </select>
-                <input type="text" class="form-control">
-                <button type="submit" class="btn btn-primary">Show</button>
-            </div>
+            <h4 class="font-weight-bold">Yearly Sales Report of {{ request()->year }}</h4>
         </div>
     </div>
     <div class="row">

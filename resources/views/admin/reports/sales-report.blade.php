@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Yearly Sales Report</h4>
+            <h4 class="font-weight-bold">Yearly Sales Report of {{ request()->year }}</h4>
         </div>
     </div>
     <div class="row">
