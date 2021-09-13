@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Yearly Sales Report of {{ $year }}</h4>
+            <h4 class="font-weight-bold">Yearly Sales Report of {{ $month, $day, $year }}</h4>
         </div>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
                                         <thead>
                                             <tr>
                                                 <th hidden></th>
-                                                <th>Month</th>
+                                                <th>Day</th>
                                                 <th>Quantity</th>
                                                 <th>Tax</th>
                                                 <th>Discount</th>
@@ -40,8 +40,8 @@
                                                     @php
                                                         $total = $total + (int) $value['total'];
                                                     @endphp
-
                                                 </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -60,8 +60,8 @@
                                 <form action="{{ route('report.sale.daily') }}" method="get">
                                     <button type="button" class="btn btn-block btn-success mb-2">Print Report</button>
                                     <div class="form-group">
-                                        <label for="date">Select Date</label>
-                                        <input type="date" class="form-control mb-2">
+                                        <label for="day">Select Date</label>
+                                        <input type="day" class="form-control mb-2">
                                         <button type="submit" class="btn btn-block btn-info">Show Report</button>
                                     </div>
                                 </form>
