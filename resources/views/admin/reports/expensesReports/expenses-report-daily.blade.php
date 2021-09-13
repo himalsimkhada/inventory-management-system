@@ -23,13 +23,25 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $total = '';
+                                            @endphp
                                             @foreach ($expense as $val)
                                                 <tr>
                                                     <td>{{ $val['reference_number'] }}</td>
                                                     <td>{{ $val['amount'] }}</td>
+                                                    @php
+                                                        $total .= $val['amount'];
+                                                    @endphp
                                                 </tr>
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td><b>Total</b></td>
+                                                <td><b>{{ $total }}</b></td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
