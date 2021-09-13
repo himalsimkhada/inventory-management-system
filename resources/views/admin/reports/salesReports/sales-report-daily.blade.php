@@ -27,7 +27,21 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $total = 0;
+                                            @endphp
+                                            @foreach ($sales as $value)
+                                                <tr>
+                                                    <td>{{ $value['day'] }}</td>
+                                                    <td>{{ $value['quantity'] }}</td>
+                                                    <td>{{ $value['tax'] }}</td>
+                                                    <td>{{ $value['discount'] }}</td>
+                                                    <td> {{ $value['total'] }}</td>
+                                                    @php
+                                                        $total = $total + (int) $value['total'];
+                                                    @endphp
 
+                                                </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -47,7 +61,7 @@
                                     <button type="button" class="btn btn-block btn-success mb-2">Print Report</button>
                                     <div class="form-group">
                                         <label for="date">Select Date</label>
-                                       <input type="date" class="form-control mb-2">
+                                        <input type="date" class="form-control mb-2">
                                         <button type="submit" class="btn btn-block btn-info">Show Report</button>
                                     </div>
                                 </form>
@@ -91,4 +105,4 @@
             });
         });
     </script>
-
+@endsection
