@@ -17,7 +17,6 @@
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th hidden></th>
                                                 <th>Month</th>
                                                 <th>Quantity</th>
                                                 <th>Tax</th>
@@ -29,7 +28,6 @@
                                         <tbody>
                                             @foreach ($row as $value)
                                                 <tr>
-                                                    <th hidden></th>
                                                     <td>{{ $value['month'] }}</td>
                                                     <td>{{ $value['quantity'] }}</td>
                                                     <td>{{ $value['tax'] }}</td>

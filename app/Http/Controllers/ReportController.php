@@ -48,7 +48,23 @@ class ReportController extends Controller {
             $month = date('m');
         }
 
-        return view('admin.reports.salesReports.sales-report-monthly', compact(['year', 'month']));
+        $row = [];
+        for ($i = 1; $i < today()->daysInMonth; $i++) {
+            $quantity = Pos::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $i)->count();
+            $tax = Pos::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $i)->sum('tax');
+            $discount = Pos::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $i)->sum('discount');
+            $total = Pos::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $i)->sum('total');
+            $row[] = [
+                'day' => $i,
+                'quantity' => $quantity,
+                'tax' => $tax,
+                'discount' => $discount,
+                'remaining' => '',
+                'total' => $total,
+            ];
+        }
+
+        return view('admin.reports.salesReports.sales-report-monthly', compact(['year', 'month', 'row']));
     }
 
     public function salesDailyReport(Request $request) {
@@ -60,11 +76,13 @@ class ReportController extends Controller {
 
         if ($year == null && $month == null && $day == null) {
             $year = date('Y');
-            $year = date('m');
-            $year = date('d');
+            $month = date('m');
+            $day = date('d');
         }
 
-        return view('admin.reports.salesReports.sales-report-daily', compact(['year', 'month', 'day']));
+        $data = Pos::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->first();
+
+        return view('admin.reports.salesReports.sales-report-daily', compact(['year', 'month', 'day', 'data']));
     }
 
     public function expenseYearlyReport(Request $request) {
@@ -105,7 +123,18 @@ class ReportController extends Controller {
             $month = date('m');
         }
 
-        return view('admin.reports.expensesReports.expenses-report-monthly', compact(['year', 'month']));
+        $row = [];
+        for ($i = 1; $i < today()->daysInMonth; $i++) {
+            $quantity = Expense::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $i)->count();
+            $amount = Expense::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $i)->sum('amount');
+            $row[] = [
+                'day' => $i,
+                'quantity' => $quantity,
+                'amount' => $amount,
+            ];
+        }
+
+        return view('admin.reports.expensesReports.expenses-report-monthly', compact(['year', 'month', 'row']));
     }
 
     public function expensesDailyReport(Request $request) {
@@ -117,10 +146,14 @@ class ReportController extends Controller {
 
         if ($year == null && $month == null && $day == null) {
             $year = date('Y');
-            $year = date('m');
-            $year = date('d');
+            $month = date('m');
+            $day = date('d');
         }
+        $row = [];
 
-        return view('admin.reports.expensesReports.expenses-report-daily', compact(['year', 'month', 'day']));
+        $quantity = Expense::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->count();
+        $expense = Expense::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->get();
+
+        return view('admin.reports.expensesReports.expenses-report-daily', compact(['year', 'month', 'day', 'expense']));
     }
 }

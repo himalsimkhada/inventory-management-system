@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4">
         <div class="d-flex align-items-center justify-content-between">
-            <h4 class="font-weight-bold">Monthly Sales Report of {{ $month }}</h4>
+            <h4 class="font-weight-bold">Monthly Sales Report of {{ DateTime::createFromFormat('!m', $month)->format('F'); }}, {{ $year }}</h4>
         </div>
     </div>
     <div class="row">
@@ -14,11 +14,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="" class="table table-striped table-bordered">
+                                    <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th hidden></th>
-                                                <th>S.N</th>
+                                                <th>Day</th>
                                                 <th>Quantity</th>
                                                 <th>Tax</th>
                                                 <th>Discount</th>
@@ -27,17 +26,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach ($row as $value)
+                                            @foreach ($row as $value)
                                                 <tr>
-                                                    <th hidden></th>
-                                                    <td>{{ $value['month'] }}</td>
+                                                    <td>{{ $value['day'] }}</td>
                                                     <td>{{ $value['quantity'] }}</td>
                                                     <td>{{ $value['tax'] }}</td>
                                                     <td>{{ $value['discount'] }}</td>
                                                     <td>{{ $value['remaining'] }}</td>
                                                     <td>{{ $value['total'] }}</td>
                                                 </tr>
-                                            @endforeach --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
