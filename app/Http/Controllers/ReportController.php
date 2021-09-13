@@ -40,6 +40,7 @@ class ReportController extends Controller {
     public function salesMonthlyReport(Request $request) {
         Session::put('admin_page', 'Sales Report Monthly');
 
+
         $year = $request->input('year');
         $month = $request->input('month');
 
@@ -47,6 +48,7 @@ class ReportController extends Controller {
             $year = date('Y');
             $month = date('m');
         }
+        $row = [];
 
         return view('admin.reports.salesReports.sales-report-monthly', compact('year', 'month'));
     }
@@ -117,8 +119,8 @@ class ReportController extends Controller {
 
         if ($year == null && $month == null && $day == null) {
             $year = date('Y');
-            $year = date('m');
-            $year = date('d');
+            $month = date('m');
+            $day = date('d');
         }
 
         return view('admin.reports.expensesReports.expenses-report-daily', compact(['year', 'month', 'day']));

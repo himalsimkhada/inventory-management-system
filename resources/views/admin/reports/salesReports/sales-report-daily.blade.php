@@ -27,17 +27,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($row as $value)
-                                                <tr>
-                                                    <th hidden></th>
-                                                    <td>{{ $value['month'] }}</td>
-                                                    <td>{{ $value['quantity'] }}</td>
-                                                    <td>{{ $value['tax'] }}</td>
-                                                    <td>{{ $value['discount'] }}</td>
-                                                    <td>{{ $value['remaining'] }}</td>
-                                                    <td>{{ $value['total'] }}</td>
-                                                </tr>
-                                            @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -56,10 +46,8 @@
                                 <form action="{{ route('report.sale.daily') }}" method="get">
                                     <button type="button" class="btn btn-block btn-success mb-2">Print Report</button>
                                     <div class="form-group">
-                                        <select name="day" id="day" class="form-control mb-2">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                        </select>
+                                        <label for="date">Select Date</label>
+                                       <input type="date" class="form-control mb-2">
                                         <button type="submit" class="btn btn-block btn-info">Show Report</button>
                                     </div>
                                 </form>
@@ -103,4 +91,4 @@
             });
         });
     </script>
-@endsection
+

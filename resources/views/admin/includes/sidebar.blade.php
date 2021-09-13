@@ -450,7 +450,7 @@
                                 </li>
                                 <li
                                     class="{{ Session::get('admin_page') == 'Sales Report Monthly' ? 'active' : '' }} sidebar-layout">
-                                    <a href="#" class="svg-icon">
+                                    <a href="{{ route('report.sale.monthly') }}" class="svg-icon">
                                         <i class="___class_+?80___">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -461,8 +461,9 @@
                                         <span class="ml-2">Monthly Report</span>
                                     </a>
                                 </li>
-                                <li class="{{ Session::get('admin_page') == 'Sales Report Daily' ? 'active' : '' }} sidebar-layout">
-                                    <a href="#" class="svg-icon">
+                                <li
+                                    class="{{ Session::get('admin_page') == 'Sales Report Daily' ? 'active' : '' }} sidebar-layout">
+                                    <a href="{{ route('report.sale.daily') }}" class="svg-icon">
                                         <i class="___class_+?80___">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -475,8 +476,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li
-                            class="sidebar-layout">
+                        <li class="sidebar-layout">
                             <a href="#expense-report" class="collapsed svg-icon" data-toggle="collapse">
                                 <i class="___class_+?80___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -493,7 +493,8 @@
                                 </svg>
                             </a>
                             <ul id="expense-report" class="submenu collapse" data-parent="#report">
-                                <li class="{{ Session::get('admin_page') == 'Expenses Report Yearly' ? 'active' : '' }} sidebar-layout">
+                                <li
+                                    class="{{ Session::get('admin_page') == 'Expenses Report Yearly' ? 'active' : '' }} sidebar-layout">
                                     <a href="{{ route('report.expense.yearly') }}" class="svg-icon">
                                         <i class="___class_+?80___">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -505,8 +506,9 @@
                                         <span class="ml-2">Yealy Report</span>
                                     </a>
                                 </li>
-                                <li class="{{ Session::get('admin_page') == 'Expenses Report Monthly' ? 'active' : '' }} sidebar-layout">
-                                    <a href="#" class="svg-icon">
+                                <li
+                                    class="{{ Session::get('admin_page') == 'Expenses Report Monthly' ? 'active' : '' }} sidebar-layout">
+                                    <a href="{{ route('report.expense.monthly') }}" class="svg-icon">
                                         <i class="___class_+?80___">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -517,8 +519,9 @@
                                         <span class="ml-2">Monthly Report</span>
                                     </a>
                                 </li>
-                                <li class="{{ Session::get('admin_page') == 'Expenses Report Daily' ? 'active' : '' }} sidebar-layout">
-                                    <a href="#" class="svg-icon">
+                                <li
+                                    class="{{ Session::get('admin_page') == 'Expenses Report Daily' ? 'active' : '' }} sidebar-layout">
+                                    <a href="{{ route('report.expense.daily') }}" class="svg-icon">
                                         <i class="___class_+?80___">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
