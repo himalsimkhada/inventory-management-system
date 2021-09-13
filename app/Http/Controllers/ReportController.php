@@ -8,14 +8,12 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class ReportController extends Controller
-{
-    public function saleYearlyReport(Request $request)
-    {
+class ReportController extends Controller {
+    public function saleYearlyReport(Request $request) {
         Session::put('admin_page', 'Sales Report Yearly');
-        $year = $request->input('date');
+        $year = $request->input('year');
         if ($year == null) {
-            $year = 2021;
+            $year = date('Y');
         }
         $row = [];
         for ($i = 1; $i <= 12; $i++) {
@@ -36,11 +34,40 @@ class ReportController extends Controller
                 'total' => $total,
             ];
         }
-        return view('admin.reports.salesReports.sales-report', compact(['row', 'year']));
+        return view('admin.reports.salesReports.sales-report-yearly', compact(['row', 'year']));
     }
 
-    public function expenseYearlyReport(Request $request)
-    {
+    public function salesMonthlyReport(Request $request) {
+        Session::put('admin_page', 'Sales Report Monthly');
+
+        $year = $request->input('year');
+        $month = $request->input('month');
+
+        if ($year == null && $month == null) {
+            $year = date('Y');
+            $month = date('m');
+        }
+
+        return view('admin.reports.salesReports.sales-report-monthly', compact(['year', 'month']));
+    }
+
+    public function salesDailyReport(Request $request) {
+        Session::put('admin_page', 'Sales Report Daily');
+
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $day = $request->input('day');
+
+        if ($year == null && $month == null && $day == null) {
+            $year = date('Y');
+            $year = date('m');
+            $year = date('d');
+        }
+
+        return view('admin.reports.salesReports.sales-report-daily', compact(['year', 'month', 'day']));
+    }
+
+    public function expenseYearlyReport(Request $request) {
         Session::put('admin_page', 'Expenses Report Yearly');
         $year = $request->input('date');
         if ($year == null) {
@@ -69,10 +96,36 @@ class ReportController extends Controller
             // echo "------------<br>";
         }
 
-        return view('admin.reports.expenses-report', compact(['row', 'year']));
+        return view('admin.reports.expensesReports.expenses-report-yearly', compact(['row', 'year']));
     }
-    // for weekly sales report
-    public function weeklySalesReport()
-    {
+
+    public function expensesMonthlyReport(Request $request) {
+        Session::put('admin_page', 'Expenses Report Monthly');
+
+        $year = $request->input('year');
+        $month = $request->input('month');
+
+        if ($year == null && $month == null) {
+            $year = date('Y');
+            $month = date('m');
+        }
+
+        return view('admin.reports.expensesReports.expenses-report-monthly', compact(['year', 'month']));
+    }
+
+    public function expensesDailyReport(Request $request) {
+        Session::put('admin_page', 'Expenses Report Daily');
+
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $day = $request->input('day');
+
+        if ($year == null && $month == null && $day == null) {
+            $year = date('Y');
+            $year = date('m');
+            $year = date('d');
+        }
+
+        return view('admin.reports.expensesReports.expenses-report-daily', compact(['year', 'month', 'day']));
     }
 }
