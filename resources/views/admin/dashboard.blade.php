@@ -39,16 +39,16 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="___class_+?47___">
-                                    <p class="mb-2 text-secondary">Total Profit</p>
+                                    <p class="mb-2 text-secondary">Total {{ $profit > 0 ? 'Profit' : 'Loss' }}</p>
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $profit }}</h5>
                                         @if($profit > 0)
                                         <p class="mb-0 ml-3 text-success font-weight-bold">
-                                            +{{ round($profit * 100 / $sales, 2) }}%
+                                            +{{ $sales == null ? '0' : round($profit * 100 / $sales, 2) }}%
                                         </p>
                                         @else
                                         <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            -{{ round($profit * 100 / $sales, 2) }}%
+                                            {{ $sales == null ? '0' : round($profit * 100 / $sales, 2) }}%
                                         </p>
                                         @endif
                                     </div>
@@ -66,7 +66,7 @@
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $expense }}</h5>
                                         <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            -{{ round($expense * 100 / $sales, 2) }}%
+                                            -{{ $sales == null ? '0' : round($expense * 100 / $sales, 2) }}%
                                         </p>
                                     </div>
                                 </div>
