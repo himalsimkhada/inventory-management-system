@@ -308,41 +308,19 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="font-weight-bold mb-3">Popular Categories</h4>
-                    <div id="chart-apex-column-03" class="custom-chart"></div>
+                    <div id="chart-apex-column-03s" class="custom-chart"></div>
+                    @foreach ($popularCategories as $value)
                     <div class="d-flex justify-content-around align-items-center">
-                        <div><svg width="24" height="24" viewBox="0 0 24 24" fill="#ffbb33"
+                        <div><svg width="24" height="24" viewBox="0 0 24 24" fill="{{ $value['color'] }}"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#ffbb33" />
+                                <rect x="3" y="3" width="18" height="18" rx="2" fill="{{ $value['color'] }}" />
                             </svg>
 
-                            <span>Mobile</span>
-                        </div>
-                        <div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#e60000"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#e60000" />
-                            </svg>
-
-                            <span>Laptop</span>
+                            <span>{{ $value['name'] }}</span>
                         </div>
                     </div>
+                    @endforeach
                     <div class="d-flex justify-content-around align-items-center mt-3">
-                        <div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="primary"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#04237D" />
-                            </svg>
-
-                            <span>Electronics</span>
-                        </div>
-                        <div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="primary"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#8080ff" />
-                            </svg>
-
-                            <span>Others</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -352,11 +330,7 @@
 @endsection
 
 @section('js')
- <script>
-    var a = '{{ json_encode($sixMonth) }}';
-    a = a.replaceAll('&quot;', '').slice(1, -1);
-    a = a.split(',');
-
+<script>
     (function(jQuery) {
         "use strict";
         // for apexchart
@@ -371,6 +345,10 @@
                 }
             })
         }
+
+        var sixMonth = '{{ json_encode($sixMonth) }}';
+        sixMonth = sixMonth.replaceAll('&quot;', '').slice(1, -1);
+        sixMonth = sixMonth.split(',');
         if (jQuery("#apex-columns").length) {
             var options = {
                 chart: {
@@ -401,7 +379,7 @@
                     data: {{ json_encode($monthlyExpense) }}
                 }],
                 xaxis: {
-                    categories: a
+                    categories: sixMonth
                 },
                 // yaxis: {
                 //     title: {
@@ -431,6 +409,95 @@
                 apexChartUpdate(chart, e.detail)
             })
         }
+
+        var categoriesName = '{{ json_encode($categoriesName) }}';
+        categoriesName = categoriesName.replaceAll('&quot;', '').slice(1, -1);
+        categoriesName = categoriesName.split(',');
+        
+        var categoriesQty = '{{ json_encode($categoriesQty) }}';
+        categoriesQty = categoriesQty.replaceAll('&quot;', '').slice(1, -1);
+        categoriesQty = categoriesQty.split(',');
+        
+        var categoriesColor = '{{ json_encode($categoriesColor) }}';
+        categoriesColor = categoriesColor.replaceAll('&quot;', '').slice(1, -1);
+        categoriesColor = categoriesColor.split(',');
+
+        console.log(categoriesName);
+        console.log(categoriesQty);
+        console.log(categoriesColor);
+
+        if (jQuery("#chart-apex-column-03s").length) {
+            var options = {
+                series: categoriesQty,
+                chart: {
+                    height: 330,
+                    type: 'donut',
+                },
+                labels: categoriesName,
+                colors: categoriesColor,
+                plotOptions: {
+                    pie: {
+                        startAngle: -90,
+                        endAngle: 270,
+                        donut: {
+                            size: '80%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    color: '#BCC1C8',
+                                    fontSize: '18px',
+                                    fontFamily: 'DM Sans',
+                                    fontWeight: 600,
+                                },
+                                value: {
+                                    show: true,
+                                    fontSize: '25px',
+                                    fontFamily: 'DM Sans',
+                                    fontWeight: 700,
+                                    color: '#8F9FBC',
+                                },
+                            }
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                stroke: {
+                    lineCap: 'round'
+                },
+                grid: {
+                    padding: {
+                        bottom: 0,
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    offsetY: 8,
+                    show: true,
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            height: 268
+                        }
+                    }
+                }]
+            };
+            var chart = new ApexCharts(document.querySelector("#chart-apex-column-03s"), options);
+            chart.render();
+            const body = document.querySelector('body')
+            if (body.classList.contains('dark')) {
+                apexChartUpdate(chart, {
+                    dark: true
+                })
+            }
+            document.addEventListener('ChangeColorMode', function(e) {
+                apexChartUpdate(chart, e.detail)
+            })
+        }
     })(jQuery);
- </script>
+</script>
 @endsection
