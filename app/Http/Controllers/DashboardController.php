@@ -16,9 +16,6 @@ class DashboardController extends Controller {
         Session::put('admin_page', 'Dashboard');
         $expense = Expense::all()->sum('amount');
         $sales = Pos::all()->sum('total');
-        if ($sales == null) {
-            $sales = 1;
-        }
         $user = User::all()->sum('total');
         $profit = $sales - $expense;
         $bestSelling = [];
