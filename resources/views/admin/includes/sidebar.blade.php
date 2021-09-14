@@ -117,9 +117,9 @@
                         </svg>
                     </a>
                     <ul id="purchase" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li class=" {{ Session::get('admin_page') == 'Purchase' ? 'active' : '' }} sidebar-layout">
+                        <li class=" {{ Session::get('admin_page') == 'POS' ? 'active' : '' }} sidebar-layout">
                             <a href="#" class="svg-icon ">
-                                <i class="___class_+?47___">
+                                <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -403,15 +403,11 @@
                 {{-- Report Tab --}}
                 <li class="sidebar-layout">
                     <a href="#report" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
-                        <i>
-                            <svg class="svg-icon mr-0 text-secondary" id="h-03-p" width="20"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                        <i class="___class_+?80___">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                </path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </i>
                         <span class="ml-2">Reports</span>
@@ -421,31 +417,119 @@
                         </svg>
                     </a>
                     <ul id="report" class="submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li
-                            class=" {{ Session::get('admin_page') == 'Sales Report' ? 'active' : '' }} sidebar-layout">
-                            <a href="{{ route('report.sale') }}" class="svg-icon ">
+                        <li class="sidebar-layout">
+                            <a href="#sale-report" class="collapsed svg-icon" data-toggle="collapse"
+                                aria-expanded="false">
                                 <i class="___class_+?80___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </i>
                                 <span class="ml-2">Sales Report</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active"
+                                    width="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
                             </a>
+                            <ul id="sale-report" class="submenu collapse" data-parent="#report">
+                                <li
+                                    class="{{ Session::get('admin_page') == 'Sales Report Yearly' ? 'active' : '' }} sidebar-layout">
+                                    <a href="{{ route('report.sale.yearly', 2021) }}" class="svg-icon">
+                                        <i class="___class_+?80___">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </i>
+                                        <span class="ml-2">Yealy Report</span>
+                                    </a>
+                                </li>
+                                <li
+                                    class="{{ Session::get('admin_page') == 'Sales Report Monthly' ? 'active' : '' }} sidebar-layout">
+                                    <a href="#" class="svg-icon">
+                                        <i class="___class_+?80___">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </i>
+                                        <span class="ml-2">Monthly Report</span>
+                                    </a>
+                                </li>
+                                <li class="{{ Session::get('admin_page') == 'Sales Report Daily' ? 'active' : '' }} sidebar-layout">
+                                    <a href="#" class="svg-icon">
+                                        <i class="___class_+?80___">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </i>
+                                        <span class="ml-2">Daily Report</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li
-                            class=" {{ Session::get('admin_page') == 'Expenses Report' ? 'active' : '' }} sidebar-layout">
-                            <a href="{{ route('report.expense') }}" class="svg-icon ">
+                            class="sidebar-layout">
+                            <a href="#expense-report" class="collapsed svg-icon" data-toggle="collapse">
                                 <i class="___class_+?80___">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </i>
-                                <span class="ml-2">Expenses Report</span>
+                                <span class="ml-2">Expense Report</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active"
+                                    width="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
                             </a>
+                            <ul id="expense-report" class="submenu collapse" data-parent="#report">
+                                <li class="{{ Session::get('admin_page') == 'Expenses Report Yearly' ? 'active' : '' }} sidebar-layout">
+                                    <a href="{{ route('report.expense.yearly', 2021) }}" class="svg-icon">
+                                        <i class="___class_+?80___">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </i>
+                                        <span class="ml-2">Yealy Report</span>
+                                    </a>
+                                </li>
+                                <li class="{{ Session::get('admin_page') == 'Expenses Report Monthly' ? 'active' : '' }} sidebar-layout">
+                                    <a href="#" class="svg-icon">
+                                        <i class="___class_+?80___">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </i>
+                                        <span class="ml-2">Monthly Report</span>
+                                    </a>
+                                </li>
+                                <li class="{{ Session::get('admin_page') == 'Expenses Report Daily' ? 'active' : '' }} sidebar-layout">
+                                    <a href="#" class="svg-icon">
+                                        <i class="___class_+?80___">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </i>
+                                        <span class="ml-2">Daily Report</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>

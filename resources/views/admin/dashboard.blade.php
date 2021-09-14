@@ -41,8 +41,16 @@
                                 <div class="___class_+?47___">
                                     <p class="mb-2 text-secondary">Total Profit</p>
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
-                                        <h5 class="mb-0 font-weight-bold">$95,595</h5>
-                                        <p class="mb-0 ml-3 text-success font-weight-bold">+3.55%</p>
+                                        <h5 class="mb-0 font-weight-bold">Rs. {{ $profit }}</h5>
+                                        @if($profit > 0)
+                                        <p class="mb-0 ml-3 text-success font-weight-bold">
+                                            +{{ round($profit * 100 / $sales, 2) }}%
+                                        </p>
+                                        @else
+                                        <p class="mb-0 ml-3 text-danger font-weight-bold">
+                                            -{{ round($profit * 100 / $sales, 2) }}%
+                                        </p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -56,8 +64,10 @@
                                 <div class="___class_+?56___">
                                     <p class="mb-2 text-secondary">Total Expenses</p>
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
-                                        <h5 class="mb-0 font-weight-bold">$12,789</h5>
-                                        <p class="mb-0 ml-3 text-success font-weight-bold">+2.67%</p>
+                                        <h5 class="mb-0 font-weight-bold">Rs. {{ $expense }}</h5>
+                                        <p class="mb-0 ml-3 text-danger font-weight-bold">
+                                            -{{ round($expense * 100 / $sales, 2) }}%
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -69,10 +79,9 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="___class_+?65___">
-                                    <p class="mb-2 text-secondary">New Users</p>
+                                    <p class="mb-2 text-secondary">Total Sales</p>
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
-                                        <h5 class="mb-0 font-weight-bold">13,984</h5>
-                                        <p class="mb-0 ml-3 text-danger font-weight-bold">-9.98%</p>
+                                        <h5 class="mb-0 font-weight-bold">Rs. {{ $sales }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -81,6 +90,16 @@
                 </div>
                 <div class="col-md-12">
                     <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Column Chart</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="apex-columns"></div>
+                        </div>
+                    </div>
+                    {{-- <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center flex-wrap">
                                 <h4 class="font-weight-bold">Sales Report</h4>
@@ -101,7 +120,7 @@
                             </div>
                             <div id="chart-apex-column-01" class="custom-chart"></div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -114,54 +133,20 @@
                 </div>
                 <div class="card-body-list">
                     <ul class="list-style-3 mb-0">
+                        @foreach ($bestSelling as $value)
                         <li class="p-3 list-item d-flex justify-content-start align-items-center">
                             <div class="avatar">
-                                <img class="avatar avatar-img avatar-60 rounded" src="../assets/images/products/1.jpg"
+                                <img class="avatar avatar-img avatar-60 rounded" src="{{ ($value['image']) ? asset('public/uploads/product/' . $value['image']) : asset('public/uploads/no-image.jpg') }}"
                                     alt="1.jpg">
                             </div>
                             <div class="list-style-detail ml-3 mr-2">
-                                <p class="mb-0">Rockerz Bluetooth Headset</p>
+                                <p class="mb-0">{{ $value['name'] }}</p>
                             </div>
                             <div class="list-style-action d-flex justify-content-end ml-auto">
-                                <h6 class="font-weight-bold">$1,056</h6>
+                                <h6 class="font-weight-bold">{{ $value['price'] }}</h6>
                             </div>
                         </li>
-                        <li class="p-3 list-item d-flex justify-content-start align-items-center">
-                            <div class="avatar">
-                                <img class="avatar avatar-img avatar-60 rounded" src="../assets/images/products/2.jpg"
-                                    alt="2.jpg">
-                            </div>
-                            <div class="list-style-detail ml-3 mr-2">
-                                <p class="mb-0">Wifi Security Camera</p>
-                            </div>
-                            <div class="list-style-action d-flex justify-content-end ml-auto">
-                                <h6 class="font-weight-bold">$1,799</h6>
-                            </div>
-                        </li>
-                        <li class="p-3 list-item d-flex justify-content-start align-items-center">
-                            <div class="avatar">
-                                <img class="avatar avatar-img avatar-60 rounded" src="../assets/images/products/13.jpg"
-                                    alt="3.jpg">
-                            </div>
-                            <div class="list-style-detail ml-3 mr-2">
-                                <p class="mb-0">Stone Bluetooth Speaker</p>
-                            </div>
-                            <div class="list-style-action d-flex justify-content-end ml-auto">
-                                <h6 class="font-weight-bold">$1,099</h6>
-                            </div>
-                        </li>
-                        <li class="p-3 list-item d-flex justify-content-start align-items-center">
-                            <div class="avatar">
-                                <img class="avatar avatar-img avatar-60 rounded" src="../assets/images/products/4.jpg"
-                                    alt="4.jpg">
-                            </div>
-                            <div class="list-style-detail ml-3 mr-2">
-                                <p class="mb-0">Ryzen 5 Hexa Core 5600H</p>
-                            </div>
-                            <div class="list-style-action d-flex justify-content-end ml-auto">
-                                <h6 class="font-weight-bold">$9,999</h6>
-                            </div>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -569,4 +554,84 @@
         </div>
     </div>
     <!-- Page end  -->
+@endsection
+
+@section('js')
+ <script>
+    (function(jQuery) {
+        "use strict";
+        // for apexchart
+        function apexChartUpdate(chart, detail) {
+            let color = getComputedStyle(document.documentElement).getPropertyValue('--dark');
+            if (detail.dark) {
+                color = getComputedStyle(document.documentElement).getPropertyValue('--white');
+            }
+            chart.updateOptions({
+                chart: {
+                    foreColor: color
+                }
+            })
+        }
+        if (jQuery("#apex-columns").length) {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: "bar"
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: !1,
+                        columnWidth: "55%",
+                        endingShape: "rounded"
+                    }
+                },
+                dataLabels: {
+                    enabled: !1
+                },
+                stroke: {
+                    show: !0,
+                    width: 2,
+                    colors: ["transparent"]
+                },
+                colors: ["#37e6b0", "#ff4b4b"],
+                series: [{
+                    name: "Sales",
+                    data: [7634, 8534, 10134, 9834, 8734, 10534]
+                }, {
+                    name: "Expense",
+                    data: [3534, 4134, 3634, 2634, 4534, 4834]
+                }],
+                xaxis: {
+                    categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"]
+                },
+                // yaxis: {
+                //     title: {
+                //         text: "Rupee"
+                //     }
+                // },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(e) {
+                            return 'Rs. ' + e
+                        }
+                    }
+                }
+            };
+            var chart = new ApexCharts(document.querySelector("#apex-columns"), options);
+            chart.render();
+            const body = document.querySelector('body')
+            if (body.classList.contains('dark')) {
+                apexChartUpdate(chart, {
+                    dark: true
+                })
+            }
+            document.addEventListener('ChangeColorMode', function(e) {
+                apexChartUpdate(chart, e.detail)
+            })
+        }
+    })(jQuery);
+ </script>
 @endsection

@@ -136,8 +136,11 @@ Route::prefix('/admin')->group(function () {
         Route::resource('account', 'AccountController');
 
         //Reports Routes
-        Route::get('/report/sales', 'ReportController@saleReport')->name('report.sale');
-        Route::get('/report/expenses', 'ReportController@expenseReport')->name('report.expense');
+        //Sale Reports
+        Route::get('/report/sales/{year}', 'ReportController@saleYearlyReport')->name('report.sale.yearly');
+
+        //Expense Reports
+        Route::get('/report/expenses/{year}', 'ReportController@expenseYearlyReport')->name('report.expense.yearly');
     });
 
     // logout

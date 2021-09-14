@@ -2,32 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use App\Models\Pos;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class ReportController extends Controller
-{
-    public function saleReport()
-    {
-        Session::put('admin_page', 'Sales Report');
-        $salesLastWeek = 9;
-        $year = 2021; // send data from post method here
+class ReportController extends Controller {
+    public function saleYearlyReport($year) {
+        Session::put('admin_page', 'Sales Report Yearly');
         $row = [];
         $data = [];
         for($i=1; $i<=12; $i++){
             $d = cal_days_in_month(CAL_GREGORIAN, $i, $year);
-            // echo $i . ': ' . $d . '<br>';
             $from = date($year . '-' . $i . '-' . '01');
             $to = date($year . '-' . $i . '-' . $d);
             $quantity = Pos::whereBetween('created_at', [$from, $to])->count();
             $tax = Pos::whereBetween('created_at', [$from, $to])->sum('tax');
             $discount = Pos::whereBetween('created_at', [$from, $to])->sum('discount');
             $total = Pos::whereBetween('created_at', [$from, $to])->sum('total');
-            // echo 'quantity: ' . $quantity . '<br>';
-            // echo 'tax: ' . $tax . '<br>';
-            // echo 'total: ' . $total . '<br>';
             $month = DateTime::createFromFormat('!m', $i);
             $row[] = [
                 'month' => $month->format('F'),
@@ -45,15 +38,38 @@ class ReportController extends Controller
         return view('admin.reports.sales-report', compact('row', 'data'));
     }
 
-    public function expenseReport()
-    {
-        Session::put('admin_page', 'Expenses Report');
+    public function expenseYearlyReport($year) {
+        Session::put('admin_page', 'Expenses Report Yearly');
 
-        return view('admin.reports.expenses-report');
+        // $expenseReport = Expense::where('created_at', '<', date('Y-m-d H:i:s'))->count();
+        // $expenseReport = Expense::where('created_at', '<', now()->toDateTimeString())->get();
+        // dd(now()->toDateTimeString());
+
+        // send data from post method here
+        $row = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $d = cal_days_in_month(CAL_GREGORIAN, $i, $year);
+            // echo $i . ': ' . $d . '<br>';
+            $from = date($year . '-' . $i . '-' . '01');
+            $to = date($year . '-' . $i . '-' . $d);
+            $quantity = Expense::whereBetween('created_at', [$from, $to])->count();
+            $amount = Expense::whereBetween('created_at', [$from, $to])->sum('amount');
+            // echo 'quantity: ' . $quantity . '<br>';
+            // echo 'tax: ' . $tax . '<br>';
+            // echo 'total: ' . $total . '<br>';
+            $month = DateTime::createFromFormat('!m', $i);
+            $row[] = [
+                'month' => $month->format('F'),
+                'quantity' => $quantity,
+                'amount' => $amount,
+            ];
+            // echo $month->format('F');
+            // echo "------------<br>";
+        }
+
+        return view('admin.reports.expenses-report', compact('row'));
     }
     // for weekly sales report
-    public function weeklySalesReport()
-    {
-
+    public function weeklySalesReport() {
     }
 }
