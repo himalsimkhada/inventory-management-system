@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Account;
 use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\CustomerGroup;
 use App\Models\Details;
+use App\Models\ExpenseCategory;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductAttributes;
@@ -133,6 +135,16 @@ class DatabaseSeeder extends Seeder {
             'phone_number' => '9800215468',
             'email' => 'sovit@gmail.com',
             'address' => 'Thapathali',
+        ]);
+        ExpenseCategory::insert([
+            'code' => '0001',
+            'name' => 'Kitchen'
+        ]);
+        Account::insert([
+            'account_no' => '1234567890',
+            'name' => 'Saral Raut',
+            'initial_balance' => '50000',
+            'note' => 'Saral"s account for kitchen uses',
         ]);
     }
 }
