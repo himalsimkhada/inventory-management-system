@@ -39,17 +39,17 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="___class_+?47___">
-                                    <p class="mb-2 text-secondary">Total Profit / Loss</p>
+                                    <p class="mb-2 text-secondary">Total {{ $profit > 0 ? 'Profit' : 'Loss' }}</p>
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $profit }}</h5>
-                                        @if($profit > 0)
-                                        <p class="mb-0 ml-3 text-success font-weight-bold">
-                                            +{{ round($profit * 100 / $sales, 2) }}%
-                                        </p>
+                                        @if ($profit > 0)
+                                            <p class="mb-0 ml-3 text-success font-weight-bold">
+                                                +{{ round(($profit * 100) / $sales, 2) }}%
+                                            </p>
                                         @else
-                                        <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            {{ round($profit * 100 / $sales, 2) }}%
-                                        </p>
+                                            <p class="mb-0 ml-3 text-danger font-weight-bold">
+                                                {{ round(($profit * 100) / $sales, 2) }}%
+                                            </p>
                                         @endif
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $expense }}</h5>
                                         <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            -{{ round($expense * 100 / $sales, 2) }}%
+                                            -{{ round(($expense * 100) / $sales, 2) }}%
                                         </p>
                                     </div>
                                 </div>
@@ -134,19 +134,20 @@
                 <div class="card-body-list">
                     <ul class="list-style-3 mb-0">
                         @foreach ($bestSelling as $value)
-                        <li class="p-3 list-item d-flex justify-content-start align-items-center">
-                            <div class="avatar">
-                                {{-- {{ dd($value['image']['image']) }} --}}
-                                <img class="avatar avatar-img avatar-60 rounded" src="{{ ($value['image']['image']) ? asset('public/uploads/product/' . $value['image']['image']) : asset('public/uploads/no-image.jpg') }}"
-                                    alt="1.jpg">
-                            </div>
-                            <div class="list-style-detail ml-3 mr-2">
-                                <p class="mb-0">{{ $value['name'] }}</p>
-                            </div>
-                            <div class="list-style-action d-flex justify-content-end ml-auto">
-                                <h6 class="font-weight-bold">{{ $value['price'] }}</h6>
-                            </div>
-                        </li>
+                            <li class="p-3 list-item d-flex justify-content-start align-items-center">
+                                <div class="avatar">
+                                    {{-- {{ dd($value['image']['image']) }} --}}
+                                    <img class="avatar avatar-img avatar-60 rounded"
+                                        src="{{ $value['image']['image'] ? asset('public/uploads/product/' . $value['image']['image']) : asset('public/uploads/no-image.jpg') }}"
+                                        alt="1.jpg">
+                                </div>
+                                <div class="list-style-detail ml-3 mr-2">
+                                    <p class="mb-0">{{ $value['name'] }}</p>
+                                </div>
+                                <div class="list-style-action d-flex justify-content-end ml-auto">
+                                    <h6 class="font-weight-bold">{{ $value['price'] }}</h6>
+                                </div>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
@@ -558,81 +559,81 @@
 @endsection
 
 @section('js')
- <script>
-    (function(jQuery) {
-        "use strict";
-        // for apexchart
-        function apexChartUpdate(chart, detail) {
-            let color = getComputedStyle(document.documentElement).getPropertyValue('--dark');
-            if (detail.dark) {
-                color = getComputedStyle(document.documentElement).getPropertyValue('--white');
-            }
-            chart.updateOptions({
-                chart: {
-                    foreColor: color
+    <script>
+        (function(jQuery) {
+            "use strict";
+            // for apexchart
+            function apexChartUpdate(chart, detail) {
+                let color = getComputedStyle(document.documentElement).getPropertyValue('--dark');
+                if (detail.dark) {
+                    color = getComputedStyle(document.documentElement).getPropertyValue('--white');
                 }
-            })
-        }
-        if (jQuery("#apex-columns").length) {
-            var options = {
-                chart: {
-                    height: 350,
-                    type: "bar"
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: !1,
-                        columnWidth: "55%",
-                        endingShape: "rounded"
+                chart.updateOptions({
+                    chart: {
+                        foreColor: color
                     }
-                },
-                dataLabels: {
-                    enabled: !1
-                },
-                stroke: {
-                    show: !0,
-                    width: 2,
-                    colors: ["transparent"]
-                },
-                colors: ["#37e6b0", "#ff4b4b"],
-                series: [{
-                    name: "Sales",
-                    data: monthlySales
-                }, {
-                    name: "Expense",
-                    data: monthlyExpense
-                }],
-                xaxis: {
-                    categories: sixMonth
-                },
-                // yaxis: {
-                //     title: {
-                //         text: "Rupee"
-                //     }
-                // },
-                fill: {
-                    opacity: 1
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(e) {
-                            return 'Rs. ' + e
-                        }
-                    }
-                }
-            };
-            var chart = new ApexCharts(document.querySelector("#apex-columns"), options);
-            chart.render();
-            const body = document.querySelector('body')
-            if (body.classList.contains('dark')) {
-                apexChartUpdate(chart, {
-                    dark: true
                 })
             }
-            document.addEventListener('ChangeColorMode', function(e) {
-                apexChartUpdate(chart, e.detail)
-            })
-        }
-    })(jQuery);
- </script>
+            if (jQuery("#apex-columns").length) {
+                var options = {
+                    chart: {
+                        height: 350,
+                        type: "bar"
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: !1,
+                            columnWidth: "55%",
+                            endingShape: "rounded"
+                        }
+                    },
+                    dataLabels: {
+                        enabled: !1
+                    },
+                    stroke: {
+                        show: !0,
+                        width: 2,
+                        colors: ["transparent"]
+                    },
+                    colors: ["#37e6b0", "#ff4b4b"],
+                    series: [{
+                        name: "Sales",
+                        data: monthlySales
+                    }, {
+                        name: "Expense",
+                        data: monthlyExpense
+                    }],
+                    xaxis: {
+                        categories: sixMonth
+                    },
+                    // yaxis: {
+                    //     title: {
+                    //         text: "Rupee"
+                    //     }
+                    // },
+                    fill: {
+                        opacity: 1
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function(e) {
+                                return 'Rs. ' + e
+                            }
+                        }
+                    }
+                };
+                var chart = new ApexCharts(document.querySelector("#apex-columns"), options);
+                chart.render();
+                const body = document.querySelector('body')
+                if (body.classList.contains('dark')) {
+                    apexChartUpdate(chart, {
+                        dark: true
+                    })
+                }
+                document.addEventListener('ChangeColorMode', function(e) {
+                    apexChartUpdate(chart, e.detail)
+                })
+            }
+        })(jQuery);
+    </script>
 @endsection
