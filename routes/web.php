@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -137,10 +139,15 @@ Route::prefix('/admin')->group(function () {
 
         //Reports Routes
         //Sale Reports
-        Route::get('/report/sales/{year}', 'ReportController@saleYearlyReport')->name('report.sale.yearly');
+        Route::get('/report/sales/yearly', 'ReportController@saleYearlyReport')->name('report.sale.yearly');
+        Route::get('/report/sales/monthly', 'ReportController@salesMonthlyReport')->name('report.sale.monthly');
+        Route::get('/report/sales/daily', 'ReportController@salesDailyReport')->name('report.sale.daily');
+
 
         //Expense Reports
-        Route::get('/report/expenses/{year}', 'ReportController@expenseYearlyReport')->name('report.expense.yearly');
+        Route::get('/report/expenses/yearly', 'ReportController@expenseYearlyReport')->name('report.expense.yearly');
+        Route::get('/report/expenses/monthly', 'ReportController@expensesMonthlyReport')->name('report.expense.monthly');
+        Route::get('/report/expenses/daily', 'ReportController@expensesDailyReport')->name('report.expense.daily');
     });
 
     // logout
