@@ -15,13 +15,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use PDF;
 
-class AdminLoginController extends Controller
-{
+class AdminLoginController extends Controller {
     // Admin Login
-    public function adminLogin(Request $request)
-    {
+    public function adminLogin(Request $request) {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $rule = [
@@ -51,22 +48,20 @@ class AdminLoginController extends Controller
     }
 
     // Admin Dashboard
-    public function dashboard()
-    {
+    public function dashboard() {
         Session::put('admin_page', 'Dashboard');
         $expense = Expense::all()->sum('amount');
         $sales = Pos::all()->sum('total');
         $user = User::all()->sum('total');
         $profit = $sales - $expense;
         $bestSelling = [];
-        $top5 = DB::table('pos_items')
-                ->join('products', 'pos_items.product_id', '=', 'products.id')
-                ->selectRaw('pos_items.product_id, products.name, products.price, sum(pos_items.quantity) as qty')
-                ->groupByRaw('pos_items.product_id')
-                ->orderBy('qty', 'DESC')
-                ->limit(5)
-                ->get();
-        foreach($top5 as $value){
+        $top5 = PosItems::select('pos_items.product_id', 'products.name', 'products.price', DB::raw('SUM(pos_items.quantity) as qty'))
+            ->join('products', 'products.id', '=', 'pos_items.product_id')
+            ->groupBy('pos_items.product_id')
+            ->orderBy('qty', 'DESC')
+            ->limit(5)
+            ->get();
+        foreach ($top5 as $value) {
             $image = Image::where('product_id', $value->product_id)->first();
             $bestSelling[] = [
                 'name' => $value->name,
@@ -76,7 +71,7 @@ class AdminLoginController extends Controller
         }
         $sixMonthData = [];
         $date = date('m');
-        for($i = 6; $i >= 1; $i--){
+        for ($i = 6; $i >= 1; $i--) {
             $month = DateTime::createFromFormat('!m', $date);
             $monthlySales = Pos::whereMonth('created_at', $date)->sum('total');
             $monthlyExpense = Expense::whereMonth('created_at', $date)->sum('amount');
@@ -84,26 +79,24 @@ class AdminLoginController extends Controller
                 'mothlySales' => $monthlySales,
                 'monthlyExpense' => $monthlyExpense,
                 'month' => $month->format('F'),
-                'expense' => $value->price,
-                'sales' => $image,
+                // 'expense' => $value->price,
+                // 'sales' => 1,
             ];
             $date--;
         }
-        die;
+        // die;
         // dd($bestSelling);
         return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling'));
     }
     // Admin Logout
-    public function adminLogout()
-    {
+    public function adminLogout() {
         Auth::guard('admin')->logout();
         Session::flash('info_message', 'Logout Successfull');
         return redirect()->route('adminLogin');
     }
 
     // Forget Password
-    public function forgetPassword(Request $request)
-    {
+    public function forgetPassword(Request $request) {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $validateData = $request->validate([
