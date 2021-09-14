@@ -33,16 +33,13 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-12">
-            @php
-                print_r($sixMonth)
-            @endphp
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="___class_+?47___">
-                                    <p class="mb-2 text-secondary">Total Profit</p>
+                                    <p class="mb-2 text-secondary">Total {{ $profit > 0 ? 'Profit' : 'Loss' }}</p>
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $profit }}</h5>
                                         @if($profit > 0)
@@ -51,7 +48,7 @@
                                         </p>
                                         @else
                                         <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            -{{ round($profit * 100 / $sales, 2) }}%
+                                            {{ round($profit * 100 / $sales, 2) }}%
                                         </p>
                                         @endif
                                     </div>
@@ -564,7 +561,7 @@
     var a = '{{ json_encode($sixMonth) }}';
     a = a.replaceAll('&quot;', '').slice(1, -1);
     a = a.split(',');
-    
+
     (function(jQuery) {
         "use strict";
         // for apexchart
