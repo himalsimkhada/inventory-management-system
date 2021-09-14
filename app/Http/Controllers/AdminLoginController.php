@@ -3,25 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
-use App\Models\Expense;
-use App\Models\Image;
-use App\Models\Pos;
-use App\Models\PosItems;
-use App\Models\User;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use PDF;
 
-class AdminLoginController extends Controller
-{
+class AdminLoginController extends Controller {
     // Admin Login
-    public function adminLogin(Request $request)
-    {
+    public function adminLogin(Request $request) {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $rule = [
@@ -50,60 +40,15 @@ class AdminLoginController extends Controller
         }
     }
 
-    // Admin Dashboard
-    public function dashboard()
-    {
-        Session::put('admin_page', 'Dashboard');
-        $expense = Expense::all()->sum('amount');
-        $sales = Pos::all()->sum('total');
-        $user = User::all()->sum('total');
-        $profit = $sales - $expense;
-        $bestSelling = [];
-        $top5 = DB::table('pos_items')
-                ->join('products', 'pos_items.product_id', '=', 'products.id')
-                ->selectRaw('pos_items.product_id, products.name, products.price, sum(pos_items.quantity) as qty')
-                ->groupByRaw('pos_items.product_id')
-                ->orderBy('qty', 'DESC')
-                ->limit(5)
-                ->get();
-        foreach($top5 as $value){
-            $image = Image::where('product_id', $value->product_id)->first();
-            $bestSelling[] = [
-                'name' => $value->name,
-                'price' => $value->price,
-                'image' => $image,
-            ];
-        }
-        $monthlySales = [];
-        $monthlyExpense = [];
-        $sixMonth = [];
-        $date = date('m');
-        for($i = 6; $i >= 1; $i--){
-            $month6 = DateTime::createFromFormat('!m', $date);
-            $sales6 = Pos::whereMonth('created_at', $date)->sum('total');
-            $expense6 = Expense::whereMonth('created_at', $date)->sum('amount');
-            array_push($monthlySales, $sales6);
-            array_push($monthlyExpense, $expense6);
-            array_push($sixMonth, $month6->format('F'));
-            $date--;
-        }
-        // $sixMonth = json_encode($sixMonth);
-        // echo "---<pre>";
-        // print_r($sixMonth);
-        // die;
-        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth'));
-    }
     // Admin Logout
-    public function adminLogout()
-    {
+    public function adminLogout() {
         Auth::guard('admin')->logout();
         Session::flash('info_message', 'Logout Successfull');
         return redirect()->route('adminLogin');
     }
 
     // Forget Password
-    public function forgetPassword(Request $request)
-    {
+    public function forgetPassword(Request $request) {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $validateData = $request->validate([

@@ -561,6 +561,10 @@
 
 @section('js')
  <script>
+    var a = '{{ json_encode($sixMonth) }}';
+    a = a.replaceAll('&quot;', '').slice(1, -1);
+    a = a.split(',');
+    
     (function(jQuery) {
         "use strict";
         // for apexchart
@@ -605,7 +609,7 @@
                     data: {{ json_encode($monthlyExpense) }}
                 }],
                 xaxis: {
-                    categories: ["Asdasdasd", "asdasdasd", "asdasdasd", "asdasdasd", "asdasdasd", "asdasdasd"]
+                    categories: a
                 },
                 // yaxis: {
                 //     title: {
