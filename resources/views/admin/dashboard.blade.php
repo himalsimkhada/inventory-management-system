@@ -33,9 +33,6 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-12">
-            @php
-                print_r($sixMonth)
-            @endphp
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
@@ -564,7 +561,7 @@
     var a = '{{ json_encode($sixMonth) }}';
     a = a.replaceAll('&quot;', '').slice(1, -1);
     a = a.split(',');
-    
+
     (function(jQuery) {
         "use strict";
         // for apexchart
