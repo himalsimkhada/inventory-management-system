@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Expense;
 use App\Models\Image;
@@ -53,7 +54,10 @@ class DashboardController extends Controller {
         $sixMonth = array_reverse($tempSixMonth);
 
         // Top 4 new customer
-        $newCustomer = Customer::latest()->take(5)->get();
+        $newCustomer = Customer::latest()->take(4)->get();
+
+        // for getting popular categories
+        $popCategories =
 
         return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth', 'newCustomer'));
     }
