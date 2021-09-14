@@ -66,7 +66,7 @@
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $expense }}</h5>
                                         <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            -{{ $sales == null ? '0' : round($expense * 100 / $sales, 2) }}%
+                                            {{ $sales == null ? '0' : round($expense * 100 / $sales, 2) }}%
                                         </p>
                                     </div>
                                 </div>
