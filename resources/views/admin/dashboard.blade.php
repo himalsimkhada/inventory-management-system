@@ -136,7 +136,8 @@
                         @foreach ($bestSelling as $value)
                         <li class="p-3 list-item d-flex justify-content-start align-items-center">
                             <div class="avatar">
-                                <img class="avatar avatar-img avatar-60 rounded" src="{{ ($value['image']) ? asset('public/uploads/product/' . $value['image']) : asset('public/uploads/no-image.jpg') }}"
+                                {{-- {{ dd($value['image']['image']) }} --}}
+                                <img class="avatar avatar-img avatar-60 rounded" src="{{ ($value['image']['image']) ? asset('public/uploads/product/' . $value['image']['image']) : asset('public/uploads/no-image.jpg') }}"
                                     alt="1.jpg">
                             </div>
                             <div class="list-style-detail ml-3 mr-2">
