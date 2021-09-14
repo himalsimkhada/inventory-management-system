@@ -66,7 +66,7 @@
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $expense }}</h5>
                                         <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            -{{ $sales == null ? '0' : round($expense * 100 / $sales, 2) }}%
+                                            -{{ $sales == null ? '0' : round(($expense * 100) / $sales, 2) }}%
                                         </p>
                                     </div>
                                 </div>
@@ -97,11 +97,12 @@
                                     <div><svg width="24" height="24" viewBox="0 0 24 24" fill="primary"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <rect x="3" y="3" width="18" height="18" rx="2" fill="#37e6b0"" />
-                                                </svg>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="  ml-3"><svg width="24" height="24" viewBox="0 0 24 24"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            </svg>
+                                                                            <span>Sales</span>
+                                                                        </div>
+                                                                        <div class="         ml-3"><svg width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
                                                     <rect x="3" y="3" width="18" height="18" rx="2" fill="#ff4b4b" />
                                                 </svg>
                                                 <span>Expense</span>
@@ -232,49 +233,6 @@
                         </table>
                         <div class="d-flex justify-content-end align-items-center border-top-table p-3">
                             <button class="btn btn-secondary btn-sm">See All</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="font-weight-bold mb-3">Popular Categories</h4>
-                    <div id="chart-apex-column-03" class="custom-chart"></div>
-                    <div class="d-flex justify-content-around align-items-center">
-                        <div><svg width="24" height="24" viewBox="0 0 24 24" fill="#ffbb33"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#ffbb33" />
-                            </svg>
-
-                            <span>Mobile</span>
-                        </div>
-                        <div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#e60000"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#e60000" />
-                            </svg>
-
-                            <span>Laptop</span>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-around align-items-center mt-3">
-                        <div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="primary"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#04237D" />
-                            </svg>
-
-                            <span>Electronics</span>
-                        </div>
-                        <div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="primary"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#8080ff" />
-                            </svg>
-
-                            <span>Others</span>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Expense;
 use App\Models\Image;
@@ -55,6 +56,8 @@ class DashboardController extends Controller {
         // Top 4 new customer
         $newCustomer = Customer::latest()->take(5)->get();
 
-        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth', 'newCustomer'));
+        $category_graph = Category::all();
+
+        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth', 'newCustomer', 'category_graph'));
     }
 }
