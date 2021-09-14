@@ -42,14 +42,14 @@
                                     <p class="mb-2 text-secondary">Total {{ $profit > 0 ? 'Profit' : 'Loss' }}</p>
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $profit }}</h5>
-                                        @if($profit > 0)
-                                        <p class="mb-0 ml-3 text-success font-weight-bold">
-                                            +{{ $sales == null ? '0' : round($profit * 100 / $sales, 2) }}%
-                                        </p>
+                                        @if ($profit > 0)
+                                            <p class="mb-0 ml-3 text-success font-weight-bold">
+                                                +{{ $sales == null ? '0' : round(($profit * 100) / $sales, 2) }}%
+                                            </p>
                                         @else
-                                        <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            {{ $sales == null ? '0' : round($profit * 100 / $sales, 2) }}%
-                                        </p>
+                                            <p class="mb-0 ml-3 text-danger font-weight-bold">
+                                                {{ $sales == null ? '0' : round(($profit * 100) / $sales, 2) }}%
+                                            </p>
                                         @endif
                                     </div>
                                 </div>
@@ -97,14 +97,14 @@
                                     <div><svg width="24" height="24" viewBox="0 0 24 24" fill="primary"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <rect x="3" y="3" width="18" height="18" rx="2" fill="#37e6b0"" />
-                                        </svg>
-                                        <span>Sales</span>
-                                    </div>
-                                    <div class="ml-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <rect x="3" y="3" width="18" height="18" rx="2" fill="#ff4b4b" />
-                                        </svg>
-                                        <span>Expense</span>
+                                                </svg>
+                                                <span>Sales</span>
+                                            </div>
+                                            <div class="  ml-3"><svg width="24" height="24" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="3" y="3" width="18" height="18" rx="2" fill="#ff4b4b" />
+                                                </svg>
+                                                <span>Expense</span>
                                     </div>
                                 </div>
                             </div>
@@ -124,18 +124,19 @@
                 <div class="card-body-list">
                     <ul class="list-style-3 mb-0">
                         @foreach ($bestSelling as $value)
-                        <li class="p-3 list-item d-flex justify-content-start align-items-center">
-                            <div class="avatar">
-                                <img class="avatar avatar-img avatar-60 rounded" src="{{ ($value['image']) ? asset('public/uploads/product/' . $value['image']) : asset('public/uploads/no-image.jpg') }}"
-                                    alt="1.jpg">
-                            </div>
-                            <div class="list-style-detail ml-3 mr-2">
-                                <p class="mb-0">{{ $value['name'] }}</p>
-                            </div>
-                            <div class="list-style-action d-flex justify-content-end ml-auto">
-                                <h6 class="font-weight-bold">{{ $value['price'] }}</h6>
-                            </div>
-                        </li>
+                            <li class="p-3 list-item d-flex justify-content-start align-items-center">
+                                <div class="avatar">
+                                    <img class="avatar avatar-img avatar-60 rounded"
+                                        src="{{ $value['image'] ? asset('public/uploads/product/' . $value['image']['image']) : asset('public/uploads/no-image.jpg') }}"
+                                        alt="1.jpg">
+                                </div>
+                                <div class="list-style-detail ml-3 mr-2">
+                                    <p class="mb-0">{{ $value['name'] }}</p>
+                                </div>
+                                <div class="list-style-action d-flex justify-content-end ml-auto">
+                                    <h6 class="font-weight-bold">{{ $value['price'] }}</h6>
+                                </div>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
@@ -207,94 +208,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="white-space-no-wrap">
-                                    <td>01 Jun 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-45 mr-2">
-                                                <img src="../assets/images/user/2.jpg" class="img-fluid rounded-circle"
-                                                    alt="image">
+                                @foreach ($newCustomer as $data)
+                                    <tr class="white-space-no-wrap">
+                                        <td>{{ $data->created_at }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div>{{ $data->firstname . ' ' . $data->lastname }}</div>
                                             </div>
-                                            <div>Maggie Potts</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-success d-flex justify-content-start align-items-center">
-                                            <small><svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                    width="18" viewBox="0 0 24 24" fill="none">
-                                                    <circle cx="12" cy="12" r="8" fill="#3cb72c"></circle>
-                                                </svg>
-                                            </small> Completed
-                                        </p>
-                                    </td>
-                                    <td class="text-right">$104.98</td>
-                                </tr>
-                                <tr class="white-space-no-wrap">
-                                    <td>02 Jun 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-45 mr-2">
-                                                <img src="../assets/images/user/5.jpg" class="img-fluid rounded-circle"
-                                                    alt="image">
-                                            </div>
-                                            <div>Kevin Adkins</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-success d-flex justify-content-start align-items-center">
-                                            <small><svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                    width="18" viewBox="0 0 24 24" fill="none">
-                                                    <circle cx="12" cy="12" r="8" fill="#3cb72c"></circle>
-                                                </svg>
-                                            </small> Completed
-                                        </p>
-                                    </td>
-                                    <td class="text-right">$233.00</td>
-                                </tr>
-                                <tr class="white-space-no-wrap">
-                                    <td>05 Jun 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-45 mr-2">
-                                                <img src="../assets/images/user/1.jpg" class="img-fluid rounded-circle"
-                                                    alt="image">
-                                            </div>
-                                            <div>Max Lynn</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-warning d-flex justify-content-start align-items-center">
-                                            <small><svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                    width="18" viewBox="0 0 24 24" fill="none">
-                                                    <circle cx="12" cy="12" r="8" fill="#db7e06"></circle>
-                                                </svg>
-                                            </small>Pending
-                                        </p>
-                                    </td>
-                                    <td class="text-right">$150.01</td>
-                                </tr>
-                                <tr class="white-space-no-wrap">
-                                    <td>06 Jun 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-45 mr-2">
-                                                <img src="../assets/images/user/3.jpg" class="img-fluid rounded-circle"
-                                                    alt="image">
-                                            </div>
-                                            <div>Danniw Yatt</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-danger d-flex justify-content-start align-items-center">
-                                            <small><svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                    width="18" viewBox="0 0 24 24" fill="none">
-                                                    <circle cx="12" cy="12" r="8" fill="#F42B3D"></circle>
-                                                </svg>
-                                            </small>Cancelled
-                                        </p>
-                                    </td>
-                                    <td class="text-right">$199.99</td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 text-success d-flex justify-content-start align-items-center">
+                                                <small><svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
+                                                        width="18" viewBox="0 0 24 24" fill="none">
+                                                        <circle cx="12" cy="12" r="8" fill="#3cb72c"></circle>
+                                                    </svg>
+                                                </small> Completed
+                                            </p>
+                                        </td>
+                                        <td class="text-right">{{ $data->phone_number }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end align-items-center border-top-table p-3">
