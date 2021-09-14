@@ -74,7 +74,7 @@ class AdminLoginController extends Controller
                 'image' => $image,
             ];
         }
-        $mothlySales = [];
+        $monthlySales = [];
         $monthlyExpense = [];
         $sixMonth = [];
         $date = date('m');
@@ -82,15 +82,16 @@ class AdminLoginController extends Controller
             $month6 = DateTime::createFromFormat('!m', $date);
             $sales6 = Pos::whereMonth('created_at', $date)->sum('total');
             $expense6 = Expense::whereMonth('created_at', $date)->sum('amount');
-            array_push($mothlySales, $sales6);
+            array_push($monthlySales, $sales6);
             array_push($monthlyExpense, $expense6);
-            array_push($sixMonth, $month6);
+            array_push($sixMonth, $month6->format('F'));
             $date--;
         }
+        // $sixMonth = json_encode($sixMonth);
         // echo "---<pre>";
-        // print_r(get_defined_vars());
+        // print_r($sixMonth);
         // die;
-        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'mothlySales', 'monthlyExpense', 'sixMonth'));
+        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth'));
     }
     // Admin Logout
     public function adminLogout()

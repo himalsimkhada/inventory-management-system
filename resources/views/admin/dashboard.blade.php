@@ -33,6 +33,9 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-12">
+            @php
+                print_r($sixMonth)
+            @endphp
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
@@ -596,13 +599,13 @@
                 colors: ["#37e6b0", "#ff4b4b"],
                 series: [{
                     name: "Sales",
-                    data: monthlySales
+                    data: {{ json_encode($monthlySales) }}
                 }, {
                     name: "Expense",
-                    data: monthlyExpense
+                    data: {{ json_encode($monthlyExpense) }}
                 }],
                 xaxis: {
-                    categories: sixMonth
+                    categories: ["Asdasdasd", "asdasdasd", "asdasdasd", "asdasdasd", "asdasdasd", "asdasdasd"]
                 },
                 // yaxis: {
                 //     title: {
