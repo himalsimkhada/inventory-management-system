@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Expense;
 use App\Models\Image;
 use App\Models\Pos;
 use App\Models\PosItems;
 use App\Models\User;
 use DateTime;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -49,6 +51,10 @@ class DashboardController extends Controller {
         $monthlySales = array_reverse($tempMonthlySales);
         $monthlyExpense = array_reverse($tempMonthlyExpense);
         $sixMonth = array_reverse($tempSixMonth);
-        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth'));
+
+        // Top 4 new customer
+        $newCustomer = Customer::latest()->take(5)->get();
+
+        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth', 'newCustomer'));
     }
 }
