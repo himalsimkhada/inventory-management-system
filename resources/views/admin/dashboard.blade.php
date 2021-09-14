@@ -66,7 +66,7 @@
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $expense }}</h5>
                                         <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            -{{ $sales == null ? '0' : round(($expense * 100) / $sales, 2) }}%
+                                            -{{ $sales == null ? '0' : round($expense * 100 / $sales, 2) }}%
                                         </p>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                             <li class="p-3 list-item d-flex justify-content-start align-items-center">
                                 <div class="avatar">
                                     <img class="avatar avatar-img avatar-60 rounded"
-                                        src="{{ $value['image']['image'] ? asset('public/uploads/product/' . $value['image']['image']) : asset('public/uploads/no-image.jpg') }}"
+                                        src="{{ $value['image'] ? asset('public/uploads/product/' . $value['image']['image']) : asset('public/uploads/no-image.jpg') }}"
                                         alt="1.jpg">
                                 </div>
                                 <div class="list-style-detail ml-3 mr-2">
