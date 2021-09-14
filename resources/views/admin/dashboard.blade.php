@@ -66,7 +66,7 @@
                                     <div class="d-flex flex-wrap justify-content-start align-items-center">
                                         <h5 class="mb-0 font-weight-bold">Rs. {{ $expense }}</h5>
                                         <p class="mb-0 ml-3 text-danger font-weight-bold">
-                                            -{{ $sales == null ? '0' : round($expense * 100 / $sales, 2) }}%
+                                            -{{ $sales == null ? '0' : round(($expense * 100) / $sales, 2) }}%
                                         </p>
                                     </div>
                                 </div>
@@ -97,11 +97,12 @@
                                     <div><svg width="24" height="24" viewBox="0 0 24 24" fill="primary"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <rect x="3" y="3" width="18" height="18" rx="2" fill="#37e6b0"" />
-                                                </svg>
-                                                <span>Sales</span>
-                                            </div>
-                                            <div class="  ml-3"><svg width="24" height="24" viewBox="0 0 24 24"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            </svg>
+                                                                            <span>Sales</span>
+                                                                        </div>
+                                                                        <div class="         ml-3"><svg width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
                                                     <rect x="3" y="3" width="18" height="18" rx="2" fill="#ff4b4b" />
                                                 </svg>
                                                 <span>Expense</span>
@@ -318,11 +319,11 @@
         var categoriesName = '{{ json_encode($categoriesName) }}';
         categoriesName = categoriesName.replaceAll('&quot;', '').slice(1, -1);
         categoriesName = categoriesName.split(',');
-        
+
         var categoriesQty = '{{ json_encode($categoriesQty) }}';
         categoriesQty = categoriesQty.replaceAll('&quot;', '').slice(1, -1);
         categoriesQty = categoriesQty.split(',');
-        
+
         var categoriesColor = '{{ json_encode($categoriesColor) }}';
         categoriesColor = categoriesColor.replaceAll('&quot;', '').slice(1, -1);
         categoriesColor = categoriesColor.split(',');
