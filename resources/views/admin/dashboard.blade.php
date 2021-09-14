@@ -596,13 +596,13 @@
                 colors: ["#37e6b0", "#ff4b4b"],
                 series: [{
                     name: "Sales",
-                    data: [7634, 8534, 10134, 9834, 8734, 10534]
+                    data: monthlySales
                 }, {
                     name: "Expense",
-                    data: [3534, 4134, 3634, 2634, 4534, 4834]
+                    data: monthlyExpense
                 }],
                 xaxis: {
-                    categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"]
+                    categories: sixMonth
                 },
                 // yaxis: {
                 //     title: {

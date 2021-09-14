@@ -74,24 +74,23 @@ class AdminLoginController extends Controller
                 'image' => $image,
             ];
         }
-        $sixMonthData = [];
+        $mothlySales = [];
+        $monthlyExpense = [];
+        $sixMonth = [];
         $date = date('m');
         for($i = 6; $i >= 1; $i--){
-            $month = DateTime::createFromFormat('!m', $date);
-            $monthlySales = Pos::whereMonth('created_at', $date)->sum('total');
-            $monthlyExpense = Expense::whereMonth('created_at', $date)->sum('amount');
-            $sixMonthData[] = [
-                'mothlySales' => $monthlySales,
-                'monthlyExpense' => $monthlyExpense,
-                'month' => $month->format('F'),
-                'expense' => $value->price,
-                'sales' => $image,
-            ];
+            $month6 = DateTime::createFromFormat('!m', $date);
+            $sales6 = Pos::whereMonth('created_at', $date)->sum('total');
+            $expense6 = Expense::whereMonth('created_at', $date)->sum('amount');
+            array_push($mothlySales, $sales6);
+            array_push($monthlyExpense, $expense6);
+            array_push($sixMonth, $month6);
             $date--;
         }
-        die;
-        // dd($bestSelling);
-        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling'));
+        // echo "---<pre>";
+        // print_r(get_defined_vars());
+        // die;
+        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'mothlySales', 'monthlyExpense', 'sixMonth'));
     }
     // Admin Logout
     public function adminLogout()
