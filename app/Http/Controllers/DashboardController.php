@@ -22,13 +22,13 @@ class DashboardController extends Controller {
         $user = User::all()->sum('total');
         $profit = $sales - $expense;
         $bestSelling = [];
-        $top5 = PosItems::select('pos_items.product_id', 'products.name', 'products.price', DB::raw('SUM(pos_items.quantity) as qty'))
+        $top5Products = PosItems::select('pos_items.product_id', 'products.name', 'products.price', DB::raw('SUM(pos_items.quantity) as qty'))
             ->join('products', 'products.id', '=', 'pos_items.product_id')
             ->groupBy('pos_items.product_id')
             ->orderBy('qty', 'DESC')
             ->limit(5)
             ->get();
-        foreach ($top5 as $value) {
+        foreach ($top5Products as $value) {
             $image = Image::where('product_id', $value->product_id)->first();
             $bestSelling[] = [
                 'name' => $value->name,
@@ -53,11 +53,32 @@ class DashboardController extends Controller {
         $monthlyExpense = array_reverse($tempMonthlyExpense);
         $sixMonth = array_reverse($tempSixMonth);
 
+        $popularCategories = [];
+        $top5Categories = PosItems::select('categories.category_name', DB::raw('SUM(pos_items.quantity) as qty'))
+            ->join('products', 'products.id', '=', 'pos_items.product_id')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->groupBy('categories.id')
+            ->orderBy('qty', 'DESC')
+            ->limit(5)
+            ->get();
+        $categoriesName = [];
+        $categoriesQty = [];
+        $categoriesColor = [];
+        foreach ($top5Categories as $value) {
+            $randomColor = '#' . dechex(rand(0,10000000));
+            $popularCategories[] = [
+                'name' => $value->category_name,
+                'qty' => $value->qty,
+                'color' => $randomColor,
+            ];
+            array_push($categoriesName, $value->category_name);
+            array_push($categoriesQty, $value->qty);
+            array_push($categoriesColor, $randomColor);
+        }
+
         // Top 4 new customer
         $newCustomer = Customer::latest()->take(5)->get();
 
-        $category_graph = Category::all();
-
-        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth', 'newCustomer', 'category_graph'));
+        return view('admin.dashboard', compact('expense', 'sales', 'user', 'profit', 'bestSelling', 'monthlySales', 'monthlyExpense', 'sixMonth', 'popularCategories', 'categoriesName', 'categoriesQty', 'categoriesColor', 'newCustomer'));
     }
 }
