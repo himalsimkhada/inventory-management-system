@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,11 +26,8 @@ Route::prefix('/admin')->group(function () {
 
     Route::group(['middleware' => 'admin'], function () {
 
-        // Test Controller
-        Route::resource('test', TestController::class);
-
         // Admin Dashboard
-        Route::get('/dashboard', 'AdminLoginController@dashboard')->name('adminDashboard');
+        Route::get('/dashboard', 'DashboardController@index')->name('adminDashboard');
         // Admin Profile
         Route::get('/profile', 'AdminProfileController@profile')->name('profile');
         // Admin Profile Update
@@ -95,7 +91,7 @@ Route::prefix('/admin')->group(function () {
         Route::post('/pos/store', 'PosController@store')->name('pos.store');
 
         //Sales
-        Route::get('/sales','SalesController@index')->name('sales.index');
+        Route::get('/sales', 'SalesController@index')->name('sales.index');
         Route::get('/sales/get', 'SalesController@show')->name('sales.show');
 
         // Route::resource('sales', 'SalesController');
