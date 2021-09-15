@@ -14,7 +14,7 @@ class CreatePosTable extends Migration {
         Schema::create('pos', function (Blueprint $table) {
             $table->id();
 
-            $table->string('refrence_number');
+            $table->string('reference_number');
 
             $table->unsignedBigInteger('warehouse_id');
             $table->foreign('warehouse_id')->references('id')->on('ware_houses');

@@ -87,8 +87,8 @@
                         name: 'created_at'
                     },
                     {
-                        data: 'refrence_number',
-                        name: 'refrence_number'
+                        data: 'reference_number',
+                        name: 'reference_number'
                     },
                     {
                         data: 'purchased_by',

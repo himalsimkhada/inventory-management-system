@@ -76,7 +76,7 @@ class PosController extends Controller {
         if ($request->isMethod('post')) {
             $data = $request->all();
             $pos = new Pos();
-            $pos->refrence_number = $data['data']['refrenceNumber'];
+            $pos->reference_number = $data['data']['referenceNumber'];
             $pos->customer_id = $data['data']['customerId'];
             $pos->warehouse_id = $data['data']['wareHouseId'];
             $pos->item = $data['data']['item'];
@@ -114,8 +114,8 @@ class PosController extends Controller {
 
     public function barcode(Request $request){
         if ($request->isMethod('post')) {
-            $response['barcode'] = DNS1D::getBarcodePNG($request->input('refrenceNumber'), "C39+", 1, 33);
-            $response['QR'] = DNS2D::getBarcodePNG($request->input('refrenceNumber'), 'PDF417');
+            $response['barcode'] = DNS1D::getBarcodePNG($request->input('referenceNumber'), "C39+", 1, 33);
+            $response['QR'] = DNS2D::getBarcodePNG($request->input('referenceNumber'), 'PDF417');
             return response()->json($response);
         }
     }

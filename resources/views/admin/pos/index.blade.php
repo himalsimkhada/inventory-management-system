@@ -72,8 +72,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="refrenceNumber" class="form-label text-muted">Refrence Number</label>
-                            <input type="text" id="refrenceNumber" class="form-control" name="refrenceNumber"
+                            <label for="referenceNumber" class="form-label text-muted">Reference Number</label>
+                            <input type="text" id="referenceNumber" class="form-control" name="referenceNumber"
                                 autocomplete="off">
                         </div>
                         <div class="col-md-4 mb-3">
@@ -293,12 +293,12 @@
                                                                                     <tr>
                                                                                         <td colspan="3"
                                                                                             class="text-center"
-                                                                                            id="refrenceBarcode"></td>
+                                                                                            id="referenceBarcode"></td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td colspan="3"
                                                                                             class="text-center"
-                                                                                            id="refrenceQR"></td>
+                                                                                            id="referenceQR"></td>
                                                                                     </tr>
                                                                                 </tfoot>
                                                                             </table>
@@ -649,19 +649,19 @@
                 dataType: 'json',
                 method: 'post',
                 data: {
-                    refrenceNumber: reference_num
+                    referenceNumber: reference_num
                 },
                 success: function(response) {
-                    $('#refrenceBarcode').html('<img src="data:image/png;base64,' + response
+                    $('#referenceBarcode').html('<img src="data:image/png;base64,' + response
                         .barcode +
                         '" />');
-                    $('#refrenceQR').html('<img src="data:image/png;base64,' + response.QR +
+                    $('#referenceQR').html('<img src="data:image/png;base64,' + response.QR +
                         '" />');
                 }
             });
 
 
-            $('#refrenceNumber').val(reference_num);
+            $('#referenceNumber').val(reference_num);
 
             //all data for printing
             $('#pRefNum').html(reference_num);
@@ -760,7 +760,7 @@
                 }
 
                 var data = {
-                    'refrenceNumber': $('#refrenceNumber').val(),
+                    'referenceNumber': $('#referenceNumber').val(),
                     'wareHouseId': $('#wareHouse').val(),
                     'customerId': cuss,
                     'item': $('#itemTotal').val(),
@@ -793,7 +793,6 @@
                     success: function(response) {
                         if (response == 'successful') {
                             location.reload();
-                            alert('process saved');
                         }
                     }
                 })
